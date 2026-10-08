@@ -65,13 +65,10 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .panel-header h2 i { color: #50260c; }
 .badge { background: #f5e6dc; color: #50260c; border-radius: 40px; padding: 0.25rem 0.9rem; font-size: 0.8rem; font-weight: 600; }
 
-/* === FILA DE 3 RECUADROS EN CALENDARIO === */
 .calendar-top-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; align-items: stretch; justify-content: space-between; width: 100%; }
 
-/* Recuadro base unificado */
 .recuadro-base { background: #faf3ee; border: 1px solid #e8d5c6; border-radius: 16px; padding: 0.65rem 0.9rem; box-shadow: 0 2px 6px rgba(80,38,12,0.06); display: flex; flex-direction: column; gap: 0.5rem; }
 
-/* Recuadro OCUPACIÓN HOY + RESERVAS ACTIVAS — FONDO BLANCO */
 .calendar-info-panel { flex: 0 0 auto; background: #fff; }
 .calendar-info-panel .info-items { display: flex; flex-direction: row; gap: 0.5rem; align-items: center; }
 
@@ -80,7 +77,6 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .calendar-info-item .val { font-size: 1.3rem; font-weight: 900; color: #3d1c09; text-shadow: 0 1px 2px rgba(0,0,0,0.08); line-height: 1; }
 .calendar-info-item .sub { font-size: 0.58rem; font-weight: 700; color: #3d1c09; opacity: 0.85; }
 
-/* Recuadro ESTADO (leyenda) - texto centrado */
 .calendar-estado-panel { flex: 0 0 auto; text-align: center; }
 .calendar-estado-panel h4 { font-size: 0.68rem; font-weight: 800; color: #50260c; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 0.15rem; padding-bottom: 0.35rem; border-bottom: 1px dashed #e0cbb8; }
 .calendar-estado-panel .estado-list { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; }
@@ -92,7 +88,6 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .dot.hoy { background: #fff; border: 2px solid #1976d2; }
 .dot.festivo { background: #ede7f6; border: 2px solid #7e57c2; }
 
-/* Recuadro DESCARGAR - texto centrado */
 .calendar-descarga-panel { flex: 0 0 auto; text-align: center; }
 .calendar-descarga-panel .descarga-row { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; }
 .calendar-descarga-panel .titulo-descarga-inline { font-size: 0.68rem; font-weight: 800; color: #50260c; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; }
@@ -103,6 +98,14 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .calendar-descarga-panel .btn-descarga .icono.excel { background: #2e7d32; }
 .calendar-descarga-panel .btn-descarga .icono.pdf { background: #c62828; }
 .calendar-descarga-panel .btn-descarga .etiqueta { font-size: 0.55rem; font-weight: 700; color: #50260c; text-transform: uppercase; }
+
+.reservas-top-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; align-items: stretch; justify-content: flex-end; width: 100%; }
+
+.dinero-pendiente-panel { flex: 0 0 auto; background: #fff; }
+.dinero-pendiente-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0.5rem 1rem; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; background: #fff; border: 1px solid #e8d5c6; max-width: 280px; }
+.dinero-pendiente-item .lbl { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4px; color: #3d1c09; opacity: 0.95; }
+.dinero-pendiente-item .val { font-size: 1.3rem; font-weight: 900; color: #c62828; text-shadow: 0 1px 2px rgba(0,0,0,0.08); line-height: 1; }
+.dinero-pendiente-item .sub { font-size: 0.58rem; font-weight: 700; color: #3d1c09; opacity: 0.85; }
 
 .table-wrapper { overflow-x: auto; border-radius: 20px; border: 1px solid #f0e4d9; background: #fff; margin-top: 1rem; }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
@@ -116,6 +119,7 @@ tr:last-child td { border-bottom: none; }
 .th-2line { display: inline-block; line-height: 1.1; }
 .th-2line span { display: block; }
 .th-comprobante { white-space: nowrap; letter-spacing: -0.2px; }
+.tabla-historial td.celda-fecha { white-space: nowrap; }
 .saldo-cero { color: #2e7d32; font-weight: 700; }
 .saldo-deuda { color: #c62828; font-weight: 700; }
 .forma-pago-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; white-space: nowrap; }
@@ -128,9 +132,36 @@ tr:last-child td { border-bottom: none; }
 .recibido-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; word-break: break-word; }
 .nombre-texto { font-size: 0.66rem; font-weight: 400; color: #3d1c09; white-space: nowrap; }
 
-.btn-comprobante { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 25px; border-radius: 6px; background: #1976d2; color: #fff; border: none; cursor: pointer; font-size: 0.72rem; transition: all 0.15s; box-shadow: 0 2px 5px -1px rgba(25,118,210,0.5); }
+.comprobante-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
+.comprobante-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #e8f5e9; border: 1px solid #66bb6a; border-radius: 10px; padding: 0.5rem 0.7rem; }
+.comprobante-item .info-file { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: #1b5e20; font-weight: 600; overflow: hidden; flex: 1; }
+.comprobante-item .nombre-file { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.comprobante-item .comprobante-imagen-mini { width: 34px; height: 34px; border-radius: 6px; object-fit: cover; border: 1px solid #66bb6a; }
+.comprobante-item .btn-quitar-file { background: #fff; border: 1px solid #f0c0c0; color: #b33a3a; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.65rem; flex-shrink: 0; }
+.comprobante-item .btn-quitar-file:hover { background: #ffe6e6; }
+
+.pago-total-input { width: 90px; padding: 0.35rem 0.5rem; border-radius: 8px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.7rem; font-weight: 700; color: #2e7d32; text-align: right; outline: none; transition: all 0.15s; }
+.pago-total-input:focus { border-color: #50260c; box-shadow: 0 0 0 2px rgba(80,38,12,0.15); }
+.pago-total-input::placeholder { color: #b8a89a; font-weight: 400; font-style: italic; text-align: right; }
+.pago-total-input.guardado { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
+
+.comprobante-modal-body { flex: 1; overflow: auto; padding: 1rem; background: #faf3ee; display: flex; flex-direction: column; align-items: center; gap: 1rem; min-height: 200px; }
+.comprobante-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-wrap: wrap; }
+.comprobante-nav button { background: #f5e6dc; border: 1px solid #e0cbb8; color: #50260c; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+.comprobante-nav button:hover { background: #e8d5c6; }
+.comprobante-nav .contador { font-size: 0.8rem; font-weight: 700; color: #50260c; }
+.comprobante-preview-grande { max-width: 100%; max-height: 65vh; border-radius: 10px; background: #fff; box-shadow: 0 4px 12px rgba(80,38,12,0.15); }
+.comprobante-preview-grande.iframe-pdf { width: 100%; height: 65vh; border: none; }
+.comprobante-thumbs { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; }
+.comprobante-thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
+.comprobante-thumb:hover, .comprobante-thumb.active { border-color: #50260c; transform: scale(1.05); }
+.comprobante-thumb-pdf { width: 50px; height: 50px; border-radius: 8px; background: #c62828; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
+.comprobante-thumb-pdf:hover, .comprobante-thumb-pdf.active { border-color: #50260c; transform: scale(1.05); }
+
+.btn-comprobante { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 25px; border-radius: 6px; background: #1976d2; color: #fff; border: none; cursor: pointer; font-size: 0.72rem; transition: all 0.15s; box-shadow: 0 2px 5px -1px rgba(25,118,210,0.5); position: relative; }
 .btn-comprobante:hover:not(:disabled) { background: #0d47a1; transform: scale(1.08); }
 .btn-comprobante:disabled { background: #e0e0e0; color: #9e9e9e; cursor: not-allowed; box-shadow: none; opacity: 0.7; }
+.btn-comprobante .badge-count { position: absolute; top: -6px; right: -6px; background: #c62828; color: #fff; border-radius: 50%; min-width: 16px; height: 16px; font-size: 0.55rem; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; padding: 0 3px; }
 
 .check-reserva { width: 14px; height: 14px; border: 2px solid #c9b8a8; border-radius: 4px; cursor: pointer; accent-color: #50260c; vertical-align: middle; }
 .check-reserva:checked { accent-color: #b33a3a; }
@@ -138,16 +169,23 @@ tr:last-child td { border-bottom: none; }
 .th-check .txt-check { font-size: 0.5rem; color: #50260c; font-weight: 800; }
 .fila-seleccionada { background: #ffe6e6 !important; }
 .fila-seleccionada td { background: #ffe6e6 !important; }
+.fila-editada { background: #f5e6dc !important; box-shadow: inset 4px 0 0 0 #50260c; transition: background 0.4s ease; }
+.fila-editada td { background: #f5e6dc !important; transition: background 0.4s ease; }
 
 .btn-icon { width: 21px; height: 21px; border-radius: 50%; cursor: pointer; font-size: 0.55rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.15s; border: none; }
 .btn-editar { background: #1976d2; color: #fff; box-shadow: 0 2px 4px rgba(25,118,210,0.35); }
 .btn-editar:hover { background: #0d47a1; transform: scale(1.1); }
 .btn-danger { background: #fff; color: #b33a3a; border: 1.5px solid #f0c0c0; }
 .btn-danger:hover { background: #ffe6e6; transform: scale(1.1); }
+.btn-desHacer { background: #ff9800; color: #fff; box-shadow: 0 2px 4px rgba(255,152,0,0.4); }
+.btn-desHacer:hover { background: #e65100; transform: scale(1.1); }
+.btn-desHacer:disabled { background: #e0e0e0; color: #9e9e9e; cursor: not-allowed; box-shadow: none; opacity: 0.55; }
+.btn-desHacer:disabled:hover { transform: none; }
 .btn-accion-col { display: flex; flex-direction: column; align-items: center; gap: 1px; }
 .btn-accion-col .etiqueta-accion { font-size: 0.4rem; font-weight: 700; color: #50260c; text-transform: uppercase; line-height: 1; }
 .btn-accion-col.editar .etiqueta-accion { color: #1976d2; }
 .btn-accion-col.eliminar .etiqueta-accion { color: #b33a3a; }
+.btn-accion-col.deshacer .etiqueta-accion { color: #ff9800; }
 .acciones-admin { display: none !important; }
 body.modo-editor .acciones-admin { display: inline-flex !important; }
 .col-accion-vacia { color: #b8a89a; font-size: 0.7rem; }
@@ -234,7 +272,7 @@ body.modo-editor .acciones-admin { display: inline-flex !important; }
 
 .comprobante-modal-overlay { position: fixed; inset: 0; background: rgba(61,28,9,0.85); backdrop-filter: blur(6px); z-index: 1800; display: none; justify-content: center; align-items: center; padding: 16px; }
 .comprobante-modal-overlay.show { display: flex; }
-.comprobante-modal-panel { background: #fff; border-radius: 18px; max-width: 900px; width: 100%; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
+.comprobante-modal-panel { background: #fff; border-radius: 18px; max-width: 950px; width: 100%; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
 .comprobante-modal-header { background: #50260c; color: #fff; padding: 0.7rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
 .comprobante-modal-header h3 { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 .acciones-header { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
@@ -243,9 +281,6 @@ body.modo-editor .acciones-admin { display: inline-flex !important; }
 .btn-header.eliminar { background: #c62828; color: #fff; display: none; }
 body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { display: inline-flex; }
 .close-btn { background: transparent; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; padding: 4px 10px; border-radius: 50%; }
-.comprobante-modal-body { flex: 1; overflow: auto; padding: 1rem; background: #faf3ee; display: flex; justify-content: center; align-items: center; min-height: 200px; }
-.comprobante-modal-body img { max-width: 100%; max-height: 70vh; border-radius: 10px; }
-.comprobante-modal-body iframe { width: 100%; height: 70vh; border: none; border-radius: 10px; }
 .sin-comprobante { color: #8a6b55; font-weight: 700; text-align: center; padding: 2rem; }
 .cargando { color: #50260c; font-weight: 700; text-align: center; padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 10px; }
 
@@ -318,11 +353,6 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .comprobante-dropzone i { font-size: 1.6rem; }
 .comprobante-dropzone .txt-principal { font-size: 0.85rem; font-weight: 700; }
 .comprobante-dropzone .txt-secundario { font-size: 0.72rem; color: #8a6b55; }
-.comprobante-preview-box { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #e8f5e9; border: 1px solid #66bb6a; border-radius: 10px; padding: 0.6rem 0.8rem; }
-.info-file { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #1b5e20; font-weight: 600; overflow: hidden; flex: 1; }
-.nombre-file { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.btn-quitar-file { background: #fff; border: 1px solid #f0c0c0; color: #b33a3a; border-radius: 50%; width: 26px; height: 26px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; }
-.comprobante-imagen-mini { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; border: 1px solid #66bb6a; }
 
 .form-section-title { font-size: 0.85rem; font-weight: 700; color: #50260c; text-transform: uppercase; margin: 1.2rem 0 0.7rem 0; padding-bottom: 5px; border-bottom: 2px dashed #e8d5c6; display: flex; align-items: center; gap: 6px; }
 
@@ -377,11 +407,11 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .lista-reservas-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
 .lista-reservas-header h3 { font-size: 1.1rem; font-weight: 700; color: #50260c; display: flex; align-items: center; gap: 8px; }
 
-.buscador-container { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: #faf3ee; padding: 0.9rem 1.1rem; border-radius: 20px; border: 1px solid #e8d5c6; margin-bottom: 1rem; width: 100%; }
-.buscador-input { flex: 1 1 320px; position: relative; min-width: 260px; max-width: 100%; }
+.buscador-container { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #faf3ee; padding: 0.9rem 1.1rem; border-radius: 20px; border: 1px solid #e8d5c6; margin-bottom: 1rem; width: 100%; }
+.buscador-input { flex: 1 1 180px; position: relative; min-width: 160px; max-width: 320px; }
 .buscador-input input { width: 100%; padding: 0.7rem 0.9rem 0.7rem 2.4rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.88rem; outline: none; }
 .buscador-input i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a58671; }
-.filtro-select { flex: 1 1 130px; min-width: 110px; padding: 0.7rem 0.9rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.82rem; font-weight: 600; color: #50260c; cursor: pointer; outline: none; }
+.filtro-select { flex: 1 1 110px; min-width: 95px; padding: 0.7rem 0.9rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.82rem; font-weight: 600; color: #50260c; cursor: pointer; outline: none; }
 .btn-limpiar-busqueda { flex: 0 0 auto; background: #f5e6dc; color: #50260c; border: 1px solid #e0cbb8; padding: 0.7rem 1.1rem; border-radius: 30px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .btn-importar-excel { flex: 0 0 auto; background: #2e7d32; color: #fff; border: none; padding: 0.7rem 1.2rem; border-radius: 30px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: none; align-items: center; gap: 8px; white-space: nowrap; }
 body.modo-editor .btn-importar-excel { display: inline-flex; }
@@ -408,7 +438,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .precio-feria { font-weight: 700; color: #7b1fa2; }
 .capacidad { font-weight: 700; color: #2e7d32; }
 
-/* ====== DASHBOARD ====== */
 .dash-filtros { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; background: linear-gradient(135deg,#faf3ee 0%,#fff 100%); border: 1px solid #e8d5c6; border-radius: 18px; padding: 0.9rem 1rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(80,38,12,0.05); }
 .dash-filtros .filtro-grupo { display: flex; flex-direction: column; gap: 4px; }
 .dash-filtros .filtro-grupo label { font-size: 0.62rem; font-weight: 800; color: #8a6b55; text-transform: uppercase; letter-spacing: 0.4px; }
@@ -514,7 +543,7 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     .reserva-chip .nombre { font-size: 0.38rem; }
     .panel-header h2 { font-size: 1.1rem; }
     .buscador-container { padding: 0.6rem; gap: 6px; }
-    .buscador-input { flex: 1 1 100%; min-width: 0; }
+    .buscador-input { flex: 1 1 100%; min-width: 0; max-width: 100%; }
     .filtro-select { flex: 1 1 calc(50% - 3px); font-size: 0.72rem; padding: 0.55rem; min-width: 0; }
     .btn-limpiar-busqueda, .btn-importar-excel { flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 0.72rem; }
     .lista-reservas-section { padding: 1rem; }
@@ -546,6 +575,8 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     .dash-subtab img.subtab-icon { width: 16px; height: 16px; }
     .calendar-top-row { flex-direction: column; }
     .calendar-descarga-panel .descarga-row { flex-wrap: wrap; }
+    .pago-total-input { width: 80px; font-size: 0.65rem; }
+    .reservas-top-row { flex-direction: column; align-items: stretch; }
 }
 @media (max-width: 480px) {
     .section-btn span { display: none; }
@@ -574,6 +605,7 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     .dash-kpi .kpi-icon { font-size: 1.1rem; }
     .dash-subtab span { display: none; }
     .dash-subtab.active span { display: inline; }
+    .pago-total-input { width: 70px; font-size: 0.6rem; padding: 0.3rem 0.4rem; }
 }
 </style>
 </head>
@@ -606,22 +638,19 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 
     <div class="section-selector">
         <button class="section-btn active" data-section="calendar"><i class="fas fa-calendar-alt"></i> <span>CALENDARIO</span></button>
-        <button class="section-btn" data-section="reservas"><i class="fas fa-history"></i> <span>HISTORIAL DE RESERVAS</span></button>
+        <button class="section-btn" data-section="reservas"><i class="fas fa-clipboard-list"></i> <span>PANEL DE RESERVAS</span></button>
         <button class="section-btn solo-editor" data-section="dash"><i class="fas fa-chart-line"></i> <span>DASHBOARD</span></button>
         <button class="section-btn" data-section="tarifas"><i class="fas fa-tags"></i> <span>TARIFAS</span></button>
         <button class="section-btn solo-editor" data-section="bd"><i class="fas fa-database"></i> <span>BASE DE DATOS</span></button>
     </div>
 
     <div class="section-content">
-        <!-- CALENDARIO -->
         <div class="content-panel active" id="calendar-panel">
             <div class="panel-header">
                 <h2><i class="fas fa-calendar-alt"></i> Calendario de reservas</h2>
             </div>
 
-            <!-- 3 RECUADROS: IZQUIERDA (INFO), DERECHA (ESTADO + DESCARGAR) -->
             <div class="calendar-top-row">
-                <!-- Recuadro OCUPACIÓN HOY + RESERVAS ACTIVAS — FONDO BLANCO, ALINEADO A LA IZQUIERDA -->
                 <div class="recuadro-base calendar-info-panel">
                     <div class="info-items">
                         <div class="calendar-info-item">
@@ -637,7 +666,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                     </div>
                 </div>
 
-                <!-- Recuadro ESTADO -->
                 <div class="recuadro-base calendar-estado-panel">
                     <h4><i class="fas fa-palette"></i> ESTADO</h4>
                     <div class="estado-list">
@@ -649,7 +677,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                     </div>
                 </div>
 
-                <!-- Recuadro DESCARGAR -->
                 <div class="recuadro-base calendar-descarga-panel">
                     <div class="descarga-row">
                         <span class="titulo-descarga-inline"><i class="fas fa-download"></i> DESCARGAR</span>
@@ -678,19 +705,30 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
             <p id="calendarInfo" style="color:#8a6b55; font-size:0.85rem; margin-top:0.8rem; text-align:center;"></p>
         </div>
 
-        <!-- HISTORIAL DE RESERVAS -->
         <div class="content-panel" id="reservas-panel">
             <div class="panel-header">
-                <h2><i class="fas fa-history"></i> HISTORIAL DE RESERVAS</h2>
+                <h2><i class="fas fa-clipboard-list"></i> PANEL DE RESERVAS</h2>
                 <span class="badge">Hostal Villa Alejo</span>
             </div>
+
+            <div class="reservas-top-row">
+                <div class="recuadro-base dinero-pendiente-panel">
+                    <div class="dinero-pendiente-item">
+                        <span class="lbl">DINERO PENDIENTE POR COBRAR</span>
+                        <span class="val" id="infoDineroPendiente">$0</span>
+                        <span class="sub" id="infoDineroPendienteSub">Mes actual</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="lista-reservas-section">
                 <div class="lista-reservas-header">
-                    <h3><i class="fas fa-history"></i> Historial</h3>
+                    <h3><i class="fas fa-clipboard-list"></i> Historial de Reservas</h3>
                     <span class="badge" id="badgeTotalRegistro">0 reservas</span>
                 </div>
+
                 <div class="buscador-container">
-                    <div class="buscador-input"><i class="fas fa-search"></i><input type="text" id="buscadorRegistro" placeholder="Buscar..."></div>
+                    <div class="buscador-input"><i class="fas fa-search"></i><input type="text" id="buscadorRegistro" placeholder="Buscar por nombre..."></div>
                     <select class="filtro-select" id="filtroMesRegistro"><option value="">Mes</option></select>
                     <select class="filtro-select" id="filtroAnioRegistro"><option value="">Año</option></select>
                     <select class="filtro-select" id="filtroHabitacionRegistro">
@@ -730,6 +768,7 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                             <th><span class="th-2line"><span>FORMA DE</span><span>PAGO</span></span></th>
                             <th><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA</span></span></th>
                             <th class="th-comprobante">COMPROBANTE</th>
+                            <th><span class="th-2line"><span>PAGO</span><span>TOTAL</span></span></th>
                             <th><span class="th-2line"><span>USO DE</span><span>COCINA</span></span></th>
                             <th><span class="th-2line"><span>RECIBIDO</span><span>POR</span></span></th>
                             <th>ACCIÓN</th>
@@ -740,7 +779,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
             </div>
         </div>
 
-        <!-- DASHBOARD -->
         <div class="content-panel" id="dash-panel">
             <div class="panel-header">
                 <h2><i class="fas fa-chart-line"></i> DASHBOARD</h2>
@@ -790,7 +828,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                 </button>
             </div>
 
-            <!-- CLIENTES -->
             <div class="dash-panel active" id="dash-panel-clientes">
                 <div class="dash-kpis" id="kpisClientes"></div>
                 <div class="dash-charts">
@@ -809,7 +846,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                 </div>
             </div>
 
-            <!-- RESERVAS -->
             <div class="dash-panel" id="dash-panel-reservas">
                 <div class="dash-kpis" id="kpisReservas"></div>
                 <div class="dash-charts">
@@ -828,7 +864,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                 </div>
             </div>
 
-            <!-- FINANCIERO -->
             <div class="dash-panel" id="dash-panel-financiero">
                 <div class="dash-kpis" id="kpisFinanciero"></div>
                 <div class="dash-charts">
@@ -844,7 +879,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
             </div>
         </div>
 
-        <!-- TARIFAS -->
         <div class="content-panel" id="tarifas-panel">
             <div class="panel-header">
                 <h2><i class="fas fa-tags"></i> Tarifas</h2>
@@ -872,7 +906,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
             </div>
         </div>
 
-        <!-- BASE DE DATOS -->
         <div class="content-panel" id="bd-panel">
             <div class="panel-header">
                 <h2><i class="fas fa-database"></i> BASE DE DATOS</h2>
@@ -902,7 +935,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- MODAL SELECTOR AÑO/MES -->
 <div class="calendar-selector-overlay" id="calendarSelectorOverlay">
     <div class="calendar-selector-panel">
         <button class="btn-cerrar-modal" id="cerrarCalendarSelector"><i class="fas fa-times"></i></button>
@@ -929,7 +961,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- MODAL DÍA -->
 <div class="modal-overlay" id="modalDia">
     <div class="modal-panel">
         <button class="btn-cerrar-modal" id="cerrarModalDia"><i class="fas fa-times"></i></button>
@@ -952,23 +983,21 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- MODAL VISOR COMPROBANTE -->
 <div class="comprobante-modal-overlay" id="comprobanteModalOverlay">
     <div class="comprobante-modal-panel">
         <div class="comprobante-modal-header">
-            <h3><i class="fas fa-image"></i> Comprobante</h3>
+            <h3><i class="fas fa-image"></i> Comprobantes</h3>
             <div class="acciones-header">
-                <button class="btn-header cambiar" id="btnCambiarComprobanteModal"><i class="fas fa-sync-alt"></i> Cambiar foto</button>
-                <button class="btn-header eliminar" id="btnEliminarComprobanteModal"><i class="fas fa-trash-alt"></i> Eliminar foto</button>
+                <button class="btn-header cambiar" id="btnCambiarComprobanteModal"><i class="fas fa-sync-alt"></i> Añadir foto</button>
+                <button class="btn-header eliminar" id="btnEliminarComprobanteModal"><i class="fas fa-trash-alt"></i> Eliminar actual</button>
                 <button class="close-btn" id="cerrarComprobanteModal"><i class="fas fa-times"></i></button>
             </div>
         </div>
         <div class="comprobante-modal-body" id="comprobanteModalBody"></div>
-        <input type="file" id="comprobanteModalFileInput" accept=".jpg,.jpeg,.png,.pdf" style="display:none;">
+        <input type="file" id="comprobanteModalFileInput" accept=".jpg,.jpeg,.png,.pdf" multiple style="display:none;">
     </div>
 </div>
 
-<!-- MODAL CONFIRMAR -->
 <div class="confirm-overlay" id="confirmOverlay">
     <div class="confirm-panel">
         <div class="icono-confirm"><i class="fas fa-exclamation-triangle"></i></div>
@@ -981,7 +1010,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- MODAL LOGIN -->
 <div class="modal-overlay" id="loginOverlay">
     <div class="modal-panel" style="max-width:400px;">
         <button class="btn-cerrar-modal" id="cerrarLogin"><i class="fas fa-times"></i></button>
@@ -1009,7 +1037,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- MODAL IMPORTAR EXCEL -->
 <div class="import-overlay" id="importOverlay">
     <div class="import-panel">
         <button class="btn-cerrar-modal" id="cerrarImport"><i class="fas fa-times"></i></button>
@@ -1032,7 +1059,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- MODAL FORMULARIO RESERVA -->
 <div class="modal-form-overlay" id="modalFormReserva">
     <div class="modal-form-panel">
         <button class="btn-cerrar-modal" id="cerrarModalForm"><i class="fas fa-times"></i></button>
@@ -1084,7 +1110,7 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                     <div class="form-row">
                         <div class="form-group"><label>Tarifa por persona <span class="req">*</span></label><input type="text" id="tarifa" class="moneda" readonly></div>
                         <div class="form-group small"><label>Descuento (%)</label><input type="number" id="descuentoPct" value="0" min="0" max="100" placeholder="Ej: 5%"></div>
-                        <div class="form-group small"><label>Descuento ($)</label><input type="text" id="descuentoPesos" class="moneda descuento-neg" placeholder="Ej: $10.000"></div>
+                        <div class="form-group small"><label>Descuento ($)</label><input type="text" id="descuentoPesos" class="moneda descuento-neg" placeholder="Ej: $10.000" inputmode="numeric"></div>
                     </div>
 
                     <div class="resumen-pago">
@@ -1098,11 +1124,16 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                     <div class="form-section-title"><i class="fas fa-credit-card"></i> Datos del pago</div>
                     <div class="form-row">
                         <div class="form-group"><label>Estado del pago</label>
-                            <select id="estadoPago" class="placeholder"><option value="" disabled selected hidden>Seleccionar</option><option value="Pago completo">PAGO COMPLETO</option><option value="Abonado">ABONADO</option></select>
+                            <select id="estadoPago" class="placeholder">
+                                <option value="" disabled selected hidden>Seleccionar</option>
+                                <option value="Abonado">ABONADO</option>
+                                <option value="Pago completo">PAGO COMPLETO</option>
+                                <option value="Pendiente">PENDIENTE</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row" id="filaAbono">
-                        <div class="form-group"><label>Valor del abono ($)</label><input type="text" id="valorAbono" class="moneda" placeholder="Ej: $100.000"></div>
+                        <div class="form-group"><label>Valor del abono ($)</label><input type="text" id="valorAbono" class="moneda" placeholder="Ej: $100.000" inputmode="numeric"></div>
                         <div class="form-group"><label>Forma de pago</label>
                             <select id="formaPagoAbono" class="placeholder">
                                 <option value="" disabled selected hidden>Seleccionar</option>
@@ -1128,22 +1159,15 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 
                     <div class="form-row" id="filaComprobante" style="display:none;">
                         <div class="form-group" style="flex:1 1 100%;">
-                            <label><i class="fas fa-image" style="color:#1976d2;"></i> Comprobante de transferencia</label>
+                            <label><i class="fas fa-image" style="color:#1976d2;"></i> Comprobantes de transferencia (puedes añadir varios)</label>
                             <div class="comprobante-upload-wrapper">
                                 <div class="comprobante-dropzone" id="comprobanteDropzone">
                                     <i class="fas fa-cloud-upload-alt"></i>
-                                    <div class="txt-principal">Añadir comprobante</div>
-                                    <div class="txt-secundario">JPG · JPEG · PNG · PDF</div>
+                                    <div class="txt-principal">Añadir comprobante(s)</div>
+                                    <div class="txt-secundario">JPG · JPEG · PNG · PDF · Múltiples archivos</div>
                                 </div>
-                                <input type="file" id="comprobanteFileInput" accept=".jpg,.jpeg,.png,.pdf" style="display:none;">
-                                <div class="comprobante-preview-box" id="comprobantePreviewBox" style="display:none;">
-                                    <div class="info-file">
-                                        <img id="comprobanteMiniatura" class="comprobante-imagen-mini" style="display:none;">
-                                        <i id="comprobanteIconoArchivo" class="fas fa-file-pdf" style="display:none;"></i>
-                                        <span class="nombre-file" id="comprobanteNombreArchivo"></span>
-                                    </div>
-                                    <button class="btn-quitar-file" id="btnQuitarComprobante"><i class="fas fa-times"></i></button>
-                                </div>
+                                <input type="file" id="comprobanteFileInput" accept=".jpg,.jpeg,.png,.pdf" multiple style="display:none;">
+                                <div class="comprobante-list" id="comprobanteList"></div>
                             </div>
                         </div>
                     </div>
@@ -1167,7 +1191,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     </div>
 </div>
 
-<!-- EXCEL VIEWER -->
 <div class="excel-viewer" id="excelViewer">
     <div class="excel-viewer-panel">
         <div class="excel-viewer-header">
@@ -1192,8 +1215,9 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 const ICONO_RESERVAS_URL = '';
 const ICONO_FINANCIERO_URL = '';
 
-const SUPABASE_URL = 'https://ekipbolqonltgwovxfuk.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable__fJWqRNt2iQTxGi2N8gobQ_jT3laG9x';
+// === NUEVAS CREDENCIALES SUPABASE ===
+const SUPABASE_URL = 'https://qlwpvylthzlgkpdxlxxr.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_X0HTxVXJGXUys98M5hxgOw_Bsha6GR4';
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const TABLA = 'reservas_villa_alejo';
@@ -1261,15 +1285,19 @@ let mesCalendarioActual = new Date().getMonth();
 let anioCalendarioActual = new Date().getFullYear();
 let selectorMesTemp = mesCalendarioActual;
 let selectorAnioTemp = anioCalendarioActual;
-let comprobanteArchivoSeleccionado = null;
-let comprobanteUrlExistente = '';
+let comprobantesArchivosSeleccionados = [];
+let comprobantesUrlsExistentes = [];
 let comprobanteModalIdReserva = null;
+let comprobanteModalIndexActual = 0;
+let comprobanteModalUrls = [];
 let modo = 'visitante';
 let currentUser = null;
 let temporadaOriginalEdicion = null;
 let chartsInstancias = {};
 let dashVistaActual = 'mes';
 let dashSubActual = 'clientes';
+let ultimoEditadoId = null;
+let snapshotsParaDeshacer = {};
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_ABREV = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -1296,11 +1324,6 @@ function formatFechaHora(date){
     return `${formatFecha(date)} · ${formatHora(date)}`;
 }
 
-function fmtReservas(n){
-    const c = Number(n) || 0;
-    return c === 1 ? '1 reserva' : `${c} reservas`;
-}
-
 function calcularTotalBase(r){
     const p=r.personas||0, n=r.noches||0, t=r.tarifa||0;
     const sub=t*p*n;
@@ -1317,6 +1340,10 @@ function getDineroRecibido(r){
     const total = calcularTotalBase(r);
     const abono = r.valorAbono || 0;
     return (r.estadoPago === 'Pago completo') ? total : abono;
+}
+function getComprobantesUrls(r){
+    if(!r.comprobanteUrl) return [];
+    return String(r.comprobanteUrl).split(',').map(u=>u.trim()).filter(u=>u);
 }
 
 const toast = document.getElementById('toast');
@@ -1342,6 +1369,26 @@ function setSyncStatus(tipo, msg){
 function setUltimaActualizacion(date){
     const el = document.getElementById('ultimaAct');
     if(el) el.innerHTML = `<i class="fas fa-clock"></i> Última actualización: ${formatFechaHora(date || new Date())}`;
+}
+
+function actualizarDineroPendiente(){
+    const el = document.getElementById('infoDineroPendiente');
+    const elSub = document.getElementById('infoDineroPendienteSub');
+    if(!el) return;
+    const hoy = new Date();
+    const m = hoy.getMonth(), y = hoy.getFullYear();
+    let total = 0;
+    reservas.forEach(r=>{
+        if(r.estado === 'Cancelada') return;
+        if(!r.entrada) return;
+        const saldo = r.valorSaldo || 0;
+        if(saldo <= 0) return;
+        if(r.entrada.getMonth() === m && r.entrada.getFullYear() === y){
+            total += saldo;
+        }
+    });
+    el.textContent = formatPeso(total);
+    if(elSub) elSub.textContent = `${MESES[m]} ${y}`;
 }
 
 function guardarCache(){
@@ -1427,7 +1474,6 @@ function aplicarModoVisitante(){
     renderReservasRegistro();
 }
 
-// ================ AUTENTICACIÓN ================
 const loginOverlay = document.getElementById('loginOverlay');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
@@ -1529,7 +1575,6 @@ async function cerrarSesionEditor(){
 document.getElementById('btnLogout').addEventListener('click', cerrarSesionEditor);
 document.getElementById('btnCerrarSesionBanner').addEventListener('click', cerrarSesionEditor);
 
-// ================ APLICAR LOGOS SUB-PESTAÑAS ================
 function aplicarLogosSubTabs(){
     const imgRes = document.getElementById('iconoSubtabReservas');
     const iRes = document.getElementById('iSubtabReservas');
@@ -1554,7 +1599,6 @@ function aplicarLogosSubTabs(){
 }
 aplicarLogosSubTabs();
 
-// ================ SECCIONES ================
 const panels = {
     calendar: document.getElementById('calendar-panel'),
     reservas: document.getElementById('reservas-panel'),
@@ -1574,7 +1618,6 @@ function activateSection(id){
 }
 document.querySelectorAll('.section-btn').forEach(b=>b.addEventListener('click', ()=>activateSection(b.dataset.section)));
 
-// ================ SUB-PESTAÑAS DEL DASHBOARD ================
 document.querySelectorAll('.dash-subtab').forEach(btn=>{
     btn.addEventListener('click', ()=>{
         document.querySelectorAll('.dash-subtab').forEach(b=>b.classList.remove('active'));
@@ -1587,7 +1630,6 @@ document.querySelectorAll('.dash-subtab').forEach(btn=>{
     });
 });
 
-// ================ CALENDARIO ================
 const calendarGrid = document.getElementById('calendarGrid');
 const calendarMonthLabel = document.getElementById('calendarMonthLabel');
 const calendarInfo = document.getElementById('calendarInfo');
@@ -1733,7 +1775,6 @@ document.getElementById('btnSelectorCancel').addEventListener('click', ()=>selec
 document.getElementById('cerrarCalendarSelector').addEventListener('click', ()=>selectorOverlay.classList.remove('show'));
 selectorOverlay.addEventListener('click', (e)=>{ if(e.target===selectorOverlay) selectorOverlay.classList.remove('show'); });
 
-// ================ MODAL DÍA ================
 const modalDia = document.getElementById('modalDia');
 const modalFecha = document.getElementById('modalFecha');
 const modalFestivoInfo = document.getElementById('modalFestivoInfo');
@@ -1793,7 +1834,6 @@ modalBtnAñadir.addEventListener('click', ()=>{
     abrirFormularioNuevaReserva(fechaModalSeleccionada);
 });
 
-// ================ FORMULARIO ================
 const modalFormReserva = document.getElementById('modalFormReserva');
 const editandoId = document.getElementById('editandoId');
 const bloquesHabitacion = document.getElementById('bloquesHabitacion');
@@ -1811,11 +1851,7 @@ const grupoEntidadBancaria = document.getElementById('grupoEntidadBancaria');
 const filaComprobante = document.getElementById('filaComprobante');
 const comprobanteDropzone = document.getElementById('comprobanteDropzone');
 const comprobanteFileInput = document.getElementById('comprobanteFileInput');
-const comprobantePreviewBox = document.getElementById('comprobantePreviewBox');
-const comprobanteNombreArchivo = document.getElementById('comprobanteNombreArchivo');
-const comprobanteMiniatura = document.getElementById('comprobanteMiniatura');
-const comprobanteIconoArchivo = document.getElementById('comprobanteIconoArchivo');
-const btnQuitarComprobante = document.getElementById('btnQuitarComprobante');
+const comprobanteList = document.getElementById('comprobanteList');
 const valorSaldo = document.getElementById('valorSaldo');
 const feedback = document.getElementById('registerFeedback');
 const resumenSubtotal = document.getElementById('resumenSubtotal');
@@ -1881,6 +1917,10 @@ function actualizarTarifa(){
 guestDoc.addEventListener('input', e=>{ e.target.value = formatDocumento(e.target.value); });
 
 function bindMoneda(inp, esDesc){
+    inp.addEventListener('input', (e)=>{
+        const soloDigitos = e.target.value.replace(/[^0-9]/g, '');
+        if(e.target.value !== soloDigitos) e.target.value = soloDigitos;
+    });
     inp.addEventListener('blur', ()=>{ const n=parsePeso(inp.value); inp.value = esDesc?formatPesoNegativo(n):formatPeso(n); actualizarResumen(); });
     inp.addEventListener('focus', ()=>{ const n=parsePeso(inp.value); inp.value = n===0?'':String(n); });
 }
@@ -1895,8 +1935,8 @@ tarifa.addEventListener('input', actualizarResumen);
             const esTransferencia = formaPagoAbono.value==='Transferencia';
             const esEfectivo = formaPagoAbono.value==='Efectivo';
             if(esTransferencia){ grupoEntidadBancaria.style.display='flex'; filaComprobante.style.display='flex'; recibidoBox.style.display='flex'; }
-            else if(esEfectivo){ grupoEntidadBancaria.style.display='none'; entidadBancaria.value='NO APLICA'; filaComprobante.style.display='none'; comprobanteArchivoSeleccionado=null; comprobanteUrlExistente=''; resetComprobanteUI(); recibidoBox.style.display='flex'; }
-            else { grupoEntidadBancaria.style.display='none'; entidadBancaria.value='NO APLICA'; filaComprobante.style.display='none'; comprobanteArchivoSeleccionado=null; comprobanteUrlExistente=''; resetComprobanteUI(); recibidoBox.style.display='none'; }
+            else if(esEfectivo){ grupoEntidadBancaria.style.display='none'; entidadBancaria.value='NO APLICA'; filaComprobante.style.display='none'; comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI(); recibidoBox.style.display='flex'; }
+            else { grupoEntidadBancaria.style.display='none'; entidadBancaria.value='NO APLICA'; filaComprobante.style.display='none'; comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI(); recibidoBox.style.display='none'; }
         }
     });
 });
@@ -1904,40 +1944,63 @@ function actualizarVisibilidadSaldo(){ }
 
 function resetComprobanteUI(){
     comprobanteFileInput.value='';
-    comprobantePreviewBox.style.display='none';
-    comprobanteDropzone.style.display='flex';
-    comprobanteMiniatura.style.display='none';
-    comprobanteMiniatura.src='';
-    comprobanteIconoArchivo.style.display='none';
-    comprobanteNombreArchivo.textContent='';
+    comprobanteList.innerHTML='';
 }
-function mostrarPreviewComprobante(f){
-    comprobanteDropzone.style.display='none';
-    comprobantePreviewBox.style.display='flex';
-    comprobanteNombreArchivo.textContent = f.name;
-    if(f.type.startsWith('image/')){
-        const r = new FileReader();
-        r.onload = ev=>{ comprobanteMiniatura.src=ev.target.result; comprobanteMiniatura.style.display='block'; comprobanteIconoArchivo.style.display='none'; };
-        r.readAsDataURL(f);
-    } else {
-        comprobanteMiniatura.style.display='none';
-        comprobanteIconoArchivo.style.display='inline-block';
-    }
+function renderListaComprobantes(){
+    comprobanteList.innerHTML = '';
+    comprobantesUrlsExistentes.forEach((url, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'comprobante-item';
+        const esPdf = url.toLowerCase().split('?')[0].endsWith('.pdf');
+        const miniaturaHtml = esPdf
+            ? `<i class="fas fa-file-pdf" style="color:#c62828; font-size:1.3rem;"></i>`
+            : `<img src="${url}" class="comprobante-imagen-mini" onerror="this.style.display='none'">`;
+        div.innerHTML = `
+            <div class="info-file">${miniaturaHtml}<span class="nombre-file">Comprobante guardado ${idx+1}</span></div>
+            <button type="button" class="btn-quitar-file" data-tipo="url" data-idx="${idx}"><i class="fas fa-times"></i></button>
+        `;
+        comprobanteList.appendChild(div);
+    });
+    comprobantesArchivosSeleccionados.forEach((file, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'comprobante-item';
+        const esImagen = file.type.startsWith('image/');
+        div.innerHTML = `
+            <div class="info-file">
+                <i class="fas ${esImagen?'fa-image':'fa-file-pdf'}" style="color:${esImagen?'#1976d2':'#c62828'}; font-size:1.3rem;"></i>
+                <span class="nombre-file">${file.name}</span>
+            </div>
+            <button type="button" class="btn-quitar-file" data-tipo="file" data-idx="${idx}"><i class="fas fa-times"></i></button>
+        `;
+        comprobanteList.appendChild(div);
+    });
+    comprobanteList.querySelectorAll('.btn-quitar-file').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            const tipo = btn.dataset.tipo;
+            const idx = parseInt(btn.dataset.idx);
+            if(tipo==='file') comprobantesArchivosSeleccionados.splice(idx,1);
+            else comprobantesUrlsExistentes.splice(idx,1);
+            renderListaComprobantes();
+        });
+    });
 }
 function validarArchivo(f){
     const extOk = /\.(jpg|jpeg|png|pdf)$/i.test(f.name);
     if(!extOk){ mostrarToast('⚠️ Solo JPG, JPEG, PNG o PDF','error'); return false; }
-    if(f.size > 10*1024*1024){ mostrarToast('⚠️ Máx 10 MB','error'); return false; }
+    if(f.size > 10*1024*1024){ mostrarToast('⚠️ Máx 10 MB por archivo','error'); return false; }
     return true;
 }
 comprobanteDropzone.addEventListener('click', ()=>comprobanteFileInput.click());
 comprobanteFileInput.addEventListener('change', e=>{
     if(e.target.files.length>0){
-        const f = e.target.files[0];
-        if(validarArchivo(f)){ comprobanteArchivoSeleccionado=f; mostrarPreviewComprobante(f); }
+        const validos = [];
+        for(const f of e.target.files){
+            if(validarArchivo(f)) validos.push(f);
+        }
+        comprobantesArchivosSeleccionados = comprobantesArchivosSeleccionados.concat(validos);
+        renderListaComprobantes();
     }
 });
-btnQuitarComprobante.addEventListener('click', ()=>{ comprobanteArchivoSeleccionado=null; comprobanteUrlExistente=''; resetComprobanteUI(); });
 
 async function subirComprobante(file){
     const ext = file.name.split('.').pop().toLowerCase();
@@ -2149,7 +2212,7 @@ function abrirFormularioNuevaReserva(fISO){
     formaPagoAbono.value=''; formaPagoAbono.classList.add('placeholder');
     entidadBancaria.value='NO APLICA';
     grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='none'; recibidoPor.value='';
-    comprobanteArchivoSeleccionado=null; comprobanteUrlExistente='';
+    comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[];
     resetComprobanteUI();
     feedback.innerHTML='';
     fechaModalSeleccionada = fISO;
@@ -2177,7 +2240,7 @@ function limpiarFormulario(){
     formaPagoAbono.value=''; formaPagoAbono.classList.add('placeholder');
     entidadBancaria.value='NO APLICA';
     grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='none'; recibidoPor.value='';
-    comprobanteArchivoSeleccionado=null; comprobanteUrlExistente='';
+    comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[];
     resetComprobanteUI();
     feedback.innerHTML='';
 }
@@ -2249,16 +2312,24 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     filas.forEach(f=>{ f.saldo = Math.max(0, f.total-f.abono); });
 
     const nuevoId = editandoId.value;
+    if(nuevoId) ultimoEditadoId = String(nuevoId);
+    else ultimoEditadoId = null;
     try {
         feedback.style.color = '#2e7d32';
         feedback.innerHTML = '⏳ Guardando...';
 
-        let compUrlFinal = comprobanteUrlExistente || '';
-        if(comprobanteArchivoSeleccionado){
-            feedback.innerHTML = '⏳ Subiendo comprobante...';
-            try { compUrlFinal = await subirComprobante(comprobanteArchivoSeleccionado); }
-            catch(errC){ feedback.style.color='#b33a3a'; feedback.innerHTML='❌ Error comprobante: '+(errC.message||errC); return; }
+        let nuevasUrls = [];
+        if(comprobantesArchivosSeleccionados.length > 0){
+            feedback.innerHTML = `⏳ Subiendo ${comprobantesArchivosSeleccionados.length} comprobante(s)...`;
+            try {
+                for(const file of comprobantesArchivosSeleccionados){
+                    const url = await subirComprobante(file);
+                    nuevasUrls.push(url);
+                }
+            } catch(errC){ feedback.style.color='#b33a3a'; feedback.innerHTML='❌ Error comprobante: '+(errC.message||errC); return; }
         }
+        const todasLasUrls = comprobantesUrlsExistentes.concat(nuevasUrls);
+        const compUrlFinal = todasLasUrls.join(',');
 
         if(nuevoId) await sb.from(TABLA).delete().eq('id', nuevoId);
         const inserts = filas.map(f=>({
@@ -2287,6 +2358,13 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         modalFormReserva.classList.remove('show');
         limpiarFormulario();
         mostrarToast(`✅ ${data.length} reserva(s) guardada(s)`,'ok');
+        if(ultimoEditadoId){
+            setTimeout(()=>{ 
+                const fila = document.querySelector(`.fila-editada[data-id="${ultimoEditadoId}"]`);
+                if(fila) fila.classList.remove('fila-editada');
+                ultimoEditadoId = null;
+            }, 3000);
+        }
     } catch(err){
         console.error(err);
         feedback.style.color='#b33a3a';
@@ -2294,7 +2372,6 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     }
 });
 
-// ================ TABLA HISTORIAL ================
 const reservasTableBody = document.getElementById('reservasTableBodyRegistro');
 const badgeTotalRegistro = document.getElementById('badgeTotalRegistro');
 const buscadorRegistro = document.getElementById('buscadorRegistro');
@@ -2317,6 +2394,82 @@ function actualizarBarraMasiva(){
     barraAccionesMasivas.classList.toggle('show', n>0);
 }
 
+async function guardarPagoTotal(idReserva, valor){
+    const r = reservas.find(x=>String(x.id)===String(idReserva));
+    if(!r) return;
+    const total = calcularTotalBase(r);
+    const nuevoAbono = (r.valorAbono || 0) + valor;
+    const nuevoSaldo = Math.max(0, total - nuevoAbono);
+    try {
+        const { error } = await sb.from(TABLA).update({
+            valor_abono: nuevoAbono,
+            valor_saldo: nuevoSaldo,
+            estado_pago: nuevoSaldo === 0 ? 'Pago completo' : r.estadoPago
+        }).eq('id', idReserva);
+        if(error) throw error;
+        r.valorAbono = nuevoAbono;
+        r.valorSaldo = nuevoSaldo;
+        if(nuevoSaldo === 0) r.estadoPago = 'Pago completo';
+        guardarCache();
+        mostrarToast('✅ Pago registrado. Saldo actualizado.','ok');
+        renderReservasRegistro();
+        actualizarDineroPendiente();
+    } catch(e){
+        mostrarToast('❌ '+e.message,'error');
+    }
+}
+
+function guardarSnapshotAntesDeEditar(idReserva){
+    const r = reservas.find(x=>String(x.id)===String(idReserva));
+    if(!r) return;
+    const firma = [r.nombre, formatFechaISO(r.entrada), formatFechaISO(r.salida)].join('|');
+    const grupo = reservas.filter(x=>[x.nombre, formatFechaISO(x.entrada), formatFechaISO(x.salida)].join('|')===firma);
+    snapshotsParaDeshacer[String(idReserva)] = {
+        principal: JSON.parse(JSON.stringify(r)),
+        grupo: JSON.parse(JSON.stringify(grupo))
+    };
+}
+
+async function deshacerEdicion(idReserva){
+    const snap = snapshotsParaDeshacer[String(idReserva)];
+    if(!snap){ mostrarToast('⚠️ No hay cambios para deshacer en esta fila','error'); return; }
+    if(!confirm('¿Deshacer los cambios realizados en esta reserva?')) return;
+    try {
+        const firmaSnap = snap.grupo.map(g=>[g.nombre, formatFechaISO(g.entrada), formatFechaISO(g.salida)].join('|'));
+        const grupos = new Set(firmaSnap);
+        const aEliminar = reservas.filter(x=>{
+            const f = [x.nombre, formatFechaISO(x.entrada), formatFechaISO(x.salida)].join('|');
+            return grupos.has(f);
+        });
+        const idsEliminar = aEliminar.map(x=>x.id);
+        if(idsEliminar.length > 0){
+            await sb.from(TABLA).delete().in('id', idsEliminar);
+        }
+        const inserts = snap.grupo.map(g=>({
+            nombre_huesped: g.nombre, documento: g.doc||'—', telefono: g.telefono||'—',
+            'habitación': g.hab, entrada: formatFechaISO(g.entrada), salida: formatFechaISO(g.salida),
+            personas: g.personas, noches: g.noches, tarifa: g.tarifa,
+            descuento_pct: g.descuentoPct, descuento_pesos: g.descuentoPesos,
+            estado_pago: g.estadoPago, valor_abono: g.valorAbono,
+            forma_pago_abono: g.formaPagoAbono, entidad_bancaria: g.entidadBancaria,
+            valor_saldo: g.valorSaldo, forma_pago_saldo: g.formaPagoSaldo, estado: g.estado,
+            cocina: g.cocina,
+            recibido_por: g.recibidoPor,
+            comprobante_url: g.comprobanteUrl || ''
+        }));
+        const { error } = await sb.from(TABLA).insert(inserts);
+        if(error) throw error;
+        delete snapshotsParaDeshacer[String(idReserva)];
+        const nuevas = await cargarReservas();
+        reservas = nuevas; guardarCache(); renderTodo();
+        setUltimaActualizacion(new Date());
+        mostrarToast('↩️ Cambios deshechos correctamente','ok');
+    } catch(e){
+        console.error(e);
+        mostrarToast('❌ '+e.message,'error');
+    }
+}
+
 function renderReservasRegistro(){
     const t = (buscadorRegistro.value||'').toLowerCase().trim();
     const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value;
@@ -2326,17 +2479,23 @@ function renderReservasRegistro(){
     if(fa!=='') fil = fil.filter(r=>r.entrada && r.entrada.getFullYear()===parseInt(fa));
     if(fh!=='') fil = fil.filter(r=>r.hab===fh);
     if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
-    fil.sort((a,b)=>(a.entrada||0)-(b.entrada||0));
+    fil.sort((a,b)=>{
+        const ea = a.entrada ? a.entrada.getTime() : 0;
+        const eb = b.entrada ? b.entrada.getTime() : 0;
+        return ea - eb;
+    });
 
     reservasTableBody.innerHTML = '';
     if(fil.length===0){
-        reservasTableBody.innerHTML = `<tr><td colspan="16"><div class="empty-state"><i class="fas fa-search"></i><p>No se encontraron reservas</p></div></td></tr>`;
+        reservasTableBody.innerHTML = `<tr><td colspan="17"><div class="empty-state"><i class="fas fa-search"></i><p>No se encontraron reservas</p></div></td></tr>`;
         checkTodos.checked = false; checkTodos.indeterminate = false;
         actualizarBarraMasiva();
     } else {
         let todosSel = true;
         fil.forEach((r,idx)=>{
             const row = document.createElement('tr');
+            if(ultimoEditadoId && String(r.id) === String(ultimoEditadoId)) row.classList.add('fila-editada');
+            row.dataset.id = r.id;
             const total = calcularTotalBase(r);
             const saldo = r.valorSaldo || 0;
             const saldoClass = saldo===0 ? 'saldo-cero' : 'saldo-deuda';
@@ -2349,9 +2508,10 @@ function renderReservasRegistro(){
             const textoEnt = getTextoEntidad(r);
             const entHtml = textoEnt==='—' ? '<span class="entidad-tag vacio">—</span>' : `<span class="entidad-tag ${getClaseEntidad(textoEnt)}">${textoEnt}</span>`;
 
-            const tieneComp = r.comprobanteUrl && r.comprobanteUrl.trim() !== '';
-            const compHtml = tieneComp
-                ? `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}" data-url="${r.comprobanteUrl}"><i class="fas fa-image"></i></button>`
+            const urls = getComprobantesUrls(r);
+            const numComp = urls.length;
+            const compHtml = numComp > 0
+                ? `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`
                 : `<button class="btn-comprobante" disabled><i class="fas fa-image"></i></button>`;
 
             const cocinaVal = (r.cocina === 'SI') ? 'SI' : 'NO';
@@ -2363,20 +2523,29 @@ function renderReservasRegistro(){
             hoy.setHours(0,0,0,0);
             const pasada = fechaSalida && fechaSalida < hoy;
 
+            const tieneSnapshot = snapshotsParaDeshacer[String(r.id)] !== undefined;
+
             const accionHtml = modo==='editor'
                 ? `<div style="display:flex; gap:4px; justify-content:center;">
                     <div class="btn-accion-col editar"><button class="btn-icon btn-editar ${pasada?'deshabilitado':''}" data-id="${r.id}" title="${pasada?'No editable (fecha pasada)':'Editar'}" ${pasada?'disabled':''}><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
+                    <div class="btn-accion-col deshacer"><button class="btn-icon btn-desHacer" data-id="${r.id}" title="${tieneSnapshot?'Deshacer cambios':'Sin cambios para deshacer'}" ${tieneSnapshot?'':'disabled'}><i class="fas fa-undo"></i></button><span class="etiqueta-accion">Deshacer</span></div>
                     <div class="btn-accion-col eliminar"><button class="btn-icon btn-danger ${pasada?'deshabilitado':''}" data-id="${r.id}" title="${pasada?'No eliminable (fecha pasada)':'Eliminar'}" ${pasada?'disabled':''}><i class="fas fa-trash-alt"></i></button><span class="etiqueta-accion">Eliminar</span></div>
                 </div>`
                 : `<span class="col-accion-vacia">—</span>`;
+
+            const pagoTotalHtml = modo==='editor'
+                ? (saldo > 0
+                    ? `<input type="text" class="pago-total-input" data-id="${r.id}" placeholder="Ej: $1.000.000" inputmode="numeric">`
+                    : `<span class="saldo-cero" style="font-size:0.6rem; font-weight:700;"><i class="fas fa-check-circle"></i> PAGADO</span>`)
+                : `<span style="color:#b8a89a; font-size:0.6rem;">—</span>`;
 
             row.innerHTML = `
                 <td>${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
                 <td>${idx+1}</td>
                 <td><span class="nombre-texto">${r.nombre}</span></td>
                 <td><strong>${r.hab}</strong></td>
-                <td>${formatFecha(r.entrada)}</td>
-                <td>${formatFecha(r.salida)}</td>
+                <td class="celda-fecha">${formatFecha(r.entrada)}</td>
+                <td class="celda-fecha">${formatFecha(r.salida)}</td>
                 <td>${r.noches||0}</td>
                 <td>${r.personas}</td>
                 <td><strong>${formatPeso(total)}</strong></td>
@@ -2384,6 +2553,7 @@ function renderReservasRegistro(){
                 <td>${fpHtml}</td>
                 <td>${entHtml}</td>
                 <td>${compHtml}</td>
+                <td>${pagoTotalHtml}</td>
                 <td>${cocinaHtml}</td>
                 <td>${recibidoHtml}</td>
                 <td>${accionHtml}</td>`;
@@ -2394,6 +2564,7 @@ function renderReservasRegistro(){
         actualizarBarraMasiva();
     }
     badgeTotalRegistro.textContent = `${fil.length} reservas`;
+    actualizarDineroPendiente();
 
     if(modo==='editor'){
         document.querySelectorAll('.check-fila').forEach(chk=>{
@@ -2408,7 +2579,10 @@ function renderReservasRegistro(){
                 actualizarBarraMasiva();
             });
         });
-        document.querySelectorAll('.btn-editar').forEach(b=>b.addEventListener('click', ()=>editarReserva(b.dataset.id)));
+        document.querySelectorAll('.btn-editar').forEach(b=>b.addEventListener('click', ()=>{
+            guardarSnapshotAntesDeEditar(b.dataset.id);
+            editarReserva(b.dataset.id);
+        }));
         document.querySelectorAll('.btn-danger').forEach(b=>b.addEventListener('click', async ()=>{
             const id = b.dataset.id;
             const r = reservas.find(x=>String(x.id)===String(id));
@@ -2417,13 +2591,36 @@ function renderReservasRegistro(){
                 await sb.from(TABLA).delete().eq('id', id);
                 reservas = reservas.filter(x=>String(x.id)!==String(id));
                 seleccionados.delete(String(id));
+                delete snapshotsParaDeshacer[String(id)];
                 guardarCache(); renderTodo();
                 setUltimaActualizacion(new Date());
                 mostrarToast('🗑️ Reserva eliminada','info');
             } catch(e){ mostrarToast('❌ '+e.message,'error'); }
         }));
+        document.querySelectorAll('.btn-desHacer').forEach(b=>b.addEventListener('click', ()=>deshacerEdicion(b.dataset.id)));
+
+        document.querySelectorAll('.pago-total-input').forEach(inp=>{
+            inp.addEventListener('input', (e)=>{
+                const soloDigitos = e.target.value.replace(/[^0-9]/g, '');
+                if(e.target.value !== soloDigitos) e.target.value = soloDigitos;
+            });
+            inp.addEventListener('focus', ()=>{
+                const n = parsePeso(inp.value);
+                inp.value = n===0 ? '' : String(n);
+            });
+            inp.addEventListener('blur', async ()=>{
+                const n = parsePeso(inp.value);
+                if(n === 0){ inp.value=''; return; }
+                inp.value = formatPeso(n);
+                inp.classList.add('guardado');
+                await guardarPagoTotal(inp.dataset.id, n);
+            });
+            inp.addEventListener('keydown', (e)=>{
+                if(e.key === 'Enter'){ e.preventDefault(); inp.blur(); }
+            });
+        });
     }
-    document.querySelectorAll('.btn-ver-comp').forEach(b=>b.addEventListener('click', ()=>abrirComprobanteModal(b.dataset.id, b.dataset.url)));
+    document.querySelectorAll('.btn-ver-comp').forEach(b=>b.addEventListener('click', ()=>abrirComprobanteModal(b.dataset.id)));
 }
 
 checkTodos.addEventListener('change', ()=>{
@@ -2468,7 +2665,6 @@ document.getElementById('btnLimpiarBusqueda').addEventListener('click', ()=>{
     renderReservasRegistro(); mostrarToast('🧹 Limpiado','ok');
 });
 
-// ================ EDITAR RESERVA ================
 function editarReserva(id){
     const r = reservas.find(x=>String(x.id)===String(id));
     if(!r) return;
@@ -2519,22 +2715,10 @@ function editarReserva(id){
     if(formaPagoAbono.value==='Transferencia'){ grupoEntidadBancaria.style.display='flex'; filaComprobante.style.display='flex'; recibidoBox.style.display='flex'; }
     else if(formaPagoAbono.value==='Efectivo'){ grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='flex'; }
     else { grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='none'; }
-    comprobanteArchivoSeleccionado=null;
-    comprobanteUrlExistente = r.comprobanteUrl || '';
+    comprobantesArchivosSeleccionados=[];
+    comprobantesUrlsExistentes = getComprobantesUrls(r);
     resetComprobanteUI();
-    if(comprobanteUrlExistente){
-        comprobanteDropzone.style.display='none';
-        comprobantePreviewBox.style.display='flex';
-        comprobanteNombreArchivo.textContent = 'Comprobante guardado';
-        if(/\.(jpg|jpeg|png)$/i.test(comprobanteUrlExistente)){
-            comprobanteMiniatura.src = comprobanteUrlExistente;
-            comprobanteMiniatura.style.display='block';
-            comprobanteIconoArchivo.style.display='none';
-        } else {
-            comprobanteMiniatura.style.display='none';
-            comprobanteIconoArchivo.style.display='inline-block';
-        }
-    }
+    renderListaComprobantes();
     bloquesHabitacion.innerHTML = '';
     agregarBloqueHabitacion(r);
     refrescarBloques();
@@ -2543,7 +2727,6 @@ function editarReserva(id){
     setTimeout(()=>guestName.focus(), 200);
 }
 
-// ================ MODAL COMPROBANTE ================
 const compModalOverlay = document.getElementById('comprobanteModalOverlay');
 const compModalBody = document.getElementById('comprobanteModalBody');
 const compModalFileInput = document.getElementById('comprobanteModalFileInput');
@@ -2551,45 +2734,109 @@ const compModalFileInput = document.getElementById('comprobanteModalFileInput');
 document.getElementById('cerrarComprobanteModal').addEventListener('click', cerrarCompModal);
 compModalOverlay.addEventListener('click', e=>{ if(e.target===compModalOverlay) cerrarCompModal(); });
 
-function cerrarCompModal(){ compModalOverlay.classList.remove('show'); compModalBody.innerHTML=''; comprobanteModalIdReserva=null; }
+function cerrarCompModal(){ compModalOverlay.classList.remove('show'); compModalBody.innerHTML=''; comprobanteModalIdReserva=null; comprobanteModalIndexActual=0; comprobanteModalUrls=[]; }
 
-function renderContenidoComp(url){
+function renderCompModal(){
     compModalBody.innerHTML = '';
-    if(!url){ compModalBody.innerHTML = '<div class="sin-comprobante">Sin comprobante.</div>'; return; }
+    if(comprobanteModalUrls.length === 0){
+        compModalBody.innerHTML = '<div class="sin-comprobante">Sin comprobantes.</div>';
+        return;
+    }
+    const url = comprobanteModalUrls[comprobanteModalIndexActual];
+    if(comprobanteModalUrls.length > 1){
+        const nav = document.createElement('div');
+        nav.className = 'comprobante-nav';
+        nav.innerHTML = `
+            <button id="compPrevBtn"><i class="fas fa-chevron-left"></i></button>
+            <span class="contador">${comprobanteModalIndexActual+1} / ${comprobanteModalUrls.length}</span>
+            <button id="compNextBtn"><i class="fas fa-chevron-right"></i></button>
+        `;
+        compModalBody.appendChild(nav);
+    }
     const esPdf = url.toLowerCase().split('?')[0].endsWith('.pdf');
     if(esPdf){
-        const iframe = document.createElement('iframe'); iframe.src=url; compModalBody.appendChild(iframe);
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.className = 'comprobante-preview-grande iframe-pdf';
+        compModalBody.appendChild(iframe);
     } else {
-        const img = document.createElement('img'); img.src=url; img.onerror=()=>{ compModalBody.innerHTML='<div class="sin-comprobante">No se pudo cargar</div>'; }; compModalBody.appendChild(img);
+        const img = document.createElement('img');
+        img.src = url;
+        img.className = 'comprobante-preview-grande';
+        img.onerror = ()=>{ compModalBody.innerHTML='<div class="sin-comprobante">No se pudo cargar</div>'; };
+        compModalBody.appendChild(img);
     }
+    if(comprobanteModalUrls.length > 1){
+        const thumbs = document.createElement('div');
+        thumbs.className = 'comprobante-thumbs';
+        comprobanteModalUrls.forEach((u, i)=>{
+            const esP = u.toLowerCase().split('?')[0].endsWith('.pdf');
+            if(esP){
+                const t = document.createElement('div');
+                t.className = 'comprobante-thumb-pdf' + (i===comprobanteModalIndexActual?' active':'');
+                t.innerHTML = '<i class="fas fa-file-pdf"></i>';
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; renderCompModal(); });
+                thumbs.appendChild(t);
+            } else {
+                const t = document.createElement('img');
+                t.className = 'comprobante-thumb' + (i===comprobanteModalIndexActual?' active':'');
+                t.src = u;
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; renderCompModal(); });
+                thumbs.appendChild(t);
+            }
+        });
+        compModalBody.appendChild(thumbs);
+    }
+    const prev = document.getElementById('compPrevBtn');
+    const next = document.getElementById('compNextBtn');
+    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; renderCompModal(); });
+    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; renderCompModal(); });
 }
-function abrirComprobanteModal(id, url){
-    if(!url){ mostrarToast('⚠️ Sin comprobante','error'); return; }
+
+function abrirComprobanteModal(id){
+    const r = reservas.find(x=>String(x.id)===String(id));
+    if(!r){ mostrarToast('⚠️ Reserva no encontrada','error'); return; }
+    const urls = getComprobantesUrls(r);
+    if(urls.length === 0){ mostrarToast('⚠️ Sin comprobantes','error'); return; }
     comprobanteModalIdReserva = id;
-    renderContenidoComp(url);
+    comprobanteModalUrls = urls;
+    comprobanteModalIndexActual = 0;
+    renderCompModal();
     compModalOverlay.classList.add('show');
 }
 
 document.getElementById('btnCambiarComprobanteModal').addEventListener('click', ()=>{ compModalFileInput.value=''; compModalFileInput.click(); });
 compModalFileInput.addEventListener('change', async (e)=>{
     if(!e.target.files.length) return;
-    const file = e.target.files[0];
-    if(!validarArchivo(file)) return;
     if(!comprobanteModalIdReserva){ mostrarToast('⚠️ Sin reserva','error'); return; }
+    const validos = [];
+    for(const f of e.target.files){
+        if(validarArchivo(f)) validos.push(f);
+    }
+    if(!validos.length) return;
     compModalBody.innerHTML = '<div class="cargando"><i class="fas fa-spinner fa-spin"></i><span>Subiendo...</span></div>';
     try {
         const rOrig = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         if(!rOrig) throw new Error('No encontrada');
-        const nuevaUrl = await subirComprobante(file);
+        const urlsActuales = getComprobantesUrls(rOrig);
+        const nuevasUrls = [];
+        for(const file of validos){
+            const u = await subirComprobante(file);
+            nuevasUrls.push(u);
+        }
+        const todasUrls = urlsActuales.concat(nuevasUrls);
         const firma = [rOrig.nombre, formatFechaISO(rOrig.entrada), formatFechaISO(rOrig.salida), rOrig.estado, rOrig.tarifa, rOrig.personas, rOrig.noches].join('|');
         const idsHer = reservas.filter(r=>[r.nombre, formatFechaISO(r.entrada), formatFechaISO(r.salida), r.estado, r.tarifa, r.personas, r.noches].join('|')===firma).map(r=>r.id);
-        const { error } = await sb.from(TABLA).update({ comprobante_url: nuevaUrl }).in('id', idsHer);
+        const { error } = await sb.from(TABLA).update({ comprobante_url: todasUrls.join(',') }).in('id', idsHer);
         if(error) throw error;
         const nuevas = await cargarReservas();
         reservas = nuevas; guardarCache(); renderTodo();
         setUltimaActualizacion(new Date());
-        renderContenidoComp(nuevaUrl);
-        mostrarToast('✅ Comprobante actualizado','ok');
+        const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
+        comprobanteModalUrls = getComprobantesUrls(rActualizada);
+        comprobanteModalIndexActual = comprobanteModalUrls.length - 1;
+        renderCompModal();
+        mostrarToast('✅ Comprobante(s) añadido(s)','ok');
     } catch(err){ compModalBody.innerHTML = '<div class="sin-comprobante">❌ '+err.message+'</div>'; mostrarToast('❌ '+err.message,'error'); }
 });
 
@@ -2597,23 +2844,33 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
     if(!comprobanteModalIdReserva) return;
     const rOrig = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
     if(!rOrig) return;
-    if(!confirm('¿Eliminar comprobante?')) return;
+    const urlsActuales = getComprobantesUrls(rOrig);
+    if(urlsActuales.length === 0) return;
+    if(!confirm('¿Eliminar el comprobante actual?')) return;
     try {
-        if(rOrig.comprobanteUrl){
-            try { const p = rOrig.comprobanteUrl.split('/comprobantes/'); if(p.length>1) await sb.storage.from(BUCKET).remove([p[1].split('?')[0]]); } catch(e){}
-        }
+        const urlEliminar = urlsActuales[comprobanteModalIndexActual];
+        try {
+            const p = urlEliminar.split('/comprobantes/');
+            if(p.length>1) await sb.storage.from(BUCKET).remove([p[1].split('?')[0]]);
+        } catch(e){}
+        const nuevasUrls = urlsActuales.filter((_,i)=>i !== comprobanteModalIndexActual);
         const firma = [rOrig.nombre, formatFechaISO(rOrig.entrada), formatFechaISO(rOrig.salida), rOrig.estado, rOrig.tarifa, rOrig.personas, rOrig.noches].join('|');
         const idsHer = reservas.filter(r=>[r.nombre, formatFechaISO(r.entrada), formatFechaISO(r.salida), r.estado, r.tarifa, r.personas, r.noches].join('|')===firma).map(r=>r.id);
-        await sb.from(TABLA).update({ comprobante_url: '' }).in('id', idsHer);
+        await sb.from(TABLA).update({ comprobante_url: nuevasUrls.join(',') }).in('id', idsHer);
         const nuevas = await cargarReservas();
         reservas = nuevas; guardarCache(); renderTodo();
         setUltimaActualizacion(new Date());
         mostrarToast('🗑️ Comprobante eliminado','info');
-        cerrarCompModal();
+        const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
+        comprobanteModalUrls = getComprobantesUrls(rActualizada);
+        if(comprobanteModalUrls.length === 0){ cerrarCompModal(); }
+        else {
+            comprobanteModalIndexActual = Math.min(comprobanteModalIndexActual, comprobanteModalUrls.length - 1);
+            renderCompModal();
+        }
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 });
 
-// ================ CONFIRM MODAL ================
 const confirmOverlay = document.getElementById('confirmOverlay');
 const confirmTitulo = document.getElementById('confirmTitulo');
 const confirmMensaje = document.getElementById('confirmMensaje');
@@ -2631,7 +2888,6 @@ document.getElementById('btnConfirmOk').addEventListener('click', async ()=>{
     if(cb) await cb();
 });
 
-// ================ DASHBOARD ================
 function destruirCharts(){
     Object.keys(chartsInstancias).forEach(k=>{
         try { chartsInstancias[k].destroy(); } catch(e){}
@@ -3039,7 +3295,6 @@ document.getElementById('dashBtnExportar').addEventListener('click', ()=>{
     exportarExcel(fil, `Dashboard_${lbl}`);
 });
 
-// ================ EXCEL ================
 const excelViewer = document.getElementById('excelViewer');
 const viewerBody = document.getElementById('viewerBody');
 const viewerFilename = document.getElementById('viewerFilename');
@@ -3133,7 +3388,6 @@ document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()
     } catch(e){ console.error(e); mostrarToast('❌ '+e.message,'error'); }
 });
 
-// ================ IMPORTAR EXCEL ================
 const importOverlay = document.getElementById('importOverlay');
 const importDropzone = document.getElementById('importDropzone');
 const importFileInput = document.getElementById('importFileInput');
@@ -3183,7 +3437,7 @@ function parseFecha(v){
 }
 function normHab(v){ if(!v) return null; const s=String(v).trim(); const n=parseInt(s); if(!isNaN(n)&&String(n)===s) return HAB_TXT[n]||null; return HABITACIONES.find(h=>norm(h)===norm(s))||null; }
 function normEstado(v){ if(!v) return 'Confirmada'; const s=norm(v); if(s.includes('cancel'))return 'Cancelada'; if(s.includes('pend'))return 'Pendiente'; return 'Confirmada'; }
-function normEstadoPago(v){ if(!v) return '—'; const s=norm(v); if(s.includes('complet'))return 'Pago completo'; if(s.includes('abon'))return 'Abonado'; return String(v).trim(); }
+function normEstadoPago(v){ if(!v) return '—'; const s=norm(v); if(s.includes('complet'))return 'Pago completo'; if(s.includes('abon'))return 'Abonado'; if(s.includes('pend'))return 'Pendiente'; return String(v).trim(); }
 function normFormaPago(v){ if(!v) return 'NO APLICA'; const s=norm(v); if(s.includes('efect'))return 'Efectivo'; if(s.includes('transf'))return 'Transferencia'; if(s.includes('noaplica')||s.includes('no aplica'))return 'NO APLICA'; return 'NO APLICA'; }
 function normEntidad(v){ if(!v) return 'NO APLICA'; const s=norm(v); if(s.includes('bancolombia'))return 'Bancolombia'; if(s.includes('nequi'))return 'Nequi'; if(s.includes('noaplica')||s.includes('no aplica'))return 'NO APLICA'; return 'NO APLICA'; }
 
@@ -3299,7 +3553,6 @@ btnConfirmarImport.addEventListener('click', async ()=>{
     finally { btnConfirmarImport.innerHTML = '<i class="fas fa-upload"></i> Importar'; btnConfirmarImport.disabled = importFilasValidas.length===0; }
 });
 
-// ================ BASE DE DATOS ================
 const bdTableBody = document.getElementById('bdTableBody');
 const badgeTotalBD = document.getElementById('badgeTotalBD');
 const buscadorBD = document.getElementById('buscadorBD');
@@ -3370,7 +3623,6 @@ document.getElementById('btnExportarBDExcel').addEventListener('click', ()=>{
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 });
 
-// ================ REALTIME ================
 function suscribirRealtime(){
     sb.channel('cambios-villa-alejo-v6')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA }, ()=>{
@@ -3379,7 +3631,6 @@ function suscribirRealtime(){
         .subscribe();
 }
 
-// ================ RENDER GLOBAL ================
 function renderTodo(){
     renderCalendar(mesCalendarioActual, anioCalendarioActual);
     renderReservasRegistro();
@@ -3388,7 +3639,6 @@ function renderTodo(){
     actualizarDashFiltroCobra();
 }
 
-// ================ INICIO ================
 async function init(){
     const { data: { session } } = await sb.auth.getSession();
     if(session && session.user){
