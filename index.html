@@ -65,17 +65,17 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .panel-header h2 i { color: #50260c; }
 .badge { background: #f5e6dc; color: #50260c; border-radius: 40px; padding: 0.25rem 0.9rem; font-size: 0.8rem; font-weight: 600; }
 
-/* === FILA DE 3 RECUADROS EN CALENDARIO - ALINEADOS A LA DERECHA === */
-.calendar-top-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; align-items: stretch; justify-content: flex-end; width: 100%; }
+/* === FILA DE 3 RECUADROS EN CALENDARIO === */
+.calendar-top-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; align-items: stretch; justify-content: space-between; width: 100%; }
 
 /* Recuadro base unificado */
 .recuadro-base { background: #faf3ee; border: 1px solid #e8d5c6; border-radius: 16px; padding: 0.65rem 0.9rem; box-shadow: 0 2px 6px rgba(80,38,12,0.06); display: flex; flex-direction: column; gap: 0.5rem; }
 
-/* Recuadro OCUPACIÓN HOY + RESERVAS ACTIVAS */
-.calendar-info-panel { flex: 0 0 auto; }
+/* Recuadro OCUPACIÓN HOY + RESERVAS ACTIVAS — FONDO BLANCO */
+.calendar-info-panel { flex: 0 0 auto; background: #fff; }
 .calendar-info-panel .info-items { display: flex; flex-direction: row; gap: 0.5rem; align-items: center; }
 
-.calendar-info-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0.5rem 0.9rem; border-radius: 12px; min-width: 130px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; background: #faf3ee; border: 1px solid #e8d5c6; }
+.calendar-info-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0.5rem 0.9rem; border-radius: 12px; min-width: 130px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; background: #fff; border: 1px solid #e8d5c6; }
 .calendar-info-item .lbl { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4px; color: #3d1c09; opacity: 0.95; }
 .calendar-info-item .val { font-size: 1.3rem; font-weight: 900; color: #3d1c09; text-shadow: 0 1px 2px rgba(0,0,0,0.08); line-height: 1; }
 .calendar-info-item .sub { font-size: 0.58rem; font-weight: 700; color: #3d1c09; opacity: 0.85; }
@@ -619,9 +619,9 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                 <h2><i class="fas fa-calendar-alt"></i> Calendario de reservas</h2>
             </div>
 
-            <!-- 3 RECUADROS ALINEADOS A LA DERECHA -->
+            <!-- 3 RECUADROS: IZQUIERDA (INFO), DERECHA (ESTADO + DESCARGAR) -->
             <div class="calendar-top-row">
-                <!-- Recuadro OCUPACIÓN HOY + RESERVAS ACTIVAS -->
+                <!-- Recuadro OCUPACIÓN HOY + RESERVAS ACTIVAS — FONDO BLANCO, ALINEADO A LA IZQUIERDA -->
                 <div class="recuadro-base calendar-info-panel">
                     <div class="info-items">
                         <div class="calendar-info-item">
@@ -1623,7 +1623,6 @@ function determinarEstado(rDia){
 }
 
 function actualizarInfoCalendario(m, y){
-    // OCUPACIÓN HOY: reservas del día actual (fecha real de hoy)
     const fISOHoy = formatFechaISO(HOY);
     const rHoy = reservas.filter(r=>{
         if(r.estado === 'Cancelada') return false;
@@ -1634,7 +1633,6 @@ function actualizarInfoCalendario(m, y){
     infoOcupacionHoy.textContent = rHoy.length;
     infoOcupacionHoySub.textContent = `${habsOcupadasHoy} de 6 habitaciones`;
 
-    // RESERVAS ACTIVAS: reservas activas del mes mostrado en el calendario
     const rMes = reservas.filter(r=>{
         if(!r.entrada || !r.salida) return false;
         if(r.estado === 'Cancelada') return false;
@@ -2935,18 +2933,14 @@ function renderDashReservas(fil, periodoLbl){
 }
 
 function renderDashFinanciero(fil, periodoLbl){
-    // Dinero recibido = suma de lo efectivamente recibido (abono o total si pago completo)
     const totalRecibido = fil.reduce((a,r)=>a+getDineroRecibido(r),0);
-    // Dinero cobrado = suma de (TOTAL A PAGAR - SALDO PENDIENTE) de cada reserva
     const totalCobrado = fil.reduce((a,r)=>{
         const total = calcularTotalBase(r);
         const saldo = r.valorSaldo || 0;
         return a + Math.max(0, total - saldo);
     },0);
     const totalReservas = fil.length;
-    // Ticket promedio del mes seleccionado (dinero recibido / reservas del mes)
     const ticketProm = totalReservas ? Math.round(totalRecibido/totalReservas) : 0;
-    // % Cobrado = (dinero cobrado / dinero total a pagar) * 100
     const totalAPagar = fil.reduce((a,r)=>a+calcularTotalBase(r),0);
     const porcentajeCobrado = totalAPagar ? ((totalCobrado/totalAPagar)*100).toFixed(1) : 0;
 
