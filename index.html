@@ -125,7 +125,7 @@ tr:last-child td { border-bottom: none; }
 .forma-pago-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; white-space: nowrap; }
 .entidad-tag { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap; max-width: 100%; }
 .entidad-tag.bancolombia { background: #fdda24; color: #000; border: 1px solid #e6c200; box-shadow: 0 1px 3px rgba(253,218,36,0.5); }
-.entidad-tag.nequi { background: #220022; color: #fff; border: 1px solid #3a003a; box-shadow: 0 1px 3px rgba(34,0,34,0.5); }
+.entidad-tag.nequi { background: #da0081; color: #fff; border: 1px solid #a80062; box-shadow: 0 1px 3px rgba(218,0,129,0.5); }
 .entidad-tag.efectivo { background: #060756; color: #fff; border: 1px solid #0a0a7a; box-shadow: 0 1px 3px rgba(6,7,86,0.5); }
 .entidad-tag.vacio { background: transparent; color: #b8a89a; border: 1px dashed #e0cbb8; }
 .cocina-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; }
@@ -150,13 +150,17 @@ tr:last-child td { border-bottom: none; }
 .comprobante-nav button { background: #f5e6dc; border: 1px solid #e0cbb8; color: #50260c; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; }
 .comprobante-nav button:hover { background: #e8d5c6; }
 .comprobante-nav .contador { font-size: 0.8rem; font-weight: 700; color: #50260c; }
-.comprobante-preview-grande { max-width: 100%; max-height: 65vh; border-radius: 10px; background: #fff; box-shadow: 0 4px 12px rgba(80,38,12,0.15); }
+.comprobante-preview-grande { max-width: 100%; max-height: 65vh; border-radius: 10px; background: #fff; box-shadow: 0 4px 12px rgba(80,38,12,0.15); display: block; }
 .comprobante-preview-grande.iframe-pdf { width: 100%; height: 65vh; border: none; }
 .comprobante-thumbs { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; }
 .comprobante-thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
 .comprobante-thumb:hover, .comprobante-thumb.active { border-color: #50260c; transform: scale(1.05); }
 .comprobante-thumb-pdf { width: 50px; height: 50px; border-radius: 8px; background: #c62828; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
 .comprobante-thumb-pdf:hover, .comprobante-thumb-pdf.active { border-color: #50260c; transform: scale(1.05); }
+.comprobante-empty-msg { text-align: center; padding: 2rem 1rem; color: #8a6b55; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.comprobante-empty-msg i { font-size: 3rem; color: #d4b9a4; }
+.comprobante-empty-msg button { background: #1976d2; color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 40px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.comprobante-empty-msg button:hover { background: #0d47a1; }
 
 .btn-comprobante { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 25px; border-radius: 6px; background: #1976d2; color: #fff; border: none; cursor: pointer; font-size: 0.72rem; transition: all 0.15s; box-shadow: 0 2px 5px -1px rgba(25,118,210,0.5); position: relative; }
 .btn-comprobante:hover:not(:disabled) { background: #0d47a1; transform: scale(1.08); }
@@ -169,29 +173,17 @@ tr:last-child td { border-bottom: none; }
 .th-check .txt-check { font-size: 0.5rem; color: #50260c; font-weight: 800; }
 .fila-seleccionada { background: #ffe6e6 !important; }
 .fila-seleccionada td { background: #ffe6e6 !important; }
-.fila-editada { background: #f5e6dc !important; box-shadow: inset 4px 0 0 0 #50260c; transition: background 0.4s ease; }
-.fila-editada td { background: #f5e6dc !important; transition: background 0.4s ease; }
 
 .btn-icon { width: 21px; height: 21px; border-radius: 50%; cursor: pointer; font-size: 0.55rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.15s; border: none; }
 .btn-editar { background: #1976d2; color: #fff; box-shadow: 0 2px 4px rgba(25,118,210,0.35); }
 .btn-editar:hover { background: #0d47a1; transform: scale(1.1); }
 .btn-danger { background: #fff; color: #b33a3a; border: 1.5px solid #f0c0c0; }
 .btn-danger:hover { background: #ffe6e6; transform: scale(1.1); }
-.btn-desHacer { background: #ff9800; color: #fff; box-shadow: 0 2px 4px rgba(255,152,0,0.4); }
-.btn-desHacer:hover { background: #e65100; transform: scale(1.1); }
-.btn-desHacer:disabled { background: #e0e0e0; color: #9e9e9e; cursor: not-allowed; box-shadow: none; opacity: 0.55; }
-.btn-desHacer:disabled:hover { transform: none; }
 .btn-accion-col { display: flex; flex-direction: column; align-items: center; gap: 1px; }
 .btn-accion-col .etiqueta-accion { font-size: 0.4rem; font-weight: 700; color: #50260c; text-transform: uppercase; line-height: 1; }
 .btn-accion-col.editar .etiqueta-accion { color: #1976d2; }
 .btn-accion-col.eliminar .etiqueta-accion { color: #b33a3a; }
-.btn-accion-col.deshacer .etiqueta-accion { color: #ff9800; }
-.acciones-admin { display: none !important; }
-body.modo-editor .acciones-admin { display: inline-flex !important; }
 .col-accion-vacia { color: #b8a89a; font-size: 0.7rem; }
-
-.btn-editar.deshabilitado, .btn-danger.deshabilitado { opacity: 0.35; cursor: not-allowed; pointer-events: none; filter: grayscale(0.6); }
-.btn-editar.deshabilitado:hover, .btn-danger.deshabilitado:hover { transform: none; }
 
 .barra-acciones-masivas { display: none; background: #ffe6e6; border: 1px solid #f0c0c0; border-radius: 16px; padding: 0.7rem 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
 .barra-acciones-masivas.show { display: flex; }
@@ -339,9 +331,9 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .form-group.small { flex: 1 1 120px; }
 .form-group label { font-size: 0.78rem; font-weight: 600; color: #50260c; display: flex; align-items: center; gap: 4px; }
 .form-group label .req { color: #c62828; font-weight: 700; }
-.form-group input, .form-group select { padding: 0.65rem 0.8rem; border-radius: 12px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.88rem; outline: none; color: #3d1c09; width: 100%; text-transform: uppercase; }
-.form-group input::placeholder { text-transform: none; color: #b8a89a; font-weight: 400; font-style: italic; }
-.form-group select.placeholder { color: #b8a89a; font-weight: 400; text-transform: none; font-style: italic; }
+.form-group input, .form-group select { padding: 0.65rem 0.8rem; border-radius: 12px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.88rem; outline: none; color: #3d1c09; width: 100%; }
+.form-group input::placeholder { color: #b8a89a; font-weight: 400; font-style: italic; }
+.form-group select.placeholder { color: #b8a89a; font-weight: 400; font-style: italic; }
 .form-group input:read-only { background: #f5e6dc; color: #50260c; font-weight: 700; cursor: not-allowed; }
 .form-group input.moneda { text-align: right; font-weight: 700; color: #2e7d32; }
 .form-group input.moneda.descuento-neg { color: #c62828; }
@@ -438,6 +430,27 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .precio-feria { font-weight: 700; color: #7b1fa2; }
 .capacidad { font-weight: 700; color: #2e7d32; }
 
+/* === BOTÓN EDITAR TARIFA === */
+.btn-editar-tarifa {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    vertical-align: middle;
+    transition: all 0.15s;
+    box-shadow: 0 2px 4px rgba(25,118,210,0.35);
+}
+.btn-editar-tarifa:hover { background: #0d47a1; transform: scale(1.15); }
+body.modo-editor .btn-editar-tarifa { display: inline-flex; }
+
 .dash-filtros { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; background: linear-gradient(135deg,#faf3ee 0%,#fff 100%); border: 1px solid #e8d5c6; border-radius: 18px; padding: 0.9rem 1rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(80,38,12,0.05); }
 .dash-filtros .filtro-grupo { display: flex; flex-direction: column; gap: 4px; }
 .dash-filtros .filtro-grupo label { font-size: 0.62rem; font-weight: 800; color: #8a6b55; text-transform: uppercase; letter-spacing: 0.4px; }
@@ -520,6 +533,12 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .btn-ver-pass:hover { background: #f5e6dc; color: #50260c; }
 .recordar-box { display: flex; align-items: center; gap: 8px; margin-top: 6px; user-select: none; cursor: pointer; font-size: 0.82rem; color: #50260c; font-weight: 600; }
 .recordar-box input[type="checkbox"] { width: 16px; height: 16px; accent-color: #50260c; cursor: pointer; }
+
+.login-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e8d5c6; padding-bottom: 0.3rem; }
+.login-tab { background: transparent; border: none; padding: 0.6rem 1rem; border-radius: 20px 20px 0 0; font-weight: 700; font-size: 0.85rem; color: #8a6b55; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s; border: 2px solid transparent; border-bottom: none; margin-bottom: -0.3rem; }
+.login-tab:hover { color: #50260c; background: #faf3ee; }
+.login-tab.active { background: #faf3ee; color: #50260c; border-color: #e8d5c6; border-bottom: 2px solid #faf3ee; }
+.login-tab i { font-size: 0.9rem; }
 
 @media (max-width: 768px) {
     body { padding: 8px; }
@@ -763,13 +782,13 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                             <th><span class="th-2line"><span>FECHA DE</span><span>SALIDA</span></span></th>
                             <th style="white-space:nowrap;">NOCHES</th>
                             <th style="white-space:nowrap;">PERSONAS</th>
+                            <th><span class="th-2line"><span>USO DE</span><span>COCINA</span></span></th>
                             <th><span class="th-2line"><span>TOTAL A</span><span>PAGAR</span></span></th>
                             <th><span class="th-2line"><span>SALDO</span><span>PENDIENTE</span></span></th>
                             <th><span class="th-2line"><span>FORMA DE</span><span>PAGO</span></span></th>
                             <th><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA</span></span></th>
                             <th class="th-comprobante">COMPROBANTE</th>
                             <th><span class="th-2line"><span>PAGO</span><span>TOTAL</span></span></th>
-                            <th><span class="th-2line"><span>USO DE</span><span>COCINA</span></span></th>
                             <th><span class="th-2line"><span>RECIBIDO</span><span>POR</span></span></th>
                             <th>ACCIÓN</th>
                         </tr></thead>
@@ -893,13 +912,13 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
                 <div class="table-wrapper">
                     <table class="tarifas-tabla">
                         <thead><tr><th>Nº</th><th>Habitación</th><th>Temporada Baja</th><th>Temporada Alta</th><th>Ferias</th><th>Capacidad máxima</th></tr></thead>
-                        <tbody>
-                            <tr><td>1</td><td><span class="nombre-hab"><i class="fas fa-leaf"></i> Sauce</span></td><td class="precio-baja">$40.000</td><td class="precio-alta">$50.000</td><td class="precio-feria">$60.000</td><td class="capacidad">3 personas</td></tr>
-                            <tr><td>2</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Pino</span></td><td class="precio-baja">$40.000</td><td class="precio-alta">$50.000</td><td class="precio-feria">$60.000</td><td class="capacidad">5 personas</td></tr>
-                            <tr><td>3</td><td><span class="nombre-hab"><i class="fas fa-seedling"></i> Arrayán</span></td><td class="precio-baja">$40.000</td><td class="precio-alta">$50.000</td><td class="precio-feria">$60.000</td><td class="capacidad">4 personas</td></tr>
-                            <tr><td>4</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Eucalipto</span></td><td class="precio-baja">$40.000</td><td class="precio-alta">$50.000</td><td class="precio-feria">$60.000</td><td class="capacidad">4 personas</td></tr>
-                            <tr><td>5</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Roble</span></td><td class="precio-baja">$40.000</td><td class="precio-alta">$50.000</td><td class="precio-feria">$60.000</td><td class="capacidad">2 personas</td></tr>
-                            <tr><td>6</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Nogal</span></td><td class="precio-baja">$40.000</td><td class="precio-alta">$50.000</td><td class="precio-feria">$60.000</td><td class="capacidad">7 personas</td></tr>
+                        <tbody id="tarifasTbody">
+                            <tr data-hab="Sauce"><td>1</td><td><span class="nombre-hab"><i class="fas fa-leaf"></i> Sauce</span></td><td class="precio-baja" data-tipo="baja">$40.000</td><td class="precio-alta" data-tipo="alta">$50.000</td><td class="precio-feria" data-tipo="feria">$60.000</td><td class="capacidad">3 personas</td></tr>
+                            <tr data-hab="Pino"><td>2</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Pino</span></td><td class="precio-baja" data-tipo="baja">$40.000</td><td class="precio-alta" data-tipo="alta">$50.000</td><td class="precio-feria" data-tipo="feria">$60.000</td><td class="capacidad">5 personas</td></tr>
+                            <tr data-hab="Arrayán"><td>3</td><td><span class="nombre-hab"><i class="fas fa-seedling"></i> Arrayán</span></td><td class="precio-baja" data-tipo="baja">$40.000</td><td class="precio-alta" data-tipo="alta">$50.000</td><td class="precio-feria" data-tipo="feria">$60.000</td><td class="capacidad">4 personas</td></tr>
+                            <tr data-hab="Eucalipto"><td>4</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Eucalipto</span></td><td class="precio-baja" data-tipo="baja">$40.000</td><td class="precio-alta" data-tipo="alta">$50.000</td><td class="precio-feria" data-tipo="feria">$60.000</td><td class="capacidad">4 personas</td></tr>
+                            <tr data-hab="Roble"><td>5</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Roble</span></td><td class="precio-baja" data-tipo="baja">$40.000</td><td class="precio-alta" data-tipo="alta">$50.000</td><td class="precio-feria" data-tipo="feria">$60.000</td><td class="capacidad">2 personas</td></tr>
+                            <tr data-hab="Nogal"><td>6</td><td><span class="nombre-hab"><i class="fas fa-tree"></i> Nogal</span></td><td class="precio-baja" data-tipo="baja">$40.000</td><td class="precio-alta" data-tipo="alta">$50.000</td><td class="precio-feria" data-tipo="feria">$60.000</td><td class="capacidad">7 personas</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1011,28 +1030,79 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 </div>
 
 <div class="modal-overlay" id="loginOverlay">
-    <div class="modal-panel" style="max-width:400px;">
+    <div class="modal-panel" style="max-width:420px;">
         <button class="btn-cerrar-modal" id="cerrarLogin"><i class="fas fa-times"></i></button>
         <h3 style="margin-bottom:1rem;"><i class="fas fa-user-shield"></i> Acceso editor</h3>
-        <div class="form-row">
-            <div class="form-group" style="flex:1 1 100%;">
-                <label>Correo electrónico</label>
-                <input type="email" id="loginEmail" placeholder="admin@villaalejo.com" autocomplete="username">
-            </div>
+
+        <!-- TABS: Iniciar sesión / Cambiar contraseña -->
+        <div class="login-tabs">
+            <button class="login-tab active" data-tab="login"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
+            <button class="login-tab" data-tab="cambiar"><i class="fas fa-key"></i> Cambiar contraseña</button>
         </div>
-        <div class="form-row">
-            <div class="form-group" style="flex:1 1 100%;">
-                <label>Contraseña</label>
-                <div class="login-pass-wrapper">
-                    <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
-                    <button type="button" class="btn-ver-pass" id="btnVerPass" aria-label="Mostrar contraseña"><i class="fas fa-eye" id="iconoVerPass"></i></button>
+
+        <!-- TAB: Iniciar sesión -->
+        <div id="loginTabLogin">
+            <div class="form-row">
+                <div class="form-group" style="flex:1 1 100%;">
+                    <label>Correo electrónico</label>
+                    <input type="email" id="loginEmail" placeholder="admin@villaalejo.com" autocomplete="username">
                 </div>
-                <label class="recordar-box"><input type="checkbox" id="recordarPass"> Recordar contraseña</label>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex:1 1 100%;">
+                    <label>Contraseña</label>
+                    <div class="login-pass-wrapper">
+                        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+                        <button type="button" class="btn-ver-pass" id="btnVerPass" aria-label="Mostrar contraseña"><i class="fas fa-eye" id="iconoVerPass"></i></button>
+                    </div>
+                    <label class="recordar-box"><input type="checkbox" id="recordarPass"> Recordar contraseña</label>
+                </div>
+            </div>
+            <p id="loginFeedback" style="min-height:20px; font-size:0.82rem; color:#b33a3a; text-align:center; margin:0.5rem 0;"></p>
+            <div class="form-botones-inferiores" style="border:none; padding-top:0;">
+                <button class="btn-primary" id="btnLoginSubmit"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
             </div>
         </div>
-        <p id="loginFeedback" style="min-height:20px; font-size:0.82rem; color:#b33a3a; text-align:center; margin:0.5rem 0;"></p>
-        <div class="form-botones-inferiores" style="border:none; padding-top:0;">
-            <button class="btn-primary" id="btnLoginSubmit"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
+
+        <!-- TAB: Cambiar contraseña -->
+        <div id="loginTabCambiar" style="display:none;">
+            <div class="form-row">
+                <div class="form-group" style="flex:1 1 100%;">
+                    <label>Correo electrónico</label>
+                    <input type="email" id="cambiarEmail" placeholder="admin@villaalejo.com" autocomplete="username">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex:1 1 100%;">
+                    <label>Contraseña actual</label>
+                    <div class="login-pass-wrapper">
+                        <input type="password" id="cambiarPassActual" placeholder="••••••••">
+                        <button type="button" class="btn-ver-pass" id="btnVerPassActual" aria-label="Mostrar contraseña"><i class="fas fa-eye" id="iconoVerPassActual"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex:1 1 100%;">
+                    <label>Nueva contraseña</label>
+                    <div class="login-pass-wrapper">
+                        <input type="password" id="cambiarPassNueva" placeholder="••••••••">
+                        <button type="button" class="btn-ver-pass" id="btnVerPassNueva" aria-label="Mostrar contraseña"><i class="fas fa-eye" id="iconoVerPassNueva"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="flex:1 1 100%;">
+                    <label>Confirmar nueva contraseña</label>
+                    <div class="login-pass-wrapper">
+                        <input type="password" id="cambiarPassConfirmar" placeholder="••••••••">
+                        <button type="button" class="btn-ver-pass" id="btnVerPassConfirmar" aria-label="Mostrar contraseña"><i class="fas fa-eye" id="iconoVerPassConfirmar"></i></button>
+                    </div>
+                </div>
+            </div>
+            <p id="cambiarFeedback" style="min-height:20px; font-size:0.82rem; color:#b33a3a; text-align:center; margin:0.5rem 0;"></p>
+            <div class="form-botones-inferiores" style="border:none; padding-top:0;">
+                <button class="btn-primary" id="btnCambiarSubmit"><i class="fas fa-key"></i> Cambiar contraseña</button>
+            </div>
         </div>
     </div>
 </div>
@@ -1215,7 +1285,7 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 const ICONO_RESERVAS_URL = '';
 const ICONO_FINANCIERO_URL = '';
 
-// === NUEVAS CREDENCIALES SUPABASE ===
+// === CREDENCIALES SUPABASE ===
 const SUPABASE_URL = 'https://qlwpvylthzlgkpdxlxxr.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_X0HTxVXJGXUys98M5hxgOw_Bsha6GR4';
 const { createClient } = supabase;
@@ -1226,7 +1296,7 @@ const BUCKET = 'comprobantes';
 const HABITACIONES = ['Sauce', 'Pino', 'Roble', 'Eucalipto', 'Arrayán', 'Nogal'];
 const HAB_TXT = { 1:'Sauce', 2:'Pino', 3:'Roble', 4:'Eucalipto', 5:'Arrayán', 6:'Nogal' };
 const CAPACIDAD_MAX = { 'Sauce':3, 'Pino':5, 'Arrayán':4, 'Eucalipto':4, 'Roble':2, 'Nogal':7 };
-const TARIFAS = {
+let TARIFAS = {
     'Sauce':{'Baja':40000,'Alta':50000,'Ferias':60000},
     'Pino':{'Baja':40000,'Alta':50000,'Ferias':60000},
     'Arrayán':{'Baja':40000,'Alta':50000,'Ferias':60000},
@@ -1274,6 +1344,8 @@ function esFestivo(f){ return FESTIVOS[f]||null; }
 
 const LS_CACHE = 'villaAlejo_cache_v6';
 const LS_CRED = 'villaAlejo_credenciales';
+const LS_TARIFAS = 'villaAlejo_tarifas_v1';
+
 let reservas = [];
 let fechaModalSeleccionada = null;
 let temporadaSeleccionada = null;
@@ -1296,8 +1368,6 @@ let temporadaOriginalEdicion = null;
 let chartsInstancias = {};
 let dashVistaActual = 'mes';
 let dashSubActual = 'clientes';
-let ultimoEditadoId = null;
-let snapshotsParaDeshacer = {};
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_ABREV = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -1322,6 +1392,27 @@ function formatHora(date){
 function formatFechaHora(date){
     if(!(date instanceof Date) || isNaN(date)) return '—';
     return `${formatFecha(date)} · ${formatHora(date)}`;
+}
+
+// === TARIFAS EDITABLES (localStorage) ===
+function cargarTarifasPersonalizadas(){
+    try {
+        const g = localStorage.getItem(LS_TARIFAS);
+        if(!g) return;
+        const p = JSON.parse(g);
+        if(p && typeof p === 'object'){
+            Object.keys(p).forEach(hab=>{
+                if(TARIFAS[hab]){
+                    Object.keys(p[hab]).forEach(temp=>{
+                        if(typeof p[hab][temp] === 'number') TARIFAS[hab][temp] = p[hab][temp];
+                    });
+                }
+            });
+        }
+    } catch(e){}
+}
+function guardarTarifasPersonalizadas(){
+    try { localStorage.setItem(LS_TARIFAS, JSON.stringify(TARIFAS)); } catch(e){}
 }
 
 function calcularTotalBase(r){
@@ -1456,6 +1547,7 @@ async function aplicarModoEditor(){
     const ind = document.getElementById('syncIndicator');
     if(ind) ind.classList.remove('hidden-sync');
     renderReservasRegistro();
+    renderTarifas();
     if(document.getElementById('dash-panel').classList.contains('active')) renderDashboard();
 }
 
@@ -1472,8 +1564,52 @@ function aplicarModoVisitante(){
     if(ind) ind.classList.add('hidden-sync');
     activateSection('calendar');
     renderReservasRegistro();
+    renderTarifas();
 }
 
+// === TARIFAS RENDER ===
+function renderTarifas(){
+    const tbody = document.getElementById('tarifasTbody');
+    if(!tbody) return;
+    tbody.innerHTML = '';
+    HABITACIONES.forEach((hab, idx)=>{
+        const cap = CAPACIDAD_MAX[hab];
+        const t = TARIFAS[hab];
+        const iconos = {
+            'Sauce':'fa-leaf', 'Pino':'fa-tree', 'Arrayán':'fa-seedling',
+            'Eucalipto':'fa-tree', 'Roble':'fa-tree', 'Nogal':'fa-tree'
+        };
+        const tr = document.createElement('tr');
+        tr.dataset.hab = hab;
+        tr.innerHTML = `
+            <td>${idx+1}</td>
+            <td><span class="nombre-hab"><i class="fas ${iconos[hab]}"></i> ${hab}</span></td>
+            <td><span class="precio-baja" data-tipo="baja">${formatPeso(t.Baja)}</span><button class="btn-editar-tarifa" data-hab="${hab}" data-tipo="Baja" title="Editar"><i class="fas fa-pencil-alt"></i></button></td>
+            <td><span class="precio-alta" data-tipo="alta">${formatPeso(t.Alta)}</span><button class="btn-editar-tarifa" data-hab="${hab}" data-tipo="Alta" title="Editar"><i class="fas fa-pencil-alt"></i></button></td>
+            <td><span class="precio-feria" data-tipo="feria">${formatPeso(t.Ferias)}</span><button class="btn-editar-tarifa" data-hab="${hab}" data-tipo="Ferias" title="Editar"><i class="fas fa-pencil-alt"></i></button></td>
+            <td class="capacidad">${cap} personas</td>
+        `;
+        tbody.appendChild(tr);
+    });
+    // Listeners
+    tbody.querySelectorAll('.btn-editar-tarifa').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            const hab = btn.dataset.hab;
+            const tipo = btn.dataset.tipo;
+            const actual = TARIFAS[hab][tipo];
+            const nuevo = prompt(`Editar tarifa "${tipo}" para la habitación "${hab}":\nValor actual: ${formatPeso(actual)}\n\nIngresa el nuevo valor (solo números):`, actual);
+            if(nuevo === null) return;
+            const n = parsePeso(nuevo);
+            if(n <= 0){ mostrarToast('⚠️ Valor inválido','error'); return; }
+            TARIFAS[hab][tipo] = n;
+            guardarTarifasPersonalizadas();
+            renderTarifas();
+            mostrarToast(`✅ Tarifa "${tipo}" de ${hab} actualizada a ${formatPeso(n)}`,'ok');
+        });
+    });
+}
+
+// === LOGIN ===
 const loginOverlay = document.getElementById('loginOverlay');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
@@ -1497,6 +1633,33 @@ btnVerPass.addEventListener('click', (e)=>{
         iconoVerPass.classList.add('fa-eye');
     }
 });
+
+// === TABS DE LOGIN ===
+document.querySelectorAll('.login-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+        const t = tab.dataset.tab;
+        document.querySelectorAll('.login-tab').forEach(x=>x.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('loginTabLogin').style.display = (t==='login') ? 'block' : 'none';
+        document.getElementById('loginTabCambiar').style.display = (t==='cambiar') ? 'block' : 'none';
+    });
+});
+
+// === VER CONTRASEÑAS EN CAMBIO ===
+function setupVerPass(btnId, iconoId, inputId){
+    const btn = document.getElementById(btnId);
+    const ic = document.getElementById(iconoId);
+    const inp = document.getElementById(inputId);
+    if(!btn || !ic || !inp) return;
+    btn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        if(inp.type === 'password'){ inp.type='text'; ic.classList.remove('fa-eye'); ic.classList.add('fa-eye-slash'); }
+        else { inp.type='password'; ic.classList.remove('fa-eye-slash'); ic.classList.add('fa-eye'); }
+    });
+}
+setupVerPass('btnVerPassActual','iconoVerPassActual','cambiarPassActual');
+setupVerPass('btnVerPassNueva','iconoVerPassNueva','cambiarPassNueva');
+setupVerPass('btnVerPassConfirmar','iconoVerPassConfirmar','cambiarPassConfirmar');
 
 function cargarCredenciales(){
     try {
@@ -1538,10 +1701,13 @@ if (logoSecreto) {
     });
 });
 
+// === MENSAJE UNIFICADO ===
+const MSG_ERROR_LOGIN = 'Usuario y/o contraseña incorrectos';
+
 document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
     const email = loginEmail.value.trim();
     const pass = loginPassword.value;
-    if(!email || !pass){ loginFeedback.textContent = '⚠️ Completa correo y contraseña.'; return; }
+    if(!email || !pass){ loginFeedback.textContent = MSG_ERROR_LOGIN; return; }
     loginFeedback.style.color = '#1976d2';
     loginFeedback.textContent = '⏳ Verificando...';
     try {
@@ -1561,7 +1727,43 @@ document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
         mostrarToast('✅ Sesión iniciada como editor', 'ok');
     } catch(err) {
         loginFeedback.style.color = '#b33a3a';
-        loginFeedback.textContent = '❌ ' + (err.message || 'Credenciales incorrectas');
+        loginFeedback.textContent = MSG_ERROR_LOGIN;
+    }
+});
+
+// === CAMBIO DE CONTRASEÑA ===
+document.getElementById('btnCambiarSubmit').addEventListener('click', async ()=>{
+    const email = document.getElementById('cambiarEmail').value.trim();
+    const passActual = document.getElementById('cambiarPassActual').value;
+    const passNueva = document.getElementById('cambiarPassNueva').value;
+    const passConfirmar = document.getElementById('cambiarPassConfirmar').value;
+    const fb = document.getElementById('cambiarFeedback');
+    fb.style.color = '#b33a3a';
+    if(!email || !passActual || !passNueva || !passConfirmar){ fb.textContent = '⚠️ Completa todos los campos.'; return; }
+    if(passNueva !== passConfirmar){ fb.textContent = '⚠️ Las contraseñas nuevas no coinciden.'; return; }
+    if(passNueva.length < 6){ fb.textContent = '⚠️ La contraseña debe tener al menos 6 caracteres.'; return; }
+    fb.style.color = '#1976d2';
+    fb.textContent = '⏳ Verificando...';
+    try {
+        // Iniciar sesión con la contraseña actual
+        const { data, error } = await sb.auth.signInWithPassword({ email, password: passActual });
+        if(error) throw error;
+        // Actualizar contraseña
+        const { error: errUpd } = await sb.auth.updateUser({ password: passNueva });
+        if(errUpd) throw errUpd;
+        fb.style.color = '#2e7d32';
+        fb.textContent = '✅ Contraseña actualizada correctamente.';
+        setTimeout(()=>{
+            document.getElementById('cambiarEmail').value = '';
+            document.getElementById('cambiarPassActual').value = '';
+            document.getElementById('cambiarPassNueva').value = '';
+            document.getElementById('cambiarPassConfirmar').value = '';
+            fb.textContent = '';
+            document.querySelector('.login-tab[data-tab="login"]').click();
+        }, 2000);
+    } catch(err) {
+        fb.style.color = '#b33a3a';
+        fb.textContent = MSG_ERROR_LOGIN;
     }
 });
 
@@ -1614,6 +1816,7 @@ function activateSection(id){
     if(panels[id]) panels[id].classList.add('active');
     if(id==='bd' && modo==='editor') renderBaseDatos();
     if(id==='reservas') renderReservasRegistro();
+    if(id==='tarifas') renderTarifas();
     if(id==='dash' && modo==='editor') renderDashboard();
 }
 document.querySelectorAll('.section-btn').forEach(b=>b.addEventListener('click', ()=>activateSection(b.dataset.section)));
@@ -2287,6 +2490,19 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         dataHabs.push({ habs:h, personas:p, noches:n, entrada:ent, salida:sal, estado:est });
     }
 
+    const editandoIdActual = editandoId.value;
+    let reservaOriginal = null;
+    let esEdicion = false;
+    if(editandoIdActual){
+        reservaOriginal = reservas.find(r=>String(r.id)===String(editandoIdActual));
+        if(reservaOriginal) esEdicion = true;
+    }
+
+    let abValEfectivo = abVal;
+    if(esEdicion && reservaOriginal){
+        abValEfectivo = reservaOriginal.valorAbono || 0;
+    }
+
     const totalPorHab = dataHabs.map(hd=>{
         const sub = tarVal*hd.personas*hd.noches;
         const desc = ((tarVal*(dPct/100))+dPesos)*hd.personas*hd.noches;
@@ -2298,9 +2514,9 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
 
     const totalHabs = dataHabs.reduce((a,hd)=>a+hd.habs.length, 0);
     const totIgual = totalHabs>0 ? Math.round(totalReserva/totalHabs) : 0;
-    const abIgual = totalHabs>0 ? Math.round(abVal/totalHabs) : 0;
+    const abIgual = totalHabs>0 ? Math.round(abValEfectivo/totalHabs) : 0;
     const difT = totalReserva - (totIgual*totalHabs);
-    const difA = abVal - (abIgual*totalHabs);
+    const difA = abValEfectivo - (abIgual*totalHabs);
 
     const filas = [];
     dataHabs.forEach(hd=>{
@@ -2309,11 +2525,20 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         });
     });
     if(filas.length>0){ filas[0].total += difT; filas[0].abono += difA; }
-    filas.forEach(f=>{ f.saldo = Math.max(0, f.total-f.abono); });
 
-    const nuevoId = editandoId.value;
-    if(nuevoId) ultimoEditadoId = String(nuevoId);
-    else ultimoEditadoId = null;
+    if(esEdicion && reservaOriginal){
+        filas.forEach(f=>{
+            if(f.hab === reservaOriginal.hab){
+                f.saldo = reservaOriginal.valorSaldo || 0;
+            } else {
+                f.saldo = Math.max(0, f.total-f.abono);
+            }
+        });
+    } else {
+        filas.forEach(f=>{ f.saldo = Math.max(0, f.total-f.abono); });
+    }
+
+    const nuevoId = editandoIdActual;
     try {
         feedback.style.color = '#2e7d32';
         feedback.innerHTML = '⏳ Guardando...';
@@ -2358,13 +2583,6 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         modalFormReserva.classList.remove('show');
         limpiarFormulario();
         mostrarToast(`✅ ${data.length} reserva(s) guardada(s)`,'ok');
-        if(ultimoEditadoId){
-            setTimeout(()=>{ 
-                const fila = document.querySelector(`.fila-editada[data-id="${ultimoEditadoId}"]`);
-                if(fila) fila.classList.remove('fila-editada');
-                ultimoEditadoId = null;
-            }, 3000);
-        }
     } catch(err){
         console.error(err);
         feedback.style.color='#b33a3a';
@@ -2419,57 +2637,6 @@ async function guardarPagoTotal(idReserva, valor){
     }
 }
 
-function guardarSnapshotAntesDeEditar(idReserva){
-    const r = reservas.find(x=>String(x.id)===String(idReserva));
-    if(!r) return;
-    const firma = [r.nombre, formatFechaISO(r.entrada), formatFechaISO(r.salida)].join('|');
-    const grupo = reservas.filter(x=>[x.nombre, formatFechaISO(x.entrada), formatFechaISO(x.salida)].join('|')===firma);
-    snapshotsParaDeshacer[String(idReserva)] = {
-        principal: JSON.parse(JSON.stringify(r)),
-        grupo: JSON.parse(JSON.stringify(grupo))
-    };
-}
-
-async function deshacerEdicion(idReserva){
-    const snap = snapshotsParaDeshacer[String(idReserva)];
-    if(!snap){ mostrarToast('⚠️ No hay cambios para deshacer en esta fila','error'); return; }
-    if(!confirm('¿Deshacer los cambios realizados en esta reserva?')) return;
-    try {
-        const firmaSnap = snap.grupo.map(g=>[g.nombre, formatFechaISO(g.entrada), formatFechaISO(g.salida)].join('|'));
-        const grupos = new Set(firmaSnap);
-        const aEliminar = reservas.filter(x=>{
-            const f = [x.nombre, formatFechaISO(x.entrada), formatFechaISO(x.salida)].join('|');
-            return grupos.has(f);
-        });
-        const idsEliminar = aEliminar.map(x=>x.id);
-        if(idsEliminar.length > 0){
-            await sb.from(TABLA).delete().in('id', idsEliminar);
-        }
-        const inserts = snap.grupo.map(g=>({
-            nombre_huesped: g.nombre, documento: g.doc||'—', telefono: g.telefono||'—',
-            'habitación': g.hab, entrada: formatFechaISO(g.entrada), salida: formatFechaISO(g.salida),
-            personas: g.personas, noches: g.noches, tarifa: g.tarifa,
-            descuento_pct: g.descuentoPct, descuento_pesos: g.descuentoPesos,
-            estado_pago: g.estadoPago, valor_abono: g.valorAbono,
-            forma_pago_abono: g.formaPagoAbono, entidad_bancaria: g.entidadBancaria,
-            valor_saldo: g.valorSaldo, forma_pago_saldo: g.formaPagoSaldo, estado: g.estado,
-            cocina: g.cocina,
-            recibido_por: g.recibidoPor,
-            comprobante_url: g.comprobanteUrl || ''
-        }));
-        const { error } = await sb.from(TABLA).insert(inserts);
-        if(error) throw error;
-        delete snapshotsParaDeshacer[String(idReserva)];
-        const nuevas = await cargarReservas();
-        reservas = nuevas; guardarCache(); renderTodo();
-        setUltimaActualizacion(new Date());
-        mostrarToast('↩️ Cambios deshechos correctamente','ok');
-    } catch(e){
-        console.error(e);
-        mostrarToast('❌ '+e.message,'error');
-    }
-}
-
 function renderReservasRegistro(){
     const t = (buscadorRegistro.value||'').toLowerCase().trim();
     const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value;
@@ -2494,7 +2661,6 @@ function renderReservasRegistro(){
         let todosSel = true;
         fil.forEach((r,idx)=>{
             const row = document.createElement('tr');
-            if(ultimoEditadoId && String(r.id) === String(ultimoEditadoId)) row.classList.add('fila-editada');
             row.dataset.id = r.id;
             const total = calcularTotalBase(r);
             const saldo = r.valorSaldo || 0;
@@ -2510,26 +2676,17 @@ function renderReservasRegistro(){
 
             const urls = getComprobantesUrls(r);
             const numComp = urls.length;
-            const compHtml = numComp > 0
-                ? `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`
-                : `<button class="btn-comprobante" disabled><i class="fas fa-image"></i></button>`;
+            const compHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`;
 
             const cocinaVal = (r.cocina === 'SI') ? 'SI' : 'NO';
             const cocinaHtml = `<span class="cocina-texto">${cocinaVal}</span>`;
             const recibidoHtml = `<span class="recibido-texto">${r.recibidoPor || '—'}</span>`;
 
-            const fechaSalida = r.salida ? new Date(r.salida) : null;
-            const hoy = new Date();
-            hoy.setHours(0,0,0,0);
-            const pasada = fechaSalida && fechaSalida < hoy;
-
-            const tieneSnapshot = snapshotsParaDeshacer[String(r.id)] !== undefined;
-
+            // === BOTONES SIEMPRE ACTIVOS ===
             const accionHtml = modo==='editor'
                 ? `<div style="display:flex; gap:4px; justify-content:center;">
-                    <div class="btn-accion-col editar"><button class="btn-icon btn-editar ${pasada?'deshabilitado':''}" data-id="${r.id}" title="${pasada?'No editable (fecha pasada)':'Editar'}" ${pasada?'disabled':''}><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
-                    <div class="btn-accion-col deshacer"><button class="btn-icon btn-desHacer" data-id="${r.id}" title="${tieneSnapshot?'Deshacer cambios':'Sin cambios para deshacer'}" ${tieneSnapshot?'':'disabled'}><i class="fas fa-undo"></i></button><span class="etiqueta-accion">Deshacer</span></div>
-                    <div class="btn-accion-col eliminar"><button class="btn-icon btn-danger ${pasada?'deshabilitado':''}" data-id="${r.id}" title="${pasada?'No eliminable (fecha pasada)':'Eliminar'}" ${pasada?'disabled':''}><i class="fas fa-trash-alt"></i></button><span class="etiqueta-accion">Eliminar</span></div>
+                    <div class="btn-accion-col editar"><button class="btn-icon btn-editar" data-id="${r.id}" title="Editar"><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
+                    <div class="btn-accion-col eliminar"><button class="btn-icon btn-danger" data-id="${r.id}" title="Eliminar"><i class="fas fa-trash-alt"></i></button><span class="etiqueta-accion">Eliminar</span></div>
                 </div>`
                 : `<span class="col-accion-vacia">—</span>`;
 
@@ -2548,13 +2705,13 @@ function renderReservasRegistro(){
                 <td class="celda-fecha">${formatFecha(r.salida)}</td>
                 <td>${r.noches||0}</td>
                 <td>${r.personas}</td>
+                <td>${cocinaHtml}</td>
                 <td><strong>${formatPeso(total)}</strong></td>
                 <td><span class="${saldoClass}">${formatPeso(saldo)}</span></td>
                 <td>${fpHtml}</td>
                 <td>${entHtml}</td>
                 <td>${compHtml}</td>
                 <td>${pagoTotalHtml}</td>
-                <td>${cocinaHtml}</td>
                 <td>${recibidoHtml}</td>
                 <td>${accionHtml}</td>`;
             reservasTableBody.appendChild(row);
@@ -2579,10 +2736,7 @@ function renderReservasRegistro(){
                 actualizarBarraMasiva();
             });
         });
-        document.querySelectorAll('.btn-editar').forEach(b=>b.addEventListener('click', ()=>{
-            guardarSnapshotAntesDeEditar(b.dataset.id);
-            editarReserva(b.dataset.id);
-        }));
+        document.querySelectorAll('.btn-editar').forEach(b=>b.addEventListener('click', ()=>editarReserva(b.dataset.id)));
         document.querySelectorAll('.btn-danger').forEach(b=>b.addEventListener('click', async ()=>{
             const id = b.dataset.id;
             const r = reservas.find(x=>String(x.id)===String(id));
@@ -2591,13 +2745,11 @@ function renderReservasRegistro(){
                 await sb.from(TABLA).delete().eq('id', id);
                 reservas = reservas.filter(x=>String(x.id)!==String(id));
                 seleccionados.delete(String(id));
-                delete snapshotsParaDeshacer[String(id)];
                 guardarCache(); renderTodo();
                 setUltimaActualizacion(new Date());
                 mostrarToast('🗑️ Reserva eliminada','info');
             } catch(e){ mostrarToast('❌ '+e.message,'error'); }
         }));
-        document.querySelectorAll('.btn-desHacer').forEach(b=>b.addEventListener('click', ()=>deshacerEdicion(b.dataset.id)));
 
         document.querySelectorAll('.pago-total-input').forEach(inp=>{
             inp.addEventListener('input', (e)=>{
@@ -2668,10 +2820,6 @@ document.getElementById('btnLimpiarBusqueda').addEventListener('click', ()=>{
 function editarReserva(id){
     const r = reservas.find(x=>String(x.id)===String(id));
     if(!r) return;
-    const fechaSalida = r.salida ? new Date(r.salida) : null;
-    const hoy = new Date();
-    hoy.setHours(0,0,0,0);
-    if(fechaSalida && fechaSalida < hoy){ mostrarToast('⚠️ No se puede editar una reserva con fecha de salida pasada','error'); return; }
 
     modalFormReserva.classList.add('show');
     editandoId.value = r.id;
@@ -2739,7 +2887,15 @@ function cerrarCompModal(){ compModalOverlay.classList.remove('show'); compModal
 function renderCompModal(){
     compModalBody.innerHTML = '';
     if(comprobanteModalUrls.length === 0){
-        compModalBody.innerHTML = '<div class="sin-comprobante">Sin comprobantes.</div>';
+        const empty = document.createElement('div');
+        empty.className = 'comprobante-empty-msg';
+        empty.innerHTML = `
+            <i class="fas fa-image"></i>
+            <p>Sin comprobantes para esta reserva.</p>
+            <button id="btnAñadirDesdeVacio"><i class="fas fa-plus"></i> Añadir comprobante</button>
+        `;
+        compModalBody.appendChild(empty);
+        document.getElementById('btnAñadirDesdeVacio').addEventListener('click', ()=>{ compModalFileInput.value=''; compModalFileInput.click(); });
         return;
     }
     const url = comprobanteModalUrls[comprobanteModalIndexActual];
@@ -2763,7 +2919,12 @@ function renderCompModal(){
         const img = document.createElement('img');
         img.src = url;
         img.className = 'comprobante-preview-grande';
-        img.onerror = ()=>{ compModalBody.innerHTML='<div class="sin-comprobante">No se pudo cargar</div>'; };
+        img.onerror = ()=>{ 
+            const err = document.createElement('div');
+            err.className = 'sin-comprobante';
+            err.textContent = 'No se pudo cargar la imagen';
+            compModalBody.appendChild(err);
+        };
         compModalBody.appendChild(img);
     }
     if(comprobanteModalUrls.length > 1){
@@ -2796,10 +2957,8 @@ function renderCompModal(){
 function abrirComprobanteModal(id){
     const r = reservas.find(x=>String(x.id)===String(id));
     if(!r){ mostrarToast('⚠️ Reserva no encontrada','error'); return; }
-    const urls = getComprobantesUrls(r);
-    if(urls.length === 0){ mostrarToast('⚠️ Sin comprobantes','error'); return; }
     comprobanteModalIdReserva = id;
-    comprobanteModalUrls = urls;
+    comprobanteModalUrls = getComprobantesUrls(r);
     comprobanteModalIndexActual = 0;
     renderCompModal();
     compModalOverlay.classList.add('show');
@@ -2863,7 +3022,7 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
         mostrarToast('🗑️ Comprobante eliminado','info');
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
-        if(comprobanteModalUrls.length === 0){ cerrarCompModal(); }
+        if(comprobanteModalUrls.length === 0){ renderCompModal(); }
         else {
             comprobanteModalIndexActual = Math.min(comprobanteModalIndexActual, comprobanteModalUrls.length - 1);
             renderCompModal();
@@ -3634,12 +3793,15 @@ function suscribirRealtime(){
 function renderTodo(){
     renderCalendar(mesCalendarioActual, anioCalendarioActual);
     renderReservasRegistro();
+    renderTarifas();
     if(modo==='editor' && document.getElementById('bd-panel').classList.contains('active')) renderBaseDatos();
     if(modo==='editor' && document.getElementById('dash-panel').classList.contains('active')) renderDashboard();
     actualizarDashFiltroCobra();
 }
 
 async function init(){
+    cargarTarifasPersonalizadas();
+
     const { data: { session } } = await sb.auth.getSession();
     if(session && session.user){
         currentUser = session.user;
@@ -3660,6 +3822,7 @@ async function init(){
     if(bloquesHabitacion.children.length===0) agregarBloqueHabitacion();
     actualizarEstadoBotonAñadirHab();
     renderCalendar(mesCalendarioActual, anioCalendarioActual);
+    renderTarifas();
     setUltimaActualizacion(new Date());
 
     try {
