@@ -145,13 +145,95 @@ tr:last-child td { border-bottom: none; }
 .pago-total-input::placeholder { color: #b8a89a; font-weight: 400; font-style: italic; text-align: right; }
 .pago-total-input.guardado { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
 
-.comprobante-modal-body { flex: 1; overflow: auto; padding: 1rem; background: #faf3ee; display: flex; flex-direction: column; align-items: center; gap: 1rem; min-height: 200px; }
+/* === COMPROBANTE MODAL === */
+.comprobante-modal-body { flex: 1; overflow: hidden; padding: 1rem; background: #faf3ee; display: flex; flex-direction: column; align-items: center; gap: 1rem; min-height: 200px; position: relative; }
 .comprobante-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-wrap: wrap; }
 .comprobante-nav button { background: #f5e6dc; border: 1px solid #e0cbb8; color: #50260c; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; }
 .comprobante-nav button:hover { background: #e8d5c6; }
 .comprobante-nav .contador { font-size: 0.8rem; font-weight: 700; color: #50260c; }
-.comprobante-preview-grande { max-width: 100%; max-height: 65vh; border-radius: 10px; background: #fff; box-shadow: 0 4px 12px rgba(80,38,12,0.15); display: block; }
-.comprobante-preview-grande.iframe-pdf { width: 100%; height: 65vh; border: none; }
+
+/* Contenedor scrollable donde la imagen se muestra a tamaño natural */
+.comprobante-zoom-wrapper {
+    width: 100%;
+    flex: 1;
+    min-height: 380px;
+    max-height: 68vh;
+    overflow: auto;
+    background: #2b2b2b;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(80,38,12,0.15);
+    display: block;
+    position: relative;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+    text-align: center;
+    padding: 56px 20px 20px 20px;
+}
+.comprobante-preview-grande {
+    display: inline-block;
+    max-width: none;
+    max-height: none;
+    border-radius: 6px;
+    background: #fff;
+    transition: transform 0.12s ease-out;
+    transform-origin: top center;
+    cursor: zoom-in;
+    user-select: none;
+    -webkit-user-drag: none;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+}
+.comprobante-preview-grande.zoomed { cursor: zoom-out; }
+.comprobante-preview-grande.iframe-pdf { width: 100%; height: 68vh; border: none; background: #fff; }
+
+/* Barra flotante SOBRE la imagen */
+.zoom-toolbar {
+    position: sticky;
+    top: 0;
+    align-self: center;
+    z-index: 20;
+    display: inline-flex;
+    gap: 4px;
+    background: rgba(20,20,20,0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 30px;
+    padding: 5px 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0 auto 8px auto;
+}
+.zoom-toolbar button {
+    border: none;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.88rem;
+    transition: all 0.15s;
+}
+.zoom-toolbar button:hover { background: #ffc107; color: #000; transform: scale(1.08); }
+.zoom-toolbar .zoom-level {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #fff;
+    min-width: 54px;
+    text-align: center;
+    padding: 0 4px;
+}
+.zoom-toolbar .separator {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    margin: 0 4px;
+}
+
 .comprobante-thumbs { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; }
 .comprobante-thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
 .comprobante-thumb:hover, .comprobante-thumb.active { border-color: #50260c; transform: scale(1.05); }
@@ -161,6 +243,30 @@ tr:last-child td { border-bottom: none; }
 .comprobante-empty-msg i { font-size: 3rem; color: #d4b9a4; }
 .comprobante-empty-msg button { background: #1976d2; color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 40px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 .comprobante-empty-msg button:hover { background: #0d47a1; }
+
+/* Modo pantalla completa (Fullscreen API) - se expande sobre el mismo documento */
+.comprobante-modal-panel:fullscreen,
+.comprobante-modal-panel:-webkit-full-screen,
+.comprobante-modal-panel:-moz-full-screen {
+    max-width: none;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    background: #000;
+}
+.comprobante-modal-panel:fullscreen .comprobante-zoom-wrapper,
+.comprobante-modal-panel:-webkit-full-screen .comprobante-zoom-wrapper,
+.comprobante-modal-panel:-moz-full-screen .comprobante-zoom-wrapper {
+    max-height: calc(100vh - 130px);
+    min-height: 0;
+    border-radius: 0;
+}
+.comprobante-modal-panel:fullscreen .comprobante-modal-header,
+.comprobante-modal-panel:-webkit-full-screen .comprobante-modal-header,
+.comprobante-modal-panel:-moz-full-screen .comprobante-modal-header {
+    border-radius: 0;
+}
 
 .btn-comprobante { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 25px; border-radius: 6px; background: #1976d2; color: #fff; border: none; cursor: pointer; font-size: 0.72rem; transition: all 0.15s; box-shadow: 0 2px 5px -1px rgba(25,118,210,0.5); position: relative; }
 .btn-comprobante:hover:not(:disabled) { background: #0d47a1; transform: scale(1.08); }
@@ -240,6 +346,22 @@ tr:last-child td { border-bottom: none; }
 .reserva-chip .hab { font-weight: 900; display: block; font-size: 0.5rem; }
 .reserva-chip .nombre { font-size: 0.48rem; opacity: 0.9; display: block; overflow: hidden; text-overflow: ellipsis; }
 .reserva-chip.cancelado { background: #e0e0e0; color: #757575; border-left-color: #9e9e9e; }
+
+/* === ESTADO NO DISPONIBLE COMPLETO (responsive) === */
+.calendar-day.lleno .day-status.full-status {
+    font-size: 0.48rem;
+    line-height: 1.05;
+    padding: 2px 5px;
+    letter-spacing: 0.2px;
+    background: #ef5350;
+    color: #fff;
+    border: 1px solid #b71c1c;
+    box-shadow: 0 1px 3px rgba(183,28,28,0.4);
+    white-space: normal;
+    max-width: 100%;
+    word-break: break-word;
+    text-align: center;
+}
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(61,28,9,0.6); backdrop-filter: blur(4px); z-index: 1200; display: none; justify-content: center; align-items: center; padding: 16px; }
 .modal-overlay.show { display: flex; }
@@ -430,7 +552,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .precio-feria { font-weight: 700; color: #7b1fa2; }
 .capacidad { font-weight: 700; color: #2e7d32; }
 
-/* === BOTÓN EDITAR TARIFA === */
 .btn-editar-tarifa {
     display: none;
     width: 18px;
@@ -554,10 +675,12 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
     .form-group.small { flex: 1 1 calc(50% - 0.35rem); }
     .btn-primary, .btn-cancelar { flex: 1; justify-content: center; }
     .calendar-grid { gap: 3px; padding: 0.4rem; }
-    .calendar-day { min-height: 60px; padding: 0.2rem; }
+    .calendar-day { min-height: 64px; padding: 0.2rem; }
     .calendar-day .day-number { font-size: 0.7rem; }
-    .calendar-day .day-status { font-size: 0.35rem; }
-    .reserva-chip { font-size: 0.42rem; padding: 1px 2px; background: #fff3cd; color: #856404; border-left: 3px solid #ffc107; }
+    .calendar-day .day-status { font-size: 0.38rem; padding: 1px 2px; }
+    .calendar-day.lleno .day-status.full-status { font-size: 0.42rem; padding: 1px 3px; letter-spacing: 0; }
+    .festivo-nombre-chip { font-size: 0.34rem; }
+    .reserva-chip { font-size: 0.42rem; padding: 1px 2px; }
     .reserva-chip .hab { font-size: 0.42rem; }
     .reserva-chip .nombre { font-size: 0.38rem; }
     .panel-header h2 { font-size: 1.1rem; }
@@ -596,16 +719,26 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
     .calendar-descarga-panel .descarga-row { flex-wrap: wrap; }
     .pago-total-input { width: 80px; font-size: 0.65rem; }
     .reservas-top-row { flex-direction: column; align-items: stretch; }
+
+    /* Comprobante modal en móvil */
+    .comprobante-modal-panel { max-height: 96vh; border-radius: 14px; }
+    .comprobante-modal-body { padding: 0.6rem; gap: 0.6rem; }
+    .comprobante-zoom-wrapper { min-height: 280px; max-height: 60vh; padding: 52px 10px 10px 10px; }
+    .zoom-toolbar button { width: 32px; height: 32px; font-size: 0.8rem; }
+    .zoom-toolbar .zoom-level { font-size: 0.68rem; min-width: 46px; }
+    .comprobante-preview-grande.iframe-pdf { height: 60vh; }
+    .comprobante-thumb, .comprobante-thumb-pdf { width: 44px; height: 44px; }
 }
 @media (max-width: 480px) {
     .section-btn span { display: none; }
     .section-btn.active span { display: inline; }
     .form-group.small { flex: 1 1 100%; }
-    .calendar-day { min-height: 62px; padding: 0.2rem; }
+    .calendar-day { min-height: 66px; padding: 0.2rem; }
     .calendar-day .day-number { font-size: 0.65rem; }
-    .calendar-day .day-status { font-size: 0.34rem; padding: 0 2px; }
+    .calendar-day .day-status { font-size: 0.36rem; padding: 0 2px; }
+    .calendar-day.lleno .day-status.full-status { font-size: 0.4rem; padding: 1px 2px; letter-spacing: 0; line-height: 1.05; }
     .festivo-nombre-chip { font-size: 0.3rem; }
-    .reserva-chip { display: block; font-size: 0.4rem; padding: 0 2px; background: #fff3cd; color: #856404; border-left: 3px solid #ffc107; }
+    .reserva-chip { display: block; font-size: 0.4rem; padding: 0 2px; }
     .reserva-chip .hab { font-size: 0.4rem; }
     .reserva-chip .nombre { font-size: 0.36rem; }
     .calendar-day-header { font-size: 0.5rem; }
@@ -625,6 +758,12 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
     .dash-subtab span { display: none; }
     .dash-subtab.active span { display: inline; }
     .pago-total-input { width: 70px; font-size: 0.6rem; padding: 0.3rem 0.4rem; }
+
+    .comprobante-modal-header h3 { font-size: 0.8rem; }
+    .btn-header { padding: 0.35rem 0.6rem; font-size: 0.65rem; }
+    .zoom-toolbar { gap: 3px; padding: 4px 6px; }
+    .zoom-toolbar button { width: 30px; height: 30px; font-size: 0.75rem; }
+    .zoom-toolbar .zoom-level { font-size: 0.62rem; min-width: 40px; }
 }
 </style>
 </head>
@@ -1003,7 +1142,7 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
 </div>
 
 <div class="comprobante-modal-overlay" id="comprobanteModalOverlay">
-    <div class="comprobante-modal-panel">
+    <div class="comprobante-modal-panel" id="comprobanteModalPanel">
         <div class="comprobante-modal-header">
             <h3><i class="fas fa-image"></i> Comprobantes</h3>
             <div class="acciones-header">
@@ -1034,13 +1173,11 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
         <button class="btn-cerrar-modal" id="cerrarLogin"><i class="fas fa-times"></i></button>
         <h3 style="margin-bottom:1rem;"><i class="fas fa-user-shield"></i> Acceso editor</h3>
 
-        <!-- TABS: Iniciar sesión / Cambiar contraseña -->
         <div class="login-tabs">
             <button class="login-tab active" data-tab="login"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
             <button class="login-tab" data-tab="cambiar"><i class="fas fa-key"></i> Cambiar contraseña</button>
         </div>
 
-        <!-- TAB: Iniciar sesión -->
         <div id="loginTabLogin">
             <div class="form-row">
                 <div class="form-group" style="flex:1 1 100%;">
@@ -1064,7 +1201,6 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
             </div>
         </div>
 
-        <!-- TAB: Cambiar contraseña -->
         <div id="loginTabCambiar" style="display:none;">
             <div class="form-row">
                 <div class="form-group" style="flex:1 1 100%;">
@@ -1285,12 +1421,12 @@ body.modo-editor .btn-editar-tarifa { display: inline-flex; }
 const ICONO_RESERVAS_URL = '';
 const ICONO_FINANCIERO_URL = '';
 
-// === CREDENCIALES SUPABASE ===
 const SUPABASE_URL = 'https://qlwpvylthzlgkpdxlxxr.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_X0HTxVXJGXUys98M5hxgOw_Bsha6GR4';
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const TABLA = 'reservas_villa_alejo';
+const TABLA_TARIFAS = 'tarifas_villa_alejo';
 const BUCKET = 'comprobantes';
 
 const HABITACIONES = ['Sauce', 'Pino', 'Roble', 'Eucalipto', 'Arrayán', 'Nogal'];
@@ -1362,6 +1498,9 @@ let comprobantesUrlsExistentes = [];
 let comprobanteModalIdReserva = null;
 let comprobanteModalIndexActual = 0;
 let comprobanteModalUrls = [];
+let comprobanteZoom = 1;
+let comprobantePanX = 0;
+let comprobantePanY = 0;
 let modo = 'visitante';
 let currentUser = null;
 let temporadaOriginalEdicion = null;
@@ -1394,25 +1533,58 @@ function formatFechaHora(date){
     return `${formatFecha(date)} · ${formatHora(date)}`;
 }
 
-// === TARIFAS EDITABLES (localStorage) ===
-function cargarTarifasPersonalizadas(){
+async function cargarTarifasPersonalizadas(){
     try {
-        const g = localStorage.getItem(LS_TARIFAS);
-        if(!g) return;
-        const p = JSON.parse(g);
-        if(p && typeof p === 'object'){
-            Object.keys(p).forEach(hab=>{
+        const { data, error } = await sb.from(TABLA_TARIFAS).select('*');
+        if(error) throw error;
+        if(data && data.length){
+            data.forEach(row=>{
+                const hab = row.habitacion;
                 if(TARIFAS[hab]){
-                    Object.keys(p[hab]).forEach(temp=>{
-                        if(typeof p[hab][temp] === 'number') TARIFAS[hab][temp] = p[hab][temp];
-                    });
+                    if(typeof row.baja === 'number') TARIFAS[hab].Baja = row.baja;
+                    if(typeof row.alta === 'number') TARIFAS[hab].Alta = row.alta;
+                    if(typeof row.ferias === 'number') TARIFAS[hab].Ferias = row.ferias;
                 }
             });
+            try { localStorage.setItem(LS_TARIFAS, JSON.stringify(TARIFAS)); } catch(e){}
         }
-    } catch(e){}
+    } catch(e){
+        console.warn('No se pudieron cargar tarifas de Supabase, usando locales', e);
+        try {
+            const g = localStorage.getItem(LS_TARIFAS);
+            if(g){
+                const p = JSON.parse(g);
+                if(p && typeof p === 'object'){
+                    Object.keys(p).forEach(hab=>{
+                        if(TARIFAS[hab]){
+                            Object.keys(p[hab]).forEach(temp=>{
+                                if(typeof p[hab][temp] === 'number') TARIFAS[hab][temp] = p[hab][temp];
+                            });
+                        }
+                    });
+                }
+            }
+        } catch(e2){}
+    }
 }
-function guardarTarifasPersonalizadas(){
+
+async function guardarTarifasPersonalizadas(){
     try { localStorage.setItem(LS_TARIFAS, JSON.stringify(TARIFAS)); } catch(e){}
+    try {
+        for(const hab of HABITACIONES){
+            const t = TARIFAS[hab];
+            const { error } = await sb.from(TABLA_TARIFAS).upsert({
+                habitacion: hab,
+                baja: t.Baja,
+                alta: t.Alta,
+                ferias: t.Ferias,
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'habitacion' });
+            if(error) throw error;
+        }
+    } catch(e){
+        console.warn('No se pudieron guardar tarifas en Supabase', e);
+    }
 }
 
 function calcularTotalBase(r){
@@ -1567,8 +1739,7 @@ function aplicarModoVisitante(){
     renderTarifas();
 }
 
-// === TARIFAS RENDER ===
-function renderTarifas(){
+async function renderTarifas(){
     const tbody = document.getElementById('tarifasTbody');
     if(!tbody) return;
     tbody.innerHTML = '';
@@ -1591,9 +1762,8 @@ function renderTarifas(){
         `;
         tbody.appendChild(tr);
     });
-    // Listeners
     tbody.querySelectorAll('.btn-editar-tarifa').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
+        btn.addEventListener('click', async ()=>{
             const hab = btn.dataset.hab;
             const tipo = btn.dataset.tipo;
             const actual = TARIFAS[hab][tipo];
@@ -1602,14 +1772,13 @@ function renderTarifas(){
             const n = parsePeso(nuevo);
             if(n <= 0){ mostrarToast('⚠️ Valor inválido','error'); return; }
             TARIFAS[hab][tipo] = n;
-            guardarTarifasPersonalizadas();
+            await guardarTarifasPersonalizadas();
             renderTarifas();
             mostrarToast(`✅ Tarifa "${tipo}" de ${hab} actualizada a ${formatPeso(n)}`,'ok');
         });
     });
 }
 
-// === LOGIN ===
 const loginOverlay = document.getElementById('loginOverlay');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
@@ -1634,7 +1803,6 @@ btnVerPass.addEventListener('click', (e)=>{
     }
 });
 
-// === TABS DE LOGIN ===
 document.querySelectorAll('.login-tab').forEach(tab=>{
     tab.addEventListener('click', ()=>{
         const t = tab.dataset.tab;
@@ -1645,7 +1813,6 @@ document.querySelectorAll('.login-tab').forEach(tab=>{
     });
 });
 
-// === VER CONTRASEÑAS EN CAMBIO ===
 function setupVerPass(btnId, iconoId, inputId){
     const btn = document.getElementById(btnId);
     const ic = document.getElementById(iconoId);
@@ -1701,7 +1868,6 @@ if (logoSecreto) {
     });
 });
 
-// === MENSAJE UNIFICADO ===
 const MSG_ERROR_LOGIN = 'Usuario y/o contraseña incorrectos';
 
 document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
@@ -1731,7 +1897,6 @@ document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
     }
 });
 
-// === CAMBIO DE CONTRASEÑA ===
 document.getElementById('btnCambiarSubmit').addEventListener('click', async ()=>{
     const email = document.getElementById('cambiarEmail').value.trim();
     const passActual = document.getElementById('cambiarPassActual').value;
@@ -1745,10 +1910,8 @@ document.getElementById('btnCambiarSubmit').addEventListener('click', async ()=>
     fb.style.color = '#1976d2';
     fb.textContent = '⏳ Verificando...';
     try {
-        // Iniciar sesión con la contraseña actual
         const { data, error } = await sb.auth.signInWithPassword({ email, password: passActual });
         if(error) throw error;
-        // Actualizar contraseña
         const { error: errUpd } = await sb.auth.updateUser({ password: passNueva });
         if(errUpd) throw errUpd;
         fb.style.color = '#2e7d32';
@@ -1912,7 +2075,7 @@ function renderCalendar(m, y){
         const num = document.createElement('div'); num.className='day-number'; num.textContent=d; dayDiv.appendChild(num);
         if(fest){ const f=document.createElement('div'); f.className='festivo-nombre-chip'; f.textContent=fest; f.title=fest; dayDiv.appendChild(f); }
         const st = document.createElement('div'); st.className='day-status';
-        if(estado==='lleno') st.textContent='SIN DISP.';
+        if(estado==='lleno'){ st.classList.add('full-status'); st.textContent='NO DISPONIBLE COMPLETO'; }
         else if(estado==='parcial') st.textContent='RESERVADO';
         else st.textContent='DISPONIBLE';
         dayDiv.appendChild(st);
@@ -2682,7 +2845,6 @@ function renderReservasRegistro(){
             const cocinaHtml = `<span class="cocina-texto">${cocinaVal}</span>`;
             const recibidoHtml = `<span class="recibido-texto">${r.recibidoPor || '—'}</span>`;
 
-            // === BOTONES SIEMPRE ACTIVOS ===
             const accionHtml = modo==='editor'
                 ? `<div style="display:flex; gap:4px; justify-content:center;">
                     <div class="btn-accion-col editar"><button class="btn-icon btn-editar" data-id="${r.id}" title="Editar"><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
@@ -2875,14 +3037,92 @@ function editarReserva(id){
     setTimeout(()=>guestName.focus(), 200);
 }
 
+// === COMPROBANTE MODAL CON ZOOM Y PANTALLA COMPLETA EN LA MISMA PESTAÑA ===
 const compModalOverlay = document.getElementById('comprobanteModalOverlay');
 const compModalBody = document.getElementById('comprobanteModalBody');
 const compModalFileInput = document.getElementById('comprobanteModalFileInput');
+const compModalPanel = document.getElementById('comprobanteModalPanel');
 
 document.getElementById('cerrarComprobanteModal').addEventListener('click', cerrarCompModal);
 compModalOverlay.addEventListener('click', e=>{ if(e.target===compModalOverlay) cerrarCompModal(); });
 
-function cerrarCompModal(){ compModalOverlay.classList.remove('show'); compModalBody.innerHTML=''; comprobanteModalIdReserva=null; comprobanteModalIndexActual=0; comprobanteModalUrls=[]; }
+function cerrarCompModal(){
+    // Salir de pantalla completa si está activa
+    if(document.fullscreenElement){
+        document.exitFullscreen().catch(()=>{});
+    } else if(document.webkitFullscreenElement){
+        document.webkitExitFullscreen();
+    } else if(document.mozFullScreenElement){
+        document.mozCancelFullScreen();
+    }
+    compModalOverlay.classList.remove('show');
+    compModalBody.innerHTML='';
+    comprobanteModalIdReserva=null;
+    comprobanteModalIndexActual=0;
+    comprobanteModalUrls=[];
+    comprobanteZoom = 1;
+    comprobantePanX = 0;
+    comprobantePanY = 0;
+}
+
+function aplicarZoom(img, wrapper){
+    img.style.transform = `translate(${comprobantePanX}px, ${comprobantePanY}px) scale(${comprobanteZoom})`;
+    img.classList.toggle('zoomed', comprobanteZoom > 1);
+    const level = wrapper.querySelector('.zoom-level');
+    if(level) level.textContent = Math.round(comprobanteZoom*100) + '%';
+}
+
+function resetZoom(img, wrapper){
+    comprobanteZoom = 1;
+    comprobantePanX = 0;
+    comprobantePanY = 0;
+    aplicarZoom(img, wrapper);
+    wrapper.scrollTop = 0;
+    wrapper.scrollLeft = 0;
+}
+
+function toggleFullscreen(){
+    const panel = compModalPanel;
+    if(!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement){
+        // Entrar en pantalla completa SOBRE EL MISMO DOCUMENTO (no abre nueva pestaña)
+        if(panel.requestFullscreen){
+            panel.requestFullscreen().catch(err=>{
+                mostrarToast('⚠️ No se pudo activar pantalla completa','error');
+                console.warn(err);
+            });
+        } else if(panel.webkitRequestFullscreen){
+            panel.webkitRequestFullscreen();
+        } else if(panel.mozRequestFullScreen){
+            panel.mozRequestFullScreen();
+        } else if(panel.msRequestFullscreen){
+            panel.msRequestFullscreen();
+        } else {
+            mostrarToast('⚠️ Pantalla completa no soportada en este navegador','error');
+        }
+    } else {
+        if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
+        else if(document.msExitFullscreen) document.msExitFullscreen();
+    }
+}
+
+// Actualizar el ícono del botón fullscreen según el estado
+document.addEventListener('fullscreenchange', actualizarBotonFullscreen);
+document.addEventListener('webkitfullscreenchange', actualizarBotonFullscreen);
+document.addEventListener('mozfullscreenchange', actualizarBotonFullscreen);
+document.addEventListener('MSFullscreenChange', actualizarBotonFullscreen);
+
+function actualizarBotonFullscreen(){
+    const btn = document.getElementById('zoomFullscreenBtn');
+    if(!btn) return;
+    const icon = btn.querySelector('i');
+    const enFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+    if(icon){
+        icon.className = enFullscreen ? 'fas fa-compress' : 'fas fa-expand';
+    }
+    btn.title = enFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa';
+}
 
 function renderCompModal(){
     compModalBody.innerHTML = '';
@@ -2898,7 +3138,11 @@ function renderCompModal(){
         document.getElementById('btnAñadirDesdeVacio').addEventListener('click', ()=>{ compModalFileInput.value=''; compModalFileInput.click(); });
         return;
     }
+
     const url = comprobanteModalUrls[comprobanteModalIndexActual];
+    const esPdf = url.toLowerCase().split('?')[0].endsWith('.pdf');
+
+    // Navegación entre múltiples comprobantes
     if(comprobanteModalUrls.length > 1){
         const nav = document.createElement('div');
         nav.className = 'comprobante-nav';
@@ -2909,24 +3153,109 @@ function renderCompModal(){
         `;
         compModalBody.appendChild(nav);
     }
-    const esPdf = url.toLowerCase().split('?')[0].endsWith('.pdf');
+
+    // Wrapper scrollable con la barra flotante encima de la imagen
+    const wrapper = document.createElement('div');
+    wrapper.className = 'comprobante-zoom-wrapper';
+
     if(esPdf){
         const iframe = document.createElement('iframe');
         iframe.src = url;
         iframe.className = 'comprobante-preview-grande iframe-pdf';
-        compModalBody.appendChild(iframe);
+        wrapper.appendChild(iframe);
+        compModalBody.appendChild(wrapper);
     } else {
+        // Barra de herramientas SOBRE la imagen (sticky top)
+        const toolbar = document.createElement('div');
+        toolbar.className = 'zoom-toolbar';
+        toolbar.innerHTML = `
+            <button type="button" id="zoomOutBtn" title="Alejar"><i class="fas fa-search-minus"></i></button>
+            <span class="zoom-level">100%</span>
+            <button type="button" id="zoomInBtn" title="Acercar"><i class="fas fa-search-plus"></i></button>
+            <button type="button" id="zoomResetBtn" title="Reiniciar"><i class="fas fa-compress-arrows-alt"></i></button>
+            <span class="separator"></span>
+            <button type="button" id="zoomFullscreenBtn" title="Pantalla completa"><i class="fas fa-expand"></i></button>
+        `;
+        wrapper.appendChild(toolbar);
+
         const img = document.createElement('img');
         img.src = url;
         img.className = 'comprobante-preview-grande';
-        img.onerror = ()=>{ 
+        img.alt = 'Comprobante';
+        img.draggable = false;
+        img.onerror = ()=>{
             const err = document.createElement('div');
             err.className = 'sin-comprobante';
             err.textContent = 'No se pudo cargar la imagen';
-            compModalBody.appendChild(err);
+            wrapper.appendChild(err);
         };
-        compModalBody.appendChild(img);
+        wrapper.appendChild(img);
+        compModalBody.appendChild(wrapper);
+
+        // Funciones de zoom
+        const aplicar = ()=>aplicarZoom(img, wrapper);
+        const reset = ()=>resetZoom(img, wrapper);
+
+        wrapper.querySelector('#zoomInBtn').addEventListener('click', ()=>{
+            comprobanteZoom = Math.min(comprobanteZoom * 1.25, 8);
+            aplicar();
+        });
+        wrapper.querySelector('#zoomOutBtn').addEventListener('click', ()=>{
+            comprobanteZoom = Math.max(comprobanteZoom / 1.25, 1);
+            if(comprobanteZoom === 1){ comprobantePanX = 0; comprobantePanY = 0; }
+            aplicar();
+        });
+        wrapper.querySelector('#zoomResetBtn').addEventListener('click', reset);
+        wrapper.querySelector('#zoomFullscreenBtn').addEventListener('click', toggleFullscreen);
+
+        // Doble clic / doble tap para zoom rápido
+        let lastTap = 0;
+        img.addEventListener('click', (e)=>{
+            const now = Date.now();
+            if(now - lastTap < 300){
+                if(comprobanteZoom > 1){ reset(); } else { comprobanteZoom = 2; aplicar(); }
+                e.preventDefault();
+            }
+            lastTap = now;
+        });
+
+        // Rueda del ratón + Ctrl/Cmd para zoom
+        wrapper.addEventListener('wheel', (e)=>{
+            if(e.ctrlKey || e.metaKey){
+                e.preventDefault();
+                if(e.deltaY < 0) comprobanteZoom = Math.min(comprobanteZoom * 1.15, 8);
+                else comprobanteZoom = Math.max(comprobanteZoom / 1.15, 1);
+                if(comprobanteZoom === 1){ comprobantePanX = 0; comprobantePanY = 0; }
+                aplicar();
+            }
+        }, { passive: false });
+
+        // Pinch-to-zoom en móvil (2 dedos)
+        let initialDist = 0;
+        let initialZoom = 1;
+        wrapper.addEventListener('touchstart', (e)=>{
+            if(e.touches.length === 2){
+                const t1 = e.touches[0], t2 = e.touches[1];
+                initialDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+                initialZoom = comprobanteZoom;
+            }
+        }, { passive: true });
+        wrapper.addEventListener('touchmove', (e)=>{
+            if(e.touches.length === 2 && initialDist > 0){
+                const t1 = e.touches[0], t2 = e.touches[1];
+                const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+                const factor = dist / initialDist;
+                comprobanteZoom = Math.min(Math.max(initialZoom * factor, 1), 8);
+                aplicar();
+            }
+        }, { passive: true });
+        wrapper.addEventListener('touchend', ()=>{ initialDist = 0; }, { passive: true });
+
+        aplicar();
+        actualizarBotonFullscreen();
     }
+
+    // Miniaturas
     if(comprobanteModalUrls.length > 1){
         const thumbs = document.createElement('div');
         thumbs.className = 'comprobante-thumbs';
@@ -2936,22 +3265,23 @@ function renderCompModal(){
                 const t = document.createElement('div');
                 t.className = 'comprobante-thumb-pdf' + (i===comprobanteModalIndexActual?' active':'');
                 t.innerHTML = '<i class="fas fa-file-pdf"></i>';
-                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; renderCompModal(); });
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
                 thumbs.appendChild(t);
             } else {
                 const t = document.createElement('img');
                 t.className = 'comprobante-thumb' + (i===comprobanteModalIndexActual?' active':'');
                 t.src = u;
-                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; renderCompModal(); });
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
                 thumbs.appendChild(t);
             }
         });
         compModalBody.appendChild(thumbs);
     }
+
     const prev = document.getElementById('compPrevBtn');
     const next = document.getElementById('compNextBtn');
-    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; renderCompModal(); });
-    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; renderCompModal(); });
+    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
 }
 
 function abrirComprobanteModal(id){
@@ -2960,6 +3290,9 @@ function abrirComprobanteModal(id){
     comprobanteModalIdReserva = id;
     comprobanteModalUrls = getComprobantesUrls(r);
     comprobanteModalIndexActual = 0;
+    comprobanteZoom = 1;
+    comprobantePanX = 0;
+    comprobantePanY = 0;
     renderCompModal();
     compModalOverlay.classList.add('show');
 }
@@ -2994,6 +3327,9 @@ compModalFileInput.addEventListener('change', async (e)=>{
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
         comprobanteModalIndexActual = comprobanteModalUrls.length - 1;
+        comprobanteZoom = 1;
+        comprobantePanX = 0;
+        comprobantePanY = 0;
         renderCompModal();
         mostrarToast('✅ Comprobante(s) añadido(s)','ok');
     } catch(err){ compModalBody.innerHTML = '<div class="sin-comprobante">❌ '+err.message+'</div>'; mostrarToast('❌ '+err.message,'error'); }
@@ -3022,6 +3358,9 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
         mostrarToast('🗑️ Comprobante eliminado','info');
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
+        comprobanteZoom = 1;
+        comprobantePanX = 0;
+        comprobantePanY = 0;
         if(comprobanteModalUrls.length === 0){ renderCompModal(); }
         else {
             comprobanteModalIndexActual = Math.min(comprobanteModalIndexActual, comprobanteModalUrls.length - 1);
@@ -3788,6 +4127,16 @@ function suscribirRealtime(){
             cargarReservas().then(d=>{ reservas=d; guardarCache(); renderTodo(); setUltimaActualizacion(new Date()); }).catch(console.error);
         })
         .subscribe();
+
+    sb.channel('cambios-tarifas-villa-alejo')
+        .on('postgres_changes', { event:'*', schema:'public', table:TABLA_TARIFAS }, async ()=>{
+            try {
+                await cargarTarifasPersonalizadas();
+                renderTarifas();
+                mostrarToast('📋 Tarifas actualizadas en tiempo real','info');
+            } catch(e){ console.warn(e); }
+        })
+        .subscribe();
 }
 
 function renderTodo(){
@@ -3800,7 +4149,7 @@ function renderTodo(){
 }
 
 async function init(){
-    cargarTarifasPersonalizadas();
+    await cargarTarifasPersonalizadas();
 
     const { data: { session } } = await sb.auth.getSession();
     if(session && session.user){
