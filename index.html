@@ -151,6 +151,7 @@ tr:last-child td { border-bottom: none; }
 .comprobante-nav button:hover { background: #e8d5c6; }
 .comprobante-nav .contador { font-size: 0.8rem; font-weight: 700; color: #50260c; }
 
+/* === WRAPPER DEL COMPROBANTE (SIN ZOOM, SOLO VISUALIZACIÓN) === */
 .comprobante-zoom-wrapper {
     width: 100%;
     flex: 1;
@@ -162,21 +163,20 @@ tr:last-child td { border-bottom: none; }
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(80,38,12,0.15);
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
-    touch-action: pan-x pan-y pinch-zoom;
     -webkit-overflow-scrolling: touch;
     text-align: center;
-    padding: 56px 20px 20px 20px;
+    padding: 16px;
 }
 .comprobante-preview-grande {
     display: block;
-    max-width: 90%;
-    max-height: 60vh;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     border-radius: 6px;
     background: #fff;
-    transition: transform 0.12s ease-out;
-    transform-origin: center center;
     cursor: zoom-in;
     user-select: none;
     -webkit-user-drag: none;
@@ -184,87 +184,34 @@ tr:last-child td { border-bottom: none; }
     object-fit: contain;
     margin: 0 auto;
 }
-.comprobante-preview-grande.zoomed { cursor: zoom-out; }
-.comprobante-preview-grande.iframe-pdf { width: 100%; height: 68vh; border: none; background: #fff; }
+.comprobante-preview-grande.iframe-pdf { width: 100%; height: 68vh; border: none; background: #fff; cursor: default; }
 
-.zoom-toolbar {
-    position: sticky;
-    top: 0;
-    align-self: center;
-    z-index: 20;
-    display: inline-flex;
-    gap: 4px;
-    background: rgba(20,20,20,0.88);
+/* Botón flotante de pantalla completa */
+.btn-fullscreen-float {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 15;
+    background: rgba(20,20,20,0.85);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 30px;
-    padding: 5px 8px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 8px auto;
-    max-width: 100%;
-}
-.zoom-toolbar button {
-    border: none;
-    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
     color: #fff;
-    min-width: 34px;
-    height: 34px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 1rem;
     transition: all 0.15s;
-    padding: 0 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
-.zoom-toolbar button:hover { background: #ffc107; color: #000; transform: scale(1.08); }
-.zoom-toolbar .zoom-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 120px;
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.25);
-    outline: none;
-    cursor: pointer;
-    margin: 0 4px;
-}
-.zoom-toolbar .zoom-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
+.btn-fullscreen-float:hover {
     background: #ffc107;
-    cursor: pointer;
-    border: 2px solid #fff;
-}
-.zoom-toolbar .zoom-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #ffc107;
-    cursor: pointer;
-    border: 2px solid #fff;
-}
-.zoom-toolbar .zoom-level {
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #fff;
-    min-width: 48px;
-    text-align: center;
-    padding: 0 4px;
-}
-.zoom-toolbar .separator {
-    width: 1px;
-    height: 20px;
-    background: rgba(255,255,255,0.2);
-    margin: 0 4px;
+    color: #000;
+    transform: scale(1.1);
 }
 
 .comprobante-thumbs { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; }
@@ -276,98 +223,6 @@ tr:last-child td { border-bottom: none; }
 .comprobante-empty-msg i { font-size: 3rem; color: #d4b9a4; }
 .comprobante-empty-msg button { background: #1976d2; color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 40px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 .comprobante-empty-msg button:hover { background: #0d47a1; }
-
-.comprobante-modal-panel:fullscreen,
-.comprobante-modal-panel:-webkit-full-screen,
-.comprobante-modal-panel:-moz-full-screen {
-    max-width: none;
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-    background: #000;
-}
-.comprobante-modal-panel:fullscreen .comprobante-zoom-wrapper,
-.comprobante-modal-panel:-webkit-full-screen .comprobante-zoom-wrapper,
-.comprobante-modal-panel:-moz-full-screen .comprobante-zoom-wrapper {
-    max-height: calc(100vh - 130px);
-    min-height: 0;
-    border-radius: 0;
-}
-.comprobante-modal-panel:fullscreen .comprobante-modal-header,
-.comprobante-modal-panel:-webkit-full-screen .comprobante-modal-header,
-.comprobante-modal-panel:-moz-full-screen .comprobante-modal-header {
-    border-radius: 0;
-}
-.comprobante-modal-panel:fullscreen .comprobante-preview-grande,
-.comprobante-modal-panel:-webkit-full-screen .comprobante-preview-grande,
-.comprobante-modal-panel:-moz-full-screen .comprobante-preview-grande {
-    max-width: 95%;
-    max-height: calc(100vh - 180px);
-}
-
-/* === VISOR DE IMAGEN A PANTALLA COMPLETA (SOLO LA IMAGEN) === */
-.imagen-fullscreen-overlay {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    z-index: 3000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
-    touch-action: pan-x pan-y pinch-zoom;
-    -webkit-overflow-scrolling: touch;
-}
-.imagen-fullscreen-overlay.show { display: flex; }
-
-.imagen-fullscreen-overlay img {
-    max-width: 100vw;
-    max-height: 100vh;
-    object-fit: contain;
-    transition: transform 0.15s ease-out;
-    transform-origin: center center;
-    user-select: none;
-    -webkit-user-drag: none;
-    cursor: zoom-in;
-}
-
-.imagen-fullscreen-overlay .cerrar-fullscreen {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    background: rgba(255,255,255,0.9);
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 1.3rem;
-    color: #333;
-    cursor: pointer;
-    z-index: 3001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-.imagen-fullscreen-overlay .cerrar-fullscreen:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-
-.imagen-fullscreen-overlay .zoom-info {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.7);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    z-index: 3001;
-}
 
 .btn-comprobante { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 25px; border-radius: 6px; background: #1976d2; color: #fff; border: none; cursor: pointer; font-size: 0.72rem; transition: all 0.15s; box-shadow: 0 2px 5px -1px rgba(25,118,210,0.5); position: relative; }
 .btn-comprobante:hover:not(:disabled) { background: #0d47a1; transform: scale(1.08); }
@@ -830,6 +685,69 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
 .login-tab.active { background: #faf3ee; color: #50260c; border-color: #e8d5c6; border-bottom: 2px solid #faf3ee; }
 .login-tab i { font-size: 0.9rem; }
 
+/* === VISOR DE IMAGEN A PANTALLA COMPLETA (SOLO LA IMAGEN) === */
+.imagen-fullscreen-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 3000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    touch-action: pan-x pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
+}
+.imagen-fullscreen-overlay.show { display: flex; }
+
+.imagen-fullscreen-overlay img {
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+    transition: transform 0.15s ease-out;
+    transform-origin: center center;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: zoom-in;
+}
+
+.imagen-fullscreen-overlay .cerrar-fullscreen {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 3001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.imagen-fullscreen-overlay .cerrar-fullscreen:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.imagen-fullscreen-overlay .zoom-info {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 3001;
+}
+
 @media (max-width: 768px) {
     body { padding: 8px; }
     .dashboard { border-radius: 20px; }
@@ -847,7 +765,6 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
     .calendar-day { min-height: 70px; padding: 0.25rem 0.15rem; }
     .calendar-day .day-number { font-size: 0.72rem; }
     .calendar-day .day-status { font-size: 0.4rem; padding: 1px 3px; white-space: normal; line-height: 1.05; letter-spacing: -0.1px; }
-    /* En móvil sí se mantiene en 2 líneas */
     .calendar-day.lleno .day-status.full-status {
         display: flex;
         flex-direction: column;
@@ -926,14 +843,11 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
 
     .comprobante-modal-panel { max-height: 96vh; border-radius: 14px; }
     .comprobante-modal-body { padding: 0.6rem; gap: 0.6rem; }
-    .comprobante-zoom-wrapper { min-height: 280px; max-height: 60vh; padding: 52px 10px 10px 10px; }
-    .comprobante-preview-grande { max-width: 100%; max-height: 50vh; }
-    .zoom-toolbar { gap: 3px; padding: 4px 6px; }
-    .zoom-toolbar button { min-width: 30px; height: 30px; font-size: 0.75rem; }
-    .zoom-toolbar .zoom-slider { width: 90px; }
-    .zoom-toolbar .zoom-level { font-size: 0.62rem; min-width: 40px; }
+    .comprobante-zoom-wrapper { min-height: 280px; max-height: 60vh; padding: 12px; }
+    .comprobante-preview-grande { max-width: 100%; max-height: 100%; }
     .comprobante-preview-grande.iframe-pdf { height: 60vh; }
     .comprobante-thumb, .comprobante-thumb-pdf { width: 44px; height: 44px; }
+    .btn-fullscreen-float { width: 36px; height: 36px; font-size: 0.9rem; top: 10px; right: 10px; }
 }
 
 @media (max-width: 480px) {
@@ -976,11 +890,7 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
 
     .comprobante-modal-header h3 { font-size: 0.8rem; }
     .btn-header { padding: 0.35rem 0.6rem; font-size: 0.65rem; }
-    .zoom-toolbar { gap: 3px; padding: 4px 6px; }
-    .zoom-toolbar button { min-width: 28px; height: 28px; font-size: 0.7rem; }
-    .zoom-toolbar .zoom-slider { width: 70px; }
-    .zoom-toolbar .zoom-level { font-size: 0.58rem; min-width: 36px; }
-    .comprobante-preview-grande { max-width: 100%; max-height: 42vh; }
+    .comprobante-preview-grande { max-width: 100%; max-height: 100%; }
 }
 </style>
 </head>
@@ -1725,9 +1635,6 @@ let comprobantesUrlsExistentes = [];
 let comprobanteModalIdReserva = null;
 let comprobanteModalIndexActual = 0;
 let comprobanteModalUrls = [];
-let comprobanteZoom = 100;
-let comprobantePanX = 0;
-let comprobantePanY = 0;
 let modo = 'visitante';
 let currentUser = null;
 let temporadaOriginalEdicion = null;
@@ -3373,34 +3280,6 @@ function cerrarCompModal(){
     comprobanteModalIdReserva=null;
     comprobanteModalIndexActual=0;
     comprobanteModalUrls=[];
-    comprobanteZoom = 100;
-    comprobantePanX = 0;
-    comprobantePanY = 0;
-}
-
-function aplicarZoom(img, wrapper){
-    const anchoNatural = img.naturalWidth || 800;
-    const anchoDisponible = wrapper.clientWidth - 40;
-    const escalaBase = Math.min(1, anchoDisponible / anchoNatural);
-    const escalaFinal = escalaBase * (comprobanteZoom / 100);
-    
-    img.style.transform = `scale(${escalaFinal})`;
-    img.style.transformOrigin = 'center center';
-    img.classList.toggle('zoomed', comprobanteZoom > 100);
-    
-    const level = wrapper.querySelector('.zoom-level');
-    if(level) level.textContent = Math.round(comprobanteZoom) + '%';
-    const slider = wrapper.querySelector('.zoom-slider');
-    if(slider) slider.value = Math.round(comprobanteZoom);
-}
-
-function resetZoom(img, wrapper){
-    comprobanteZoom = 100;
-    comprobantePanX = 0;
-    comprobantePanY = 0;
-    aplicarZoom(img, wrapper);
-    wrapper.scrollTop = 0;
-    wrapper.scrollLeft = 0;
 }
 
 function toggleFullscreen(){
@@ -3417,20 +3296,6 @@ function toggleFullscreen(){
         else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
         else if(document.msExitFullscreen) document.msExitFullscreen();
     }
-}
-
-document.addEventListener('fullscreenchange', actualizarBotonFullscreen);
-document.addEventListener('webkitfullscreenchange', actualizarBotonFullscreen);
-document.addEventListener('mozfullscreenchange', actualizarBotonFullscreen);
-document.addEventListener('MSFullscreenChange', actualizarBotonFullscreen);
-
-function actualizarBotonFullscreen(){
-    const btn = document.getElementById('zoomFullscreenBtn');
-    if(!btn) return;
-    const icon = btn.querySelector('i');
-    const enFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-    if(icon){ icon.className = enFullscreen ? 'fas fa-compress' : 'fas fa-expand'; }
-    btn.title = enFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa';
 }
 
 /* === VISOR DE IMAGEN A PANTALLA COMPLETA (SOLO LA IMAGEN) === */
@@ -3580,86 +3445,26 @@ function renderCompModal(){
         wrapper.appendChild(iframe);
         compModalBody.appendChild(wrapper);
     } else {
-        const toolbar = document.createElement('div');
-        toolbar.className = 'zoom-toolbar';
-        toolbar.innerHTML = `
-            <button type="button" id="zoomOutBtn" title="Alejar"><i class="fas fa-search-minus"></i></button>
-            <input type="range" class="zoom-slider" min="10" max="300" value="100" step="5" title="Zoom">
-            <span class="zoom-level">100%</span>
-            <button type="button" id="zoomInBtn" title="Acercar"><i class="fas fa-search-plus"></i></button>
-            <button type="button" id="zoomResetBtn" title="Tamaño original"><i class="fas fa-compress-arrows-alt"></i></button>
-            <span class="separator"></span>
-            <button type="button" id="zoomFullscreenBtn" title="Pantalla completa"><i class="fas fa-expand"></i></button>
-        `;
-        wrapper.appendChild(toolbar);
+        // Botón flotante de pantalla completa
+        const btnFullscreen = document.createElement('button');
+        btnFullscreen.className = 'btn-fullscreen-float';
+        btnFullscreen.title = 'Ver en pantalla completa';
+        btnFullscreen.innerHTML = '<i class="fas fa-expand"></i>';
+        btnFullscreen.addEventListener('click', (e)=>{ e.stopPropagation(); abrirImagenFullscreen(url); });
+        wrapper.appendChild(btnFullscreen);
 
         const img = document.createElement('img');
         img.src = url;
         img.className = 'comprobante-preview-grande';
         img.alt = 'Comprobante';
         img.draggable = false;
+        img.title = 'Clic para ver en pantalla completa';
+        img.style.cursor = 'zoom-in';
         img.onerror = ()=>{ const err = document.createElement('div'); err.className = 'sin-comprobante'; err.textContent = 'No se pudo cargar la imagen'; wrapper.appendChild(err); };
+        // Clic sobre la imagen abre pantalla completa
+        img.addEventListener('click', ()=>abrirImagenFullscreen(url));
         wrapper.appendChild(img);
         compModalBody.appendChild(wrapper);
-
-        comprobanteZoom = 100;
-        const aplicar = ()=>aplicarZoom(img, wrapper);
-
-        wrapper.querySelector('#zoomInBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.min(comprobanteZoom + 25, 300); aplicar(); });
-        wrapper.querySelector('#zoomOutBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.max(comprobanteZoom - 25, 10); aplicar(); });
-        wrapper.querySelector('#zoomResetBtn').addEventListener('click', ()=>{ comprobanteZoom = 100; comprobantePanX = 0; comprobantePanY = 0; aplicar(); wrapper.scrollTop = 0; wrapper.scrollLeft = 0; });
-        wrapper.querySelector('#zoomFullscreenBtn').addEventListener('click', ()=>abrirImagenFullscreen(url));
-
-        const slider = wrapper.querySelector('.zoom-slider');
-        slider.addEventListener('input', (e)=>{
-            comprobanteZoom = Math.max(10, Math.min(300, parseInt(e.target.value)));
-            aplicar();
-        });
-
-        let lastTap = 0;
-        img.addEventListener('click', (e)=>{
-            const now = Date.now();
-            if(now - lastTap < 300){
-                if(comprobanteZoom > 100){ comprobanteZoom = 100; aplicar(); }
-                else { comprobanteZoom = 200; aplicar(); }
-                e.preventDefault();
-            }
-            lastTap = now;
-        });
-
-        let initialDistance = 0;
-        let initialZoom = 100;
-        
-        wrapper.addEventListener('touchstart', (e)=>{
-            if(e.touches.length === 2){
-                e.preventDefault();
-                const dx = e.touches[0].clientX - e.touches[1].clientX;
-                const dy = e.touches[0].clientY - e.touches[1].clientY;
-                initialDistance = Math.sqrt(dx*dx + dy*dy);
-                initialZoom = comprobanteZoom;
-            }
-        }, { passive: false });
-
-        wrapper.addEventListener('touchmove', (e)=>{
-            if(e.touches.length === 2 && initialDistance > 0){
-                e.preventDefault();
-                const dx = e.touches[0].clientX - e.touches[1].clientX;
-                const dy = e.touches[0].clientY - e.touches[1].clientY;
-                const distance = Math.sqrt(dx*dx + dy*dy);
-                const ratio = distance / initialDistance;
-                comprobanteZoom = Math.max(10, Math.min(300, initialZoom * ratio));
-                aplicar();
-            }
-        }, { passive: false });
-
-        wrapper.addEventListener('touchend', (e)=>{
-            if(e.touches.length < 2){
-                initialDistance = 0;
-            }
-        });
-
-        aplicar();
-        actualizarBotonFullscreen();
     }
 
     if(comprobanteModalUrls.length > 1){
@@ -3671,13 +3476,13 @@ function renderCompModal(){
                 const t = document.createElement('div');
                 t.className = 'comprobante-thumb-pdf' + (i===comprobanteModalIndexActual?' active':'');
                 t.innerHTML = '<i class="fas fa-file-pdf"></i>';
-                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 100; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; renderCompModal(); });
                 thumbs.appendChild(t);
             } else {
                 const t = document.createElement('img');
                 t.className = 'comprobante-thumb' + (i===comprobanteModalIndexActual?' active':'');
                 t.src = u;
-                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 100; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; renderCompModal(); });
                 thumbs.appendChild(t);
             }
         });
@@ -3686,8 +3491,8 @@ function renderCompModal(){
 
     const prev = document.getElementById('compPrevBtn');
     const next = document.getElementById('compNextBtn');
-    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; comprobanteZoom = 100; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
-    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; comprobanteZoom = 100; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; renderCompModal(); });
+    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; renderCompModal(); });
 }
 
 function abrirComprobanteModal(id){
@@ -3696,9 +3501,6 @@ function abrirComprobanteModal(id){
     comprobanteModalIdReserva = id;
     comprobanteModalUrls = getComprobantesUrls(r);
     comprobanteModalIndexActual = 0;
-    comprobanteZoom = 100;
-    comprobantePanX = 0;
-    comprobantePanY = 0;
     renderCompModal();
     compModalOverlay.classList.add('show');
 }
@@ -3728,9 +3530,6 @@ compModalFileInput.addEventListener('change', async (e)=>{
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
         comprobanteModalIndexActual = comprobanteModalUrls.length - 1;
-        comprobanteZoom = 100;
-        comprobantePanX = 0;
-        comprobantePanY = 0;
         renderCompModal();
         mostrarToast('✅ Comprobante(s) añadido(s)','ok');
     } catch(err){ compModalBody.innerHTML = '<div class="sin-comprobante">❌ '+err.message+'</div>'; mostrarToast('❌ '+err.message,'error'); }
@@ -3756,9 +3555,6 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
         mostrarToast('🗑️ Comprobante eliminado','info');
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
-        comprobanteZoom = 100;
-        comprobantePanX = 0;
-        comprobantePanY = 0;
         if(comprobanteModalUrls.length === 0){ renderCompModal(); }
         else { comprobanteModalIndexActual = Math.min(comprobanteModalIndexActual, comprobanteModalUrls.length - 1); renderCompModal(); }
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
