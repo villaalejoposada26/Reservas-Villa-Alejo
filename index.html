@@ -343,8 +343,6 @@ tr:last-child td { border-bottom: none; }
 .reserva-chip .nombre { font-size: 0.48rem; opacity: 0.9; display: block; overflow: hidden; text-overflow: ellipsis; }
 .reserva-chip.cancelado { background: #e0e0e0; color: #757575; border-left-color: #9e9e9e; }
 
-/* === ESTADO NO DISPONIBLE === */
-/* Escritorio: una sola fila "No Disponible" */
 .calendar-day.lleno .day-status.full-status {
     display: inline-flex;
     align-items: center;
@@ -557,7 +555,6 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .precio-feria { font-weight: 700; color: #7b1fa2; }
 .capacidad { font-weight: 700; color: #2e7d32; }
 
-/* === CONTROLES DE EDICIÓN DE TARIFAS (encima de la tabla) === */
 .tarifas-controles {
     display: none;
     background: #faf3ee;
@@ -605,7 +602,6 @@ body.modo-editor .tarifas-controles { display: flex; }
 .btn-tarifa.cancelar { background: #fff; color: #b33a3a; border: 2px solid #f0c0c0; }
 .btn-tarifa.cancelar:not(:disabled):hover { background: #ffe6e6; transform: translateY(-1px); }
 
-/* Inputs dentro de la tabla de tarifas */
 .tarifa-input {
     width: 100%;
     max-width: 130px;
@@ -731,7 +727,6 @@ body.modo-editor .tarifas-controles { display: flex; }
     .calendar-day { min-height: 70px; padding: 0.25rem 0.15rem; }
     .calendar-day .day-number { font-size: 0.72rem; }
     .calendar-day .day-status { font-size: 0.4rem; padding: 1px 3px; white-space: normal; line-height: 1.05; letter-spacing: -0.1px; }
-    /* Móvil: No Disponible en 2 filas */
     .calendar-day.lleno .day-status.full-status {
         display: flex;
         flex-direction: column;
@@ -1142,7 +1137,6 @@ body.modo-editor .tarifas-controles { display: flex; }
                 </div>
                 <h3 style="color:#50260c; font-size:1.05rem; margin-bottom:1rem;">Tarifas por persona 2026</h3>
 
-                <!-- === CONTROLES DE EDICIÓN (solo editor) === -->
                 <div class="tarifas-controles" id="tarifasControles">
                     <span class="titulo-edit"><i class="fas fa-cog"></i> Gestión de tarifas</span>
                     <button class="btn-tarifa editar" id="btnEditarTabla"><i class="fas fa-pencil-alt"></i> Editar Tabla</button>
@@ -1605,9 +1599,8 @@ let chartsInstancias = {};
 let dashVistaActual = 'mes';
 let dashSubActual = 'clientes';
 
-// ==== ESTADO DE EDICIÓN DE LA TABLA DE TARIFAS ====
 let tarifasEditando = false;
-let tarifasRespaldo = null; // copia para cancelar
+let tarifasRespaldo = null;
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_ABREV = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -1679,27 +1672,6 @@ async function cargarTarifasPersonalizadas(){
                 }
             }
         } catch(e2){}
-    }
-}
-
-// Guarda TODAS las tarifas + capacidades en Supabase
-async function guardarTablaTarifasCompleta(){
-    try {
-        localStorage.setItem(LS_TARIFAS, JSON.stringify(TARIFAS));
-        localStorage.setItem(LS_CAPACIDAD, JSON.stringify(CAPACIDAD_MAX));
-    } catch(e){}
-    for(const hab of HABITACIONES){
-        const t = TARIFAS[hab];
-        const row = {
-            habitacion: hab,
-            baja: t.Baja,
-            alta: t.Alta,
-            ferias: t.Ferias,
-            capacidad: CAPACIDAD_MAX[hab],
-            updated_at: new Date().toISOString()
-        };
-        const { error } = await sb.from(TABLA_TARIFAS).upsert(row, { onConflict: 'habitacion' });
-        if(error) throw error;
     }
 }
 
@@ -1850,14 +1822,12 @@ function aplicarModoVisitante(){
     document.querySelectorAll('.modal-form-overlay, .import-overlay, .confirm-overlay').forEach(el => el.classList.remove('show'));
     const ind = document.getElementById('syncIndicator');
     if(ind) ind.classList.add('hidden-sync');
-    // Salir de modo edición de tarifas si estuviera activo
     if(tarifasEditando){ tarifasEditando = false; tarifasRespaldo = null; }
     activateSection('calendar');
     renderReservasRegistro();
     renderTarifas();
 }
 
-// === TARIFAS: render + edición de tabla completa ===
 function renderTarifas(){
     const tbody = document.getElementById('tarifasTbody');
     if(!tbody) return;
@@ -1875,9 +1845,7 @@ function renderTarifas(){
         if(tarifasEditando){
             tr.innerHTML = `
                 <td>${idx+1}</td>
-                <td>
-                    <input type="text" class="tarifa-input" data-field="habitacion" value="${hab}" maxlength="30">
-                </td>
+                <td><input type="text" class="tarifa-input" data-field="habitacion" value="${hab}" maxlength="30"></td>
                 <td><input type="text" inputmode="numeric" class="tarifa-input" data-field="baja" value="${t.Baja}"></td>
                 <td><input type="text" inputmode="numeric" class="tarifa-input" data-field="alta" value="${t.Alta}"></td>
                 <td><input type="text" inputmode="numeric" class="tarifa-input" data-field="ferias" value="${t.Ferias}"></td>
@@ -1895,13 +1863,9 @@ function renderTarifas(){
         }
         tbody.appendChild(tr);
     });
-
-    // Solo números en inputs de precio/capacidad
     if(tarifasEditando){
         tbody.querySelectorAll('input[data-field="baja"], input[data-field="alta"], input[data-field="ferias"], input[data-field="capacidad"]').forEach(inp=>{
-            inp.addEventListener('input', ()=>{
-                inp.value = inp.value.replace(/[^0-9]/g,'');
-            });
+            inp.addEventListener('input', ()=>{ inp.value = inp.value.replace(/[^0-9]/g,''); });
         });
     }
 }
@@ -1970,14 +1934,11 @@ async function guardarEdicionTarifas(){
         if(baja <= 0 || alta <= 0 || ferias <= 0){ mostrarToast(`⚠️ Las tarifas de ${nom} deben ser mayores a 0`,'error'); return; }
         if(cap <= 0){ mostrarToast(`⚠️ La capacidad de ${nom} debe ser mayor a 0`,'error'); return; }
 
-        nuevasTarifas[habOrig] = { Baja:baja, Alta:alta, Ferias:ferias, nombreMostrado: nom };
+        nuevasTarifas[habOrig] = { Baja:baja, Alta:alta, Ferias:ferias };
         nuevasCapacidades[habOrig] = cap;
     }
 
-    // Persistir: usar siempre la clave original (habOrig) como identificador estable
-    // pero también actualizar el nombre mostrado (solo visual)
     try {
-        // Guardar los valores en las estructuras
         Object.keys(nuevasTarifas).forEach(k=>{
             TARIFAS[k] = { Baja: nuevasTarifas[k].Baja, Alta: nuevasTarifas[k].Alta, Ferias: nuevasTarifas[k].Ferias };
         });
@@ -1985,7 +1946,6 @@ async function guardarEdicionTarifas(){
             CAPACIDAD_MAX[k] = nuevasCapacidades[k];
         });
 
-        // Guardar en Supabase con el nombre visible actualizado
         for(const habOrig of HABITACIONES){
             const t = TARIFAS[habOrig];
             const row = {
@@ -2000,7 +1960,6 @@ async function guardarEdicionTarifas(){
             if(error) throw error;
         }
 
-        // Guardar localmente también
         try {
             localStorage.setItem(LS_TARIFAS, JSON.stringify(TARIFAS));
             localStorage.setItem(LS_CAPACIDAD, JSON.stringify(CAPACIDAD_MAX));
@@ -2014,9 +1973,7 @@ async function guardarEdicionTarifas(){
         renderTarifas();
         mostrarToast('✅ Tarifas guardadas correctamente','ok');
 
-        // Refrescar cualquier vista que dependa de las tarifas (por ejemplo, edición de reservas abierta)
         if(document.getElementById('modalFormReserva').classList.contains('show')){
-            // no recargamos el form; solo refrescamos la tarifa mostrada si aplica
             try { actualizarTarifa(); actualizarResumen(); } catch(e){}
         }
     } catch(e){
@@ -2025,7 +1982,6 @@ async function guardarEdicionTarifas(){
     }
 }
 
-// Botones de control
 document.getElementById('btnEditarTabla').addEventListener('click', entrarModoEdicionTarifas);
 document.getElementById('btnGuardarTabla').addEventListener('click', guardarEdicionTarifas);
 document.getElementById('btnCancelarTabla').addEventListener('click', cancelarEdicionTarifas);
@@ -2112,10 +2068,7 @@ if (logoSecreto) {
 
 [loginEmail, loginPassword].forEach(inp=>{
     inp.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter'){
-            e.preventDefault();
-            document.getElementById('btnLoginSubmit').click();
-        }
+        if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('btnLoginSubmit').click(); }
     });
 });
 
@@ -2132,11 +2085,8 @@ document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
         if(error) throw error;
         currentUser = data.user;
         try {
-            if(recordarPass.checked){
-                localStorage.setItem(LS_CRED, JSON.stringify({ email, pass, recordar:true }));
-            } else {
-                localStorage.removeItem(LS_CRED);
-            }
+            if(recordarPass.checked){ localStorage.setItem(LS_CRED, JSON.stringify({ email, pass, recordar:true })); }
+            else { localStorage.removeItem(LS_CRED); }
         } catch(e){}
         loginOverlay.classList.remove('show');
         loginFeedback.textContent = '';
@@ -2196,22 +2146,10 @@ function aplicarLogosSubTabs(){
     const iRes = document.getElementById('iSubtabReservas');
     const imgFin = document.getElementById('iconoSubtabFinanciero');
     const iFin = document.getElementById('iSubtabFinanciero');
-    if(ICONO_RESERVAS_URL){
-        imgRes.src = ICONO_RESERVAS_URL;
-        imgRes.style.display = 'inline-block';
-        iRes.style.display = 'none';
-    } else {
-        imgRes.style.display = 'none';
-        iRes.style.display = 'inline-block';
-    }
-    if(ICONO_FINANCIERO_URL){
-        imgFin.src = ICONO_FINANCIERO_URL;
-        imgFin.style.display = 'inline-block';
-        iFin.style.display = 'none';
-    } else {
-        imgFin.style.display = 'none';
-        iFin.style.display = 'inline-block';
-    }
+    if(ICONO_RESERVAS_URL){ imgRes.src = ICONO_RESERVAS_URL; imgRes.style.display = 'inline-block'; iRes.style.display = 'none'; }
+    else { imgRes.style.display = 'none'; iRes.style.display = 'inline-block'; }
+    if(ICONO_FINANCIERO_URL){ imgFin.src = ICONO_FINANCIERO_URL; imgFin.style.display = 'inline-block'; iFin.style.display = 'none'; }
+    else { imgFin.style.display = 'none'; iFin.style.display = 'inline-block'; }
 }
 aplicarLogosSubTabs();
 
@@ -2326,10 +2264,7 @@ function renderCalendar(m, y){
         const num = document.createElement('div'); num.className='day-number'; num.textContent=d; dayDiv.appendChild(num);
         if(fest){ const f=document.createElement('div'); f.className='festivo-nombre-chip'; f.textContent=fest; f.title=fest; dayDiv.appendChild(f); }
         const st = document.createElement('div'); st.className='day-status';
-        if(estado==='lleno'){
-            st.classList.add('full-status');
-            st.innerHTML = '<span class="linea1">No</span><span class="linea2">Disponible</span>';
-        }
+        if(estado==='lleno'){ st.classList.add('full-status'); st.innerHTML = '<span class="linea1">No</span><span class="linea2">Disponible</span>'; }
         else if(estado==='parcial') st.textContent='Reservado';
         else st.textContent='Disponible';
         dayDiv.appendChild(st);
@@ -2428,12 +2363,8 @@ function abrirModalDia(d,m,y){
     contadorDisponibles.textContent = disp.length;
     contadorNoDisponibles.textContent = noDisp.length;
 
-    if(modo==='editor'){
-        modalBtnAñadir.disabled = disp.length===0;
-        modalBtnAñadir.style.display = '';
-    } else {
-        modalBtnAñadir.style.display = 'none';
-    }
+    if(modo==='editor'){ modalBtnAñadir.disabled = disp.length===0; modalBtnAñadir.style.display = ''; }
+    else { modalBtnAñadir.style.display = 'none'; }
 
     listaDisponibles.innerHTML = '';
     if(disp.length===0){ const li=document.createElement('li'); li.className='reservada'; li.innerHTML='<span>—</span><span>No hay disponibles</span>'; listaDisponibles.appendChild(li); }
@@ -2503,10 +2434,7 @@ temporadaChecklist.querySelectorAll('.temp-check').forEach(chk=>{
         chk.classList.add('selected');
         chk.querySelector('input').checked = true;
         temporadaSeleccionada = nuevaTemp;
-        if(!esMismaTempOriginal){
-            descuentoPct.value = '0';
-            descuentoPesos.value = '';
-        }
+        if(!esMismaTempOriginal){ descuentoPct.value = '0'; descuentoPesos.value = ''; }
         actualizarTarifa();
         actualizarResumen();
     });
@@ -2562,10 +2490,7 @@ tarifa.addEventListener('input', actualizarResumen);
 });
 function actualizarVisibilidadSaldo(){ }
 
-function resetComprobanteUI(){
-    comprobanteFileInput.value='';
-    comprobanteList.innerHTML='';
-}
+function resetComprobanteUI(){ comprobanteFileInput.value=''; comprobanteList.innerHTML=''; }
 function renderListaComprobantes(){
     comprobanteList.innerHTML = '';
     comprobantesUrlsExistentes.forEach((url, idx)=>{
@@ -2614,9 +2539,7 @@ comprobanteDropzone.addEventListener('click', ()=>comprobanteFileInput.click());
 comprobanteFileInput.addEventListener('change', e=>{
     if(e.target.files.length>0){
         const validos = [];
-        for(const f of e.target.files){
-            if(validarArchivo(f)) validos.push(f);
-        }
+        for(const f of e.target.files){ if(validarArchivo(f)) validos.push(f); }
         comprobantesArchivosSeleccionados = comprobantesArchivosSeleccionados.concat(validos);
         renderListaComprobantes();
     }
@@ -2899,11 +2822,7 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         const est = b.querySelector('.inp-estado').value || 'Confirmada';
         if(p<=0||n<=0||!ent||!sal){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Completa personas, noches y fechas.'; return; }
         const capMax = CAPACIDAD_MAX[h[0]] || 0;
-        if (p > capMax) {
-            feedback.style.color = '#b33a3a';
-            feedback.innerHTML = `⚠️ La habitación ${h[0]} permite máximo ${capMax} personas.`;
-            return;
-        }
+        if (p > capMax) { feedback.style.color = '#b33a3a'; feedback.innerHTML = `⚠️ La habitación ${h[0]} permite máximo ${capMax} personas.`; return; }
         dataHabs.push({ habs:h, personas:p, noches:n, entrada:ent, salida:sal, estado:est });
     }
 
@@ -2916,9 +2835,7 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     }
 
     let abValEfectivo = abVal;
-    if(esEdicion && reservaOriginal){
-        abValEfectivo = reservaOriginal.valorAbono || 0;
-    }
+    if(esEdicion && reservaOriginal){ abValEfectivo = reservaOriginal.valorAbono || 0; }
 
     const totalPorHab = dataHabs.map(hd=>{
         const sub = tarVal*hd.personas*hd.noches;
@@ -2945,11 +2862,8 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
 
     if(esEdicion && reservaOriginal){
         filas.forEach(f=>{
-            if(f.hab === reservaOriginal.hab){
-                f.saldo = reservaOriginal.valorSaldo || 0;
-            } else {
-                f.saldo = Math.max(0, f.total-f.abono);
-            }
+            if(f.hab === reservaOriginal.hab){ f.saldo = reservaOriginal.valorSaldo || 0; }
+            else { f.saldo = Math.max(0, f.total-f.abono); }
         });
     } else {
         filas.forEach(f=>{ f.saldo = Math.max(0, f.total-f.abono); });
@@ -3049,9 +2963,7 @@ async function guardarPagoTotal(idReserva, valor){
         mostrarToast('✅ Pago registrado. Saldo actualizado.','ok');
         renderReservasRegistro();
         actualizarDineroPendiente();
-    } catch(e){
-        mostrarToast('❌ '+e.message,'error');
-    }
+    } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 }
 
 function renderReservasRegistro(){
@@ -3251,10 +3163,7 @@ function editarReserva(id){
     }
     temporadaSeleccionada = temporadaDetectada;
     temporadaOriginalEdicion = temporadaDetectada;
-    temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{
-        c.classList.remove('selected');
-        c.querySelector('input').checked = false;
-    });
+    temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked = false; });
     if(temporadaDetectada){
         const chkTemp = temporadaChecklist.querySelector(`.temp-check[data-temp="${temporadaDetectada}"]`);
         if(chkTemp){ chkTemp.classList.add('selected'); chkTemp.querySelector('input').checked = true; }
@@ -3300,13 +3209,9 @@ document.getElementById('cerrarComprobanteModal').addEventListener('click', cerr
 compModalOverlay.addEventListener('click', e=>{ if(e.target===compModalOverlay) cerrarCompModal(); });
 
 function cerrarCompModal(){
-    if(document.fullscreenElement){
-        document.exitFullscreen().catch(()=>{});
-    } else if(document.webkitFullscreenElement){
-        document.webkitExitFullscreen();
-    } else if(document.mozFullScreenElement){
-        document.mozCancelFullScreen();
-    }
+    if(document.fullscreenElement){ document.exitFullscreen().catch(()=>{}); }
+    else if(document.webkitFullscreenElement){ document.webkitExitFullscreen(); }
+    else if(document.mozFullScreenElement){ document.mozCancelFullScreen(); }
     compModalOverlay.classList.remove('show');
     compModalBody.innerHTML='';
     comprobanteModalIdReserva=null;
@@ -3336,20 +3241,11 @@ function resetZoom(img, wrapper){
 function toggleFullscreen(){
     const panel = compModalPanel;
     if(!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement){
-        if(panel.requestFullscreen){
-            panel.requestFullscreen().catch(err=>{
-                mostrarToast('⚠️ No se pudo activar pantalla completa','error');
-                console.warn(err);
-            });
-        } else if(panel.webkitRequestFullscreen){
-            panel.webkitRequestFullscreen();
-        } else if(panel.mozRequestFullScreen){
-            panel.mozRequestFullScreen();
-        } else if(panel.msRequestFullscreen){
-            panel.msRequestFullscreen();
-        } else {
-            mostrarToast('⚠️ Pantalla completa no soportada en este navegador','error');
-        }
+        if(panel.requestFullscreen){ panel.requestFullscreen().catch(err=>{ mostrarToast('⚠️ No se pudo activar pantalla completa','error'); console.warn(err); }); }
+        else if(panel.webkitRequestFullscreen){ panel.webkitRequestFullscreen(); }
+        else if(panel.mozRequestFullScreen){ panel.mozRequestFullScreen(); }
+        else if(panel.msRequestFullscreen){ panel.msRequestFullscreen(); }
+        else { mostrarToast('⚠️ Pantalla completa no soportada en este navegador','error'); }
     } else {
         if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
         else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
@@ -3368,9 +3264,7 @@ function actualizarBotonFullscreen(){
     if(!btn) return;
     const icon = btn.querySelector('i');
     const enFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-    if(icon){
-        icon.className = enFullscreen ? 'fas fa-compress' : 'fas fa-expand';
-    }
+    if(icon){ icon.className = enFullscreen ? 'fas fa-compress' : 'fas fa-expand'; }
     btn.title = enFullscreen ? 'Salir de pantalla completa' : 'Pantalla completa';
 }
 
@@ -3379,11 +3273,7 @@ function renderCompModal(){
     if(comprobanteModalUrls.length === 0){
         const empty = document.createElement('div');
         empty.className = 'comprobante-empty-msg';
-        empty.innerHTML = `
-            <i class="fas fa-image"></i>
-            <p>Sin comprobantes para esta reserva.</p>
-            <button id="btnAñadirDesdeVacio"><i class="fas fa-plus"></i> Añadir comprobante</button>
-        `;
+        empty.innerHTML = `<i class="fas fa-image"></i><p>Sin comprobantes para esta reserva.</p><button id="btnAñadirDesdeVacio"><i class="fas fa-plus"></i> Añadir comprobante</button>`;
         compModalBody.appendChild(empty);
         document.getElementById('btnAñadirDesdeVacio').addEventListener('click', ()=>{ compModalFileInput.value=''; compModalFileInput.click(); });
         return;
@@ -3395,11 +3285,7 @@ function renderCompModal(){
     if(comprobanteModalUrls.length > 1){
         const nav = document.createElement('div');
         nav.className = 'comprobante-nav';
-        nav.innerHTML = `
-            <button id="compPrevBtn"><i class="fas fa-chevron-left"></i></button>
-            <span class="contador">${comprobanteModalIndexActual+1} / ${comprobanteModalUrls.length}</span>
-            <button id="compNextBtn"><i class="fas fa-chevron-right"></i></button>
-        `;
+        nav.innerHTML = `<button id="compPrevBtn"><i class="fas fa-chevron-left"></i></button><span class="contador">${comprobanteModalIndexActual+1} / ${comprobanteModalUrls.length}</span><button id="compNextBtn"><i class="fas fa-chevron-right"></i></button>`;
         compModalBody.appendChild(nav);
     }
 
@@ -3430,37 +3316,22 @@ function renderCompModal(){
         img.className = 'comprobante-preview-grande';
         img.alt = 'Comprobante';
         img.draggable = false;
-        img.onerror = ()=>{
-            const err = document.createElement('div');
-            err.className = 'sin-comprobante';
-            err.textContent = 'No se pudo cargar la imagen';
-            wrapper.appendChild(err);
-        };
+        img.onerror = ()=>{ const err = document.createElement('div'); err.className = 'sin-comprobante'; err.textContent = 'No se pudo cargar la imagen'; wrapper.appendChild(err); };
         wrapper.appendChild(img);
         compModalBody.appendChild(wrapper);
 
         const aplicar = ()=>aplicarZoom(img, wrapper);
         const reset = ()=>resetZoom(img, wrapper);
 
-        wrapper.querySelector('#zoomInBtn').addEventListener('click', ()=>{
-            comprobanteZoom = Math.min(comprobanteZoom * 1.25, 8);
-            aplicar();
-        });
-        wrapper.querySelector('#zoomOutBtn').addEventListener('click', ()=>{
-            comprobanteZoom = Math.max(comprobanteZoom / 1.25, 1);
-            if(comprobanteZoom === 1){ comprobantePanX = 0; comprobantePanY = 0; }
-            aplicar();
-        });
+        wrapper.querySelector('#zoomInBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.min(comprobanteZoom * 1.25, 8); aplicar(); });
+        wrapper.querySelector('#zoomOutBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.max(comprobanteZoom / 1.25, 1); if(comprobanteZoom === 1){ comprobantePanX = 0; comprobantePanY = 0; } aplicar(); });
         wrapper.querySelector('#zoomResetBtn').addEventListener('click', reset);
         wrapper.querySelector('#zoomFullscreenBtn').addEventListener('click', toggleFullscreen);
 
         let lastTap = 0;
         img.addEventListener('click', (e)=>{
             const now = Date.now();
-            if(now - lastTap < 300){
-                if(comprobanteZoom > 1){ reset(); } else { comprobanteZoom = 2; aplicar(); }
-                e.preventDefault();
-            }
+            if(now - lastTap < 300){ if(comprobanteZoom > 1){ reset(); } else { comprobanteZoom = 2; aplicar(); } e.preventDefault(); }
             lastTap = now;
         });
 
@@ -3474,8 +3345,7 @@ function renderCompModal(){
             }
         }, { passive: false });
 
-        let initialDist = 0;
-        let initialZoom = 1;
+        let initialDist = 0, initialZoom = 1;
         wrapper.addEventListener('touchstart', (e)=>{
             if(e.touches.length === 2){
                 const t1 = e.touches[0], t2 = e.touches[1];
@@ -3544,9 +3414,7 @@ compModalFileInput.addEventListener('change', async (e)=>{
     if(!e.target.files.length) return;
     if(!comprobanteModalIdReserva){ mostrarToast('⚠️ Sin reserva','error'); return; }
     const validos = [];
-    for(const f of e.target.files){
-        if(validarArchivo(f)) validos.push(f);
-    }
+    for(const f of e.target.files){ if(validarArchivo(f)) validos.push(f); }
     if(!validos.length) return;
     compModalBody.innerHTML = '<div class="cargando"><i class="fas fa-spinner fa-spin"></i><span>Subiendo...</span></div>';
     try {
@@ -3554,10 +3422,7 @@ compModalFileInput.addEventListener('change', async (e)=>{
         if(!rOrig) throw new Error('No encontrada');
         const urlsActuales = getComprobantesUrls(rOrig);
         const nuevasUrls = [];
-        for(const file of validos){
-            const u = await subirComprobante(file);
-            nuevasUrls.push(u);
-        }
+        for(const file of validos){ const u = await subirComprobante(file); nuevasUrls.push(u); }
         const todasUrls = urlsActuales.concat(nuevasUrls);
         const firma = [rOrig.nombre, formatFechaISO(rOrig.entrada), formatFechaISO(rOrig.salida), rOrig.estado, rOrig.tarifa, rOrig.personas, rOrig.noches].join('|');
         const idsHer = reservas.filter(r=>[r.nombre, formatFechaISO(r.entrada), formatFechaISO(r.salida), r.estado, r.tarifa, r.personas, r.noches].join('|')===firma).map(r=>r.id);
@@ -3586,10 +3451,7 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
     if(!confirm('¿Eliminar el comprobante actual?')) return;
     try {
         const urlEliminar = urlsActuales[comprobanteModalIndexActual];
-        try {
-            const p = urlEliminar.split('/comprobantes/');
-            if(p.length>1) await sb.storage.from(BUCKET).remove([p[1].split('?')[0]]);
-        } catch(e){}
+        try { const p = urlEliminar.split('/comprobantes/'); if(p.length>1) await sb.storage.from(BUCKET).remove([p[1].split('?')[0]]); } catch(e){}
         const nuevasUrls = urlsActuales.filter((_,i)=>i !== comprobanteModalIndexActual);
         const firma = [rOrig.nombre, formatFechaISO(rOrig.entrada), formatFechaISO(rOrig.salida), rOrig.estado, rOrig.tarifa, rOrig.personas, rOrig.noches].join('|');
         const idsHer = reservas.filter(r=>[r.nombre, formatFechaISO(r.entrada), formatFechaISO(r.salida), r.estado, r.tarifa, r.personas, r.noches].join('|')===firma).map(r=>r.id);
@@ -3604,10 +3466,7 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
         comprobantePanX = 0;
         comprobantePanY = 0;
         if(comprobanteModalUrls.length === 0){ renderCompModal(); }
-        else {
-            comprobanteModalIndexActual = Math.min(comprobanteModalIndexActual, comprobanteModalUrls.length - 1);
-            renderCompModal();
-        }
+        else { comprobanteModalIndexActual = Math.min(comprobanteModalIndexActual, comprobanteModalUrls.length - 1); renderCompModal(); }
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 });
 
@@ -3629,10 +3488,7 @@ document.getElementById('btnConfirmOk').addEventListener('click', async ()=>{
 });
 
 function destruirCharts(){
-    Object.keys(chartsInstancias).forEach(k=>{
-        try { chartsInstancias[k].destroy(); } catch(e){}
-        delete chartsInstancias[k];
-    });
+    Object.keys(chartsInstancias).forEach(k=>{ try { chartsInstancias[k].destroy(); } catch(e){} delete chartsInstancias[k]; });
 }
 
 function initDashFiltros(){
@@ -3648,15 +3504,11 @@ function initDashFiltros(){
 
 function actualizarDashFiltroCobra(){
     const set = new Set();
-    reservas.forEach(r=>{
-        if(r.recibidoPor && r.recibidoPor !== '—') set.add(r.recibidoPor);
-    });
+    reservas.forEach(r=>{ if(r.recibidoPor && r.recibidoPor !== '—') set.add(r.recibidoPor); });
     const sel = document.getElementById('dashFiltroCobra');
     const actual = sel.value;
     sel.innerHTML = '<option value="">Todos</option>';
-    Array.from(set).sort().forEach(v=>{
-        const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o);
-    });
+    Array.from(set).sort().forEach(v=>{ const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
     if(actual) sel.value = actual;
 }
 
@@ -3729,10 +3581,7 @@ function renderDashClientes(fil, periodoLbl){
         const dias = new Date(y, m+1, 0).getDate();
         labelsEv = Array.from({length: dias}, (_,i)=> String(i+1));
         dataEv = new Array(dias).fill(0);
-        fil.forEach(r=>{
-            const d = r.entrada.getDate();
-            if(d>=1 && d<=dias) dataEv[d-1]++;
-        });
+        fil.forEach(r=>{ const d = r.entrada.getDate(); if(d>=1 && d<=dias) dataEv[d-1]++; });
     } else if(dashVistaActual === 'anio'){
         labelsEv = MESES_ABREV;
         dataEv = new Array(12).fill(0);
@@ -3748,85 +3597,23 @@ function renderDashClientes(fil, periodoLbl){
     const ctxEv = document.getElementById('chartClientesEvolucion').getContext('2d');
     chartsInstancias.clientesEv = new Chart(ctxEv, {
         type: 'line',
-        data: {
-            labels: labelsEv,
-            datasets: [{
-                label: 'Clientes',
-                data: dataEv,
-                borderColor: '#5e35b1',
-                backgroundColor: 'rgba(94,53,177,0.15)',
-                borderWidth: 3,
-                tension: 0.35,
-                pointBackgroundColor: '#5e35b1',
-                pointRadius: 4,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } },
-                x: { ticks: { color: '#3d1c09', font: { size: 10 } } }
-            }
-        }
+        data: { labels: labelsEv, datasets: [{ label: 'Clientes', data: dataEv, borderColor: '#5e35b1', backgroundColor: 'rgba(94,53,177,0.15)', borderWidth: 3, tension: 0.35, pointBackgroundColor: '#5e35b1', pointRadius: 4, fill: true }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } }, x: { ticks: { color: '#3d1c09', font: { size: 10 } } } } }
     });
 
     const top = Object.entries(porCliente).sort((a,b)=>b[1].reservas - a[1].reservas).slice(0,10);
     const ctxTop = document.getElementById('chartTopClientes').getContext('2d');
     chartsInstancias.topClientes = new Chart(ctxTop, {
         type: 'bar',
-        data: {
-            labels: top.length ? top.map(t=>t[0]) : ['Sin datos'],
-            datasets: [{
-                label: 'Reservas',
-                data: top.length ? top.map(t=>t[1].reservas) : [0],
-                backgroundColor: ['#5e35b1','#f57c00','#2e7d32','#1976d2','#c62828','#00897b','#ffb300','#8d6e63','#ad1457','#ff8f00'],
-                borderColor: '#fff',
-                borderWidth: 1,
-                borderRadius: 8
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            indexAxis: 'y',
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: (ctx)=>{
-                            const name = ctx.label;
-                            const data = porCliente[name];
-                            return [`${data.reservas} reservas`, `${data.noches} noches`, formatPeso(data.dinero)];
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } },
-                y: { ticks: { color: '#3d1c09', font: { size: 11, weight: '600' } } }
-            }
-        }
+        data: { labels: top.length ? top.map(t=>t[0]) : ['Sin datos'], datasets: [{ label: 'Reservas', data: top.length ? top.map(t=>t[1].reservas) : [0], backgroundColor: ['#5e35b1','#f57c00','#2e7d32','#1976d2','#c62828','#00897b','#ffb300','#8d6e63','#ad1457','#ff8f00'], borderColor: '#fff', borderWidth: 1, borderRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx)=>{ const name = ctx.label; const data = porCliente[name]; return [`${data.reservas} reservas`, `${data.noches} noches`, formatPeso(data.dinero)]; } } } }, scales: { x: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } }, y: { ticks: { color: '#3d1c09', font: { size: 11, weight: '600' } } } } }
     });
 
     const ctxNR = document.getElementById('chartNuevosRecurrentes').getContext('2d');
     chartsInstancias.nuevosRecurrentes = new Chart(ctxNR, {
         type: 'doughnut',
-        data: {
-            labels: ['Nuevos','Frecuentes'],
-            datasets: [{
-                data: [clientesNuevos, clientesFrecuentes],
-                backgroundColor: ['#42a5f5','#ffc107'],
-                borderColor: '#fff',
-                borderWidth: 3
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom', labels: { color: '#3d1c09', font: { size: 11 }, boxWidth: 12 } }
-            }
-        }
+        data: { labels: ['Nuevos','Frecuentes'], datasets: [{ data: [clientesNuevos, clientesFrecuentes], backgroundColor: ['#42a5f5','#ffc107'], borderColor: '#fff', borderWidth: 3 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#3d1c09', font: { size: 11 }, boxWidth: 12 } } } }
     });
 }
 
@@ -3850,34 +3637,8 @@ function renderDashReservas(fil, periodoLbl){
     const ctxAnio = document.getElementById('chartReservasPorAnio').getContext('2d');
     chartsInstancias.reservasAnio = new Chart(ctxAnio, {
         type: 'line',
-        data: {
-            labels: anios.length ? anios : ['Sin datos'],
-            datasets: [{
-                label: 'Reservas por año',
-                data: anios.length ? anios.map(a=>porAnio[a]) : [0],
-                borderColor: '#1976d2',
-                backgroundColor: 'rgba(25,118,210,0.18)',
-                borderWidth: 4,
-                tension: 0.35,
-                pointBackgroundColor: '#1976d2',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 3,
-                pointRadius: 8,
-                pointHoverRadius: 12,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: { callbacks: { label: (ctx)=> `${ctx.raw} reservas` } }
-            },
-            scales: {
-                y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09', font: { size: 12 } } },
-                x: { ticks: { color: '#3d1c09', font: { size: 14, weight: 'bold' } } }
-            }
-        }
+        data: { labels: anios.length ? anios : ['Sin datos'], datasets: [{ label: 'Reservas por año', data: anios.length ? anios.map(a=>porAnio[a]) : [0], borderColor: '#1976d2', backgroundColor: 'rgba(25,118,210,0.18)', borderWidth: 4, tension: 0.35, pointBackgroundColor: '#1976d2', pointBorderColor: '#fff', pointBorderWidth: 3, pointRadius: 8, pointHoverRadius: 12, fill: true }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx)=> `${ctx.raw} reservas` } } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09', font: { size: 12 } } }, x: { ticks: { color: '#3d1c09', font: { size: 14, weight: 'bold' } } } } }
     });
 
     const habsCount = {};
@@ -3886,22 +3647,8 @@ function renderDashReservas(fil, periodoLbl){
     const ctxHab = document.getElementById('chartReservasHab').getContext('2d');
     chartsInstancias.reservasHab = new Chart(ctxHab, {
         type: 'bar',
-        data: {
-            labels: Object.keys(habsCount),
-            datasets: [{
-                label: 'Reservas',
-                data: Object.values(habsCount),
-                backgroundColor: ['#ffc107','#66bb6a','#42a5f5','#ef5350','#ab47bc','#26a69a'],
-                borderColor: '#50260c',
-                borderWidth: 1,
-                borderRadius: 8
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } }, x: { ticks: { color: '#3d1c09' } } }
-        }
+        data: { labels: Object.keys(habsCount), datasets: [{ label: 'Reservas', data: Object.values(habsCount), backgroundColor: ['#ffc107','#66bb6a','#42a5f5','#ef5350','#ab47bc','#26a69a'], borderColor: '#50260c', borderWidth: 1, borderRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } }, x: { ticks: { color: '#3d1c09' } } } }
     });
 
     const mesesCount = new Array(12).fill(0);
@@ -3909,32 +3656,14 @@ function renderDashReservas(fil, periodoLbl){
     const ctxMes = document.getElementById('chartReservasMes').getContext('2d');
     chartsInstancias.reservasMes = new Chart(ctxMes, {
         type: 'bar',
-        data: {
-            labels: MESES_ABREV,
-            datasets: [{
-                label: 'Reservas',
-                data: mesesCount,
-                backgroundColor: '#00897b',
-                borderColor: '#00695c',
-                borderWidth: 1,
-                borderRadius: 8
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } }, x: { ticks: { color: '#3d1c09' } } }
-        }
+        data: { labels: MESES_ABREV, datasets: [{ label: 'Reservas', data: mesesCount, backgroundColor: '#00897b', borderColor: '#00695c', borderWidth: 1, borderRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, color: '#3d1c09' } }, x: { ticks: { color: '#3d1c09' } } } }
     });
 }
 
 function renderDashFinanciero(fil, periodoLbl){
     const totalRecibido = fil.reduce((a,r)=>a+getDineroRecibido(r),0);
-    const totalCobrado = fil.reduce((a,r)=>{
-        const total = calcularTotalBase(r);
-        const saldo = r.valorSaldo || 0;
-        return a + Math.max(0, total - saldo);
-    },0);
+    const totalCobrado = fil.reduce((a,r)=>{ const total = calcularTotalBase(r); const saldo = r.valorSaldo || 0; return a + Math.max(0, total - saldo); },0);
     const totalReservas = fil.length;
     const ticketProm = totalReservas ? Math.round(totalRecibido/totalReservas) : 0;
     const totalAPagar = fil.reduce((a,r)=>a+calcularTotalBase(r),0);
@@ -3952,28 +3681,8 @@ function renderDashFinanciero(fil, periodoLbl){
     const ctxMes = document.getElementById('chartFinDineroMes').getContext('2d');
     chartsInstancias.finDineroMes = new Chart(ctxMes, {
         type: 'bar',
-        data: {
-            labels: MESES_ABREV,
-            datasets: [{
-                label: 'Dinero recibido',
-                data: dineroMes,
-                backgroundColor: '#2e7d32',
-                borderColor: '#1b5e20',
-                borderWidth: 1,
-                borderRadius: 8
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: { callbacks: { label: (ctx)=> formatPeso(ctx.raw) } }
-            },
-            scales: {
-                y: { beginAtZero: true, ticks: { color: '#3d1c09', callback: (v)=> v>=1000 ? '$'+(v/1000)+'k' : '$'+v } },
-                x: { ticks: { color: '#3d1c09' } }
-            }
-        }
+        data: { labels: MESES_ABREV, datasets: [{ label: 'Dinero recibido', data: dineroMes, backgroundColor: '#2e7d32', borderColor: '#1b5e20', borderWidth: 1, borderRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx)=> formatPeso(ctx.raw) } } }, scales: { y: { beginAtZero: true, ticks: { color: '#3d1c09', callback: (v)=> v>=1000 ? '$'+(v/1000)+'k' : '$'+v } }, x: { ticks: { color: '#3d1c09' } } } }
     });
 
     const dineroAnio = {};
@@ -3987,28 +3696,8 @@ function renderDashFinanciero(fil, periodoLbl){
     const ctxAnio = document.getElementById('chartFinDineroAnio').getContext('2d');
     chartsInstancias.finDineroAnio = new Chart(ctxAnio, {
         type: 'bar',
-        data: {
-            labels: anios.length ? anios : ['Sin datos'],
-            datasets: [{
-                label: 'Dinero recibido',
-                data: anios.length ? anios.map(a=>dineroAnio[a]) : [0],
-                backgroundColor: ['#ffc107','#66bb6a','#42a5f5','#ef5350','#ab47bc'],
-                borderColor: '#50260c',
-                borderWidth: 1,
-                borderRadius: 8
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: { callbacks: { label: (ctx)=> formatPeso(ctx.raw) } }
-            },
-            scales: {
-                y: { beginAtZero: true, ticks: { color: '#3d1c09', callback: (v)=> v>=1000 ? '$'+(v/1000)+'k' : '$'+v } },
-                x: { ticks: { color: '#3d1c09', font: { size: 14, weight: 'bold' } } }
-            }
-        }
+        data: { labels: anios.length ? anios : ['Sin datos'], datasets: [{ label: 'Dinero recibido', data: anios.length ? anios.map(a=>dineroAnio[a]) : [0], backgroundColor: ['#ffc107','#66bb6a','#42a5f5','#ef5350','#ab47bc'], borderColor: '#50260c', borderWidth: 1, borderRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx)=> formatPeso(ctx.raw) } } }, scales: { y: { beginAtZero: true, ticks: { color: '#3d1c09', callback: (v)=> v>=1000 ? '$'+(v/1000)+'k' : '$'+v } }, x: { ticks: { color: '#3d1c09', font: { size: 14, weight: 'bold' } } } } }
     });
 }
 
@@ -4372,11 +4061,7 @@ function suscribirRealtime(){
 
     sb.channel('cambios-tarifas-villa-alejo-v7')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA_TARIFAS }, async ()=>{
-            try {
-                await cargarTarifasPersonalizadas();
-                renderTarifas();
-                mostrarToast('📋 Tarifas actualizadas en tiempo real','info');
-            } catch(e){ console.warn(e); }
+            try { await cargarTarifasPersonalizadas(); renderTarifas(); mostrarToast('📋 Tarifas actualizadas en tiempo real','info'); } catch(e){ console.warn(e); }
         })
         .subscribe();
 }
@@ -4391,29 +4076,19 @@ function renderTodo(){
 }
 
 async function init(){
-    try {
-        ['villaAlejo_cache_v6','villaAlejo_tarifas_v1'].forEach(k=>localStorage.removeItem(k));
-    } catch(e){}
+    try { ['villaAlejo_cache_v6','villaAlejo_tarifas_v1'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
 
     await cargarTarifasPersonalizadas();
 
     const { data: { session } } = await sb.auth.getSession();
-    if(session && session.user){
-        currentUser = session.user;
-        await aplicarModoEditor();
-    } else {
-        aplicarModoVisitante();
-    }
+    if(session && session.user){ currentUser = session.user; await aplicarModoEditor(); }
+    else { aplicarModoVisitante(); }
 
     initDashFiltros();
     actualizarDashFiltroCobra();
 
     const cache = cargarCache();
-    if(cache){
-        reservas = cache;
-        renderTodo();
-        setSyncStatus('cache', 'Caché');
-    }
+    if(cache){ reservas = cache; renderTodo(); setSyncStatus('cache', 'Caché'); }
     if(bloquesHabitacion.children.length===0) agregarBloqueHabitacion();
     actualizarEstadoBotonAñadirHab();
     renderCalendar(mesCalendarioActual, anioCalendarioActual);
@@ -4436,13 +4111,8 @@ async function init(){
 }
 
 sb.auth.onAuthStateChange((event, session)=>{
-    if(session && session.user){
-        currentUser = session.user;
-        if(modo!=='editor') aplicarModoEditor();
-    } else {
-        currentUser = null;
-        if(modo!=='visitante') aplicarModoVisitante();
-    }
+    if(session && session.user){ currentUser = session.user; if(modo!=='editor') aplicarModoEditor(); }
+    else { currentUser = null; if(modo!=='visitante') aplicarModoVisitante(); }
 });
 
 document.addEventListener('DOMContentLoaded', init);
