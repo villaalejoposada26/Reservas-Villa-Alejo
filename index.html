@@ -169,8 +169,8 @@ tr:last-child td { border-bottom: none; }
 }
 .comprobante-preview-grande {
     display: inline-block;
-    max-width: none;
-    max-height: none;
+    max-width: 90%;
+    max-height: 60vh;
     border-radius: 6px;
     background: #fff;
     transition: transform 0.12s ease-out;
@@ -197,30 +197,62 @@ tr:last-child td { border-bottom: none; }
     border-radius: 30px;
     padding: 5px 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     margin: 0 auto 8px auto;
+    max-width: 100%;
 }
 .zoom-toolbar button {
     border: none;
     background: rgba(255,255,255,0.08);
     color: #fff;
-    width: 36px;
-    height: 36px;
+    min-width: 34px;
+    height: 34px;
     border-radius: 50%;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     transition: all 0.15s;
+    padding: 0 6px;
 }
 .zoom-toolbar button:hover { background: #ffc107; color: #000; transform: scale(1.08); }
+.zoom-toolbar .zoom-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 120px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.25);
+    outline: none;
+    cursor: pointer;
+    margin: 0 4px;
+}
+.zoom-toolbar .zoom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffc107;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+.zoom-toolbar .zoom-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffc107;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
 .zoom-toolbar .zoom-level {
     font-size: 0.72rem;
     font-weight: 800;
     color: #fff;
-    min-width: 54px;
+    min-width: 48px;
     text-align: center;
     padding: 0 4px;
 }
@@ -262,6 +294,12 @@ tr:last-child td { border-bottom: none; }
 .comprobante-modal-panel:-webkit-full-screen .comprobante-modal-header,
 .comprobante-modal-panel:-moz-full-screen .comprobante-modal-header {
     border-radius: 0;
+}
+.comprobante-modal-panel:fullscreen .comprobante-preview-grande,
+.comprobante-modal-panel:-webkit-full-screen .comprobante-preview-grande,
+.comprobante-modal-panel:-moz-full-screen .comprobante-preview-grande {
+    max-width: 95%;
+    max-height: calc(100vh - 180px);
 }
 
 .btn-comprobante { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 25px; border-radius: 6px; background: #1976d2; color: #fff; border: none; cursor: pointer; font-size: 0.72rem; transition: all 0.15s; box-shadow: 0 2px 5px -1px rgba(25,118,210,0.5); position: relative; }
@@ -343,8 +381,10 @@ tr:last-child td { border-bottom: none; }
 .reserva-chip .nombre { font-size: 0.48rem; opacity: 0.9; display: block; overflow: hidden; text-overflow: ellipsis; }
 .reserva-chip.cancelado { background: #e0e0e0; color: #757575; border-left-color: #9e9e9e; }
 
+/* ===== NO DISPONIBLE: SIEMPRE en 2 líneas ===== */
 .calendar-day.lleno .day-status.full-status {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     line-height: 1.05;
@@ -352,19 +392,22 @@ tr:last-child td { border-bottom: none; }
     color: #fff;
     border: 1px solid #a01818;
     box-shadow: 0 1px 3px rgba(160,24,24,0.4);
-    white-space: nowrap;
+    white-space: normal;
     text-align: center;
     text-decoration: none;
-    padding: 2px 5px;
-    font-size: 0.46rem;
+    padding: 2px 4px;
+    font-size: 0.44rem;
     border-radius: 8px;
     max-width: 100%;
     margin: 0 auto 2px auto;
     letter-spacing: -0.2px;
 }
-.calendar-day.lleno .day-status.full-status .linea1 { display: inline; }
-.calendar-day.lleno .day-status.full-status .linea2 { display: inline; }
-.calendar-day.lleno .day-status.full-status .linea1::after { content: ' '; }
+.calendar-day.lleno .day-status.full-status .linea1,
+.calendar-day.lleno .day-status.full-status .linea2 {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(61,28,9,0.6); backdrop-filter: blur(4px); z-index: 1200; display: none; justify-content: center; align-items: center; padding: 16px; }
 .modal-overlay.show { display: flex; }
@@ -555,6 +598,7 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .precio-feria { font-weight: 700; color: #7b1fa2; }
 .capacidad { font-weight: 700; color: #2e7d32; }
 
+/* === CONTROLES DE EDICIÓN DE TARIFAS === */
 .tarifas-controles {
     display: none;
     background: #faf3ee;
@@ -569,6 +613,19 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
     box-shadow: 0 2px 8px rgba(80,38,12,0.06);
 }
 body.modo-editor .tarifas-controles { display: flex; }
+/* Botón Guardar y Cancelar solo visibles cuando se está editando */
+.tarifas-controles #btnGuardarTabla,
+.tarifas-controles #btnCancelarTabla {
+    display: none;
+}
+body.modo-editor .tarifas-controles.editando-activo #btnGuardarTabla,
+body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
+    display: inline-flex;
+}
+/* Cuando se está editando, ocultar el botón Editar */
+.tarifas-controles.editando-activo #btnEditarTabla {
+    display: none;
+}
 .tarifas-controles .titulo-edit {
     margin-right: auto;
     font-size: 0.72rem;
@@ -738,9 +795,12 @@ body.modo-editor .tarifas-controles { display: flex; }
         letter-spacing: -0.1px;
         white-space: normal;
     }
-    .calendar-day.lleno .day-status.full-status .linea1 { display: block; }
-    .calendar-day.lleno .day-status.full-status .linea2 { display: block; }
-    .calendar-day.lleno .day-status.full-status .linea1::after { content: ''; }
+    .calendar-day.lleno .day-status.full-status .linea1,
+    .calendar-day.lleno .day-status.full-status .linea2 {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
     .calendar-day.parcial .day-status { font-size: 0.4rem; }
     .festivo-nombre-chip { font-size: 0.36rem; }
     .reserva-chip { font-size: 0.42rem; padding: 1px 2px; }
@@ -803,8 +863,11 @@ body.modo-editor .tarifas-controles { display: flex; }
     .comprobante-modal-panel { max-height: 96vh; border-radius: 14px; }
     .comprobante-modal-body { padding: 0.6rem; gap: 0.6rem; }
     .comprobante-zoom-wrapper { min-height: 280px; max-height: 60vh; padding: 52px 10px 10px 10px; }
-    .zoom-toolbar button { width: 32px; height: 32px; font-size: 0.8rem; }
-    .zoom-toolbar .zoom-level { font-size: 0.68rem; min-width: 46px; }
+    .comprobante-preview-grande { max-width: 100%; max-height: 50vh; }
+    .zoom-toolbar { gap: 3px; padding: 4px 6px; }
+    .zoom-toolbar button { min-width: 30px; height: 30px; font-size: 0.75rem; }
+    .zoom-toolbar .zoom-slider { width: 90px; }
+    .zoom-toolbar .zoom-level { font-size: 0.62rem; min-width: 40px; }
     .comprobante-preview-grande.iframe-pdf { height: 60vh; }
     .comprobante-thumb, .comprobante-thumb-pdf { width: 44px; height: 44px; }
 }
@@ -850,8 +913,10 @@ body.modo-editor .tarifas-controles { display: flex; }
     .comprobante-modal-header h3 { font-size: 0.8rem; }
     .btn-header { padding: 0.35rem 0.6rem; font-size: 0.65rem; }
     .zoom-toolbar { gap: 3px; padding: 4px 6px; }
-    .zoom-toolbar button { width: 30px; height: 30px; font-size: 0.75rem; }
-    .zoom-toolbar .zoom-level { font-size: 0.62rem; min-width: 40px; }
+    .zoom-toolbar button { min-width: 28px; height: 28px; font-size: 0.7rem; }
+    .zoom-toolbar .zoom-slider { width: 70px; }
+    .zoom-toolbar .zoom-level { font-size: 0.58rem; min-width: 36px; }
+    .comprobante-preview-grande { max-width: 100%; max-height: 42vh; }
 }
 </style>
 </head>
@@ -1823,6 +1888,7 @@ function aplicarModoVisitante(){
     const ind = document.getElementById('syncIndicator');
     if(ind) ind.classList.add('hidden-sync');
     if(tarifasEditando){ tarifasEditando = false; tarifasRespaldo = null; }
+    document.getElementById('tarifasControles').classList.remove('editando-activo');
     activateSection('calendar');
     renderReservasRegistro();
     renderTarifas();
@@ -1864,8 +1930,19 @@ function renderTarifas(){
         tbody.appendChild(tr);
     });
     if(tarifasEditando){
+        // Solo números en inputs de precio/capacidad
         tbody.querySelectorAll('input[data-field="baja"], input[data-field="alta"], input[data-field="ferias"], input[data-field="capacidad"]').forEach(inp=>{
             inp.addEventListener('input', ()=>{ inp.value = inp.value.replace(/[^0-9]/g,''); });
+        });
+        // Guardar con ENTER en cualquier input
+        tbody.querySelectorAll('input.tarifa-input').forEach(inp=>{
+            inp.addEventListener('keydown', (e)=>{
+                if(e.key === 'Enter'){
+                    e.preventDefault();
+                    inp.blur();
+                    guardarEdicionTarifas();
+                }
+            });
         });
     }
 }
@@ -1880,8 +1957,14 @@ function entrarModoEdicionTarifas(){
     document.getElementById('btnEditarTabla').disabled = true;
     document.getElementById('btnGuardarTabla').disabled = false;
     document.getElementById('btnCancelarTabla').disabled = false;
+    document.getElementById('tarifasControles').classList.add('editando-activo');
     renderTarifas();
-    mostrarToast('✏️ Edición de tabla activada','info');
+    // Enfocar el primer input para que el usuario empiece a escribir
+    setTimeout(()=>{
+        const primer = document.querySelector('#tarifasTbody input.tarifa-input');
+        if(primer) primer.focus();
+    }, 100);
+    mostrarToast('✏️ Edición de tabla activada. Presiona ENTER para guardar.','info');
 }
 
 function cancelarEdicionTarifas(){
@@ -1899,6 +1982,7 @@ function cancelarEdicionTarifas(){
     document.getElementById('btnEditarTabla').disabled = false;
     document.getElementById('btnGuardarTabla').disabled = true;
     document.getElementById('btnCancelarTabla').disabled = true;
+    document.getElementById('tarifasControles').classList.remove('editando-activo');
     renderTarifas();
     mostrarToast('↩️ Cambios descartados','info');
 }
@@ -1970,6 +2054,7 @@ async function guardarEdicionTarifas(){
         document.getElementById('btnEditarTabla').disabled = false;
         document.getElementById('btnGuardarTabla').disabled = true;
         document.getElementById('btnCancelarTabla').disabled = true;
+        document.getElementById('tarifasControles').classList.remove('editando-activo');
         renderTarifas();
         mostrarToast('✅ Tarifas guardadas correctamente','ok');
 
@@ -2264,7 +2349,10 @@ function renderCalendar(m, y){
         const num = document.createElement('div'); num.className='day-number'; num.textContent=d; dayDiv.appendChild(num);
         if(fest){ const f=document.createElement('div'); f.className='festivo-nombre-chip'; f.textContent=fest; f.title=fest; dayDiv.appendChild(f); }
         const st = document.createElement('div'); st.className='day-status';
-        if(estado==='lleno'){ st.classList.add('full-status'); st.innerHTML = '<span class="linea1">No</span><span class="linea2">Disponible</span>'; }
+        if(estado==='lleno'){
+            st.classList.add('full-status');
+            st.innerHTML = '<span class="linea1">NO</span><span class="linea2">DISPONIBLE</span>';
+        }
         else if(estado==='parcial') st.textContent='Reservado';
         else st.textContent='Disponible';
         dayDiv.appendChild(st);
@@ -3223,10 +3311,17 @@ function cerrarCompModal(){
 }
 
 function aplicarZoom(img, wrapper){
-    img.style.transform = `translate(${comprobantePanX}px, ${comprobantePanY}px) scale(${comprobanteZoom})`;
-    img.classList.toggle('zoomed', comprobanteZoom > 1);
+    // comprobanteZoom va de 0 a 1 (0% - 100%)
+    const anchoBase = wrapper.clientWidth - 40;
+    const escala = comprobanteZoom;
+    img.style.width = (anchoBase * escala) + 'px';
+    img.style.maxWidth = 'none';
+    img.style.height = 'auto';
+    img.classList.toggle('zoomed', escala > 0.98);
     const level = wrapper.querySelector('.zoom-level');
-    if(level) level.textContent = Math.round(comprobanteZoom*100) + '%';
+    if(level) level.textContent = Math.round(escala*100) + '%';
+    const slider = wrapper.querySelector('.zoom-slider');
+    if(slider) slider.value = Math.round(escala*100);
 }
 
 function resetZoom(img, wrapper){
@@ -3303,9 +3398,10 @@ function renderCompModal(){
         toolbar.className = 'zoom-toolbar';
         toolbar.innerHTML = `
             <button type="button" id="zoomOutBtn" title="Alejar"><i class="fas fa-search-minus"></i></button>
+            <input type="range" class="zoom-slider" min="0" max="100" value="100" step="1" title="Zoom">
             <span class="zoom-level">100%</span>
             <button type="button" id="zoomInBtn" title="Acercar"><i class="fas fa-search-plus"></i></button>
-            <button type="button" id="zoomResetBtn" title="Reiniciar"><i class="fas fa-compress-arrows-alt"></i></button>
+            <button type="button" id="zoomResetBtn" title="Tamaño original"><i class="fas fa-compress-arrows-alt"></i></button>
             <span class="separator"></span>
             <button type="button" id="zoomFullscreenBtn" title="Pantalla completa"><i class="fas fa-expand"></i></button>
         `;
@@ -3320,49 +3416,31 @@ function renderCompModal(){
         wrapper.appendChild(img);
         compModalBody.appendChild(wrapper);
 
+        // Inicializar en tamaño pequeño (60%)
+        comprobanteZoom = 0.6;
         const aplicar = ()=>aplicarZoom(img, wrapper);
-        const reset = ()=>resetZoom(img, wrapper);
 
-        wrapper.querySelector('#zoomInBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.min(comprobanteZoom * 1.25, 8); aplicar(); });
-        wrapper.querySelector('#zoomOutBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.max(comprobanteZoom / 1.25, 1); if(comprobanteZoom === 1){ comprobantePanX = 0; comprobantePanY = 0; } aplicar(); });
-        wrapper.querySelector('#zoomResetBtn').addEventListener('click', reset);
+        wrapper.querySelector('#zoomInBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.min(comprobanteZoom + 0.1, 1); aplicar(); });
+        wrapper.querySelector('#zoomOutBtn').addEventListener('click', ()=>{ comprobanteZoom = Math.max(comprobanteZoom - 0.1, 0); aplicar(); });
+        wrapper.querySelector('#zoomResetBtn').addEventListener('click', ()=>{ comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; aplicar(); wrapper.scrollTop = 0; wrapper.scrollLeft = 0; });
         wrapper.querySelector('#zoomFullscreenBtn').addEventListener('click', toggleFullscreen);
+
+        const slider = wrapper.querySelector('.zoom-slider');
+        slider.addEventListener('input', (e)=>{
+            comprobanteZoom = Math.max(0, Math.min(1, parseInt(e.target.value) / 100));
+            aplicar();
+        });
 
         let lastTap = 0;
         img.addEventListener('click', (e)=>{
             const now = Date.now();
-            if(now - lastTap < 300){ if(comprobanteZoom > 1){ reset(); } else { comprobanteZoom = 2; aplicar(); } e.preventDefault(); }
+            if(now - lastTap < 300){
+                if(comprobanteZoom >= 0.99){ comprobanteZoom = 0.6; aplicar(); }
+                else { comprobanteZoom = 1; aplicar(); }
+                e.preventDefault();
+            }
             lastTap = now;
         });
-
-        wrapper.addEventListener('wheel', (e)=>{
-            if(e.ctrlKey || e.metaKey){
-                e.preventDefault();
-                if(e.deltaY < 0) comprobanteZoom = Math.min(comprobanteZoom * 1.15, 8);
-                else comprobanteZoom = Math.max(comprobanteZoom / 1.15, 1);
-                if(comprobanteZoom === 1){ comprobantePanX = 0; comprobantePanY = 0; }
-                aplicar();
-            }
-        }, { passive: false });
-
-        let initialDist = 0, initialZoom = 1;
-        wrapper.addEventListener('touchstart', (e)=>{
-            if(e.touches.length === 2){
-                const t1 = e.touches[0], t2 = e.touches[1];
-                initialDist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-                initialZoom = comprobanteZoom;
-            }
-        }, { passive: true });
-        wrapper.addEventListener('touchmove', (e)=>{
-            if(e.touches.length === 2 && initialDist > 0){
-                const t1 = e.touches[0], t2 = e.touches[1];
-                const dist = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
-                const factor = dist / initialDist;
-                comprobanteZoom = Math.min(Math.max(initialZoom * factor, 1), 8);
-                aplicar();
-            }
-        }, { passive: true });
-        wrapper.addEventListener('touchend', ()=>{ initialDist = 0; }, { passive: true });
 
         aplicar();
         actualizarBotonFullscreen();
@@ -3377,13 +3455,13 @@ function renderCompModal(){
                 const t = document.createElement('div');
                 t.className = 'comprobante-thumb-pdf' + (i===comprobanteModalIndexActual?' active':'');
                 t.innerHTML = '<i class="fas fa-file-pdf"></i>';
-                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 0.6; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
                 thumbs.appendChild(t);
             } else {
                 const t = document.createElement('img');
                 t.className = 'comprobante-thumb' + (i===comprobanteModalIndexActual?' active':'');
                 t.src = u;
-                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+                t.addEventListener('click', ()=>{ comprobanteModalIndexActual = i; comprobanteZoom = 0.6; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
                 thumbs.appendChild(t);
             }
         });
@@ -3392,8 +3470,8 @@ function renderCompModal(){
 
     const prev = document.getElementById('compPrevBtn');
     const next = document.getElementById('compNextBtn');
-    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
-    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; comprobanteZoom = 1; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+    if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; comprobanteZoom = 0.6; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
+    if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; comprobanteZoom = 0.6; comprobantePanX = 0; comprobantePanY = 0; renderCompModal(); });
 }
 
 function abrirComprobanteModal(id){
@@ -3402,7 +3480,7 @@ function abrirComprobanteModal(id){
     comprobanteModalIdReserva = id;
     comprobanteModalUrls = getComprobantesUrls(r);
     comprobanteModalIndexActual = 0;
-    comprobanteZoom = 1;
+    comprobanteZoom = 0.6;
     comprobantePanX = 0;
     comprobantePanY = 0;
     renderCompModal();
@@ -3434,7 +3512,7 @@ compModalFileInput.addEventListener('change', async (e)=>{
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
         comprobanteModalIndexActual = comprobanteModalUrls.length - 1;
-        comprobanteZoom = 1;
+        comprobanteZoom = 0.6;
         comprobantePanX = 0;
         comprobantePanY = 0;
         renderCompModal();
@@ -3462,7 +3540,7 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
         mostrarToast('🗑️ Comprobante eliminado','info');
         const rActualizada = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         comprobanteModalUrls = getComprobantesUrls(rActualizada);
-        comprobanteZoom = 1;
+        comprobanteZoom = 0.6;
         comprobantePanX = 0;
         comprobantePanY = 0;
         if(comprobanteModalUrls.length === 0){ renderCompModal(); }
