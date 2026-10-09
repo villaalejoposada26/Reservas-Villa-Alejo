@@ -145,19 +145,31 @@ tr:last-child td { border-bottom: none; }
 .pago-total-input::placeholder { color: #b8a89a; font-weight: 400; font-style: italic; text-align: right; }
 .pago-total-input.guardado { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
 
-.comprobante-modal-body { flex: 1; overflow: hidden; padding: 1rem; background: #faf3ee; display: flex; flex-direction: column; align-items: center; gap: 1rem; min-height: 200px; position: relative; }
-.comprobante-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-wrap: wrap; }
+/* ==================== VISOR DE COMPROBANTES (SIN SCROLL) ==================== */
+.comprobante-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0.8rem;
+    background: #faf3ee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    position: relative;
+}
+
+.comprobante-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 0.4rem 0.8rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-wrap: wrap; flex-shrink: 0; }
 .comprobante-nav button { background: #f5e6dc; border: 1px solid #e0cbb8; color: #50260c; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; }
 .comprobante-nav button:hover { background: #e8d5c6; }
 .comprobante-nav .contador { font-size: 0.8rem; font-weight: 700; color: #50260c; }
 
-/* === WRAPPER DEL COMPROBANTE (SIN ZOOM, SOLO VISUALIZACIÓN) === */
 .comprobante-zoom-wrapper {
     width: 100%;
-    flex: 1;
-    min-height: 380px;
-    max-height: 68vh;
-    overflow: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
     background: #2b2b2b;
     border-radius: 10px;
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(80,38,12,0.15);
@@ -165,10 +177,10 @@ tr:last-child td { border-bottom: none; }
     justify-content: center;
     align-items: center;
     position: relative;
-    -webkit-overflow-scrolling: touch;
     text-align: center;
-    padding: 16px;
+    padding: 12px;
 }
+
 .comprobante-preview-grande {
     display: block;
     max-width: 100%;
@@ -184,9 +196,14 @@ tr:last-child td { border-bottom: none; }
     object-fit: contain;
     margin: 0 auto;
 }
-.comprobante-preview-grande.iframe-pdf { width: 100%; height: 68vh; border: none; background: #fff; cursor: default; }
+.comprobante-preview-grande.iframe-pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+    cursor: default;
+}
 
-/* Botón flotante de pantalla completa */
 .btn-fullscreen-float {
     position: absolute;
     top: 12px;
@@ -197,14 +214,14 @@ tr:last-child td { border-bottom: none; }
     -webkit-backdrop-filter: blur(6px);
     border: 1px solid rgba(255,255,255,0.25);
     color: #fff;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.15s;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
@@ -214,10 +231,10 @@ tr:last-child td { border-bottom: none; }
     transform: scale(1.1);
 }
 
-.comprobante-thumbs { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; padding: 0.5rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; }
-.comprobante-thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: contain; background: #f5f5f5; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
+.comprobante-thumbs { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; padding: 0.4rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-shrink: 0; max-width: 100%; overflow-x: auto; }
+.comprobante-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #f5f5f5; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
 .comprobante-thumb:hover, .comprobante-thumb.active { border-color: #50260c; transform: scale(1.05); }
-.comprobante-thumb-pdf { width: 50px; height: 50px; border-radius: 8px; background: #c62828; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; }
+.comprobante-thumb-pdf { width: 44px; height: 44px; border-radius: 8px; background: #c62828; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
 .comprobante-thumb-pdf:hover, .comprobante-thumb-pdf.active { border-color: #50260c; transform: scale(1.05); }
 .comprobante-empty-msg { text-align: center; padding: 2rem 1rem; color: #8a6b55; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 .comprobante-empty-msg i { font-size: 3rem; color: #d4b9a4; }
@@ -303,7 +320,6 @@ tr:last-child td { border-bottom: none; }
 .reserva-chip .nombre { font-size: 0.48rem; opacity: 0.9; display: block; overflow: hidden; text-overflow: ellipsis; }
 .reserva-chip.cancelado { background: #e0e0e0; color: #757575; border-left-color: #9e9e9e; }
 
-/* ===== NO DISPONIBLE: 1 SOLA FILA EN ESCRITORIO ===== */
 .calendar-day.lleno .day-status.full-status {
     display: inline-block;
     align-items: center;
@@ -353,8 +369,8 @@ tr:last-child td { border-bottom: none; }
 
 .comprobante-modal-overlay { position: fixed; inset: 0; background: rgba(61,28,9,0.85); backdrop-filter: blur(6px); z-index: 1800; display: none; justify-content: center; align-items: center; padding: 16px; }
 .comprobante-modal-overlay.show { display: flex; }
-.comprobante-modal-panel { background: #fff; border-radius: 18px; max-width: 950px; width: 100%; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
-.comprobante-modal-header { background: #50260c; color: #fff; padding: 0.7rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.comprobante-modal-panel { background: #fff; border-radius: 18px; max-width: 950px; width: 100%; max-height: 92vh; height: 92vh; display: flex; flex-direction: column; overflow: hidden; }
+.comprobante-modal-header { background: #50260c; color: #fff; padding: 0.7rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; flex-shrink: 0; }
 .comprobante-modal-header h3 { font-size: 0.92rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
 .acciones-header { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .btn-header { border: none; padding: 0.45rem 0.8rem; border-radius: 30px; font-weight: 700; font-size: 0.72rem; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
@@ -685,7 +701,6 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
 .login-tab.active { background: #faf3ee; color: #50260c; border-color: #e8d5c6; border-bottom: 2px solid #faf3ee; }
 .login-tab i { font-size: 0.9rem; }
 
-/* === VISOR DE IMAGEN A PANTALLA COMPLETA (SOLO LA IMAGEN) === */
 .imagen-fullscreen-overlay {
     position: fixed;
     inset: 0;
@@ -841,13 +856,17 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
     .pago-total-input { width: 80px; font-size: 0.65rem; }
     .reservas-top-row { flex-direction: column; align-items: stretch; }
 
-    .comprobante-modal-panel { max-height: 96vh; border-radius: 14px; }
-    .comprobante-modal-body { padding: 0.6rem; gap: 0.6rem; }
-    .comprobante-zoom-wrapper { min-height: 280px; max-height: 60vh; padding: 12px; }
+    /* === VISOR DE COMPROBANTES EN MÓVIL === */
+    .comprobante-modal-panel { max-height: 96vh; height: 96vh; border-radius: 14px; }
+    .comprobante-modal-body { padding: 0.5rem; gap: 0.5rem; }
+    .comprobante-zoom-wrapper { min-height: 0; max-height: 100%; padding: 8px; }
     .comprobante-preview-grande { max-width: 100%; max-height: 100%; }
-    .comprobante-preview-grande.iframe-pdf { height: 60vh; }
-    .comprobante-thumb, .comprobante-thumb-pdf { width: 44px; height: 44px; }
-    .btn-fullscreen-float { width: 36px; height: 36px; font-size: 0.9rem; top: 10px; right: 10px; }
+    .comprobante-preview-grande.iframe-pdf { height: 100%; }
+    .comprobante-thumb, .comprobante-thumb-pdf { width: 40px; height: 40px; }
+    .btn-fullscreen-float { width: 34px; height: 34px; font-size: 0.85rem; top: 10px; right: 10px; }
+    .comprobante-nav { padding: 0.35rem 0.6rem; gap: 0.5rem; }
+    .comprobante-nav button { width: 28px; height: 28px; font-size: 0.75rem; }
+    .comprobante-nav .contador { font-size: 0.72rem; }
 }
 
 @media (max-width: 480px) {
@@ -891,6 +910,7 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
     .comprobante-modal-header h3 { font-size: 0.8rem; }
     .btn-header { padding: 0.35rem 0.6rem; font-size: 0.65rem; }
     .comprobante-preview-grande { max-width: 100%; max-height: 100%; }
+    .comprobante-thumb, .comprobante-thumb-pdf { width: 36px; height: 36px; }
 }
 </style>
 </head>
@@ -1284,7 +1304,6 @@ body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
     </div>
 </div>
 
-<!-- VISOR DE IMAGEN A PANTALLA COMPLETA (SOLO LA IMAGEN) -->
 <div class="imagen-fullscreen-overlay" id="imagenFullscreenOverlay">
     <button class="cerrar-fullscreen" id="cerrarFullscreen"><i class="fas fa-times"></i></button>
     <img id="imagenFullscreenImg" src="" alt="Comprobante">
@@ -3298,7 +3317,6 @@ function toggleFullscreen(){
     }
 }
 
-/* === VISOR DE IMAGEN A PANTALLA COMPLETA (SOLO LA IMAGEN) === */
 function abrirImagenFullscreen(url){
     const overlay = document.getElementById('imagenFullscreenOverlay');
     const img = document.getElementById('imagenFullscreenImg');
@@ -3445,7 +3463,6 @@ function renderCompModal(){
         wrapper.appendChild(iframe);
         compModalBody.appendChild(wrapper);
     } else {
-        // Botón flotante de pantalla completa
         const btnFullscreen = document.createElement('button');
         btnFullscreen.className = 'btn-fullscreen-float';
         btnFullscreen.title = 'Ver en pantalla completa';
@@ -3461,7 +3478,6 @@ function renderCompModal(){
         img.title = 'Clic para ver en pantalla completa';
         img.style.cursor = 'zoom-in';
         img.onerror = ()=>{ const err = document.createElement('div'); err.className = 'sin-comprobante'; err.textContent = 'No se pudo cargar la imagen'; wrapper.appendChild(err); };
-        // Clic sobre la imagen abre pantalla completa
         img.addEventListener('click', ()=>abrirImagenFullscreen(url));
         wrapper.appendChild(img);
         compModalBody.appendChild(wrapper);
