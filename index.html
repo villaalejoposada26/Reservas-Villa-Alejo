@@ -346,6 +346,54 @@ tr:last-child td { border-bottom: none; }
     content: " ";
 }
 
+/* ====== NUEVO: Botón + para activar tarifa personalizada ====== */
+.btn-tarifa-custom {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #1976d2;
+    color: #fff;
+    border: 2px solid #0d47a1;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 3px 8px rgba(25,118,210,0.35);
+    flex-shrink: 0;
+}
+.btn-tarifa-custom:hover {
+    background: #0d47a1;
+    transform: scale(1.08);
+}
+.btn-tarifa-custom.activo {
+    background: #2e7d32;
+    border-color: #1b5e20;
+    box-shadow: 0 3px 8px rgba(46,125,50,0.45);
+}
+.tarifa-custom-input {
+    border-color: #1976d2 !important;
+    background: #e3f2fd !important;
+    font-weight: 700 !important;
+    color: #0d47a1 !important;
+}
+.tarifa-custom-input:read-only {
+    background: #f5e6dc !important;
+    color: #50260c !important;
+    border-color: #e0cbb8 !important;
+    font-weight: 700 !important;
+}
+.tarifa-custom-label {
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: #1976d2;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-left: 4px;
+}
+
 .modal-overlay { position: fixed; inset: 0; background: rgba(61,28,9,0.6); backdrop-filter: blur(4px); z-index: 1200; display: none; justify-content: center; align-items: center; padding: 16px; }
 .modal-overlay.show { display: flex; }
 .modal-panel { background: #fff; border-radius: 22px; max-width: 560px; width: 100%; padding: 1.5rem; position: relative; max-height: 90vh; overflow-y: auto; }
@@ -459,6 +507,14 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .temp-check .check-icon { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #c9b8a8; display: inline-flex; align-items: center; justify-content: center; color: transparent; font-size: 0.65rem; }
 .temp-check.selected { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
 .temp-check.selected .check-icon { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+
+/* ====== NUEVO: contenedor de tarifa personalizada ====== */
+.tarifa-personalizada-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
 
 .cocina-box { display: inline-flex; align-items: center; gap: 0.7rem; background: #fff; border: 2px solid #e0cbb8; border-radius: 30px; padding: 0.35rem 0.9rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
 .cocina-box .cocina-titulo { font-size: 0.72rem; font-weight: 800; color: #50260c; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
@@ -832,6 +888,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     z-index: 3001;
 }
 
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     body { padding: 8px; }
     .dashboard { border-radius: 20px; }
@@ -848,25 +905,47 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .calendar-grid { gap: 3px; padding: 0.4rem; }
     .calendar-day { min-height: 70px; padding: 0.25rem 0.15rem; }
     .calendar-day .day-number { font-size: 0.72rem; }
-    .calendar-day .day-status { font-size: 0.4rem; padding: 1px 3px; white-space: normal; line-height: 1.05; letter-spacing: -0.1px; }
+    /* ====== CAMBIO: nombres completos en móvil ====== */
+    .calendar-day .day-status { 
+        font-size: 0.48rem; 
+        padding: 2px 3px; 
+        white-space: nowrap; 
+        line-height: 1.05; 
+        letter-spacing: -0.1px;
+        display: inline-block;
+        width: auto;
+        max-width: 100%;
+    }
     .calendar-day.lleno .day-status.full-status {
-        display: flex;
+        display: inline-flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 0.4rem;
+        font-size: 0.44rem;
         padding: 2px 4px;
         line-height: 1.05;
         letter-spacing: -0.1px;
         white-space: normal;
+        width: auto;
+        max-width: 100%;
+        background: #dc2323;
+        color: #fff;
+        border: 1px solid #a01818;
+        border-radius: 8px;
     }
     .calendar-day.lleno .day-status.full-status .linea1,
     .calendar-day.lleno .day-status.full-status .linea2 {
         display: block;
         width: 100%;
         text-align: center;
+        font-size: 0.44rem;
     }
-    .calendar-day.parcial .day-status { font-size: 0.4rem; }
+    .calendar-day.parcial .day-status { 
+        font-size: 0.48rem; 
+        white-space: nowrap;
+        display: inline-block;
+        width: auto;
+    }
     .festivo-nombre-chip { font-size: 0.36rem; }
     .reserva-chip { font-size: 0.42rem; padding: 1px 2px; }
     .reserva-chip .hab { font-size: 0.42rem; }
@@ -937,6 +1016,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .comprobante-nav { padding: 0.35rem 0.6rem; gap: 0.5rem; }
     .comprobante-nav button { width: 28px; height: 28px; font-size: 0.75rem; }
     .comprobante-nav .contador { font-size: 0.72rem; }
+
+    /* Ajustes para el botón de tarifa personalizada en móvil */
+    .btn-tarifa-custom { width: 34px; height: 34px; font-size: 1rem; }
+    .tarifa-personalizada-wrapper { gap: 0.4rem; }
 }
 
 @media (max-width: 480px) {
@@ -946,9 +1029,43 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .calendar-grid { gap: 2px; padding: 0.35rem; }
     .calendar-day { min-height: 72px; padding: 0.2rem 0.1rem; }
     .calendar-day .day-number { font-size: 0.66rem; }
-    .calendar-day .day-status { font-size: 0.36rem; padding: 1px 2px; white-space: normal; line-height: 1.05; letter-spacing: -0.1px; }
-    .calendar-day.lleno .day-status.full-status { font-size: 0.36rem; padding: 2px 3px; line-height: 1.05; letter-spacing: -0.1px; }
-    .calendar-day.parcial .day-status { font-size: 0.36rem; }
+    /* ====== CAMBIO: nombres completos en móvil pequeño ====== */
+    .calendar-day .day-status { 
+        font-size: 0.42rem; 
+        padding: 1px 2px; 
+        white-space: nowrap; 
+        line-height: 1.05; 
+        letter-spacing: -0.1px;
+        display: inline-block;
+        width: auto;
+        max-width: 100%;
+    }
+    .calendar-day.lleno .day-status.full-status { 
+        font-size: 0.4rem; 
+        padding: 2px 3px; 
+        line-height: 1.05; 
+        letter-spacing: -0.1px;
+        white-space: normal;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        max-width: 100%;
+    }
+    .calendar-day.lleno .day-status.full-status .linea1,
+    .calendar-day.lleno .day-status.full-status .linea2 {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 0.4rem;
+    }
+    .calendar-day.parcial .day-status { 
+        font-size: 0.42rem; 
+        white-space: nowrap;
+        display: inline-block;
+        width: auto;
+    }
     .festivo-nombre-chip { font-size: 0.32rem; }
     .reserva-chip { display: block; font-size: 0.4rem; padding: 0 2px; }
     .reserva-chip .hab { font-size: 0.4rem; }
@@ -981,6 +1098,9 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .btn-header { padding: 0.35rem 0.6rem; font-size: 0.65rem; }
     .comprobante-preview-grande { max-width: 100%; max-height: 100%; }
     .comprobante-thumb, .comprobante-thumb-pdf { width: 36px; height: 36px; }
+
+    .btn-tarifa-custom { width: 30px; height: 30px; font-size: 0.9rem; }
+    .tarifa-custom-label { font-size: 0.5rem; }
 }
 </style>
 </head>
@@ -1540,10 +1660,16 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                     <div class="form-row">
                         <div class="form-group" style="flex:1 1 100%;">
                             <label>Temporada <span class="req">*</span></label>
-                            <div class="temporada-checklist" id="temporadaChecklist">
-                                <label class="temp-check baja" data-temp="Baja"><input type="radio" name="temporada" value="Baja"><span class="check-icon"><i class="fas fa-check"></i></span><span>Baja</span></label>
-                                <label class="temp-check alta" data-temp="Alta"><input type="radio" name="temporada" value="Alta"><span class="check-icon"><i class="fas fa-check"></i></span><span>Alta</span></label>
-                                <label class="temp-check ferias" data-temp="Ferias"><input type="radio" name="temporada" value="Ferias"><span class="check-icon"><i class="fas fa-check"></i></span><span>Ferias</span></label>
+                            <div class="tarifa-personalizada-wrapper">
+                                <div class="temporada-checklist" id="temporadaChecklist">
+                                    <label class="temp-check baja" data-temp="Baja"><input type="radio" name="temporada" value="Baja"><span class="check-icon"><i class="fas fa-check"></i></span><span>Baja</span></label>
+                                    <label class="temp-check alta" data-temp="Alta"><input type="radio" name="temporada" value="Alta"><span class="check-icon"><i class="fas fa-check"></i></span><span>Alta</span></label>
+                                    <label class="temp-check ferias" data-temp="Ferias"><input type="radio" name="temporada" value="Ferias"><span class="check-icon"><i class="fas fa-check"></i></span><span>Ferias</span></label>
+                                </div>
+                                <button type="button" class="btn-tarifa-custom" id="btnTarifaCustom" title="Activar tarifa personalizada">
+                                    <i class="fas fa-plus" id="iconoTarifaCustom"></i>
+                                </button>
+                                <span class="tarifa-custom-label" id="tarifaCustomLabel" style="display:none;">Personalizada</span>
                             </div>
                         </div>
                     </div>
@@ -1743,6 +1869,9 @@ let dashSubActual = 'clientes';
 
 let tarifasEditando = false;
 let tarifasRespaldo = null;
+
+/* ====== NUEVO: estado de tarifa personalizada ====== */
+let tarifaPersonalizadaActiva = false;
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_ABREV = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -2237,7 +2366,6 @@ async function descargarTablaTarifas(formato){
             const imgW = canvas.width * ratio;
             const imgH = canvas.height * ratio;
             const x = (pw - imgW) / 2;
-            /* === CORREGIDO: alinear arriba en vez de centrar verticalmente === */
             const y = margin;
             pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', x, y, imgW, imgH);
             pdf.save(`${fname}.pdf`);
@@ -2695,6 +2823,82 @@ const cocinaChecklist = document.getElementById('cocinaChecklist');
 const recibidoBox = document.getElementById('recibidoBox');
 const recibidoPor = document.getElementById('recibidoPor');
 
+/* ====== NUEVO: Botón de tarifa personalizada ====== */
+const btnTarifaCustom = document.getElementById('btnTarifaCustom');
+const iconoTarifaCustom = document.getElementById('iconoTarifaCustom');
+const tarifaCustomLabel = document.getElementById('tarifaCustomLabel');
+
+btnTarifaCustom.addEventListener('click', ()=>{
+    tarifaPersonalizadaActiva = !tarifaPersonalizadaActiva;
+    if(tarifaPersonalizadaActiva){
+        // Activar edición manual de tarifa
+        tarifa.readOnly = false;
+        tarifa.classList.add('tarifa-custom-input');
+        tarifa.focus();
+        btnTarifaCustom.classList.add('activo');
+        iconoTarifaCustom.classList.remove('fa-plus');
+        iconoTarifaCustom.classList.add('fa-check');
+        tarifaCustomLabel.style.display = 'inline';
+        // Limpiar selección de temporada
+        temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
+        temporadaSeleccionada = null;
+        // Limpiar descuentos al cambiar a personalizada
+        descuentoPct.value = '0';
+        descuentoPesos.value = '';
+        actualizarResumen();
+        mostrarToast('✏️ Modo tarifa personalizada activado. Ingrese el valor.', 'info');
+    } else {
+        // Desactivar edición manual
+        tarifa.readOnly = true;
+        tarifa.classList.remove('tarifa-custom-input');
+        btnTarifaCustom.classList.remove('activo');
+        iconoTarifaCustom.classList.remove('fa-check');
+        iconoTarifaCustom.classList.add('fa-plus');
+        tarifaCustomLabel.style.display = 'none';
+        // Si hay una habitación seleccionada, restaurar tarifa según temporada
+        const h = obtenerPrimeraHab();
+        if(h && temporadaSeleccionada && TARIFAS[h] && TARIFAS[h][temporadaSeleccionada]!==undefined){
+            tarifa.value = formatPeso(TARIFAS[h][temporadaSeleccionada]);
+        } else {
+            tarifa.value = '';
+        }
+        actualizarResumen();
+        mostrarToast('↩️ Tarifa personalizada desactivada', 'info');
+    }
+});
+
+// También permitir editar tarifa directamente si se hace clic en el input cuando está en modo personalizado
+tarifa.addEventListener('click', ()=>{
+    if(tarifaPersonalizadaActiva && tarifa.readOnly){
+        tarifa.readOnly = false;
+        tarifa.focus();
+    }
+});
+
+// Manejar entrada de la tarifa personalizada
+tarifa.addEventListener('input', ()=>{
+    if(tarifaPersonalizadaActiva){
+        const soloDigitos = tarifa.value.replace(/[^0-9]/g, '');
+        if(tarifa.value !== soloDigitos) tarifa.value = soloDigitos;
+        actualizarResumen();
+    }
+});
+
+tarifa.addEventListener('blur', ()=>{
+    if(tarifaPersonalizadaActiva){
+        const n = parsePeso(tarifa.value);
+        tarifa.value = formatPeso(n);
+        actualizarResumen();
+    }
+});
+
+tarifa.addEventListener('focus', ()=>{
+    if(tarifaPersonalizadaActiva){
+        const n = parsePeso(tarifa.value);
+        tarifa.value = n === 0 ? '' : String(n);
+    }
+});
+
 document.getElementById('cerrarModalForm').addEventListener('click', ()=>{ modalFormReserva.classList.remove('show'); limpiarFormulario(); });
 modalFormReserva.addEventListener('mousedown', (e)=>{ if(e.target===modalFormReserva) modalFormReserva.dataset.cerrarAlClick = '1'; else delete modalFormReserva.dataset.cerrarAlClick; });
 modalFormReserva.addEventListener('click', (e)=>{
@@ -2707,6 +2911,16 @@ modalFormReserva.addEventListener('click', (e)=>{
 temporadaChecklist.querySelectorAll('.temp-check').forEach(chk=>{
     chk.addEventListener('click', (e)=>{
         e.preventDefault();
+        // Desactivar tarifa personalizada al seleccionar temporada
+        if(tarifaPersonalizadaActiva){
+            tarifaPersonalizadaActiva = false;
+            tarifa.readOnly = true;
+            tarifa.classList.remove('tarifa-custom-input');
+            btnTarifaCustom.classList.remove('activo');
+            iconoTarifaCustom.classList.remove('fa-check');
+            iconoTarifaCustom.classList.add('fa-plus');
+            tarifaCustomLabel.style.display = 'none';
+        }
         const nuevaTemp = chk.dataset.temp;
         const esMismaTempOriginal = (temporadaOriginalEdicion && nuevaTemp === temporadaOriginalEdicion);
         temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
@@ -2735,6 +2949,8 @@ function obtenerPrimeraHab(){
     return s ? s.dataset.hab : null;
 }
 function actualizarTarifa(){
+    // Si la tarifa personalizada está activa, no sobrescribir
+    if(tarifaPersonalizadaActiva) return;
     const h = obtenerPrimeraHab();
     if(h && temporadaSeleccionada && TARIFAS[h] && TARIFAS[h][temporadaSeleccionada]!==undefined){
         tarifa.value = formatPeso(TARIFAS[h][temporadaSeleccionada]);
@@ -2752,7 +2968,6 @@ function bindMoneda(inp, esDesc){
     inp.addEventListener('focus', ()=>{ const n=parsePeso(inp.value); inp.value = n===0?'':String(n); });
 }
 bindMoneda(descuentoPesos, true); bindMoneda(valorAbono);
-tarifa.addEventListener('input', actualizarResumen);
 
 [estadoPago, formaPagoAbono, entidadBancaria].forEach(sel=>{
     sel.addEventListener('change', ()=>{
@@ -3021,6 +3236,7 @@ function actualizarSaldo(total){
 
 function abrirFormularioNuevaReserva(fISO){
     temporadaOriginalEdicion = null;
+    tarifaPersonalizadaActiva = false;
     editandoId.value = '';
     guestName.value=''; guestPhone.value=''; guestDoc.value='';
     bloquesHabitacion.innerHTML='';
@@ -3028,7 +3244,9 @@ function abrirFormularioNuevaReserva(fISO){
     temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
     cocinaSeleccionada = null;
     cocinaChecklist.querySelectorAll('.cocina-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
-    tarifa.value=''; descuentoPct.value='0'; descuentoPesos.value='';
+    tarifa.value=''; tarifa.readOnly = true; tarifa.classList.remove('tarifa-custom-input');
+    btnTarifaCustom.classList.remove('activo'); iconoTarifaCustom.classList.remove('fa-check'); iconoTarifaCustom.classList.add('fa-plus'); tarifaCustomLabel.style.display = 'none';
+    descuentoPct.value='0'; descuentoPesos.value='';
     estadoPago.value=''; estadoPago.classList.add('placeholder');
     valorAbono.value='';
     formaPagoAbono.value=''; formaPagoAbono.classList.add('placeholder');
@@ -3049,6 +3267,7 @@ function abrirFormularioNuevaReserva(fISO){
 }
 function limpiarFormulario(){
     temporadaOriginalEdicion = null;
+    tarifaPersonalizadaActiva = false;
     editandoId.value = '';
     guestName.value=''; guestPhone.value=''; guestDoc.value='';
     bloquesHabitacion.innerHTML='';
@@ -3056,7 +3275,9 @@ function limpiarFormulario(){
     temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
     cocinaSeleccionada = null;
     cocinaChecklist.querySelectorAll('.cocina-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
-    tarifa.value=''; descuentoPct.value='0'; descuentoPesos.value='';
+    tarifa.value=''; tarifa.readOnly = true; tarifa.classList.remove('tarifa-custom-input');
+    btnTarifaCustom.classList.remove('activo'); iconoTarifaCustom.classList.remove('fa-check'); iconoTarifaCustom.classList.add('fa-plus'); tarifaCustomLabel.style.display = 'none';
+    descuentoPct.value='0'; descuentoPesos.value='';
     estadoPago.value=''; estadoPago.classList.add('placeholder');
     valorAbono.value='';
     formaPagoAbono.value=''; formaPagoAbono.classList.add('placeholder');
@@ -3085,7 +3306,7 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     const recibidoV = recibidoPor.value.trim().toUpperCase() || '—';
 
     if(!nombre){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Ingresa el nombre.'; return; }
-    if(!temporadaSeleccionada){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Selecciona temporada.'; return; }
+    if(!temporadaSeleccionada && !tarifaPersonalizadaActiva){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Selecciona temporada o activa tarifa personalizada.'; return; }
     if(!tarVal || tarVal<=0){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Tarifa no calculada.'; return; }
     if(fAb==='Transferencia' && (!entB || entB==='NO APLICA')){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Selecciona entidad bancaria.'; return; }
 
@@ -3434,18 +3655,40 @@ function editarReserva(id){
     guestPhone.value = (r.telefono && r.telefono!=='—') ? r.telefono : '';
     guestDoc.value = r.doc || '';
 
+    // Detectar si la tarifa coincide con alguna temporada estándar
     let temporadaDetectada = null;
     if(r.tarifa && TARIFAS[r.hab]){
         for(const temp of ['Baja','Alta','Ferias']){
             if(TARIFAS[r.hab][temp] === r.tarifa){ temporadaDetectada = temp; break; }
         }
     }
-    temporadaSeleccionada = temporadaDetectada;
-    temporadaOriginalEdicion = temporadaDetectada;
-    temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked = false; });
+
     if(temporadaDetectada){
+        // Es una tarifa estándar
+        tarifaPersonalizadaActiva = false;
+        tarifa.readOnly = true;
+        tarifa.classList.remove('tarifa-custom-input');
+        btnTarifaCustom.classList.remove('activo');
+        iconoTarifaCustom.classList.remove('fa-check');
+        iconoTarifaCustom.classList.add('fa-plus');
+        tarifaCustomLabel.style.display = 'none';
+        temporadaSeleccionada = temporadaDetectada;
+        temporadaOriginalEdicion = temporadaDetectada;
+        temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked = false; });
         const chkTemp = temporadaChecklist.querySelector(`.temp-check[data-temp="${temporadaDetectada}"]`);
         if(chkTemp){ chkTemp.classList.add('selected'); chkTemp.querySelector('input').checked = true; }
+    } else {
+        // Es una tarifa personalizada
+        tarifaPersonalizadaActiva = true;
+        tarifa.readOnly = false;
+        tarifa.classList.add('tarifa-custom-input');
+        btnTarifaCustom.classList.add('activo');
+        iconoTarifaCustom.classList.remove('fa-plus');
+        iconoTarifaCustom.classList.add('fa-check');
+        tarifaCustomLabel.style.display = 'inline';
+        temporadaSeleccionada = null;
+        temporadaOriginalEdicion = null;
+        temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked = false; });
     }
 
     descuentoPct.value = r.descuentoPct || '0';
