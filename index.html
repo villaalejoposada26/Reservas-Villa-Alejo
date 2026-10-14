@@ -397,6 +397,9 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .bd-tabla th { padding: 0.75rem 0.9rem; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; text-align: center; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; }
 .bd-tabla td { padding: 0.7rem 0.9rem; font-size: 0.82rem; text-align: center; }
 .bd-tabla tr:nth-child(even) td { background: #fdf9f6; }
+.bd-tabla td.celda-editable { background: #fff8e1 !important; }
+.bd-tabla input.campo-editable { width: 100%; max-width: 180px; padding: 0.35rem 0.5rem; border-radius: 8px; border: 2px solid #1976d2; background: #fff; font-size: 0.8rem; font-weight: 600; color: #1976d2; text-align: center; outline: none; text-transform: uppercase; }
+.bd-tabla input.campo-editable:focus { border-color: #0d47a1; box-shadow: 0 0 0 3px rgba(13,71,161,0.2); }
 .barra-acciones-bd { display: none; background: #ffe6e6; border: 1px solid #f0c0c0; border-radius: 16px; padding: 0.7rem 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
 .barra-acciones-bd.show { display: flex; }
 .btn-eliminar-bd { background: #c62828; color: #fff; border: none; padding: 0.6rem 1rem; border-radius: 30px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
@@ -620,6 +623,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .tarifa-personalizada-wrapper, .nombre-custom-wrapper { gap: 0.4rem; }
     .bd-tabla th, .bd-tabla td { padding: 0.5rem 0.4rem; font-size: 0.68rem; }
     .select-nombre-cliente, .input-nombre-personalizado { max-width: 100%; }
+    .bd-tabla input.campo-editable { max-width: 100px; font-size: 0.7rem; }
 }
 @media (max-width: 480px) {
     .section-btn span { display: none; }
@@ -666,6 +670,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .tarifa-custom-label, .nombre-custom-label { font-size: 0.5rem; }
     .btn-accion-historial { padding: 0.55rem 1rem; font-size: 0.78rem; }
     .bd-tabla th, .bd-tabla td { padding: 0.4rem 0.3rem; font-size: 0.6rem; }
+    .bd-tabla input.campo-editable { max-width: 80px; font-size: 0.62rem; }
 }
 </style>
 </head>
@@ -893,7 +898,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                     <table class="bd-tabla">
                         <thead><tr>
                             <th><input type="checkbox" class="check-reserva" id="checkTodosBD"></th>
-                            <th>ID</th><th>NOMBRE COMPLETO</th><th>DOCUMENTO</th><th>TELÉFONO</th><th>CIUDAD</th><th>DEPARTAMENTO</th><th>MUNICIPIO</th><th>AÑO</th>
+                            <th>ID</th><th>NOMBRE COMPLETO</th><th>DOCUMENTO</th><th>TELÉFONO</th><th>CIUDAD</th><th>DEPARTAMENTO</th><th>MUNICIPIO</th><th>AÑO</th><th>ACCIÓN</th>
                         </tr></thead>
                         <tbody id="bdTableBody"></tbody>
                     </table>
@@ -1043,7 +1048,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                         <label>Nombre completo <span class="req">*</span></label>
                         <div class="nombre-custom-wrapper">
                             <select id="guestNameSelect" class="select-nombre-cliente"><option value="">Seleccionar nombre</option></select>
-                            <input type="text" id="guestNameInput" class="input-nombre-personalizado" placeholder="Nombre nuevo..." style="display:none;">
+                            <input type="text" id="guestNameInput" class="input-nombre-personalizado" placeholder="NOMBRE NUEVO..." style="display:none; text-transform:uppercase;">
                             <button type="button" class="btn-nombre-custom" id="btnNombreCustom" title="Añadir nombre nuevo"><i class="fas fa-plus" id="iconoNombreCustom"></i></button>
                         </div>
                         <span class="nombre-custom-label" id="nombreCustomLabel" style="display:none;">Personalizado</span>
@@ -1123,7 +1128,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                             <select id="entidadBancaria"><option value="NO APLICA">NO APLICA</option><option value="Bancolombia">BANCOLOMBIA</option><option value="Nequi">NEQUI</option></select>
                         </div>
                     </div>
-                    <div class="recibido-box" id="recibidoBox" style="display:none;"><label><i class="fas fa-user-check"></i> Recibido por:</label><input type="text" id="recibidoPor" placeholder="Nombre"></div>
+                    <div class="recibido-box" id="recibidoBox" style="display:none;"><label><i class="fas fa-user-check"></i> Recibido por:</label><input type="text" id="recibidoPor" placeholder="NOMBRE" style="text-transform:uppercase;"></div>
                     <div class="form-row" id="filaComprobante" style="display:none;">
                         <div class="form-group" style="flex:1 1 100%;">
                             <label><i class="fas fa-image" style="color:#1976d2;"></i> Comprobantes de transferencia (puedes añadir varios)</label>
@@ -1194,16 +1199,16 @@ let TARIFAS = {
 const ANIO_MIN = 2000;
 const ANIO_MAX = 2030;
 const CIUDADES_COLOMBIA = {
-    'Bogotá': { departamento: 'Cundinamarca', municipios: ['Bogotá', 'Soacha', 'Chía', 'Zipaquirá', 'Facatativá', 'Fusagasugá', 'Girardot', 'Madrid', 'Mosquera', 'Funza'] },
-    'Medellín': { departamento: 'Antioquia', municipios: ['Medellín', 'Bello', 'Envigado', 'Itagüí', 'Rionegro', 'Sabaneta', 'La Estrella', 'Copacabana', 'Girardota', 'Barbosa'] },
-    'Cali': { departamento: 'Valle del Cauca', municipios: ['Cali', 'Palmira', 'Buenaventura', 'Tuluá', 'Cartago', 'Yumbo', 'Buga', 'Jamundí', 'Florida', 'Candelaria'] },
-    'Barranquilla': { departamento: 'Atlántico', municipios: ['Barranquilla', 'Soledad', 'Malambo', 'Sabanalarga', 'Baranoa', 'Galapa', 'Puerto Colombia', 'Santo Tomás', 'Palmar de Varela', 'Polonuevo'] },
-    'Cartagena': { departamento: 'Bolívar', municipios: ['Cartagena', 'Magangué', 'Turbaco', 'Arjona', 'El Carmen de Bolívar', 'Mompós', 'San Juan Nepomuceno', 'María La Baja', 'Villanueva', 'Santa Rosa'] },
-    'Bucaramanga': { departamento: 'Santander', municipios: ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta', 'Barrancabermeja', 'San Gil', 'Socorro', 'Charta', 'Vetas', 'California'] },
-    'Cúcuta': { departamento: 'Norte de Santander', municipios: ['Cúcuta', 'Ocaña', 'Pamplona', 'Villa del Rosario', 'Los Patios', 'Tibú', 'El Zulia', 'Puerto Santander', 'Sardinata', 'Ábrego'] },
-    'Pereira': { departamento: 'Risaralda', municipios: ['Pereira', 'Dosquebradas', 'Santa Rosa de Cabal', 'La Virginia', 'Marsella', 'Belén de Umbría', 'Apía', 'Santuario', 'Guática', 'Mistrató'] },
-    'Manizales': { departamento: 'Caldas', municipios: ['Manizales', 'Villamaría', 'Chinchiná', 'La Dorada', 'Riosucio', 'Anserma', 'Salamina', 'Neira', 'Palestina', 'Aguadas'] },
-    'Armenia': { departamento: 'Quindío', municipios: ['Armenia', 'Calarcá', 'Montenegro', 'Quimbaya', 'Tebaida', 'Circasia', 'La Tebaida', 'Filandia', 'Salento', 'Génova'] },
+    'Bogotá': { departamento: 'Cundinamarca', municipios: ['Bogotá', 'Soacha', 'Chía', 'Zipaquirá', 'Facatativá', 'Fusagasugá', 'Girardot', 'Madrid', 'Mosquera', 'Funza', 'La Calera', 'Cajicá', 'Tocancipá', 'Sopó', 'Gachancipá', 'Sibaté', 'San Antonio del Tequendama'] },
+    'Medellín': { departamento: 'Antioquia', municipios: ['Medellín', 'Bello', 'Envigado', 'Itagüí', 'Rionegro', 'Sabaneta', 'La Estrella', 'Copacabana', 'Girardota', 'Barbosa', 'Caldas', 'La Ceja', 'Marinilla', 'El Carmen de Viboral', 'Guarne', 'San Vicente', 'Apartadó', 'Turbo', 'Yarumal', 'Andes', 'Sonson'] },
+    'Cali': { departamento: 'Valle del Cauca', municipios: ['Cali', 'Palmira', 'Buenaventura', 'Tuluá', 'Cartago', 'Yumbo', 'Buga', 'Jamundí', 'Florida', 'Candelaria', 'Dagua', 'El Cerrito', 'Ginebra', 'Guacarí', 'La Cumbre', 'Pradera', 'Restrepo', 'Riofrío', 'Roldanillo', 'Sevilla', 'Trujillo', 'Zarzal'] },
+    'Barranquilla': { departamento: 'Atlántico', municipios: ['Barranquilla', 'Soledad', 'Malambo', 'Sabanalarga', 'Baranoa', 'Galapa', 'Puerto Colombia', 'Santo Tomás', 'Palmar de Varela', 'Polonuevo', 'Sabanagrande', 'Campo de la Cruz', 'Candelaria', 'Luruaco', 'Manatí', 'Repelón', 'Usiacurí', 'Juan de Acosta', 'Piojó', 'Tubará'] },
+    'Cartagena': { departamento: 'Bolívar', municipios: ['Cartagena', 'Magangué', 'Turbaco', 'Arjona', 'El Carmen de Bolívar', 'Mompós', 'San Juan Nepomuceno', 'María La Baja', 'Villanueva', 'Santa Rosa', 'San Jacinto', 'San Estanislao', 'Soplaviento', 'Calamar', 'Mahates', 'Arroyohondo', 'Cicuco', 'Hatillo de Loba', 'Margarita', 'Pinillos', 'Regidor', 'Río Viejo', 'Talaigua Nuevo'] },
+    'Bucaramanga': { departamento: 'Santander', municipios: ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta', 'Barrancabermeja', 'San Gil', 'Socorro', 'Charta', 'Vetas', 'California', 'Lebrija', 'Rionegro', 'Sabana de Torres', 'Puerto Wilches', 'El Playón', 'Matanza', 'Suratá', 'Tona', 'Los Santos', 'Zapatoca', 'Villanueva', 'San Vicente de Chucurí', 'El Carmen de Chucurí'] },
+    'Cúcuta': { departamento: 'Norte de Santander', municipios: ['Cúcuta', 'Ocaña', 'Pamplona', 'Villa del Rosario', 'Los Patios', 'Tibú', 'El Zulia', 'Puerto Santander', 'Sardinata', 'Ábrego', 'San José de Cúcuta', 'San Cayetano', 'Santiago', 'Gramalote', 'Lourdes', 'Bochalema', 'Chinácota', 'Durania', 'Arboledas', 'Cucutilla', 'Salazar', 'Villa Caro'] },
+    'Pereira': { departamento: 'Risaralda', municipios: ['Pereira', 'Dosquebradas', 'Santa Rosa de Cabal', 'La Virginia', 'Marsella', 'Belén de Umbría', 'Apía', 'Santuario', 'Guática', 'Mistrató', 'Pueblo Rico', 'Quinchía', 'La Celia', 'Balboa'] },
+    'Manizales': { departamento: 'Caldas', municipios: ['Manizales', 'Villamaría', 'Chinchiná', 'La Dorada', 'Riosucio', 'Anserma', 'Salamina', 'Neira', 'Palestina', 'Aguadas', 'Aranzazu', 'Belalcázar', 'Filadelfia', 'La Merced', 'Marmato', 'Marquetalia', 'Marulanda', 'Norcasia', 'Pácora', 'Pensilvania', 'Risaralda', 'Samaná', 'San José', 'Supía', 'Victoria', 'Viterbo'] },
+    'Armenia': { departamento: 'Quindío', municipios: ['Armenia', 'Calarcá', 'Montenegro', 'Quimbaya', 'Tebaida', 'Circasia', 'La Tebaida', 'Filandia', 'Salento', 'Génova', 'Buenavista', 'Córdoba', 'Pijao'] },
     'Ibagué': { departamento: 'Tolima', municipios: ['Ibagué', 'Espinal', 'Melgar', 'Honda', 'Líbano', 'Chaparral', 'Mariquita', 'Flandes', 'Purificación', 'Guamo'] },
     'Neiva': { departamento: 'Huila', municipios: ['Neiva', 'Pitalito', 'Garzón', 'La Plata', 'Campoalegre', 'Palermo', 'Rivera', 'Tello', 'Baraya', 'Villavieja'] },
     'Villavicencio': { departamento: 'Meta', municipios: ['Villavicencio', 'Acacías', 'Granada', 'Puerto López', 'Restrepo', 'Cumaral', 'San Martín', 'Guamal', 'Castilla La Nueva', 'Puerto Gaitán'] },
@@ -1217,14 +1222,15 @@ const CIUDADES_COLOMBIA = {
     'Pasto': { departamento: 'Nariño', municipios: ['Pasto', 'Ipiales', 'Tumaco', 'Túquerres', 'La Unión', 'Samaniego', 'Cumbal', 'Sandoná', 'Consacá', 'Yacuanquer'] },
     'Florencia': { departamento: 'Caquetá', municipios: ['Florencia', 'San Vicente del Caguán', 'Puerto Rico', 'El Doncello', 'Belén de los Andaquíes', 'Morelia', 'Milán', 'Solano', 'Cartagena del Chairá', 'Curillo'] },
     'Yopal': { departamento: 'Casanare', municipios: ['Yopal', 'Aguazul', 'Villanueva', 'Tauramena', 'Monterrey', 'Paz de Ariporo', 'Pore', 'Recetor', 'Sácama', 'Hato Corozal'] },
-    'Arauca': { departamento: 'Arauca', municipios: ['Arauca', 'Saravena', 'Tame', 'Arauquita', 'Fortul', 'Puerto Rondón', 'Cravo Norte', 'La Salina', 'Leticia'] },
+    'Arauca': { departamento: 'Arauca', municipios: ['Arauca', 'Saravena', 'Tame', 'Arauquita', 'Fortul', 'Puerto Rondón', 'Cravo Norte'] },
     'San José del Guaviare': { departamento: 'Guaviare', municipios: ['San José del Guaviare', 'Calamar', 'El Retorno', 'Miraflores'] },
     'Mocoa': { departamento: 'Putumayo', municipios: ['Mocoa', 'Puerto Asís', 'Orito', 'Valle del Guamuez', 'Villa Garzón', 'San Miguel', 'Puerto Leguízamo', 'Sibundoy'] },
     'Leticia': { departamento: 'Amazonas', municipios: ['Leticia', 'Puerto Nariño'] },
     'Puerto Carreño': { departamento: 'Vichada', municipios: ['Puerto Carreño', 'La Primavera', 'Santa Rosalía', 'Cumaribo'] },
     'Inírida': { departamento: 'Guainía', municipios: ['Inírida', 'Barranco Minas', 'Mapiripana', 'San Felipe'] },
     'Mitú': { departamento: 'Vaupés', municipios: ['Mitú', 'Carurú', 'Taraira'] },
-    'San Andrés': { departamento: 'Archipiélago de San Andrés, Providencia y Santa Catalina', municipios: ['San Andrés', 'Providencia', 'Santa Catalina'] }
+    'San Andrés': { departamento: 'Archipiélago de San Andrés, Providencia y Santa Catalina', municipios: ['San Andrés', 'Providencia', 'Santa Catalina'] },
+    'Tunja': { departamento: 'Boyacá', municipios: ['Tunja', 'Duitama', 'Sogamoso', 'Chiquinquirá', 'Puerto Boyacá', 'Paipa', 'Villa de Leyva', 'Moniquirá', 'Samacá', 'Siachoque', 'Toca', 'Tuta', 'Ventaquemada'] }
 };
 const DEPARTAMENTOS_COLOMBIA = ['Amazonas','Antioquia','Arauca','Archipiélago de San Andrés, Providencia y Santa Catalina','Atlántico','Bolívar','Boyacá','Caldas','Caquetá','Casanare','Cauca','Cesar','Chocó','Córdoba','Cundinamarca','Guainía','Guaviare','Huila','La Guajira','Magdalena','Meta','Nariño','Norte de Santander','Putumayo','Quindío','Risaralda','Santander','Sucre','Tolima','Valle del Cauca','Vaupés','Vichada'];
 const MUNICIPIOS_POR_DEPARTAMENTO = (function(){
@@ -1249,10 +1255,10 @@ const FESTIVOS = {
 };
 function esFestivo(f){ return FESTIVOS[f]||null; }
 
-const LS_CACHE = 'villaAlejo_cache_v11';
-const LS_CRED = 'villaAlejo_credenciales_v11';
-const LS_TARIFAS = 'villaAlejo_tarifas_v11';
-const LS_CAPACIDAD = 'villaAlejo_capacidad_v11';
+const LS_CACHE = 'villaAlejo_cache_v16';
+const LS_CRED = 'villaAlejo_credenciales_v16';
+const LS_TARIFAS = 'villaAlejo_tarifas_v16';
+const LS_CAPACIDAD = 'villaAlejo_capacidad_v16';
 
 let reservas = [];
 let clientesBD = [];
@@ -1295,14 +1301,6 @@ function formatPeso(n){
     const num = Math.round(Number(n));
     return '$' + num.toLocaleString('es-CO');
 }
-function formatPesoDecimal(n){
-    if(n === null || n === undefined || isNaN(n)) n = 0;
-    const num = Number(n);
-    const entero = Math.floor(Math.abs(num));
-    const decimales = Math.round((Math.abs(num) - entero) * 100);
-    const signo = num < 0 ? '-' : '';
-    return signo + '$' + entero.toLocaleString('es-CO') + ',' + String(decimales).padStart(2, '0');
-}
 function formatPesoNegativo(n){
     if(isNaN(n))n=0;
     const num = Number(n);
@@ -1331,7 +1329,11 @@ function parsePeso(s){
     const n = parseFloat(str);
     return isNaN(n) ? 0 : n;
 }
-function formatDocumento(v){ const n=String(v).replace(/[^0-9]/g,''); if(!n)return ''; return n.replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+function formatDocumento(v){ 
+    const n=String(v||'').replace(/[^0-9]/g,''); 
+    if(!n) return ''; 
+    return n.replace(/\B(?=(\d{3})+(?!\d))/g,'.'); 
+}
 function formatFecha(d){ if(!(d instanceof Date)||isNaN(d))return '—'; return `${d.getDate()} ${MESES_ABREV[d.getMonth()]} ${d.getFullYear()}`; }
 function formatFechaISO(d){ if(!(d instanceof Date)||isNaN(d))return ''; return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function fechaDesdeISO(s){ if(!s)return null; const d=new Date(s+'T00:00:00'); return isNaN(d)?null:d; }
@@ -1386,6 +1388,11 @@ async function cargarClientesBD(){
         return clientesBD;
     } catch(e){ console.warn('No se pudieron cargar clientes:', e); clientesBD = []; return []; }
 }
+
+/* ==================================================================
+   GUARDAR CLIENTE (SIN DUPLICAR): si existe por nombre, actualiza;
+   si no existe, inserta. Se usa al registrar/editar reservas.
+   ================================================================== */
 async function guardarClienteSiNoExiste(cliente){
     try {
         const nombreNorm = String(cliente.nombre||'').trim().toUpperCase();
@@ -1393,28 +1400,36 @@ async function guardarClienteSiNoExiste(cliente){
         const existente = clientesBD.find(c => String(c.nombre||'').trim().toUpperCase() === nombreNorm);
         if(existente){
             const updates = {};
-            if(cliente.documento && cliente.documento !== '—' && existente.documento !== cliente.documento) updates.documento = cliente.documento;
+            // Actualizar solo los campos que tienen datos nuevos válidos
+            const docFormateado = cliente.documento && cliente.documento !== '—' ? formatDocumento(cliente.documento) : '';
+            if(docFormateado && existente.documento !== docFormateado) updates.documento = docFormateado;
             if(cliente.telefono && cliente.telefono !== '—' && existente.telefono !== cliente.telefono) updates.telefono = cliente.telefono;
             if(cliente.ciudad && cliente.ciudad !== '—' && existente.ciudad !== cliente.ciudad) updates.ciudad = cliente.ciudad;
             if(cliente.departamento && cliente.departamento !== '—' && existente.departamento !== cliente.departamento) updates.departamento = cliente.departamento;
             if(cliente.municipio && cliente.municipio !== '—' && existente.municipio !== cliente.municipio) updates.municipio = cliente.municipio;
             if(Object.keys(updates).length > 0){
                 updates.updated_at = new Date().toISOString();
-                await sb.from(TABLA_CLIENTES).update(updates).eq('id', existente.id);
+                const { error } = await sb.from(TABLA_CLIENTES).update(updates).eq('id', existente.id);
+                if(error){ console.warn('Error actualizando cliente:', error); return; }
                 Object.assign(existente, updates);
             }
         } else {
             const row = {
-                nombre: nombreNorm, documento: cliente.documento || '—', telefono: cliente.telefono || '—',
-                ciudad: cliente.ciudad || '—', departamento: cliente.departamento || '—', municipio: cliente.municipio || '—',
+                nombre: nombreNorm,
+                documento: formatDocumento(cliente.documento) || '—',
+                telefono: cliente.telefono || '—',
+                ciudad: cliente.ciudad || '—',
+                departamento: cliente.departamento || '—',
+                municipio: cliente.municipio || '—',
                 updated_at: new Date().toISOString()
             };
             const { data, error } = await sb.from(TABLA_CLIENTES).insert(row).select();
-            if(error) throw error;
+            if(error){ console.warn('Error insertando cliente:', error); return; }
             if(data && data[0]) clientesBD.push(data[0]);
         }
     } catch(e){ console.warn('No se pudo guardar cliente:', e); }
 }
+
 function llenarSelectNombres(){
     const sel = document.getElementById('guestNameSelect');
     if(!sel) return;
@@ -1507,8 +1522,6 @@ function getTextoFormaPago(r){ const f=(r.formaPagoAbono||'').trim(); return (f&
 function getDineroRecibido(r){ const total = calcularTotalBase(r); const abono = r.valorAbono || 0; return (r.estadoPago === 'Pago completo') ? total : abono; }
 function getComprobantesUrls(r){ if(!r.comprobanteUrl) return []; return String(r.comprobanteUrl).split(',').map(u=>u.trim()).filter(u=>u); }
 
-/* ============ FIRMA DE RESERVA MÚLTIPLE ============ */
-/* Identifica todas las filas que pertenecen a la misma reserva grupal (misma persona, fechas, tarifa, descuentos, cocina, etc.) */
 function getFirmaReserva(r){
     return [
         String(r.nombre||'').trim().toUpperCase(),
@@ -2174,7 +2187,7 @@ btnNombreCustom.addEventListener('click', ()=>{
         guestNameInput.style.display = 'block';
         guestNameInput.value = '';
         guestNameInput.focus();
-        mostrarToast('✏️ Escribe el nombre nuevo y presiona GUARDAR', 'info');
+        mostrarToast('✏️ Escribe el nombre nuevo (se guardará en MAYÚSCULAS)', 'info');
     } else {
         btnNombreCustom.classList.remove('activo');
         iconoNombreCustom.classList.remove('fa-check');
@@ -2669,7 +2682,6 @@ function limpiarFormulario(){
     resetComprobanteUI();
     feedback.innerHTML='';
 }
-
 document.getElementById('btnLimpiar').addEventListener('click', ()=>{ const f = fechaModalSeleccionada; limpiarFormulario(); fechaModalSeleccionada = f; agregarBloqueHabitacion(); const pb = bloquesHabitacion.querySelector('.bloque-habitacion'); if(pb && f) pb.querySelector('.inp-entrada').value = f; refrescarBloques(); actualizarResumen(); mostrarToast('🧹 Formulario limpiado','ok'); });
 document.getElementById('cancelBtn').addEventListener('click', ()=>{ modalFormReserva.classList.remove('show'); limpiarFormulario(); });
 
@@ -2677,7 +2689,7 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     let nombre = '';
     if(nombrePersonalizadoActivo){ nombre = guestNameInput.value.trim().toUpperCase(); }
     else { nombre = guestNameSelect.value.trim().toUpperCase(); }
-    const doc = guestDoc.value.trim();
+    const doc = formatDocumento(guestDoc.value.trim());
     const tel = guestPhone.value.trim();
     const ciudad = guestCiudad.value || '—';
     const departamento = guestDepartamento.value || '—';
@@ -2716,6 +2728,13 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     if(editandoIdActual){
         reservaOriginal = reservas.find(r=>String(r.id)===String(editandoIdActual));
         if(reservaOriginal) esEdicion = true;
+    }
+    let ordenOriginalMantenido;
+    if(esEdicion && reservaOriginal){
+        const hermanas = getReservasHermanas(reservaOriginal);
+        ordenOriginalMantenido = Math.min(...hermanas.map(h => h.ordenOriginal || h.id || Date.now()));
+    } else {
+        ordenOriginalMantenido = Date.now();
     }
     const totalPorHab = dataHabs.map(hd=>{
         const sub = tarVal*hd.personas*hd.noches;
@@ -2759,13 +2778,9 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         }
         const todasLasUrls = comprobantesUrlsExistentes.concat(nuevasUrls);
         const compUrlFinal = todasLasUrls.join(',');
-        const ordenOriginal = esEdicion && reservaOriginal ? reservaOriginal.ordenOriginal : Date.now();
-        // Eliminar TODAS las reservas hermanas (misma reserva múltiple) antes de insertar
         if(esEdicion && reservaOriginal){
             const hermanas = getReservasHermanas(reservaOriginal);
-            for(const her of hermanas){
-                await sb.from(TABLA).delete().eq('id', her.id);
-            }
+            for(const her of hermanas){ await sb.from(TABLA).delete().eq('id', her.id); }
         } else if(nuevoId){
             await sb.from(TABLA).delete().eq('id', nuevoId);
         }
@@ -2781,7 +2796,7 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
             cocina: cocinaSeleccionada || 'NO',
             recibido_por: recibidoV,
             comprobante_url: compUrlFinal,
-            orden_original: ordenOriginal
+            orden_original: ordenOriginalMantenido
         }));
         let { data, error } = await sb.from(TABLA).insert(inserts).select();
         if(error && error.message && error.message.toLowerCase().includes('invalid input syntax')){
@@ -2851,6 +2866,30 @@ async function guardarPagoTotal(idReserva, valor){
         actualizarDineroPendiente();
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 }
+function obtenerReservasOrdenadas(lista){
+    const ordenadas = lista.slice().sort((a, b) => {
+        const fa = a.entrada ? a.entrada.getTime() : 0;
+        const fb = b.entrada ? b.entrada.getTime() : 0;
+        if (fa !== fb) return fa - fb;
+        const sa = a.salida ? a.salida.getTime() : 0;
+        const sb = b.salida ? b.salida.getTime() : 0;
+        if (sa !== sb) return sa - sb;
+        return String(a.nombre||'').localeCompare(String(b.nombre||''));
+    });
+    const resultado = [];
+    const procesadas = new Set();
+    ordenadas.forEach(r=>{
+        const firma = getFirmaReserva(r);
+        if(procesadas.has(firma)) return;
+        const hermanas = ordenadas.filter(x=> getFirmaReserva(x) === firma);
+        hermanas.sort((a,b)=> (a.id||0) - (b.id||0));
+        hermanas.forEach(h=>{
+            resultado.push(h);
+            procesadas.add(firma);
+        });
+    });
+    return resultado;
+}
 function renderReservasRegistro(){
     const t = (buscadorRegistro.value||'').toLowerCase().trim();
     const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value, fr = filtroRecibidoRegistro.value;
@@ -2861,14 +2900,11 @@ function renderReservasRegistro(){
     if(fh!=='') fil = fil.filter(r=>r.hab===fh);
     if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
     if(fr!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === fr);
-    /* ===== ORDENAMIENTO CORREGIDO: por Fecha de Entrada (más antigua → más reciente), luego Fecha de Salida ===== */
-    fil.sort((a, b) => {
-        const fa = a.entrada ? a.entrada.getTime() : 0;
-        const fb = b.entrada ? b.entrada.getTime() : 0;
-        if (fa !== fb) return fa - fb;
-        const sa = a.salida ? a.salida.getTime() : 0;
-        const sb = b.salida ? b.salida.getTime() : 0;
-        return sa - sb;
+    fil = obtenerReservasOrdenadas(fil);
+    const reservasCompletasOrdenadas = obtenerReservasOrdenadas(reservas);
+    const idRealMap = new Map();
+    reservasCompletasOrdenadas.forEach((r, i) => {
+        idRealMap.set(String(r.id), i + 1);
     });
     reservasTableBody.innerHTML = '';
     if(fil.length===0){
@@ -2906,9 +2942,10 @@ function renderReservasRegistro(){
                     ? `<input type="text" class="pago-total-input" data-id="${r.id}" placeholder="Ej: $1.000.000" inputmode="decimal">`
                     : `<span class="saldo-cero" style="font-size:0.6rem; font-weight:700;"><i class="fas fa-check-circle"></i> PAGADO</span>`)
                 : `<span style="color:#b8a89a; font-size:0.6rem;">—</span>`;
+            const idReal = idRealMap.get(String(r.id)) || (idx+1);
             row.innerHTML = `
                 <td>${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
-                <td>${idx+1}</td>
+                <td>${idReal}</td>
                 <td><span class="nombre-texto">${r.nombre}</span></td>
                 <td><strong>${r.hab}</strong></td>
                 <td class="celda-fecha">${formatFecha(r.entrada)}</td>
@@ -3016,7 +3053,6 @@ document.getElementById('btnLimpiarBusqueda').addEventListener('click', ()=>{
     renderReservasRegistro(); mostrarToast('🧹 Limpiado','ok');
 });
 
-/* ============ EDITAR RESERVA (CARGA TODAS LAS HABITACIONES HERMANAS) ============ */
 function editarReserva(id){
     const r = reservas.find(x=>String(x.id)===String(id));
     if(!r) return;
@@ -3033,7 +3069,7 @@ function editarReserva(id){
     btnNombreCustom.classList.remove('activo'); iconoNombreCustom.classList.remove('fa-check'); iconoNombreCustom.classList.add('fa-plus'); nombreCustomLabel.style.display = 'none';
 
     guestPhone.value = (r.telefono && r.telefono!=='—') ? String(r.telefono).replace(/[^0-9]/g,'').slice(0,10) : '';
-    guestDoc.value = r.doc || '';
+    guestDoc.value = formatDocumento(r.doc || '');
 
     cargarCiudadesSelect();
     cargarDepartamentosTodos();
@@ -3086,20 +3122,22 @@ function editarReserva(id){
     comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes = getComprobantesUrls(r);
     resetComprobanteUI(); renderListaComprobantes();
 
-    /* ===== CARGAR TODAS LAS HABITACIONES HERMANAS ===== */
     const hermanas = getReservasHermanas(r);
     bloquesHabitacion.innerHTML = '';
-    // Ordenar hermanas por id (mantiene el orden original de creación)
     hermanas.sort((a,b)=> (a.id||0) - (b.id||0));
-    hermanas.forEach(her => {
-        agregarBloqueHabitacion(her, true);
+    hermanas.forEach(her => { agregarBloqueHabitacion(her, false); });
+    if(hermanas.length === 0){ agregarBloqueHabitacion(r, false); }
+    bloquesHabitacion.querySelectorAll('.bloque-habitacion').forEach(b=>{
+        b.querySelectorAll('.inp-personas, .inp-noches, .inp-estado, .inp-entrada, .inp-salida').forEach(el=>{
+            el.disabled = true;
+            if(el.tagName === 'INPUT') el.readOnly = true;
+        });
+        const btnQ = b.querySelector('.btn-quitar-bloque');
+        if(btnQ) btnQ.style.display = 'none';
     });
-    if(hermanas.length === 0){
-        agregarBloqueHabitacion(r, true);
-    }
     refrescarBloques();
     actualizarResumen();
-    document.getElementById('formHint').textContent = `Editando reserva de ${r.nombre} (${hermanas.length} habitación/es) - datos personales y habitaciones bloqueados`;
+    document.getElementById('formHint').textContent = `Editando reserva de ${r.nombre} (${hermanas.length} habitación/es) - datos personales bloqueados, habitaciones editables`;
     setTimeout(()=>guestNameSelect.focus(), 200);
 }
 
@@ -3444,7 +3482,7 @@ document.getElementById('viewerDownloadAgain').addEventListener('click', ()=>{
 function exportarExcel(lista, nombreHoja){
     if(!lista || !lista.length){ mostrarToast('⚠️ Sin reservas','error'); return; }
     try {
-        const datos = lista.slice().sort((a,b)=>{ const oa = a.ordenOriginal || a.id || 0; const ob = b.ordenOriginal || b.id || 0; return oa - ob; }).map((r,i)=>({
+        const datos = lista.slice().map((r,i)=>({
             'N°':i+1, 'Habitación':r.hab, 'Huésped':r.nombre, 'Teléfono':r.telefono||'—', 'Documento':r.doc||'—',
             'Ciudad':r.ciudad||'—', 'Departamento':r.departamento||'—', 'Municipio':r.municipio||'—',
             'Fecha Entrada':formatFechaISO(r.entrada), 'Fecha Salida':formatFechaISO(r.salida),
@@ -3481,6 +3519,7 @@ document.getElementById('btnExportarHistorial').addEventListener('click', ()=>{
     if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
     if(fr!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === fr);
     if(!fil.length){ mostrarToast('⚠️ No hay reservas para exportar','error'); return; }
+    fil = obtenerReservasOrdenadas(fil);
     exportarExcel(fil, 'Historial_Reservas');
 });
 document.getElementById('btnDescargarExcelCal').addEventListener('click', ()=>{
@@ -3646,7 +3685,7 @@ function procesarExcel(file){
                 const fPago = normFormaPago(pick(fila,['forma pago']));
                 const ent = normEntidad(pick(fila,['entidad','banco']));
                 const estadoR = normEstado(pick(fila,['estado','estado reserva']));
-                const doc = String(pick(fila,['documento','cedula','doc']))||'—';
+                const doc = formatDocumento(String(pick(fila,['documento','cedula','doc']))||'');
                 const tel = String(pick(fila,['telefono','celular','tel']))||'—';
                 const cocinaV = String(pick(fila,['cocina','uso cocina']))||'NO';
                 const recibidoV = String(pick(fila,['recibido por','recibido']))||'—';
@@ -3758,13 +3797,13 @@ function procesarExcelBD(file){
                 const nombre = String(pick(fila,['nombre','nombre completo','huesped','cliente','nombre y apellido'])||'').trim().toUpperCase();
                 if(!nombre) return;
                 if(existentes.has(nombre)){ duplicadas.push(nombre); return; }
-                const doc = String(pick(fila,['documento','cedula','doc','ci','identificacion']))||'—';
+                const doc = formatDocumento(String(pick(fila,['documento','cedula','doc','ci','identificacion']))||'');
                 const tel = String(pick(fila,['telefono','celular','tel','movil','whatsapp']))||'—';
                 const ciudad = String(pick(fila,['ciudad','municipio']))||'—';
                 const departamento = String(pick(fila,['departamento','dpto','estado']))||'—';
                 const municipio = String(pick(fila,['municipio','ciudad']))||'—';
                 validas.push({
-                    nombre: nombre, documento: doc,
+                    nombre: nombre, documento: doc || '—',
                     telefono: String(tel).replace(/[^0-9]/g,'').slice(0,10) || '—',
                     ciudad: ciudad, departamento: departamento, municipio: municipio
                 });
@@ -3840,7 +3879,7 @@ function obtenerClientesConsolidados(){
         if(!map.has(k)){
             map.set(k, {
                 id: null, nombre: r.nombre || '—',
-                doc: (r.doc && r.doc !== '—') ? r.doc : '—',
+                doc: (r.doc && r.doc !== '—') ? formatDocumento(r.doc) : '—',
                 telefono: (r.telefono && r.telefono !== '—') ? r.telefono : '—',
                 ciudad: (r.ciudad && r.ciudad !== '—') ? r.ciudad : '—',
                 departamento: (r.departamento && r.departamento !== '—') ? r.departamento : '—',
@@ -3849,7 +3888,7 @@ function obtenerClientesConsolidados(){
             });
         } else {
             const c = map.get(k);
-            if(c.doc==='—' && r.doc && r.doc!=='—') c.doc=r.doc;
+            if(c.doc==='—' && r.doc && r.doc!=='—') c.doc=formatDocumento(r.doc);
             if(c.telefono==='—' && r.telefono && r.telefono!=='—') c.telefono=r.telefono;
             if(c.ciudad==='—' && r.ciudad && r.ciudad!=='—') c.ciudad=r.ciudad;
             if(c.departamento==='—' && r.departamento && r.departamento!=='—') c.departamento=r.departamento;
@@ -3858,7 +3897,8 @@ function obtenerClientesConsolidados(){
         }
     });
     const arr = [...map.values()];
-    arr.sort((a,b)=> a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+    /* ORDEN ALFABÉTICO A-Z por nombre */
+    arr.sort((a,b)=> String(a.nombre||'').localeCompare(String(b.nombre||''), 'es', { sensitivity: 'base' }));
     return arr;
 }
 function actualizarBarraBD(){ const n = seleccionadosBD.size; contadorSeleccionadosBD.textContent = n; barraAccionesBD.classList.toggle('show', n>0); }
@@ -3870,7 +3910,7 @@ function renderBaseDatos(){
     if(fa!=='') cli = cli.filter(c=>c.anio===parseInt(fa));
     bdTableBody.innerHTML = '';
     if(cli.length===0){
-        bdTableBody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><i class="fas fa-database"></i><p>Sin clientes</p></div></td></tr>`;
+        bdTableBody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><i class="fas fa-database"></i><p>Sin clientes</p></div></td></tr>`;
         checkTodosBD.checked = false; checkTodosBD.indeterminate = false;
     } else {
         let todosSel = true;
@@ -3880,16 +3920,23 @@ function renderBaseDatos(){
             if(!sel) todosSel = false;
             const row = document.createElement('tr');
             if(sel) row.classList.add('fila-seleccionada');
+            row.dataset.nombreKey = nombreKey;
             row.innerHTML = `
                 <td><input type="checkbox" class="check-reserva check-cliente" data-nombre="${nombreKey}" ${sel?'checked':''}></td>
                 <td>${i+1}</td>
-                <td>${c.nombre}</td>
-                <td>${c.doc}</td>
-                <td>${c.telefono}</td>
-                <td>${c.ciudad}</td>
-                <td>${c.departamento}</td>
-                <td>${c.municipio}</td>
-                <td>${c.anio||'—'}</td>`;
+                <td class="celda-nombre">${c.nombre}</td>
+                <td class="celda-doc">${c.doc}</td>
+                <td class="celda-tel">${c.telefono}</td>
+                <td class="celda-ciudad">${c.ciudad}</td>
+                <td class="celda-dep">${c.departamento}</td>
+                <td class="celda-mun">${c.municipio}</td>
+                <td>${c.anio||'—'}</td>
+                <td>
+                    <div style="display:flex; gap:4px; justify-content:center;">
+                        <div class="btn-accion-col editar"><button class="btn-icon btn-editar-cliente" data-nombre="${nombreKey}" title="Editar"><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
+                        <div class="btn-accion-col eliminar"><button class="btn-icon btn-eliminar-cliente" data-nombre="${nombreKey}" title="Eliminar"><i class="fas fa-trash-alt"></i></button><span class="etiqueta-accion">Eliminar</span></div>
+                    </div>
+                </td>`;
             bdTableBody.appendChild(row);
         });
         checkTodosBD.checked = todosSel && cli.length>0;
@@ -3909,6 +3956,174 @@ function renderBaseDatos(){
             actualizarBarraBD();
         });
     });
+    bdTableBody.querySelectorAll('.btn-editar-cliente').forEach(btn=>{
+        btn.addEventListener('click', ()=>activarEdicionCliente(btn.dataset.nombre));
+    });
+    bdTableBody.querySelectorAll('.btn-eliminar-cliente').forEach(btn=>{
+        btn.addEventListener('click', ()=>eliminarClienteBD(btn.dataset.nombre));
+    });
+}
+
+/* ==================================================================
+   EDICIÓN INLINE DE CLIENTE EN BASE DE DATOS
+   - Documento con formato (puntos de miles)
+   - Al guardar, sincroniza los cambios con las reservas existentes
+   - Inserta si no existe, actualiza si existe
+   ================================================================== */
+function activarEdicionCliente(nombreKey){
+    const row = bdTableBody.querySelector(`tr[data-nombre-key="${nombreKey}"]`);
+    if(!row) return;
+    if(row.dataset.editando === '1') return;
+    row.dataset.editando = '1';
+    const campos = [
+        { clase: 'celda-nombre', key: 'nombre', tipo: 'texto' },
+        { clase: 'celda-doc', key: 'documento', tipo: 'documento' },
+        { clase: 'celda-tel', key: 'telefono', tipo: 'texto' },
+        { clase: 'celda-ciudad', key: 'ciudad', tipo: 'texto' },
+        { clase: 'celda-dep', key: 'departamento', tipo: 'texto' },
+        { clase: 'celda-mun', key: 'municipio', tipo: 'texto' }
+    ];
+    campos.forEach(c=>{
+        const td = row.querySelector('.' + c.clase);
+        if(!td) return;
+        const valorActual = td.textContent.trim();
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'campo-editable';
+        input.value = valorActual === '—' ? '' : valorActual;
+        input.dataset.key = c.key;
+        input.dataset.tipo = c.tipo;
+        input.style.textTransform = 'uppercase';
+        td.classList.add('celda-editable');
+        td.innerHTML = '';
+        td.appendChild(input);
+        // Input listener: formatear documento, mayúsculas en texto
+        input.addEventListener('input', ()=>{
+            if(input.dataset.tipo === 'documento'){
+                input.value = formatDocumento(input.value);
+            } else {
+                input.value = input.value.toUpperCase();
+            }
+        });
+        input.addEventListener('keydown', (e)=>{
+            if(e.key === 'Enter'){ e.preventDefault(); guardarEdicionCliente(nombreKey); }
+            if(e.key === 'Escape'){ e.preventDefault(); renderBaseDatos(); }
+        });
+    });
+    setTimeout(()=>{ const first = row.querySelector('.campo-editable'); if(first) first.focus(); }, 50);
+    mostrarToast('✏️ Edita los campos y presiona ENTER para guardar', 'info');
+}
+async function guardarEdicionCliente(nombreKey){
+    const row = bdTableBody.querySelector(`tr[data-nombre-key="${nombreKey}"]`);
+    if(!row) return;
+    const inputs = row.querySelectorAll('.campo-editable');
+    const nuevos = {};
+    inputs.forEach(inp=>{
+        if(inp.dataset.tipo === 'documento'){
+            nuevos[inp.dataset.key] = formatDocumento(inp.value);
+        } else {
+            nuevos[inp.dataset.key] = inp.value.trim().toUpperCase();
+        }
+    });
+    const nombreNuevo = (nuevos.nombre||'').trim().toUpperCase();
+    if(!nombreNuevo){ mostrarToast('⚠️ El nombre no puede estar vacío','error'); return; }
+    const nombreKeyNorm = String(nombreKey||'').trim().toLowerCase();
+    // Buscar cliente en clientesBD
+    let clienteOrig = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreKeyNorm);
+    // Verificar duplicado de nombre
+    if(nombreNuevo.toLowerCase() !== nombreKeyNorm){
+        const existente = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreNuevo.toLowerCase() && (!clienteOrig || c.id !== clienteOrig.id));
+        if(existente){ mostrarToast('⚠️ Ya existe un cliente con ese nombre','error'); return; }
+    }
+    const datosCliente = {
+        nombre: nombreNuevo,
+        documento: nuevos.documento || '—',
+        telefono: nuevos.telefono || '—',
+        ciudad: nuevos.ciudad || '—',
+        departamento: nuevos.departamento || '—',
+        municipio: nuevos.municipio || '—',
+        updated_at: new Date().toISOString()
+    };
+    try {
+        // 1. Guardar en tabla clientes (INSERT si no existe, UPDATE si existe)
+        if(clienteOrig && clienteOrig.id){
+            const { error } = await sb.from(TABLA_CLIENTES).update(datosCliente).eq('id', clienteOrig.id);
+            if(error) throw error;
+            Object.assign(clienteOrig, datosCliente);
+            mostrarToast('✅ Cliente actualizado en Supabase','ok');
+        } else {
+            const existente = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreNuevo.toLowerCase());
+            if(existente && existente.id){
+                const { error } = await sb.from(TABLA_CLIENTES).update(datosCliente).eq('id', existente.id);
+                if(error) throw error;
+                Object.assign(existente, datosCliente);
+                mostrarToast('✅ Cliente actualizado en Supabase','ok');
+            } else {
+                const { data, error } = await sb.from(TABLA_CLIENTES).insert(datosCliente).select();
+                if(error) throw error;
+                if(data && data[0]) clientesBD.push(data[0]);
+                mostrarToast('✅ Cliente guardado en Supabase','ok');
+            }
+        }
+        // 2. SINCRONIZAR con las reservas existentes que tengan ese nombre viejo
+        const reservasAfectadas = reservas.filter(r => String(r.nombre||'').trim().toLowerCase() === nombreKeyNorm);
+        if(reservasAfectadas.length > 0){
+            const idsReservas = reservasAfectadas.map(r=>r.id);
+            // Actualizar todas las reservas con los nuevos datos
+            const updatesReservas = {
+                nombre_huesped: nombreNuevo,
+                documento: nuevos.documento || '—',
+                telefono: nuevos.telefono || '—',
+                ciudad: nuevos.ciudad || '—',
+                departamento: nuevos.departamento || '—',
+                municipio: nuevos.municipio || '—'
+            };
+            for(const idR of idsReservas){
+                const { error: errR } = await sb.from(TABLA).update(updatesReservas).eq('id', idR);
+                if(errR){ console.warn('Error actualizando reserva:', errR); }
+            }
+            mostrarToast(`✅ Cliente y ${reservasAfectadas.length} reserva(s) sincronizadas`,'ok');
+        }
+        // 3. Recargar todo
+        await cargarClientesBD();
+        const nuevasReservas = await cargarReservas();
+        reservas = nuevasReservas;
+        guardarCache();
+        llenarSelectNombres();
+        renderTodo();
+        renderBaseDatos();
+    } catch(e){
+        console.error('Error guardando cliente:', e);
+        mostrarToast('❌ Error: ' + (e.message || e), 'error');
+    }
+}
+
+/* ==================================================================
+   ELIMINAR CLIENTE DE BASE DE DATOS (SIN ELIMINAR SUS RESERVAS)
+   ================================================================== */
+async function eliminarClienteBD(nombreKey){
+    const nombreKeyNorm = String(nombreKey||'').trim().toLowerCase();
+    const cliente = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreKeyNorm);
+    if(!cliente){
+        mostrarToast('⚠️ Cliente no encontrado en la base de datos','error');
+        renderBaseDatos();
+        return;
+    }
+    abrirConfirm('¿Eliminar cliente?', `Se eliminará a ${cliente.nombre} de la Base de Datos. Las reservas del historial NO se eliminarán.`, async ()=>{
+        try {
+            if(cliente.id){
+                const { error } = await sb.from(TABLA_CLIENTES).delete().eq('id', cliente.id);
+                if(error) throw error;
+            }
+            await cargarClientesBD();
+            llenarSelectNombres();
+            renderBaseDatos();
+            mostrarToast('🗑️ Cliente eliminado de la base de datos (reservas intactas)','info');
+        } catch(e){
+            console.error('Error eliminando cliente:', e);
+            mostrarToast('❌ '+e.message,'error');
+        }
+    });
 }
 checkTodosBD.addEventListener('change', ()=>{
     const m = checkTodosBD.checked;
@@ -3922,19 +4137,26 @@ checkTodosBD.addEventListener('change', ()=>{
 });
 btnEliminarClientesBD.addEventListener('click', ()=>{
     if(seleccionadosBD.size===0) return;
-    abrirConfirm('¿Eliminar clientes seleccionados?', `Se eliminarán ${seleccionadosBD.size} cliente(s) de la Base de Datos.`, async ()=>{
+    const nombresSel = Array.from(seleccionadosBD);
+    abrirConfirm('¿Eliminar clientes seleccionados?', `Se eliminarán ${nombresSel.length} cliente(s) de la Base de Datos. Las reservas del historial NO se eliminarán.`, async ()=>{
         try {
-            const nombresSel = Array.from(seleccionadosBD);
             for(const nombreKey of nombresSel){
-                const c = clientesBD.find(x=>String(x.nombre||'').trim().toLowerCase() === nombreKey);
-                if(c && c.id){ await sb.from(TABLA_CLIENTES).delete().eq('id', c.id); }
+                const nombreKeyNorm = String(nombreKey||'').trim().toLowerCase();
+                const c = clientesBD.find(x=>String(x.nombre||'').trim().toLowerCase() === nombreKeyNorm);
+                if(c && c.id){
+                    const { error } = await sb.from(TABLA_CLIENTES).delete().eq('id', c.id);
+                    if(error) throw error;
+                }
             }
             seleccionadosBD.clear();
             await cargarClientesBD();
             llenarSelectNombres();
             renderBaseDatos();
-            mostrarToast(`🗑️ ${nombresSel.length} cliente(s) eliminado(s)`,'info');
-        } catch(e){ mostrarToast('❌ '+e.message,'error'); }
+            mostrarToast(`🗑️ ${nombresSel.length} cliente(s) eliminado(s) (reservas intactas)`,'info');
+        } catch(e){
+            console.error('Error eliminando clientes:', e);
+            mostrarToast('❌ '+e.message,'error');
+        }
     });
 });
 buscadorBD.addEventListener('input', renderBaseDatos);
@@ -3969,15 +4191,15 @@ document.getElementById('btnExportarBDExcel').addEventListener('click', ()=>{
 });
 
 function suscribirRealtime(){
-    sb.channel('cambios-villa-alejo-v11')
+    sb.channel('cambios-villa-alejo-v16')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA }, ()=>{
             cargarReservas().then(d=>{ reservas=d; guardarCache(); renderTodo(); setUltimaActualizacion(new Date()); }).catch(console.error);
         }).subscribe();
-    sb.channel('cambios-tarifas-villa-alejo-v11')
+    sb.channel('cambios-tarifas-villa-alejo-v16')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA_TARIFAS }, async ()=>{
             try { await cargarTarifasPersonalizadas(); renderTarifas(); mostrarToast('📋 Tarifas actualizadas en tiempo real','info'); } catch(e){ console.warn(e); }
         }).subscribe();
-    sb.channel('cambios-clientes-villa-alejo-v11')
+    sb.channel('cambios-clientes-villa-alejo-v16')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA_CLIENTES }, async ()=>{
             try { await cargarClientesBD(); llenarSelectNombres(); if(document.getElementById('bd-panel').classList.contains('active')) renderBaseDatos(); } catch(e){ console.warn(e); }
         }).subscribe();
@@ -3992,7 +4214,7 @@ function renderTodo(){
     actualizarFiltroRecibido();
 }
 async function init(){
-    try { ['villaAlejo_cache_v6','villaAlejo_cache_v7','villaAlejo_cache_v8','villaAlejo_cache_v9','villaAlejo_cache_v10','villaAlejo_tarifas_v1','villaAlejo_tarifas_v7','villaAlejo_tarifas_v8','villaAlejo_tarifas_v9','villaAlejo_tarifas_v10'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
+    try { ['villaAlejo_cache_v6','villaAlejo_cache_v7','villaAlejo_cache_v8','villaAlejo_cache_v9','villaAlejo_cache_v10','villaAlejo_cache_v11','villaAlejo_cache_v12','villaAlejo_cache_v13','villaAlejo_cache_v14','villaAlejo_cache_v15','villaAlejo_tarifas_v1','villaAlejo_tarifas_v7','villaAlejo_tarifas_v8','villaAlejo_tarifas_v9','villaAlejo_tarifas_v10','villaAlejo_tarifas_v11','villaAlejo_tarifas_v12','villaAlejo_tarifas_v13','villaAlejo_tarifas_v14','villaAlejo_tarifas_v15'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
     cargarCiudadesSelect();
     await cargarTarifasPersonalizadas();
     await cargarClientesBD();
