@@ -99,13 +99,59 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .calendar-descarga-panel .btn-descarga .icono.pdf { background: #c62828; }
 .calendar-descarga-panel .btn-descarga .etiqueta { font-size: 0.55rem; font-weight: 700; color: #50260c; text-transform: uppercase; }
 
-.reservas-top-row { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; align-items: stretch; justify-content: flex-end; width: 100%; }
+/* ==================== TOP ROW DE RESERVAS (dinero pendiente + importar/exportar) ==================== */
+.reservas-top-row { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.8rem; 
+    margin-bottom: 1rem; 
+    align-items: center; 
+    justify-content: space-between; 
+    width: 100%; 
+}
+.reservas-top-left {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+}
+.reservas-top-right {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+}
 
 .dinero-pendiente-panel { flex: 0 0 auto; background: #fff; }
 .dinero-pendiente-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0.5rem 1rem; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; background: #fff; border: 1px solid #e8d5c6; max-width: 280px; }
 .dinero-pendiente-item .lbl { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4px; color: #3d1c09; opacity: 0.95; }
 .dinero-pendiente-item .val { font-size: 1.3rem; font-weight: 900; color: #c62828; text-shadow: 0 1px 2px rgba(0,0,0,0.08); line-height: 1; }
 .dinero-pendiente-item .sub { font-size: 0.58rem; font-weight: 700; color: #3d1c09; opacity: 0.85; }
+
+/* ====== BOTONES IMPORTAR / EXPORTAR (estilo igual al de Dashboard) ====== */
+.btn-accion-historial {
+    display: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 30px;
+    border: none;
+    background: #2e7d32;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.15s;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+.btn-accion-historial:hover { background: #1b5e20; }
+body.modo-editor .btn-accion-historial { display: inline-flex; }
+
+.btn-accion-historial.exportar { background: #2e7d32; }
+.btn-accion-historial.exportar:hover { background: #1b5e20; }
+.btn-accion-historial.importar { background: #2e7d32; }
+.btn-accion-historial.importar:hover { background: #1b5e20; }
 
 .table-wrapper { overflow-x: auto; border-radius: 20px; border: 1px solid #f0e4d9; background: #fff; margin-top: 1rem; }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
@@ -129,7 +175,8 @@ tr:last-child td { border-bottom: none; }
 .entidad-tag.efectivo { background: #060756; color: #fff; border: 1px solid #0a0a7a; box-shadow: 0 1px 3px rgba(6,7,86,0.5); }
 .entidad-tag.vacio { background: transparent; color: #b8a89a; border: 1px dashed #e0cbb8; }
 .cocina-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; }
-.recibido-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; word-break: break-word; }
+.recibido-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; word-break: break-word; text-align: center; line-height: 1.2; }
+.recibido-texto .linea-recibido { display: block; }
 .nombre-texto { font-size: 0.66rem; font-weight: 400; color: #3d1c09; white-space: nowrap; }
 
 .comprobante-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
@@ -145,91 +192,20 @@ tr:last-child td { border-bottom: none; }
 .pago-total-input::placeholder { color: #b8a89a; font-weight: 400; font-style: italic; text-align: right; }
 .pago-total-input.guardado { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
 
-/* ==================== VISOR DE COMPROBANTES (SIN SCROLL) ==================== */
-.comprobante-modal-body {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-    padding: 0.8rem;
-    background: #faf3ee;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.7rem;
-    position: relative;
-}
-
+/* ==================== VISOR DE COMPROBANTES ==================== */
+.comprobante-modal-body { flex: 1 1 auto; min-height: 0; overflow: hidden; padding: 0.8rem; background: #faf3ee; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; position: relative; }
 .comprobante-nav { display: flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 0.4rem 0.8rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-wrap: wrap; flex-shrink: 0; }
 .comprobante-nav button { background: #f5e6dc; border: 1px solid #e0cbb8; color: #50260c; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; }
 .comprobante-nav button:hover { background: #e8d5c6; }
 .comprobante-nav .contador { font-size: 0.8rem; font-weight: 700; color: #50260c; }
 
-.comprobante-zoom-wrapper {
-    width: 100%;
-    flex: 1 1 auto;
-    min-height: 0;
-    max-height: 100%;
-    overflow: hidden;
-    background: #2b2b2b;
-    border-radius: 10px;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(80,38,12,0.15);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    text-align: center;
-    padding: 12px;
-}
+.comprobante-zoom-wrapper { width: 100%; flex: 1 1 auto; min-height: 0; max-height: 100%; overflow: hidden; background: #2b2b2b; border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 12px rgba(80,38,12,0.15); display: flex; justify-content: center; align-items: center; position: relative; text-align: center; padding: 12px; }
 
-.comprobante-preview-grande {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    border-radius: 6px;
-    background: #fff;
-    cursor: zoom-in;
-    user-select: none;
-    -webkit-user-drag: none;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.5);
-    object-fit: contain;
-    margin: 0 auto;
-}
-.comprobante-preview-grande.iframe-pdf {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: #fff;
-    cursor: default;
-}
+.comprobante-preview-grande { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 6px; background: #fff; cursor: zoom-in; user-select: none; -webkit-user-drag: none; box-shadow: 0 8px 28px rgba(0,0,0,0.5); object-fit: contain; margin: 0 auto; }
+.comprobante-preview-grande.iframe-pdf { width: 100%; height: 100%; border: none; background: #fff; cursor: default; }
 
-.btn-fullscreen-float {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 15;
-    background: rgba(20,20,20,0.85);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: #fff;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-    transition: all 0.15s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
-.btn-fullscreen-float:hover {
-    background: #ffc107;
-    color: #000;
-    transform: scale(1.1);
-}
+.btn-fullscreen-float { position: absolute; top: 12px; right: 12px; z-index: 15; background: rgba(20,20,20,0.85); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25); color: #fff; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: all 0.15s; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+.btn-fullscreen-float:hover { background: #ffc107; color: #000; transform: scale(1.1); }
 
 .comprobante-thumbs { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; padding: 0.4rem; background: #fff; border-radius: 12px; border: 1px solid #e8d5c6; flex-shrink: 0; max-width: 100%; overflow-x: auto; }
 .comprobante-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: contain; background: #f5f5f5; border: 2px solid #e0cbb8; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
@@ -320,79 +296,17 @@ tr:last-child td { border-bottom: none; }
 .reserva-chip .nombre { font-size: 0.48rem; opacity: 0.9; display: block; overflow: hidden; text-overflow: ellipsis; }
 .reserva-chip.cancelado { background: #e0e0e0; color: #757575; border-left-color: #9e9e9e; }
 
-.calendar-day.lleno .day-status.full-status {
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.05;
-    background: #dc2323;
-    color: #fff;
-    border: 1px solid #a01818;
-    box-shadow: 0 1px 3px rgba(160,24,24,0.4);
-    white-space: nowrap;
-    text-align: center;
-    padding: 2px 6px;
-    font-size: 0.44rem;
-    border-radius: 8px;
-    max-width: 100%;
-    margin: 0 auto 2px auto;
-    letter-spacing: -0.2px;
-}
+.calendar-day.lleno .day-status.full-status { display: inline-block; align-items: center; justify-content: center; line-height: 1.05; background: #dc2323; color: #fff; border: 1px solid #a01818; box-shadow: 0 1px 3px rgba(160,24,24,0.4); white-space: nowrap; text-align: center; padding: 2px 6px; font-size: 0.44rem; border-radius: 8px; max-width: 100%; margin: 0 auto 2px auto; letter-spacing: -0.2px; }
 .calendar-day.lleno .day-status.full-status .linea1,
-.calendar-day.lleno .day-status.full-status .linea2 {
-    display: inline;
-}
-.calendar-day.lleno .day-status.full-status .linea1::after {
-    content: " ";
-}
+.calendar-day.lleno .day-status.full-status .linea2 { display: inline; }
+.calendar-day.lleno .day-status.full-status .linea1::after { content: " "; }
 
-/* ====== NUEVO: Botón + para activar tarifa personalizada ====== */
-.btn-tarifa-custom {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: #1976d2;
-    color: #fff;
-    border: 2px solid #0d47a1;
-    font-size: 1.1rem;
-    font-weight: 800;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 3px 8px rgba(25,118,210,0.35);
-    flex-shrink: 0;
-}
-.btn-tarifa-custom:hover {
-    background: #0d47a1;
-    transform: scale(1.08);
-}
-.btn-tarifa-custom.activo {
-    background: #2e7d32;
-    border-color: #1b5e20;
-    box-shadow: 0 3px 8px rgba(46,125,50,0.45);
-}
-.tarifa-custom-input {
-    border-color: #1976d2 !important;
-    background: #e3f2fd !important;
-    font-weight: 700 !important;
-    color: #0d47a1 !important;
-}
-.tarifa-custom-input:read-only {
-    background: #f5e6dc !important;
-    color: #50260c !important;
-    border-color: #e0cbb8 !important;
-    font-weight: 700 !important;
-}
-.tarifa-custom-label {
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: #1976d2;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-left: 4px;
-}
+.btn-tarifa-custom { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: #1976d2; color: #fff; border: 2px solid #0d47a1; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 3px 8px rgba(25,118,210,0.35); flex-shrink: 0; }
+.btn-tarifa-custom:hover { background: #0d47a1; transform: scale(1.08); }
+.btn-tarifa-custom.activo { background: #2e7d32; border-color: #1b5e20; box-shadow: 0 3px 8px rgba(46,125,50,0.45); }
+.tarifa-custom-input { border-color: #1976d2 !important; background: #e3f2fd !important; font-weight: 700 !important; color: #0d47a1 !important; }
+.tarifa-custom-input:read-only { background: #f5e6dc !important; color: #50260c !important; border-color: #e0cbb8 !important; font-weight: 700 !important; }
+.tarifa-custom-label { font-size: 0.6rem; font-weight: 800; color: #1976d2; text-transform: uppercase; letter-spacing: 0.3px; margin-left: 4px; }
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(61,28,9,0.6); backdrop-filter: blur(4px); z-index: 1200; display: none; justify-content: center; align-items: center; padding: 16px; }
 .modal-overlay.show { display: flex; }
@@ -508,13 +422,7 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .temp-check.selected { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
 .temp-check.selected .check-icon { background: #2e7d32; border-color: #2e7d32; color: #fff; }
 
-/* ====== NUEVO: contenedor de tarifa personalizada ====== */
-.tarifa-personalizada-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
+.tarifa-personalizada-wrapper { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 
 .cocina-box { display: inline-flex; align-items: center; gap: 0.7rem; background: #fff; border: 2px solid #e0cbb8; border-radius: 30px; padding: 0.35rem 0.9rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
 .cocina-box .cocina-titulo { font-size: 0.72rem; font-weight: 800; color: #50260c; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
@@ -566,8 +474,6 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .buscador-input i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a58671; }
 .filtro-select { flex: 1 1 110px; min-width: 95px; padding: 0.7rem 0.9rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.82rem; font-weight: 600; color: #50260c; cursor: pointer; outline: none; }
 .btn-limpiar-busqueda { flex: 0 0 auto; background: #f5e6dc; color: #50260c; border: 1px solid #e0cbb8; padding: 0.7rem 1.1rem; border-radius: 30px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-.btn-importar-excel { flex: 0 0 auto; background: #2e7d32; color: #fff; border: none; padding: 0.7rem 1.2rem; border-radius: 30px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: none; align-items: center; gap: 8px; white-space: nowrap; }
-body.modo-editor .btn-importar-excel { display: inline-flex; }
 
 .bd-section { background: #fff; border-radius: 24px; padding: 1.5rem; border: 1px solid #e8d5c6; }
 .bd-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
@@ -591,60 +497,16 @@ body.modo-editor .btn-importar-excel { display: inline-flex; }
 .precio-feria { font-weight: 700; color: #7b1fa2; }
 .capacidad { font-weight: 700; color: #2e7d32; }
 
-/* ===== CONTROLES DE TARIFAS ===== */
-.tarifas-controles {
-    display: flex;
-    background: #faf3ee;
-    border: 2px solid #e8d5c6;
-    border-radius: 16px;
-    padding: 0.7rem 0.9rem;
-    margin-bottom: 1rem;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
-    box-shadow: 0 2px 8px rgba(80,38,12,0.06);
-}
-.tarifas-controles #btnGuardarTabla,
-.tarifas-controles #btnCancelarTabla {
-    display: none;
-}
-body.modo-editor .tarifas-controles.editando-activo #btnGuardarTabla,
-body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla {
-    display: inline-flex;
-}
-body.modo-editor .tarifas-controles.editando-activo #btnEditarTabla {
-    display: none;
-}
-/* El botón Editar solo se muestra en modo editor */
+.tarifas-controles { display: flex; background: #faf3ee; border: 2px solid #e8d5c6; border-radius: 16px; padding: 0.7rem 0.9rem; margin-bottom: 1rem; gap: 0.6rem; flex-wrap: wrap; align-items: center; justify-content: flex-end; box-shadow: 0 2px 8px rgba(80,38,12,0.06); }
+.tarifas-controles #btnGuardarTabla, .tarifas-controles #btnCancelarTabla { display: none; }
+body.modo-editor .tarifas-controles.editando-activo #btnGuardarTabla, body.modo-editor .tarifas-controles.editando-activo #btnCancelarTabla { display: inline-flex; }
+body.modo-editor .tarifas-controles.editando-activo #btnEditarTabla { display: none; }
 #btnEditarTabla { display: none; }
 body.modo-editor #btnEditarTabla { display: inline-flex; }
 
-.tarifas-controles .titulo-edit {
-    margin-right: auto;
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #50260c;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
+.tarifas-controles .titulo-edit { margin-right: auto; font-size: 0.72rem; font-weight: 800; color: #50260c; text-transform: uppercase; letter-spacing: 0.4px; display: inline-flex; align-items: center; gap: 6px; }
 .tarifas-controles .titulo-edit i { color: #1976d2; }
-.btn-tarifa {
-    border: none;
-    padding: 0.65rem 1.1rem;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.78rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    transition: all 0.15s;
-    white-space: nowrap;
-}
+.btn-tarifa { border: none; padding: 0.65rem 1.1rem; border-radius: 30px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; transition: all 0.15s; white-space: nowrap; }
 .btn-tarifa:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn-tarifa.editar { background: #1976d2; color: #fff; }
 .btn-tarifa.editar:not(:disabled):hover { background: #0d47a1; transform: translateY(-1px); }
@@ -653,88 +515,27 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .btn-tarifa.cancelar { background: #fff; color: #b33a3a; border: 2px solid #f0c0c0; }
 .btn-tarifa.cancelar:not(:disabled):hover { background: #ffe6e6; transform: translateY(-1px); }
 
-/* ===== Botón Descargar Tarifas con menú desplegable ===== */
-.tarifas-descarga-wrapper {
-    position: relative;
-    display: inline-flex;
-}
-.btn-tarifa.descargar {
-    background: #6a1b9a;
-    color: #fff;
-}
+.tarifas-descarga-wrapper { position: relative; display: inline-flex; }
+.btn-tarifa.descargar { background: #6a1b9a; color: #fff; }
 .btn-tarifa.descargar:hover { background: #4a148c; transform: translateY(-1px); }
-.tarifas-descarga-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    background: #fff;
-    border: 1px solid #e0cbb8;
-    border-radius: 14px;
-    box-shadow: 0 12px 30px -8px rgba(80,38,12,0.35);
-    padding: 0.5rem;
-    min-width: 180px;
-    z-index: 50;
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    animation: fadeMenu 0.15s ease;
-}
+.tarifas-descarga-menu { position: absolute; top: calc(100% + 8px); right: 0; background: #fff; border: 1px solid #e0cbb8; border-radius: 14px; box-shadow: 0 12px 30px -8px rgba(80,38,12,0.35); padding: 0.5rem; min-width: 180px; z-index: 50; display: none; flex-direction: column; gap: 4px; animation: fadeMenu 0.15s ease; }
 @keyframes fadeMenu { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 .tarifas-descarga-menu.show { display: flex; }
-.tarifas-descarga-menu .menu-opcion {
-    background: transparent;
-    border: none;
-    padding: 0.6rem 0.9rem;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 0.8rem;
-    color: #50260c;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-align: left;
-    transition: background 0.15s;
-    width: 100%;
-}
+.tarifas-descarga-menu .menu-opcion { background: transparent; border: none; padding: 0.6rem 0.9rem; border-radius: 10px; font-weight: 700; font-size: 0.8rem; color: #50260c; cursor: pointer; display: flex; align-items: center; gap: 10px; text-align: left; transition: background 0.15s; width: 100%; }
 .tarifas-descarga-menu .menu-opcion:hover { background: #faf3ee; }
 .tarifas-descarga-menu .menu-opcion i { width: 18px; text-align: center; font-size: 0.95rem; }
 .tarifas-descarga-menu .menu-opcion[data-formato="PNG"] i { color: #1976d2; }
 .tarifas-descarga-menu .menu-opcion[data-formato="JPG"] i { color: #f57c00; }
 .tarifas-descarga-menu .menu-opcion[data-formato="JPEG"] i { color: #7b1fa2; }
 .tarifas-descarga-menu .menu-opcion[data-formato="PDF"] i { color: #c62828; }
-.tarifas-descarga-menu .menu-sep {
-    height: 1px;
-    background: #f0e4d9;
-    margin: 4px 6px;
-}
+.tarifas-descarga-menu .menu-sep { height: 1px; background: #f0e4d9; margin: 4px 6px; }
 
-.tarifa-input {
-    width: 100%;
-    max-width: 130px;
-    padding: 0.35rem 0.5rem;
-    border-radius: 8px;
-    border: 2px solid #1976d2;
-    background: #fff;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #1976d2;
-    text-align: center;
-    outline: none;
-    font-family: inherit;
-}
+.tarifa-input { width: 100%; max-width: 130px; padding: 0.35rem 0.5rem; border-radius: 8px; border: 2px solid #1976d2; background: #fff; font-size: 0.85rem; font-weight: 700; color: #1976d2; text-align: center; outline: none; font-family: inherit; }
 .tarifa-input:focus { border-color: #0d47a1; box-shadow: 0 0 0 3px rgba(13,71,161,0.2); }
 .tarifa-input.capacidad-input { color: #2e7d32; border-color: #2e7d32; max-width: 80px; }
 .tarifa-input.capacidad-input:focus { border-color: #1b5e20; box-shadow: 0 0 0 3px rgba(27,94,32,0.2); }
 .tarifas-tabla tr.editando td { background: #f5faff !important; }
-
-.tarifa-input.bloqueado {
-    background: #f5e6dc;
-    color: #50260c;
-    border-color: #e0cbb8;
-    cursor: not-allowed;
-    font-weight: 700;
-}
+.tarifa-input.bloqueado { background: #f5e6dc; color: #50260c; border-color: #e0cbb8; cursor: not-allowed; font-weight: 700; }
 .tarifa-input.bloqueado:focus { box-shadow: none; border-color: #e0cbb8; }
 
 .dash-filtros { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; background: linear-gradient(135deg,#faf3ee 0%,#fff 100%); border: 1px solid #e8d5c6; border-radius: 18px; padding: 0.9rem 1rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(80,38,12,0.05); }
@@ -826,69 +627,13 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .login-tab.active { background: #faf3ee; color: #50260c; border-color: #e8d5c6; border-bottom: 2px solid #faf3ee; }
 .login-tab i { font-size: 0.9rem; }
 
-.imagen-fullscreen-overlay {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    z-index: 3000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
-    touch-action: pan-x pan-y pinch-zoom;
-    -webkit-overflow-scrolling: touch;
-}
+.imagen-fullscreen-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; justify-content: center; align-items: center; overflow: auto; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; }
 .imagen-fullscreen-overlay.show { display: flex; }
+.imagen-fullscreen-overlay img { max-width: 100vw; max-height: 100vh; object-fit: contain; transition: transform 0.15s ease-out; transform-origin: center center; user-select: none; -webkit-user-drag: none; cursor: zoom-in; }
+.imagen-fullscreen-overlay .cerrar-fullscreen { position: fixed; top: 15px; right: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.3rem; color: #333; cursor: pointer; z-index: 3001; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.imagen-fullscreen-overlay .cerrar-fullscreen:hover { background: #fff; transform: scale(1.1); }
+.imagen-fullscreen-overlay .zoom-info { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 3001; }
 
-.imagen-fullscreen-overlay img {
-    max-width: 100vw;
-    max-height: 100vh;
-    object-fit: contain;
-    transition: transform 0.15s ease-out;
-    transform-origin: center center;
-    user-select: none;
-    -webkit-user-drag: none;
-    cursor: zoom-in;
-}
-
-.imagen-fullscreen-overlay .cerrar-fullscreen {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    background: rgba(255,255,255,0.9);
-    border: none;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 1.3rem;
-    color: #333;
-    cursor: pointer;
-    z-index: 3001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-.imagen-fullscreen-overlay .cerrar-fullscreen:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-
-.imagen-fullscreen-overlay .zoom-info {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.7);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    z-index: 3001;
-}
-
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     body { padding: 8px; }
     .dashboard { border-radius: 20px; }
@@ -905,47 +650,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .calendar-grid { gap: 3px; padding: 0.4rem; }
     .calendar-day { min-height: 70px; padding: 0.25rem 0.15rem; }
     .calendar-day .day-number { font-size: 0.72rem; }
-    /* ====== CAMBIO: nombres completos en móvil ====== */
-    .calendar-day .day-status { 
-        font-size: 0.48rem; 
-        padding: 2px 3px; 
-        white-space: nowrap; 
-        line-height: 1.05; 
-        letter-spacing: -0.1px;
-        display: inline-block;
-        width: auto;
-        max-width: 100%;
-    }
-    .calendar-day.lleno .day-status.full-status {
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.44rem;
-        padding: 2px 4px;
-        line-height: 1.05;
-        letter-spacing: -0.1px;
-        white-space: normal;
-        width: auto;
-        max-width: 100%;
-        background: #dc2323;
-        color: #fff;
-        border: 1px solid #a01818;
-        border-radius: 8px;
-    }
-    .calendar-day.lleno .day-status.full-status .linea1,
-    .calendar-day.lleno .day-status.full-status .linea2 {
-        display: block;
-        width: 100%;
-        text-align: center;
-        font-size: 0.44rem;
-    }
-    .calendar-day.parcial .day-status { 
-        font-size: 0.48rem; 
-        white-space: nowrap;
-        display: inline-block;
-        width: auto;
-    }
+    .calendar-day .day-status { font-size: 0.48rem; padding: 2px 3px; white-space: nowrap; line-height: 1.05; letter-spacing: -0.1px; display: inline-block; width: auto; max-width: 100%; }
+    .calendar-day.lleno .day-status.full-status { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.44rem; padding: 2px 4px; line-height: 1.05; letter-spacing: -0.1px; white-space: normal; width: auto; max-width: 100%; background: #dc2323; color: #fff; border: 1px solid #a01818; border-radius: 8px; }
+    .calendar-day.lleno .day-status.full-status .linea1, .calendar-day.lleno .day-status.full-status .linea2 { display: block; width: 100%; text-align: center; font-size: 0.44rem; }
+    .calendar-day.parcial .day-status { font-size: 0.48rem; white-space: nowrap; display: inline-block; width: auto; }
     .festivo-nombre-chip { font-size: 0.36rem; }
     .reserva-chip { font-size: 0.42rem; padding: 1px 2px; }
     .reserva-chip .hab { font-size: 0.42rem; }
@@ -954,7 +662,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .buscador-container { padding: 0.6rem; gap: 6px; }
     .buscador-input { flex: 1 1 100%; min-width: 0; max-width: 100%; }
     .filtro-select { flex: 1 1 calc(50% - 3px); font-size: 0.72rem; padding: 0.55rem; min-width: 0; }
-    .btn-limpiar-busqueda, .btn-importar-excel { flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 0.72rem; }
+    .btn-limpiar-busqueda { flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 0.72rem; }
     .lista-reservas-section { padding: 1rem; }
     .section-content { padding: 1rem; }
     .calendar-month-title { font-size: 0.92rem; min-width: 150px; padding: 0.35rem 0.8rem; }
@@ -963,14 +671,8 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .tabla-historial { min-width: 100% !important; table-layout: auto; }
     .tabla-historial thead tr th { padding: 0.5rem 0.6rem; font-size: 0.55rem; }
     .tabla-historial td { padding: 0.55rem 0.6rem; font-size: 0.68rem; }
-    .tabla-historial col { width: auto !important; }
     .tabla-historial .check-reserva { width: 15px; height: 15px; }
-    .nombre-texto {
-        white-space: nowrap !important;
-        word-break: keep-all !important;
-        overflow-wrap: normal !important;
-        display: inline-block;
-    }
+    .nombre-texto { white-space: nowrap !important; word-break: keep-all !important; overflow-wrap: normal !important; display: inline-block; }
     .tabla-historial .btn-icon { width: 24px; height: 24px; font-size: 0.6rem; }
 
     .tarifas-tabla { min-width: 100% !important; width: 100%; font-size: 0.7rem; table-layout: fixed; }
@@ -1005,6 +707,8 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .calendar-descarga-panel .descarga-row { flex-wrap: wrap; }
     .pago-total-input { width: 80px; font-size: 0.65rem; }
     .reservas-top-row { flex-direction: column; align-items: stretch; }
+    .reservas-top-left, .reservas-top-right { width: 100%; justify-content: center; }
+    .btn-accion-historial { flex: 1 1 auto; justify-content: center; }
 
     .comprobante-modal-panel { max-height: 96vh; height: 96vh; border-radius: 14px; }
     .comprobante-modal-body { padding: 0.5rem; gap: 0.5rem; }
@@ -1017,7 +721,6 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .comprobante-nav button { width: 28px; height: 28px; font-size: 0.75rem; }
     .comprobante-nav .contador { font-size: 0.72rem; }
 
-    /* Ajustes para el botón de tarifa personalizada en móvil */
     .btn-tarifa-custom { width: 34px; height: 34px; font-size: 1rem; }
     .tarifa-personalizada-wrapper { gap: 0.4rem; }
 }
@@ -1029,43 +732,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .calendar-grid { gap: 2px; padding: 0.35rem; }
     .calendar-day { min-height: 72px; padding: 0.2rem 0.1rem; }
     .calendar-day .day-number { font-size: 0.66rem; }
-    /* ====== CAMBIO: nombres completos en móvil pequeño ====== */
-    .calendar-day .day-status { 
-        font-size: 0.42rem; 
-        padding: 1px 2px; 
-        white-space: nowrap; 
-        line-height: 1.05; 
-        letter-spacing: -0.1px;
-        display: inline-block;
-        width: auto;
-        max-width: 100%;
-    }
-    .calendar-day.lleno .day-status.full-status { 
-        font-size: 0.4rem; 
-        padding: 2px 3px; 
-        line-height: 1.05; 
-        letter-spacing: -0.1px;
-        white-space: normal;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: auto;
-        max-width: 100%;
-    }
-    .calendar-day.lleno .day-status.full-status .linea1,
-    .calendar-day.lleno .day-status.full-status .linea2 {
-        display: block;
-        width: 100%;
-        text-align: center;
-        font-size: 0.4rem;
-    }
-    .calendar-day.parcial .day-status { 
-        font-size: 0.42rem; 
-        white-space: nowrap;
-        display: inline-block;
-        width: auto;
-    }
+    .calendar-day .day-status { font-size: 0.42rem; padding: 1px 2px; white-space: nowrap; line-height: 1.05; letter-spacing: -0.1px; display: inline-block; width: auto; max-width: 100%; }
+    .calendar-day.lleno .day-status.full-status { font-size: 0.4rem; padding: 2px 3px; line-height: 1.05; letter-spacing: -0.1px; white-space: normal; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: auto; max-width: 100%; }
+    .calendar-day.lleno .day-status.full-status .linea1, .calendar-day.lleno .day-status.full-status .linea2 { display: block; width: 100%; text-align: center; font-size: 0.4rem; }
+    .calendar-day.parcial .day-status { font-size: 0.42rem; white-space: nowrap; display: inline-block; width: auto; }
     .festivo-nombre-chip { font-size: 0.32rem; }
     .reserva-chip { display: block; font-size: 0.4rem; padding: 0 2px; }
     .reserva-chip .hab { font-size: 0.4rem; }
@@ -1101,6 +771,8 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 
     .btn-tarifa-custom { width: 30px; height: 30px; font-size: 0.9rem; }
     .tarifa-custom-label { font-size: 0.5rem; }
+
+    .btn-accion-historial { padding: 0.55rem 1rem; font-size: 0.78rem; }
 }
 </style>
 </head>
@@ -1207,12 +879,18 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
             </div>
 
             <div class="reservas-top-row">
-                <div class="recuadro-base dinero-pendiente-panel">
-                    <div class="dinero-pendiente-item">
-                        <span class="lbl">DINERO PENDIENTE POR COBRAR</span>
-                        <span class="val" id="infoDineroPendiente">$0</span>
-                        <span class="sub" id="infoDineroPendienteSub">Mes actual</span>
+                <div class="reservas-top-left">
+                    <div class="recuadro-base dinero-pendiente-panel">
+                        <div class="dinero-pendiente-item">
+                            <span class="lbl">DINERO PENDIENTE POR COBRAR</span>
+                            <span class="val" id="infoDineroPendiente">$0</span>
+                            <span class="sub" id="infoDineroPendienteSub">Mes actual</span>
+                        </div>
                     </div>
+                </div>
+                <div class="reservas-top-right">
+                    <button class="btn-accion-historial importar" id="btnImportarExcel"><i class="fas fa-file-import"></i> IMPORTAR</button>
+                    <button class="btn-accion-historial exportar" id="btnExportarHistorial"><i class="fas fa-file-excel"></i> EXPORTAR</button>
                 </div>
             </div>
 
@@ -1237,8 +915,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                         <option value="Efectivo">Efectivo</option>
                         <option value="NO APLICA">NO APLICA</option>
                     </select>
+                    <select class="filtro-select" id="filtroRecibidoRegistro">
+                        <option value="">Recibido Por</option>
+                    </select>
                     <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda"><i class="fas fa-eraser"></i> Limpiar</button>
-                    <button class="btn-importar-excel" id="btnImportarExcel"><i class="fas fa-file-import"></i> Importar Excel</button>
                 </div>
                 <div class="barra-acciones-masivas" id="barraAccionesMasivas">
                     <span class="contador-sel"><i class="fas fa-check-square"></i> <span id="contadorSeleccionados">0</span> seleccionadas</span>
@@ -1863,14 +1543,13 @@ let comprobanteModalUrls = [];
 let modo = 'visitante';
 let currentUser = null;
 let temporadaOriginalEdicion = null;
+let estadoPagoOriginalEdicion = null;
 let chartsInstancias = {};
 let dashVistaActual = 'mes';
 let dashSubActual = 'clientes';
 
 let tarifasEditando = false;
 let tarifasRespaldo = null;
-
-/* ====== NUEVO: estado de tarifa personalizada ====== */
 let tarifaPersonalizadaActiva = false;
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -1896,6 +1575,18 @@ function formatHora(date){
 function formatFechaHora(date){
     if(!(date instanceof Date) || isNaN(date)) return '—';
     return `${formatFecha(date)} · ${formatHora(date)}`;
+}
+
+function formatearRecibidoPor(texto){
+    if(!texto || texto === '—') return '—';
+    const t = String(texto).trim();
+    const guionIndex = t.indexOf(' - ');
+    if(guionIndex !== -1){
+        const primera = t.substring(0, guionIndex).trim();
+        const segunda = t.substring(guionIndex).trim();
+        return `<span class="linea-recibido">${primera}</span><span class="linea-recibido">${segunda}</span>`;
+    }
+    return `<span class="linea-recibido">${t}</span>`;
 }
 
 async function cargarTarifasPersonalizadas(){
@@ -2055,6 +1746,7 @@ function deSupabase(fila){
         cocina: fila.cocina || 'NO',
         recibidoPor: fila.recibido_por || '—',
         comprobanteUrl: fila.comprobante_url || '',
+        ordenOriginal: fila.orden_original || 0,
         timestamp: fila.created_at
     };
 }
@@ -2258,9 +1950,6 @@ document.getElementById('btnEditarTabla').addEventListener('click', entrarModoEd
 document.getElementById('btnGuardarTabla').addEventListener('click', guardarEdicionTarifas);
 document.getElementById('btnCancelarTabla').addEventListener('click', cancelarEdicionTarifas);
 
-/* =========================================================
-   DESCARGAR TARIFAS (PNG / JPG / JPEG / PDF)
-   ========================================================= */
 const btnDescargarTarifas = document.getElementById('btnDescargarTarifas');
 const menuDescargaTarifas = document.getElementById('menuDescargaTarifas');
 
@@ -2292,15 +1981,7 @@ async function descargarTablaTarifas(formato){
         if(!tablaOriginal){ mostrarToast('⚠️ Tabla no encontrada','error'); return; }
 
         const wrapper = document.createElement('div');
-        wrapper.style.cssText = `
-            position: absolute;
-            left: -99999px;
-            top: 0;
-            padding: 24px;
-            background: #ffffff;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            width: 900px;
-        `;
+        wrapper.style.cssText = `position: absolute; left: -99999px; top: 0; padding: 24px; background: #ffffff; font-family: 'Segoe UI', Roboto, sans-serif; width: 900px;`;
 
         const titulo = document.createElement('h2');
         titulo.textContent = 'Hostal Villa Alejo · Tarifas por persona 2026';
@@ -2312,20 +1993,10 @@ async function descargarTablaTarifas(formato){
 
         const clonTabla = tablaOriginal.cloneNode(true);
         clonTabla.style.cssText = 'width:100%; border-collapse:collapse; font-size:14px;';
-        clonTabla.querySelectorAll('thead th').forEach(th=>{
-            th.style.cssText = 'background:#50260c; color:#fff; padding:12px 10px; font-size:12px; text-transform:uppercase; text-align:center; font-weight:700;';
-        });
-        clonTabla.querySelectorAll('tbody td').forEach((td, i)=>{
-            td.style.cssText = 'padding:11px 10px; text-align:center; border-bottom:1px solid #f0e4d9; font-size:13px; color:#3d1c09; background:#fff;';
-        });
-        clonTabla.querySelectorAll('tbody tr').forEach((tr, i)=>{
-            if(i % 2 === 1){
-                tr.querySelectorAll('td').forEach(td=>{ td.style.background = '#fdf9f6'; });
-            }
-        });
-        clonTabla.querySelectorAll('.nombre-hab').forEach(el=>{
-            el.style.cssText = 'font-weight:700; color:#50260c; display:inline-flex; align-items:center; gap:6px; justify-content:center;';
-        });
+        clonTabla.querySelectorAll('thead th').forEach(th=>{ th.style.cssText = 'background:#50260c; color:#fff; padding:12px 10px; font-size:12px; text-transform:uppercase; text-align:center; font-weight:700;'; });
+        clonTabla.querySelectorAll('tbody td').forEach((td)=>{ td.style.cssText = 'padding:11px 10px; text-align:center; border-bottom:1px solid #f0e4d9; font-size:13px; color:#3d1c09; background:#fff;'; });
+        clonTabla.querySelectorAll('tbody tr').forEach((tr, i)=>{ if(i % 2 === 1){ tr.querySelectorAll('td').forEach(td=>{ td.style.background = '#fdf9f6'; }); } });
+        clonTabla.querySelectorAll('.nombre-hab').forEach(el=>{ el.style.cssText = 'font-weight:700; color:#50260c; display:inline-flex; align-items:center; gap:6px; justify-content:center;'; });
         clonTabla.querySelectorAll('.nombre-hab i').forEach(el=>{ el.style.color = '#2e7d32'; });
         clonTabla.querySelectorAll('.precio-baja').forEach(el=>{ el.style.cssText = 'font-weight:700; color:#1976d2;'; });
         clonTabla.querySelectorAll('.precio-alta').forEach(el=>{ el.style.cssText = 'font-weight:700; color:#e65100;'; });
@@ -2342,12 +2013,7 @@ async function descargarTablaTarifas(formato){
         wrapper.appendChild(pie);
         document.body.appendChild(wrapper);
 
-        const canvas = await html2canvas(wrapper, {
-            scale: 2,
-            useCORS: true,
-            backgroundColor: '#ffffff',
-            logging: false
-        });
+        const canvas = await html2canvas(wrapper, { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false });
         document.body.removeChild(wrapper);
 
         const fecha = new Date();
@@ -2746,7 +2412,6 @@ const listaNoDisponibles = document.getElementById('listaNoDisponibles');
 const contadorDisponibles = document.getElementById('contadorDisponibles');
 const contadorNoDisponibles = document.getElementById('contadorNoDisponibles');
 const modalBtnAñadir = document.getElementById('modalBtnAñadir');
-const tooltipWrapperAñadir = document.getElementById('tooltipWrapperAñadir');
 
 function abrirModalDia(d,m,y){
     fechaModalSeleccionada = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
@@ -2823,7 +2488,6 @@ const cocinaChecklist = document.getElementById('cocinaChecklist');
 const recibidoBox = document.getElementById('recibidoBox');
 const recibidoPor = document.getElementById('recibidoPor');
 
-/* ====== NUEVO: Botón de tarifa personalizada ====== */
 const btnTarifaCustom = document.getElementById('btnTarifaCustom');
 const iconoTarifaCustom = document.getElementById('iconoTarifaCustom');
 const tarifaCustomLabel = document.getElementById('tarifaCustomLabel');
@@ -2831,7 +2495,6 @@ const tarifaCustomLabel = document.getElementById('tarifaCustomLabel');
 btnTarifaCustom.addEventListener('click', ()=>{
     tarifaPersonalizadaActiva = !tarifaPersonalizadaActiva;
     if(tarifaPersonalizadaActiva){
-        // Activar edición manual de tarifa
         tarifa.readOnly = false;
         tarifa.classList.add('tarifa-custom-input');
         tarifa.focus();
@@ -2839,23 +2502,19 @@ btnTarifaCustom.addEventListener('click', ()=>{
         iconoTarifaCustom.classList.remove('fa-plus');
         iconoTarifaCustom.classList.add('fa-check');
         tarifaCustomLabel.style.display = 'inline';
-        // Limpiar selección de temporada
         temporadaChecklist.querySelectorAll('.temp-check').forEach(c=>{ c.classList.remove('selected'); c.querySelector('input').checked=false; });
         temporadaSeleccionada = null;
-        // Limpiar descuentos al cambiar a personalizada
         descuentoPct.value = '0';
         descuentoPesos.value = '';
         actualizarResumen();
         mostrarToast('✏️ Modo tarifa personalizada activado. Ingrese el valor.', 'info');
     } else {
-        // Desactivar edición manual
         tarifa.readOnly = true;
         tarifa.classList.remove('tarifa-custom-input');
         btnTarifaCustom.classList.remove('activo');
         iconoTarifaCustom.classList.remove('fa-check');
         iconoTarifaCustom.classList.add('fa-plus');
         tarifaCustomLabel.style.display = 'none';
-        // Si hay una habitación seleccionada, restaurar tarifa según temporada
         const h = obtenerPrimeraHab();
         if(h && temporadaSeleccionada && TARIFAS[h] && TARIFAS[h][temporadaSeleccionada]!==undefined){
             tarifa.value = formatPeso(TARIFAS[h][temporadaSeleccionada]);
@@ -2867,7 +2526,6 @@ btnTarifaCustom.addEventListener('click', ()=>{
     }
 });
 
-// También permitir editar tarifa directamente si se hace clic en el input cuando está en modo personalizado
 tarifa.addEventListener('click', ()=>{
     if(tarifaPersonalizadaActiva && tarifa.readOnly){
         tarifa.readOnly = false;
@@ -2875,7 +2533,6 @@ tarifa.addEventListener('click', ()=>{
     }
 });
 
-// Manejar entrada de la tarifa personalizada
 tarifa.addEventListener('input', ()=>{
     if(tarifaPersonalizadaActiva){
         const soloDigitos = tarifa.value.replace(/[^0-9]/g, '');
@@ -2911,7 +2568,6 @@ modalFormReserva.addEventListener('click', (e)=>{
 temporadaChecklist.querySelectorAll('.temp-check').forEach(chk=>{
     chk.addEventListener('click', (e)=>{
         e.preventDefault();
-        // Desactivar tarifa personalizada al seleccionar temporada
         if(tarifaPersonalizadaActiva){
             tarifaPersonalizadaActiva = false;
             tarifa.readOnly = true;
@@ -2949,7 +2605,6 @@ function obtenerPrimeraHab(){
     return s ? s.dataset.hab : null;
 }
 function actualizarTarifa(){
-    // Si la tarifa personalizada está activa, no sobrescribir
     if(tarifaPersonalizadaActiva) return;
     const h = obtenerPrimeraHab();
     if(h && temporadaSeleccionada && TARIFAS[h] && TARIFAS[h][temporadaSeleccionada]!==undefined){
@@ -2969,10 +2624,45 @@ function bindMoneda(inp, esDesc){
 }
 bindMoneda(descuentoPesos, true); bindMoneda(valorAbono);
 
-[estadoPago, formaPagoAbono, entidadBancaria].forEach(sel=>{
+estadoPago.addEventListener('change', ()=>{
+    if(estadoPago.value==='') estadoPago.classList.add('placeholder'); else estadoPago.classList.remove('placeholder');
+
+    const totalActual = calcularTotalActual().total;
+    const estadoAnterior = estadoPagoOriginalEdicion;
+    const estadoNuevo = estadoPago.value;
+
+    if(estadoNuevo === 'Pago completo'){
+        valorAbono.value = formatPeso(totalActual);
+        valorSaldo.value = formatPeso(0);
+        valorSaldo.classList.remove('saldo-pendiente-rojo');
+        valorSaldo.classList.add('saldo-pendiente-verde');
+        resumenAbono.textContent = formatPeso(totalActual);
+        resumenPendiente.textContent = formatPeso(0);
+        resumenPendiente.classList.remove('saldo-pendiente-rojo');
+        resumenPendiente.classList.add('saldo-pendiente-verde');
+        mostrarToast('💰 Pago completo: abono ajustado al total', 'info');
+    } else if(estadoNuevo === 'Abonado'){
+        if(estadoAnterior === 'Pago completo' || estadoAnterior === 'Pendiente' || !estadoAnterior){
+            valorAbono.value = formatPeso(0);
+        }
+        actualizarSaldo();
+        mostrarToast('✏️ Ingrese el valor del abono', 'info');
+    } else if(estadoNuevo === 'Pendiente'){
+        valorAbono.value = formatPeso(0);
+        valorSaldo.value = formatPeso(totalActual);
+        valorSaldo.classList.remove('saldo-pendiente-verde');
+        valorSaldo.classList.add('saldo-pendiente-rojo');
+        resumenAbono.textContent = formatPeso(0);
+        resumenPendiente.textContent = formatPeso(totalActual);
+        resumenPendiente.classList.remove('saldo-pendiente-verde');
+        resumenPendiente.classList.add('saldo-pendiente-rojo');
+        mostrarToast('⏳ Pendiente: se cobrará el total', 'info');
+    }
+});
+
+[formaPagoAbono, entidadBancaria].forEach(sel=>{
     sel.addEventListener('change', ()=>{
         if(sel.value==='') sel.classList.add('placeholder'); else sel.classList.remove('placeholder');
-        if(sel===estadoPago){ actualizarVisibilidadSaldo(); actualizarResumen(); }
         if(sel===formaPagoAbono){
             const esTransferencia = formaPagoAbono.value==='Transferencia';
             const esEfectivo = formaPagoAbono.value==='Efectivo';
@@ -2982,7 +2672,6 @@ bindMoneda(descuentoPesos, true); bindMoneda(valorAbono);
         }
     });
 });
-function actualizarVisibilidadSaldo(){ }
 
 function resetComprobanteUI(){ comprobanteFileInput.value=''; comprobanteList.innerHTML=''; }
 function renderListaComprobantes(){
@@ -2994,23 +2683,14 @@ function renderListaComprobantes(){
         const miniaturaHtml = esPdf
             ? `<i class="fas fa-file-pdf" style="color:#c62828; font-size:1.3rem;"></i>`
             : `<img src="${url}" class="comprobante-imagen-mini" onerror="this.style.display='none'">`;
-        div.innerHTML = `
-            <div class="info-file">${miniaturaHtml}<span class="nombre-file">Comprobante guardado ${idx+1}</span></div>
-            <button type="button" class="btn-quitar-file" data-tipo="url" data-idx="${idx}"><i class="fas fa-times"></i></button>
-        `;
+        div.innerHTML = `<div class="info-file">${miniaturaHtml}<span class="nombre-file">Comprobante guardado ${idx+1}</span></div><button type="button" class="btn-quitar-file" data-tipo="url" data-idx="${idx}"><i class="fas fa-times"></i></button>`;
         comprobanteList.appendChild(div);
     });
     comprobantesArchivosSeleccionados.forEach((file, idx)=>{
         const div = document.createElement('div');
         div.className = 'comprobante-item';
         const esImagen = file.type.startsWith('image/');
-        div.innerHTML = `
-            <div class="info-file">
-                <i class="fas ${esImagen?'fa-image':'fa-file-pdf'}" style="color:${esImagen?'#1976d2':'#c62828'}; font-size:1.3rem;"></i>
-                <span class="nombre-file">${file.name}</span>
-            </div>
-            <button type="button" class="btn-quitar-file" data-tipo="file" data-idx="${idx}"><i class="fas fa-times"></i></button>
-        `;
+        div.innerHTML = `<div class="info-file"><i class="fas ${esImagen?'fa-image':'fa-file-pdf'}" style="color:${esImagen?'#1976d2':'#c62828'}; font-size:1.3rem;"></i><span class="nombre-file">${file.name}</span></div><button type="button" class="btn-quitar-file" data-tipo="file" data-idx="${idx}"><i class="fas fa-times"></i></button>`;
         comprobanteList.appendChild(div);
     });
     comprobanteList.querySelectorAll('.btn-quitar-file').forEach(btn=>{
@@ -3230,12 +2910,12 @@ function actualizarSaldo(total){
     valorSaldo.classList.add(s===0?'saldo-pendiente-verde':'saldo-pendiente-rojo');
     resumenPendiente.classList.remove('saldo-pendiente-rojo','saldo-pendiente-verde');
     resumenPendiente.classList.add(s===0?'saldo-pendiente-verde':'saldo-pendiente-rojo');
-    if(estadoPago.value==='Pago completo'){ valorAbono.value = formatPeso(t); valorSaldo.value = formatPeso(0); resumenAbono.textContent = formatPeso(t); resumenPendiente.textContent = formatPeso(0); valorSaldo.classList.remove('saldo-pendiente-rojo'); valorSaldo.classList.add('saldo-pendiente-verde'); resumenPendiente.classList.remove('saldo-pendiente-rojo'); resumenPendiente.classList.add('saldo-pendiente-verde'); }
 }
 [descuentoPct, descuentoPesos, valorAbono].forEach(i=>{ i.addEventListener('input', actualizarResumen); i.addEventListener('change', actualizarResumen); });
 
 function abrirFormularioNuevaReserva(fISO){
     temporadaOriginalEdicion = null;
+    estadoPagoOriginalEdicion = null;
     tarifaPersonalizadaActiva = false;
     editandoId.value = '';
     guestName.value=''; guestPhone.value=''; guestDoc.value='';
@@ -3267,6 +2947,7 @@ function abrirFormularioNuevaReserva(fISO){
 }
 function limpiarFormulario(){
     temporadaOriginalEdicion = null;
+    estadoPagoOriginalEdicion = null;
     tarifaPersonalizadaActiva = false;
     editandoId.value = '';
     guestName.value=''; guestPhone.value=''; guestDoc.value='';
@@ -3334,9 +3015,6 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         if(reservaOriginal) esEdicion = true;
     }
 
-    let abValEfectivo = abVal;
-    if(esEdicion && reservaOriginal){ abValEfectivo = reservaOriginal.valorAbono || 0; }
-
     const totalPorHab = dataHabs.map(hd=>{
         const sub = tarVal*hd.personas*hd.noches;
         const desc = ((tarVal*(dPct/100))+dPesos)*hd.personas*hd.noches;
@@ -3347,6 +3025,16 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     totalReserva += cocinaVal;
 
     const totalHabs = dataHabs.reduce((a,hd)=>a+hd.habs.length, 0);
+
+    let abValEfectivo;
+    if(estadoPagoV === 'Pago completo'){
+        abValEfectivo = totalReserva;
+    } else if(estadoPagoV === 'Pendiente'){
+        abValEfectivo = 0;
+    } else {
+        abValEfectivo = abVal;
+    }
+
     const totIgual = totalHabs>0 ? Math.round(totalReserva/totalHabs) : 0;
     const abIgual = totalHabs>0 ? Math.round(abValEfectivo/totalHabs) : 0;
     const difT = totalReserva - (totIgual*totalHabs);
@@ -3360,14 +3048,15 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     });
     if(filas.length>0){ filas[0].total += difT; filas[0].abono += difA; }
 
-    if(esEdicion && reservaOriginal){
-        filas.forEach(f=>{
-            if(f.hab === reservaOriginal.hab){ f.saldo = reservaOriginal.valorSaldo || 0; }
-            else { f.saldo = Math.max(0, f.total-f.abono); }
-        });
-    } else {
-        filas.forEach(f=>{ f.saldo = Math.max(0, f.total-f.abono); });
-    }
+    filas.forEach(f=>{
+        if(estadoPagoV === 'Pago completo'){
+            f.saldo = 0;
+        } else if(estadoPagoV === 'Pendiente'){
+            f.saldo = f.total;
+        } else {
+            f.saldo = Math.max(0, f.total - f.abono);
+        }
+    });
 
     const nuevoId = editandoIdActual;
     try {
@@ -3387,6 +3076,8 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         const todasLasUrls = comprobantesUrlsExistentes.concat(nuevasUrls);
         const compUrlFinal = todasLasUrls.join(',');
 
+        const ordenOriginal = esEdicion && reservaOriginal ? reservaOriginal.ordenOriginal : Date.now();
+
         if(nuevoId) await sb.from(TABLA).delete().eq('id', nuevoId);
         const inserts = filas.map(f=>({
             nombre_huesped: nombre, documento: doc||'—', telefono: tel||'—',
@@ -3398,7 +3089,8 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
             valor_saldo: f.saldo, forma_pago_saldo: fSal, estado: f.estado,
             cocina: cocinaSeleccionada || 'NO',
             recibido_por: recibidoV,
-            comprobante_url: compUrlFinal
+            comprobante_url: compUrlFinal,
+            orden_original: ordenOriginal
         }));
         let { data, error } = await sb.from(TABLA).insert(inserts).select();
         if(error && error.message && error.message.toLowerCase().includes('invalid input syntax')){
@@ -3428,6 +3120,7 @@ const filtroMesRegistro = document.getElementById('filtroMesRegistro');
 const filtroAnioRegistro = document.getElementById('filtroAnioRegistro');
 const filtroHabitacionRegistro = document.getElementById('filtroHabitacionRegistro');
 const filtroEntidadRegistro = document.getElementById('filtroEntidadRegistro');
+const filtroRecibidoRegistro = document.getElementById('filtroRecibidoRegistro');
 const checkTodos = document.getElementById('checkTodos');
 const barraAccionesMasivas = document.getElementById('barraAccionesMasivas');
 const contadorSeleccionados = document.getElementById('contadorSeleccionados');
@@ -3436,6 +3129,20 @@ const btnCancelarSeleccion = document.getElementById('btnCancelarSeleccion');
 
 MESES.forEach((m,i)=>{ const o = document.createElement('option'); o.value=i; o.textContent=m; filtroMesRegistro.appendChild(o); });
 for(let y=ANIO_MIN; y<=ANIO_MAX; y++){ const o = document.createElement('option'); o.value=y; o.textContent=y; filtroAnioRegistro.appendChild(o); }
+
+function actualizarFiltroRecibido(){
+    const set = new Set();
+    reservas.forEach(r=>{ if(r.recibidoPor && r.recibidoPor !== '—') set.add(r.recibidoPor); });
+    const actual = filtroRecibidoRegistro.value;
+    filtroRecibidoRegistro.innerHTML = '<option value="">Recibido Por</option>';
+    Array.from(set).sort().forEach(v=>{
+        const o = document.createElement('option');
+        o.value = v;
+        o.textContent = v;
+        filtroRecibidoRegistro.appendChild(o);
+    });
+    if(actual) filtroRecibidoRegistro.value = actual;
+}
 
 function actualizarBarraMasiva(){
     const n = seleccionados.size;
@@ -3468,17 +3175,19 @@ async function guardarPagoTotal(idReserva, valor){
 
 function renderReservasRegistro(){
     const t = (buscadorRegistro.value||'').toLowerCase().trim();
-    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value;
+    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value, fr = filtroRecibidoRegistro.value;
     let fil = reservas.slice();
     if(t) fil = fil.filter(r=>(r.nombre && r.nombre.toLowerCase().includes(t)) || (r.hab && r.hab.toLowerCase().includes(t)));
     if(fm!=='') fil = fil.filter(r=>r.entrada && r.entrada.getMonth()===parseInt(fm));
     if(fa!=='') fil = fil.filter(r=>r.entrada && r.entrada.getFullYear()===parseInt(fa));
     if(fh!=='') fil = fil.filter(r=>r.hab===fh);
     if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
+    if(fr!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === fr);
+
     fil.sort((a,b)=>{
-        const ea = a.entrada ? a.entrada.getTime() : 0;
-        const eb = b.entrada ? b.entrada.getTime() : 0;
-        return ea - eb;
+        const oa = a.ordenOriginal || a.id || 0;
+        const ob = b.ordenOriginal || b.id || 0;
+        return oa - ob;
     });
 
     reservasTableBody.innerHTML = '';
@@ -3509,7 +3218,7 @@ function renderReservasRegistro(){
 
             const cocinaVal = (r.cocina === 'SI') ? 'SI' : 'NO';
             const cocinaHtml = `<span class="cocina-texto">${cocinaVal}</span>`;
-            const recibidoHtml = `<span class="recibido-texto">${r.recibidoPor || '—'}</span>`;
+            const recibidoHtml = formatearRecibidoPor(r.recibidoPor);
 
             const accionHtml = modo==='editor'
                 ? `<div style="display:flex; gap:4px; justify-content:center;">
@@ -3640,8 +3349,9 @@ filtroMesRegistro.addEventListener('change', renderReservasRegistro);
 filtroAnioRegistro.addEventListener('change', renderReservasRegistro);
 filtroHabitacionRegistro.addEventListener('change', renderReservasRegistro);
 filtroEntidadRegistro.addEventListener('change', renderReservasRegistro);
+filtroRecibidoRegistro.addEventListener('change', renderReservasRegistro);
 document.getElementById('btnLimpiarBusqueda').addEventListener('click', ()=>{
-    buscadorRegistro.value=''; filtroMesRegistro.value=''; filtroAnioRegistro.value=''; filtroHabitacionRegistro.value=''; filtroEntidadRegistro.value='';
+    buscadorRegistro.value=''; filtroMesRegistro.value=''; filtroAnioRegistro.value=''; filtroHabitacionRegistro.value=''; filtroEntidadRegistro.value=''; filtroRecibidoRegistro.value='';
     renderReservasRegistro(); mostrarToast('🧹 Limpiado','ok');
 });
 
@@ -3655,7 +3365,6 @@ function editarReserva(id){
     guestPhone.value = (r.telefono && r.telefono!=='—') ? r.telefono : '';
     guestDoc.value = r.doc || '';
 
-    // Detectar si la tarifa coincide con alguna temporada estándar
     let temporadaDetectada = null;
     if(r.tarifa && TARIFAS[r.hab]){
         for(const temp of ['Baja','Alta','Ferias']){
@@ -3664,7 +3373,6 @@ function editarReserva(id){
     }
 
     if(temporadaDetectada){
-        // Es una tarifa estándar
         tarifaPersonalizadaActiva = false;
         tarifa.readOnly = true;
         tarifa.classList.remove('tarifa-custom-input');
@@ -3678,7 +3386,6 @@ function editarReserva(id){
         const chkTemp = temporadaChecklist.querySelector(`.temp-check[data-temp="${temporadaDetectada}"]`);
         if(chkTemp){ chkTemp.classList.add('selected'); chkTemp.querySelector('input').checked = true; }
     } else {
-        // Es una tarifa personalizada
         tarifaPersonalizadaActiva = true;
         tarifa.readOnly = false;
         tarifa.classList.add('tarifa-custom-input');
@@ -3702,6 +3409,8 @@ function editarReserva(id){
     tarifa.value = formatPeso(r.tarifa);
     estadoPago.value = r.estadoPago || '';
     if(estadoPago.value) estadoPago.classList.remove('placeholder'); else estadoPago.classList.add('placeholder');
+    estadoPagoOriginalEdicion = r.estadoPago || null;
+
     valorAbono.value = formatPeso(r.valorAbono || 0);
     formaPagoAbono.value = r.formaPagoAbono || '';
     if(formaPagoAbono.value) formaPagoAbono.classList.remove('placeholder'); else formaPagoAbono.classList.add('placeholder');
@@ -3725,7 +3434,6 @@ function editarReserva(id){
 const compModalOverlay = document.getElementById('comprobanteModalOverlay');
 const compModalBody = document.getElementById('comprobanteModalBody');
 const compModalFileInput = document.getElementById('comprobanteModalFileInput');
-const compModalPanel = document.getElementById('comprobanteModalPanel');
 
 document.getElementById('cerrarComprobanteModal').addEventListener('click', cerrarCompModal);
 compModalOverlay.addEventListener('click', e=>{ if(e.target===compModalOverlay) cerrarCompModal(); });
@@ -3741,116 +3449,28 @@ function cerrarCompModal(){
     comprobanteModalUrls=[];
 }
 
-function toggleFullscreen(){
-    const panel = compModalPanel;
-    if(!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement){
-        if(panel.requestFullscreen){ panel.requestFullscreen().catch(err=>{ mostrarToast('⚠️ No se pudo activar pantalla completa','error'); console.warn(err); }); }
-        else if(panel.webkitRequestFullscreen){ panel.webkitRequestFullscreen(); }
-        else if(panel.mozRequestFullScreen){ panel.mozRequestFullScreen(); }
-        else if(panel.msRequestFullscreen){ panel.msRequestFullscreen(); }
-        else { mostrarToast('⚠️ Pantalla completa no soportada en este navegador','error'); }
-    } else {
-        if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
-        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if(document.mozCancelFullScreen) document.mozCancelFullScreen();
-        else if(document.msExitFullscreen) document.msExitFullscreen();
-    }
-}
-
 function abrirImagenFullscreen(url){
     const overlay = document.getElementById('imagenFullscreenOverlay');
     const img = document.getElementById('imagenFullscreenImg');
     const zoomInfo = document.getElementById('zoomInfoFullscreen');
-    
     img.src = url;
     img.style.transform = 'scale(1)';
     img.style.cursor = 'zoom-in';
     zoomInfo.textContent = '100%';
     overlay.classList.add('show');
     document.body.style.overflow = 'hidden';
-    
-    let escala = 1;
-    let lastTap = 0;
-    let initialDistance = 0;
-    let initialScale = 1;
-    let posX = 0, posY = 0;
-    let startX = 0, startY = 0;
-    let isDragging = false;
-    
-    const actualizarTransform = ()=>{
-        img.style.transform = `scale(${escala}) translate(${posX}px, ${posY}px)`;
-        zoomInfo.textContent = Math.round(escala * 100) + '%';
-    };
-    
-    img.onclick = (e)=>{
-        const now = Date.now();
-        if(now - lastTap < 300){
-            if(escala > 1){ escala = 1; posX = 0; posY = 0; img.style.cursor = 'zoom-in'; }
-            else { escala = 2; img.style.cursor = 'zoom-out'; }
-            actualizarTransform();
-            e.preventDefault();
-        }
-        lastTap = now;
-    };
-    
-    overlay.ontouchstart = (e)=>{
-        if(e.touches.length === 2){
-            e.preventDefault();
-            const dx = e.touches[0].clientX - e.touches[1].clientX;
-            const dy = e.touches[0].clientY - e.touches[1].clientY;
-            initialDistance = Math.sqrt(dx*dx + dy*dy);
-            initialScale = escala;
-        }
-    };
-    
-    overlay.ontouchmove = (e)=>{
-        if(e.touches.length === 2 && initialDistance > 0){
-            e.preventDefault();
-            const dx = e.touches[0].clientX - e.touches[1].clientX;
-            const dy = e.touches[0].clientY - e.touches[1].clientY;
-            const distance = Math.sqrt(dx*dx + dy*dy);
-            const ratio = distance / initialDistance;
-            escala = Math.max(0.5, Math.min(5, initialScale * ratio));
-            actualizarTransform();
-        }
-    };
-    
-    overlay.ontouchend = ()=>{
-        initialDistance = 0;
-    };
-    
-    overlay.onwheel = (e)=>{
-        e.preventDefault();
-        escala = Math.max(0.5, Math.min(5, escala - e.deltaY * 0.001));
-        actualizarTransform();
-    };
-    
-    img.onmousedown = (e)=>{
-        if(escala > 1){
-            isDragging = true;
-            startX = e.clientX - posX;
-            startY = e.clientY - posY;
-            img.style.cursor = 'grabbing';
-        }
-    };
-    
-    document.onmousemove = (e)=>{
-        if(isDragging && escala > 1){
-            posX = e.clientX - startX;
-            posY = e.clientY - startY;
-            actualizarTransform();
-        }
-    };
-    
-    document.onmouseup = ()=>{
-        isDragging = false;
-        if(escala > 1) img.style.cursor = 'zoom-out';
-        else img.style.cursor = 'zoom-in';
-    };
-    
-    overlay._cerrarConEsc = (e)=>{
-        if(e.key === 'Escape'){ cerrarImagenFullscreen(); }
-    };
+    let escala = 1, lastTap = 0, initialDistance = 0, initialScale = 1;
+    let posX = 0, posY = 0, startX = 0, startY = 0, isDragging = false;
+    const actualizarTransform = ()=>{ img.style.transform = `scale(${escala}) translate(${posX}px, ${posY}px)`; zoomInfo.textContent = Math.round(escala * 100) + '%'; };
+    img.onclick = (e)=>{ const now = Date.now(); if(now - lastTap < 300){ if(escala > 1){ escala = 1; posX = 0; posY = 0; img.style.cursor = 'zoom-in'; } else { escala = 2; img.style.cursor = 'zoom-out'; } actualizarTransform(); e.preventDefault(); } lastTap = now; };
+    overlay.ontouchstart = (e)=>{ if(e.touches.length === 2){ e.preventDefault(); const dx = e.touches[0].clientX - e.touches[1].clientX; const dy = e.touches[0].clientY - e.touches[1].clientY; initialDistance = Math.sqrt(dx*dx + dy*dy); initialScale = escala; } };
+    overlay.ontouchmove = (e)=>{ if(e.touches.length === 2 && initialDistance > 0){ e.preventDefault(); const dx = e.touches[0].clientX - e.touches[1].clientX; const dy = e.touches[0].clientY - e.touches[1].clientY; const distance = Math.sqrt(dx*dx + dy*dy); const ratio = distance / initialDistance; escala = Math.max(0.5, Math.min(5, initialScale * ratio)); actualizarTransform(); } };
+    overlay.ontouchend = ()=>{ initialDistance = 0; };
+    overlay.onwheel = (e)=>{ e.preventDefault(); escala = Math.max(0.5, Math.min(5, escala - e.deltaY * 0.001)); actualizarTransform(); };
+    img.onmousedown = (e)=>{ if(escala > 1){ isDragging = true; startX = e.clientX - posX; startY = e.clientY - posY; img.style.cursor = 'grabbing'; } };
+    document.onmousemove = (e)=>{ if(isDragging && escala > 1){ posX = e.clientX - startX; posY = e.clientY - startY; actualizarTransform(); } };
+    document.onmouseup = ()=>{ isDragging = false; if(escala > 1) img.style.cursor = 'zoom-out'; else img.style.cursor = 'zoom-in'; };
+    overlay._cerrarConEsc = (e)=>{ if(e.key === 'Escape'){ cerrarImagenFullscreen(); } };
     document.addEventListener('keydown', overlay._cerrarConEsc);
 }
 
@@ -3861,16 +3481,11 @@ function cerrarImagenFullscreen(){
     document.body.style.overflow = '';
     img.src = '';
     img.style.transform = '';
-    if(overlay._cerrarConEsc){
-        document.removeEventListener('keydown', overlay._cerrarConEsc);
-        delete overlay._cerrarConEsc;
-    }
+    if(overlay._cerrarConEsc){ document.removeEventListener('keydown', overlay._cerrarConEsc); delete overlay._cerrarConEsc; }
 }
 
 document.getElementById('cerrarFullscreen').addEventListener('click', cerrarImagenFullscreen);
-document.getElementById('imagenFullscreenOverlay').addEventListener('click', (e)=>{
-    if(e.target.id === 'imagenFullscreenOverlay') cerrarImagenFullscreen();
-});
+document.getElementById('imagenFullscreenOverlay').addEventListener('click', (e)=>{ if(e.target.id === 'imagenFullscreenOverlay') cerrarImagenFullscreen(); });
 
 function renderCompModal(){
     compModalBody.innerHTML = '';
@@ -3882,20 +3497,16 @@ function renderCompModal(){
         document.getElementById('btnAñadirDesdeVacio').addEventListener('click', ()=>{ compModalFileInput.value=''; compModalFileInput.click(); });
         return;
     }
-
     const url = comprobanteModalUrls[comprobanteModalIndexActual];
     const esPdf = url.toLowerCase().split('?')[0].endsWith('.pdf');
-
     if(comprobanteModalUrls.length > 1){
         const nav = document.createElement('div');
         nav.className = 'comprobante-nav';
         nav.innerHTML = `<button id="compPrevBtn"><i class="fas fa-chevron-left"></i></button><span class="contador">${comprobanteModalIndexActual+1} / ${comprobanteModalUrls.length}</span><button id="compNextBtn"><i class="fas fa-chevron-right"></i></button>`;
         compModalBody.appendChild(nav);
     }
-
     const wrapper = document.createElement('div');
     wrapper.className = 'comprobante-zoom-wrapper';
-
     if(esPdf){
         const iframe = document.createElement('iframe');
         iframe.src = url;
@@ -3909,7 +3520,6 @@ function renderCompModal(){
         btnFullscreen.innerHTML = '<i class="fas fa-expand"></i>';
         btnFullscreen.addEventListener('click', (e)=>{ e.stopPropagation(); abrirImagenFullscreen(url); });
         wrapper.appendChild(btnFullscreen);
-
         const img = document.createElement('img');
         img.src = url;
         img.className = 'comprobante-preview-grande';
@@ -3922,7 +3532,6 @@ function renderCompModal(){
         wrapper.appendChild(img);
         compModalBody.appendChild(wrapper);
     }
-
     if(comprobanteModalUrls.length > 1){
         const thumbs = document.createElement('div');
         thumbs.className = 'comprobante-thumbs';
@@ -3944,7 +3553,6 @@ function renderCompModal(){
         });
         compModalBody.appendChild(thumbs);
     }
-
     const prev = document.getElementById('compPrevBtn');
     const next = document.getElementById('compNextBtn');
     if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; renderCompModal(); });
@@ -4303,7 +3911,11 @@ document.getElementById('viewerDownloadAgain').addEventListener('click', ()=>{
 function exportarExcel(lista, nombreHoja){
     if(!lista || !lista.length){ mostrarToast('⚠️ Sin reservas','error'); return; }
     try {
-        const datos = lista.slice().sort((a,b)=>a.entrada-b.entrada).map((r,i)=>({
+        const datos = lista.slice().sort((a,b)=>{
+            const oa = a.ordenOriginal || a.id || 0;
+            const ob = b.ordenOriginal || b.id || 0;
+            return oa - ob;
+        }).map((r,i)=>({
             'N°':i+1, 'Habitación':r.hab, 'Huésped':r.nombre, 'Teléfono':r.telefono||'—', 'Documento':r.doc||'—',
             'Fecha Entrada':formatFechaISO(r.entrada), 'Fecha Salida':formatFechaISO(r.salida),
             'Noches':r.noches||0, 'Personas':r.personas, 'Tarifa x Persona':formatPeso(r.tarifa),
@@ -4329,17 +3941,26 @@ function exportarExcel(lista, nombreHoja){
     } catch(e){ console.error(e); mostrarToast('❌ Error Excel','error'); }
 }
 
+document.getElementById('btnExportarHistorial').addEventListener('click', ()=>{
+    const t = (buscadorRegistro.value||'').toLowerCase().trim();
+    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value, fr = filtroRecibidoRegistro.value;
+    let fil = reservas.slice();
+    if(t) fil = fil.filter(r=>(r.nombre && r.nombre.toLowerCase().includes(t)) || (r.hab && r.hab.toLowerCase().includes(t)));
+    if(fm!=='') fil = fil.filter(r=>r.entrada && r.entrada.getMonth()===parseInt(fm));
+    if(fa!=='') fil = fil.filter(r=>r.entrada && r.entrada.getFullYear()===parseInt(fa));
+    if(fh!=='') fil = fil.filter(r=>r.hab===fh);
+    if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
+    if(fr!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === fr);
+    if(!fil.length){ mostrarToast('⚠️ No hay reservas para exportar','error'); return; }
+    exportarExcel(fil, 'Historial_Reservas');
+});
+
 document.getElementById('btnDescargarExcelCal').addEventListener('click', ()=>{
     const m = mesCalendarioActual, y = anioCalendarioActual;
     const ini = new Date(y,m,1), fin = new Date(y,m+1,0,23,59,59);
     exportarExcel(reservas.filter(r=>r.salida>=ini && r.entrada<=fin), `${MESES[m]}_${y}`);
 });
 
-/* =========================================================
-   PDF DEL CALENDARIO — 2 PÁGINAS FIJAS
-   Página 1: calendario visual (1 hoja horizontal)
-   Página 2: listado de días en 2 columnas (1 hoja horizontal)
-   ========================================================= */
 document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()=>{
     try {
         const { jsPDF } = window.jspdf;
@@ -4348,7 +3969,6 @@ document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()
 
         const m = mesCalendarioActual, y = anioCalendarioActual;
 
-        /* ============ PÁGINA 1: calendario visual ============ */
         const cont = document.createElement('div');
         cont.style.cssText = 'padding:20px; background:#fff; font-family:Segoe UI,Roboto,sans-serif; width:1100px;';
         cont.innerHTML = `<h1 style="font-size:18px;color:#50260c;text-align:center;margin-bottom:16px;">Hostal Villa Alejo · ${MESES[m]} ${y}</h1>`;
@@ -4365,7 +3985,6 @@ document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()
         document.body.removeChild(cont);
         const img1 = canvas1.toDataURL('image/jpeg', 0.95);
 
-        /* ============ PÁGINA 2: listado de días en 2 columnas ============ */
         const diasMes = new Date(y, m+1, 0).getDate();
         const rPorDia = obtenerReservasPorDia(m, y);
         const totalDisponibles = [];
@@ -4391,72 +4010,20 @@ document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()
 
                 let casillas = '';
                 if(disp.length === 0){
-                    casillas = `<span style="
-                        display:inline-block;
-                        background:#dc2323;
-                        color:#fff;
-                        font-weight:800;
-                        font-size:10px;
-                        padding:4px 9px;
-                        border-radius:6px;
-                        border:1px solid #a01818;
-                        letter-spacing:0.2px;
-                    ">NO HAY DISPONIBILIDAD PARA RESERVAS</span>`;
+                    casillas = `<span style="display:inline-block;background:#dc2323;color:#fff;font-weight:800;font-size:10px;padding:4px 9px;border-radius:6px;border:1px solid #a01818;letter-spacing:0.2px;">NO HAY DISPONIBILIDAD PARA RESERVAS</span>`;
                 } else {
-                    casillas = disp.map(h=>`
-                        <span style="
-                            display:inline-block;
-                            background:#e8f5e9;
-                            color:#1b5e20;
-                            border:1px solid #66bb6a;
-                            border-radius:6px;
-                            padding:3px 7px;
-                            margin:1px 2px 1px 0;
-                            font-size:10px;
-                            font-weight:700;
-                            text-align:center;
-                        ">${h}</span>
-                    `).join('');
+                    casillas = disp.map(h=>`<span style="display:inline-block;background:#e8f5e9;color:#1b5e20;border:1px solid #66bb6a;border-radius:6px;padding:3px 7px;margin:1px 2px 1px 0;font-size:10px;font-weight:700;text-align:center;">${h}</span>`).join('');
                 }
 
-                const festTag = fest
-                    ? `<span style="
-                        display:inline-block;
-                        background:#ede7f6;
-                        color:#4a148c;
-                        border:1px solid #7e57c2;
-                        border-radius:4px;
-                        padding:0 5px;
-                        font-size:8px;
-                        font-weight:800;
-                        margin-left:4px;
-                    ">${fest}</span>`
-                    : '';
+                const festTag = fest ? `<span style="display:inline-block;background:#ede7f6;color:#4a148c;border:1px solid #7e57c2;border-radius:4px;padding:0 5px;font-size:8px;font-weight:800;margin-left:4px;">${fest}</span>` : '';
 
-                html += `
-                    <div style="
-                        display:flex;
-                        align-items:flex-start;
-                        gap:8px;
-                        padding:5px 8px;
-                        border-bottom:1px dashed #e0cbb8;
-                        background:${(d%2===0)?'#fdf9f6':'#fff'};
-                    ">
-                        <div style="
-                            flex:0 0 68px;
-                            font-size:11px;
-                            font-weight:800;
-                            color:#50260c;
-                            line-height:1.25;
-                        ">
-                            <div style="font-size:13px;">${String(d).padStart(2,'0')} ${MESES_ABREV[m]}</div>
-                            <div style="font-size:8px;font-weight:600;opacity:0.75;">${nombreDia}${festTag}</div>
-                        </div>
-                        <div style="flex:1 1 auto;padding-top:2px;text-align:left;">
-                            ${casillas}
-                        </div>
+                html += `<div style="display:flex;align-items:flex-start;gap:8px;padding:5px 8px;border-bottom:1px dashed #e0cbb8;background:${(d%2===0)?'#fdf9f6':'#fff'};">
+                    <div style="flex:0 0 68px;font-size:11px;font-weight:800;color:#50260c;line-height:1.25;">
+                        <div style="font-size:13px;">${String(d).padStart(2,'0')} ${MESES_ABREV[m]}</div>
+                        <div style="font-size:8px;font-weight:600;opacity:0.75;">${nombreDia}${festTag}</div>
                     </div>
-                `;
+                    <div style="flex:1 1 auto;padding-top:2px;text-align:left;">${casillas}</div>
+                </div>`;
             });
             return html;
         };
@@ -4464,23 +4031,13 @@ document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()
         const cont2 = document.createElement('div');
         cont2.style.cssText = 'padding:20px; background:#fff; font-family:Segoe UI,Roboto,sans-serif; width:1100px;';
         cont2.innerHTML = `
-            <h1 style="font-size:16px;color:#50260c;text-align:center;margin:0 0 2px 0;font-weight:800;">
-                Hostal Villa Alejo · Disponibilidad diaria
-            </h1>
-            <p style="font-size:11px;color:#8a6b55;text-align:center;margin:0 0 12px 0;font-weight:600;">
-                ${MESES[m]} ${y} · Habitaciones disponibles por día
-            </p>
+            <h1 style="font-size:16px;color:#50260c;text-align:center;margin:0 0 2px 0;font-weight:800;">Hostal Villa Alejo · Disponibilidad diaria</h1>
+            <p style="font-size:11px;color:#8a6b55;text-align:center;margin:0 0 12px 0;font-weight:600;">${MESES[m]} ${y} · Habitaciones disponibles por día</p>
             <div style="display:flex;gap:14px;justify-content:center;align-items:flex-start;">
-                <div style="flex:1 1 auto;max-width:520px;border:1px solid #e8d5c6;border-radius:10px;overflow:hidden;background:#fff;">
-                    ${renderColumna(col1)}
-                </div>
-                <div style="flex:1 1 auto;max-width:520px;border:1px solid #e8d5c6;border-radius:10px;overflow:hidden;background:#fff;">
-                    ${renderColumna(col2)}
-                </div>
+                <div style="flex:1 1 auto;max-width:520px;border:1px solid #e8d5c6;border-radius:10px;overflow:hidden;background:#fff;">${renderColumna(col1)}</div>
+                <div style="flex:1 1 auto;max-width:520px;border:1px solid #e8d5c6;border-radius:10px;overflow:hidden;background:#fff;">${renderColumna(col2)}</div>
             </div>
-            <p style="font-size:9px;color:#8a6b55;text-align:center;margin-top:10px;font-weight:600;">
-                La información suministrada es solo de las habitaciones disponibles.
-            </p>
+            <p style="font-size:9px;color:#8a6b55;text-align:center;margin-top:10px;font-weight:600;">La información suministrada es solo de las habitaciones disponibles.</p>
         `;
 
         document.body.appendChild(cont2);
@@ -4655,9 +4212,10 @@ btnConfirmarImport.addEventListener('click', async ()=>{
     btnConfirmarImport.disabled = true;
     btnConfirmarImport.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
     try {
-        let { data, error } = await sb.from(TABLA).insert(importFilasValidas).select();
+        const conOrden = importFilasValidas.map((f, i) => ({...f, orden_original: Date.now() + i}));
+        let { data, error } = await sb.from(TABLA).insert(conOrden).select();
         if(error && error.message && error.message.includes('invalid input syntax')){
-            const ins2 = importFilasValidas.map(i=>({...i, 'habitación': HABITACIONES.indexOf(i['habitación'])+1}));
+            const ins2 = conOrden.map(i=>({...i, 'habitación': HABITACIONES.indexOf(i['habitación'])+1}));
             const r2 = await sb.from(TABLA).insert(ins2).select();
             data = r2.data; error = r2.error;
         }
@@ -4764,6 +4322,7 @@ function renderTodo(){
     if(modo==='editor' && document.getElementById('bd-panel').classList.contains('active')) renderBaseDatos();
     if(modo==='editor' && document.getElementById('dash-panel').classList.contains('active')) renderDashboard();
     actualizarDashFiltroCobra();
+    actualizarFiltroRecibido();
 }
 
 async function init(){
@@ -4777,6 +4336,7 @@ async function init(){
 
     initDashFiltros();
     actualizarDashFiltroCobra();
+    actualizarFiltroRecibido();
 
     const cache = cargarCache();
     if(cache){ reservas = cache; renderTodo(); setSyncStatus('cache', 'Caché'); }
