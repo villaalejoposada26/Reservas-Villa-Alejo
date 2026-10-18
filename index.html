@@ -23,12 +23,38 @@ body { background: #fefbf8; min-height: 100vh; display: flex; justify-content: c
 .banner-text h1 { font-size: 1.5rem; font-weight: 700; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.25); }
 .banner-text p { font-size: 0.85rem; color: #fff; margin-top: 3px; opacity: 0.95; }
 .banner-right { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+
+/* ÍCONO DE LOGIN PEQUEÑO Y BLANCO - REDUCIDO */
+.btn-login-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: #fff;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    flex-shrink: 0;
+    padding: 0;
+}
+.btn-login-icono:hover {
+    background: rgba(255,255,255,0.35);
+    transform: scale(1.08);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+}
+.btn-login-icono i { color: #fff; font-size: 0.8rem; }
+
 .btn-sesion { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.4); color: #fff; padding: 0.55rem 1rem; border-radius: 30px; font-weight: 700; font-size: 0.78rem; cursor: pointer; display: none !important; align-items: center; gap: 6px; transition: all 0.15s; white-space: nowrap; }
 .btn-sesion:hover { background: rgba(255,255,255,0.28); }
 .user-info { color: #fff; font-size: 0.72rem; font-weight: 600; opacity: 0.9; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: none !important; }
 .btn-cerrar-sesion-banner { display: none; background: #fff; border: 1.5px solid #fff; color: #50260c; padding: 0.55rem 1rem; border-radius: 30px; font-weight: 700; font-size: 0.78rem; cursor: pointer; align-items: center; gap: 6px; transition: all 0.15s; white-space: nowrap; }
 .btn-cerrar-sesion-banner:hover { background: #f5e6dc; transform: scale(1.02); }
 body.modo-editor .btn-cerrar-sesion-banner { display: inline-flex; }
+body.modo-lector .btn-cerrar-sesion-banner { display: inline-flex; }
 .status-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; background: #f0f7ee; padding: 0.5rem 1rem; border-bottom: 1px solid #d5e6d5; font-size: 0.75rem; font-weight: 600; color: #2e5a33; }
 .sync-status { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 20px; }
 .sync-status.cloud { background: #d1e7dd; color: #0f5132; }
@@ -38,6 +64,7 @@ body.modo-editor .btn-cerrar-sesion-banner { display: inline-flex; }
 .sync-status.hidden-sync { display: none !important; }
 .modo-indicador { margin-left: auto; font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 700; }
 .modo-indicador.visitante { background: #fff3cd; color: #856404; }
+.modo-indicador.lector { background: #cfe2ff; color: #084298; }
 .modo-indicador.editor { background: #d1e7dd; color: #0f5132; }
 .ultima-act { font-size: 0.7rem; color: #2e5a33; display: inline-flex; align-items: center; gap: 4px; }
 .section-selector { display: flex; flex-wrap: nowrap; background: #faf3ee; padding: 0.6rem 1rem; gap: 0.5rem; border-bottom: 1px solid #f0e4d9; overflow-x: auto; scrollbar-width: thin; }
@@ -49,7 +76,10 @@ body.modo-editor .btn-cerrar-sesion-banner { display: inline-flex; }
 .section-btn.active { background: #fff; color: #50260c; border-color: #d4b9a4; box-shadow: 0 4px 10px rgba(80,38,12,0.1); }
 .section-btn.active i { color: #50260c; }
 .section-btn.solo-editor { display: none !important; }
+.section-btn.solo-editor-y-lector { display: none !important; }
 body.modo-editor .section-btn.solo-editor { display: flex !important; }
+body.modo-editor .section-btn.solo-editor-y-lector { display: flex !important; }
+body.modo-lector .section-btn.solo-editor-y-lector { display: flex !important; }
 .section-content { padding: 1.5rem; background: #fff; }
 .content-panel { display: none; animation: fade 0.2s ease; }
 .content-panel.active { display: block; }
@@ -94,21 +124,46 @@ body.modo-editor .section-btn.solo-editor { display: flex !important; }
 .dinero-pendiente-item .lbl { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4px; color: #3d1c09; opacity: 0.95; }
 .dinero-pendiente-item .val { font-size: 1.3rem; font-weight: 900; color: #c62828; text-shadow: 0 1px 2px rgba(0,0,0,0.08); line-height: 1; }
 .dinero-pendiente-item .sub { font-size: 0.58rem; font-weight: 700; color: #3d1c09; opacity: 0.85; }
+.dinero-recibido-panel { flex: 0 0 auto; background: #fff; }
+.dinero-recibido-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0.5rem 1rem; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; background: #fff; border: 1px solid #e8d5c6; max-width: 280px; }
+.dinero-recibido-item .lbl { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.4px; color: #3d1c09; opacity: 0.95; }
+.dinero-recibido-item .val { font-size: 1.3rem; font-weight: 900; color: #2e7d32; text-shadow: 0 1px 2px rgba(0,0,0,0.08); line-height: 1; }
+.dinero-recibido-item .sub { font-size: 0.58rem; font-weight: 700; color: #3d1c09; opacity: 0.85; }
 .btn-accion-historial { display: none; padding: 0.55rem 1.1rem; border-radius: 30px; border: none; background: #2e7d32; color: #fff; font-size: 0.82rem; font-weight: 700; cursor: pointer; outline: none; transition: all 0.15s; align-items: center; gap: 7px; white-space: nowrap; }
 .btn-accion-historial:hover { background: #1b5e20; }
 body.modo-editor .btn-accion-historial { display: inline-flex; }
-.table-wrapper { overflow-x: auto; border-radius: 20px; border: 1px solid #f0e4d9; background: #fff; margin-top: 1rem; }
+
+/* ===== TABLE WRAPPER: 8 filas visibles con scroll ===== */
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    border-radius: 20px;
+    border: 1px solid #f0e4d9;
+    background: #fff;
+    margin-top: 1rem;
+    max-height: 460px; /* 8 filas aprox (header + 8 filas de ~48px) */
+    scrollbar-width: thin;
+    scrollbar-color: #d4b9a4 #faf3ee;
+}
+.table-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
+.table-wrapper::-webkit-scrollbar-track { background: #faf3ee; border-radius: 4px; }
+.table-wrapper::-webkit-scrollbar-thumb { background: #d4b9a4; border-radius: 4px; }
+.table-wrapper::-webkit-scrollbar-thumb:hover { background: #b89a82; }
+
+.table-wrapper table { margin: 0; }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 th { text-align: left; padding: 0.8rem 0.9rem; background: #faf3ee; color: #50260c; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; border-bottom: 1px solid #e8d5c6; white-space: nowrap; }
 td { padding: 0.8rem 0.9rem; border-bottom: 1px solid #f0e4d9; color: #3d1c09; white-space: nowrap; font-size: 0.83rem; }
 tr:last-child td { border-bottom: none; }
 .tabla-historial { width: 100%; table-layout: auto; font-size: 0.7rem; }
-.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; }
+.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; position: sticky; top: 0; z-index: 2; }
 .tabla-historial td { padding: 0.45rem 0.4rem; font-size: 0.66rem; white-space: normal; word-wrap: break-word; text-align: center; vertical-align: middle; }
 .th-2line { display: inline-block; line-height: 1.1; }
 .th-2line span { display: block; }
 .th-comprobante { white-space: nowrap; letter-spacing: -0.2px; }
 .tabla-historial td.celda-fecha { white-space: nowrap; }
+.th-fecha-pago { min-width: 90px; white-space: normal; }
+.th-fecha-pago .th-2line span { display: block; }
 .saldo-cero { color: #2e7d32; font-weight: 700; }
 .saldo-deuda { color: #c62828; font-weight: 700; }
 .forma-pago-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; white-space: nowrap; }
@@ -167,9 +222,7 @@ tr:last-child td { border-bottom: none; }
 .btn-danger { background: #fff; color: #b33a3a; border: 1.5px solid #f0c0c0; }
 .btn-danger:hover { background: #ffe6e6; transform: scale(1.1); }
 .btn-accion-col { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-.btn-accion-col .etiqueta-accion { font-size: 0.4rem; font-weight: 700; color: #50260c; text-transform: uppercase; line-height: 1; }
-.btn-accion-col.editar .etiqueta-accion { color: #1976d2; }
-.btn-accion-col.eliminar .etiqueta-accion { color: #b33a3a; }
+.btn-accion-col .etiqueta-accion { display: none; }
 .col-accion-vacia { color: #b8a89a; font-size: 0.7rem; }
 .barra-acciones-masivas { display: none; background: #ffe6e6; border: 1px solid #f0c0c0; border-radius: 16px; padding: 0.7rem 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; }
 .barra-acciones-masivas.show { display: flex; }
@@ -352,9 +405,9 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .cocina-check .check-icon { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #c9b8a8; display: inline-flex; align-items: center; justify-content: center; color: transparent; font-size: 0.55rem; }
 .cocina-check.selected { background: #e8f5e9; border-color: #66bb6a; color: #1b5e20; }
 .cocina-check.selected .check-icon { background: #2e7d32; border-color: #2e7d32; color: #fff; }
-.recibido-box { display: inline-flex; align-items: center; gap: 0.4rem; background: #fff; border: 2px solid #e0cbb8; border-radius: 12px; padding: 0.3rem 0.6rem; margin-top: 0.3rem; flex-wrap: wrap; }
+.recibido-box { display: flex; align-items: center; gap: 0.4rem; background: #fff; border: 2px solid #e0cbb8; border-radius: 12px; padding: 0.3rem 0.6rem; margin-top: 0.3rem; flex-wrap: nowrap; }
 .recibido-box label { font-size: 0.72rem; font-weight: 800; color: #50260c; text-transform: uppercase; white-space: nowrap; margin: 0; }
-.recibido-box input { padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid #e0cbb8; font-size: 0.8rem; outline: none; color: #3d1c09; width: 160px; max-width: 100%; text-transform: uppercase; }
+.recibido-box input { padding: 0.35rem 0.55rem; border-radius: 8px; border: 1px solid #e0cbb8; font-size: 0.8rem; outline: none; color: #3d1c09; width: 100%; flex: 1; text-transform: uppercase; }
 .habitaciones-checklist { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.3rem; }
 .hab-check { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 2px solid #e0cbb8; border-radius: 30px; padding: 0.5rem 0.9rem; font-size: 0.83rem; font-weight: 600; color: #50260c; cursor: pointer; user-select: none; }
 .hab-check input { display: none; }
@@ -384,10 +437,30 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .lista-reservas-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
 .lista-reservas-header h3 { font-size: 1.1rem; font-weight: 700; color: #50260c; display: flex; align-items: center; gap: 8px; }
 .buscador-container { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #faf3ee; padding: 0.9rem 1.1rem; border-radius: 20px; border: 1px solid #e8d5c6; margin-bottom: 1rem; width: 100%; }
-.buscador-input { flex: 1 1 180px; position: relative; min-width: 160px; max-width: 320px; }
+.buscador-input { flex: 1 1 200px; position: relative; min-width: 180px; max-width: 340px; }
 .buscador-input input { width: 100%; padding: 0.7rem 0.9rem 0.7rem 2.4rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.88rem; outline: none; }
-.buscador-input i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a58671; }
-.filtro-select { flex: 1 1 110px; min-width: 95px; padding: 0.7rem 0.9rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.82rem; font-weight: 600; color: #50260c; cursor: pointer; outline: none; }
+
+/* ===== FILTROS MÁS ANCHOS ===== */
+.filtro-select {
+    flex: 0 1 auto;
+    min-width: 120px;
+    max-width: 180px;
+    padding: 0.7rem 0.9rem;
+    border-radius: 30px;
+    border: 1px solid #e0cbb8;
+    background: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #50260c;
+    cursor: pointer;
+    outline: none;
+}
+.filtro-select.ancho-mes { min-width: 100px; max-width: 120px; }
+.filtro-select.ancho-anio { min-width: 90px; max-width: 105px; }
+.filtro-select.ancho-hab { min-width: 110px; max-width: 130px; }
+.filtro-select.ancho-entidad { min-width: 130px; max-width: 150px; }
+.filtro-select.ancho-recibido { min-width: 115px; max-width: 135px; }
+.filtro-select.ancho-recibido-saldos { min-width: 115px; max-width: 135px; }
 .btn-limpiar-busqueda { flex: 0 0 auto; background: #f5e6dc; color: #50260c; border: 1px solid #e0cbb8; padding: 0.7rem 1.1rem; border-radius: 30px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .bd-section { background: #fff; border-radius: 24px; padding: 1.5rem; border: 1px solid #e8d5c6; }
 .bd-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
@@ -537,6 +610,37 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .imagen-fullscreen-overlay .cerrar-fullscreen { position: fixed; top: 15px; right: 15px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.3rem; color: #333; cursor: pointer; z-index: 3001; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 .imagen-fullscreen-overlay .cerrar-fullscreen:hover { background: #fff; transform: scale(1.1); }
 .imagen-fullscreen-overlay .zoom-info { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 3001; }
+
+/* Estilos para las columnas de comprobante saldo y títulos en 2 filas */
+.th-comprobante-saldo { min-width: 80px; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; padding: 0.55rem 0.3rem; }
+.th-comprobante-saldo .th-2line span { display: block; }
+.th-abono-recibido .th-2line span, .th-saldo-recibido .th-2line span { display: block; }
+.th-abono-recibido, .th-saldo-recibido { min-width: 75px; white-space: normal; word-wrap: break-word; line-height: 1.15; }
+.th-entidad-abono .th-2line span, .th-entidad-saldo .th-2line span { display: block; }
+.th-entidad-abono, .th-entidad-saldo { min-width: 90px; white-space: normal; word-wrap: break-word; line-height: 1.15; }
+.th-forma-pago-abono .th-2line span, .th-forma-pago-saldo .th-2line span { display: block; }
+.th-forma-pago-abono, .th-forma-pago-saldo { min-width: 80px; white-space: normal; word-wrap: break-word; line-height: 1.15; }
+.col-comprobante-saldo { text-align: center; vertical-align: middle; white-space: nowrap; padding: 0.45rem 0.4rem; }
+
+/* ===== TÍTULOS SOLICITADOS EN 2 FILAS ===== */
+.th-entidad-abono .th-2line span,
+.th-entidad-saldo .th-2line span,
+.th-estado-pago .th-2line span {
+    display: block;
+}
+.th-entidad-abono, .th-entidad-saldo {
+    min-width: 95px;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.15;
+}
+.th-estado-pago {
+    min-width: 80px;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.15;
+}
+
 @media (max-width: 768px) {
     body { padding: 8px; }
     .dashboard { border-radius: 20px; }
@@ -564,7 +668,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .panel-header h2 { font-size: 1.1rem; }
     .buscador-container { padding: 0.6rem; gap: 6px; }
     .buscador-input { flex: 1 1 100%; min-width: 0; max-width: 100%; }
-    .filtro-select { flex: 1 1 calc(50% - 3px); font-size: 0.72rem; padding: 0.55rem; min-width: 0; }
+    .filtro-select { flex: 1 1 calc(50% - 3px); font-size: 0.72rem; padding: 0.55rem; min-width: 0; max-width: none; }
     .btn-limpiar-busqueda { flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 0.72rem; }
     .lista-reservas-section { padding: 1rem; }
     .section-content { padding: 1rem; }
@@ -624,6 +728,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .bd-tabla th, .bd-tabla td { padding: 0.5rem 0.4rem; font-size: 0.68rem; }
     .select-nombre-cliente, .input-nombre-personalizado { max-width: 100%; }
     .bd-tabla input.campo-editable { max-width: 100px; font-size: 0.7rem; }
+    .th-comprobante-saldo { font-size: 0.48rem; padding: 0.5rem 0.2rem; min-width: 65px; }
+    .col-comprobante-saldo { padding: 0.45rem 0.2rem; }
+    .th-abono-recibido, .th-saldo-recibido { min-width: 60px; font-size: 0.48rem; }
+    .btn-login-icono { width: 26px; height: 26px; font-size: 0.7rem; }
 }
 @media (max-width: 480px) {
     .section-btn span { display: none; }
@@ -671,6 +779,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .btn-accion-historial { padding: 0.55rem 1rem; font-size: 0.78rem; }
     .bd-tabla th, .bd-tabla td { padding: 0.4rem 0.3rem; font-size: 0.6rem; }
     .bd-tabla input.campo-editable { max-width: 80px; font-size: 0.62rem; }
+    .th-comprobante-saldo { font-size: 0.42rem; padding: 0.4rem 0.15rem; min-width: 55px; }
+    .col-comprobante-saldo { padding: 0.4rem 0.15rem; }
+    .th-abono-recibido, .th-saldo-recibido { min-width: 50px; font-size: 0.42rem; }
+    .btn-login-icono { width: 24px; height: 24px; font-size: 0.65rem; }
 }
 </style>
 </head>
@@ -688,6 +800,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
         </div>
         <div class="banner-right">
             <span class="user-info" id="userInfo"></span>
+            <!-- ÍCONO PEQUEÑO DE LOGIN (visible solo para visitantes) -->
+            <button class="btn-login-icono" id="btnLoginIcono" title="Iniciar sesión" aria-label="Iniciar sesión">
+                <i class="fas fa-key"></i>
+            </button>
             <button class="btn-sesion login" id="btnLogin"><i class="fas fa-user-shield"></i> Editor</button>
             <button class="btn-sesion logout" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
             <button class="btn-cerrar-sesion-banner" id="btnCerrarSesionBanner"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</button>
@@ -700,9 +816,9 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     </div>
     <div class="section-selector">
         <button class="section-btn active" data-section="calendar"><i class="fas fa-calendar-alt"></i> <span>CALENDARIO</span></button>
-        <button class="section-btn" data-section="reservas"><i class="fas fa-clipboard-list"></i> <span>PANEL DE RESERVAS</span></button>
+        <button class="section-btn solo-editor-y-lector" data-section="reservas"><i class="fas fa-clipboard-list"></i> <span>PANEL DE RESERVAS</span></button>
         <button class="section-btn solo-editor" data-section="dash"><i class="fas fa-chart-line"></i> <span>DASHBOARD</span></button>
-        <button class="section-btn" data-section="tarifas"><i class="fas fa-tags"></i> <span>TARIFAS</span></button>
+        <button class="section-btn solo-editor-y-lector" data-section="tarifas"><i class="fas fa-tags"></i> <span>TARIFAS</span></button>
         <button class="section-btn solo-editor" data-section="bd"><i class="fas fa-database"></i> <span>BASE DE DATOS</span></button>
     </div>
     <div class="section-content">
@@ -754,6 +870,13 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                             <span class="sub" id="infoDineroPendienteSub">Mes actual</span>
                         </div>
                     </div>
+                    <div class="recuadro-base dinero-recibido-panel">
+                        <div class="dinero-recibido-item">
+                            <span class="lbl">DINERO RECIBIDO</span>
+                            <span class="val" id="infoDineroRecibido">$0</span>
+                            <span class="sub" id="infoDineroRecibidoSub">Mes actual</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="reservas-top-right">
                     <button class="btn-accion-historial importar" id="btnImportarExcel"><i class="fas fa-file-import"></i> IMPORTAR</button>
@@ -764,11 +887,13 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                 <div class="lista-reservas-header"><h3><i class="fas fa-clipboard-list"></i> Historial de Reservas</h3><span class="badge" id="badgeTotalRegistro">0 reservas</span></div>
                 <div class="buscador-container">
                     <div class="buscador-input"><i class="fas fa-search"></i><input type="text" id="buscadorRegistro" placeholder="Buscar por nombre..."></div>
-                    <select class="filtro-select" id="filtroMesRegistro"><option value="">Mes</option></select>
-                    <select class="filtro-select" id="filtroAnioRegistro"><option value="">Año</option></select>
-                    <select class="filtro-select" id="filtroHabitacionRegistro"><option value="">Habitación</option><option>Sauce</option><option>Pino</option><option>Roble</option><option>Eucalipto</option><option>Arrayán</option><option>Nogal</option></select>
-                    <select class="filtro-select" id="filtroEntidadRegistro"><option value="">Entidades</option><option value="Bancolombia">Bancolombia</option><option value="Nequi">Nequi</option><option value="Efectivo">Efectivo</option><option value="NO APLICA">NO APLICA</option></select>
-                    <select class="filtro-select" id="filtroRecibidoRegistro"><option value="">Recibido Por</option></select>
+                    <select class="filtro-select ancho-mes" id="filtroMesRegistro"><option value="">Mes</option></select>
+                    <select class="filtro-select ancho-anio" id="filtroAnioRegistro"><option value="">Año</option></select>
+                    <select class="filtro-select ancho-hab" id="filtroHabitacionRegistro"><option value="">Habitación</option><option>Sauce</option><option>Pino</option><option>Roble</option><option>Eucalipto</option><option>Arrayán</option><option>Nogal</option></select>
+                    <select class="filtro-select ancho-entidad" id="filtroEntidadAbonoRegistro"><option value="">Entidades Abono</option><option value="Efectivo">Efectivo</option><option value="Bancolombia">Bancolombia</option><option value="Nequi">Nequi</option></select>
+                    <select class="filtro-select ancho-entidad" id="filtroEntidadSaldoRegistro"><option value="">Entidades Saldo</option><option value="Efectivo">Efectivo</option><option value="Bancolombia">Bancolombia</option><option value="Nequi">Nequi</option></select>
+                    <select class="filtro-select ancho-recibido" id="filtroAbonoRegistro"><option value="">Abonos</option><option value="Heylem">Heylem</option><option value="Nelson">Nelson</option></select>
+                    <select class="filtro-select ancho-recibido-saldos" id="filtroSaldoRegistro"><option value="">Saldos</option><option value="Heylem">Heylem</option><option value="Nelson">Nelson</option></select>
                     <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda"><i class="fas fa-eraser"></i> Limpiar</button>
                 </div>
                 <div class="barra-acciones-masivas" id="barraAccionesMasivas">
@@ -788,12 +913,42 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                             <th style="white-space:nowrap;">NOCHES</th><th style="white-space:nowrap;">PERSONAS</th>
                             <th><span class="th-2line"><span>USO DE</span><span>COCINA</span></span></th>
                             <th><span class="th-2line"><span>TOTAL A</span><span>PAGAR</span></span></th>
+                            <th><span class="th-2line"><span>VALOR</span><span>ABONO</span></span></th>
+                            <th class="th-fecha-pago"><span class="th-2line"><span>FECHA DE</span><span>PAGO ABONO</span></span></th>
                             <th><span class="th-2line"><span>SALDO</span><span>PENDIENTE</span></span></th>
-                            <th><span class="th-2line"><span>FORMA DE</span><span>PAGO</span></span></th>
-                            <th><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA</span></span></th>
-                            <th class="th-comprobante">COMPROBANTE</th>
-                            <th><span class="th-2line"><span>PAGO</span><span>TOTAL</span></span></th>
-                            <th><span class="th-2line"><span>RECIBIDO</span><span>POR</span></span></th>
+                            <th class="th-forma-pago-abono"><span class="th-2line"><span>FORMA DE</span><span>PAGO ABONO</span></span></th>
+                            <!-- ENTIDAD BANCARIA ABONO en 2 filas: ENTIDAD / BANCARIA ABONO -->
+                            <th class="th-entidad-abono"><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA ABONO</span></span></th>
+                            <th class="th-comprobante">
+                                <span class="th-2line">
+                                    <span>COMPROBANTE</span>
+                                    <span>ABONO</span>
+                                </span>
+                            </th>
+                            <th class="th-abono-recibido">
+                                <span class="th-2line">
+                                    <span>ABONO</span>
+                                    <span>RECIBIDO POR</span>
+                                </span>
+                            </th>
+                            <!-- ESTADO DEL PAGO en 2 filas: ESTADO / DEL PAGO -->
+                            <th class="th-estado-pago"><span class="th-2line"><span>ESTADO</span><span>DEL PAGO</span></span></th>
+                            <th class="th-fecha-pago"><span class="th-2line"><span>FECHA DE</span><span>PAGO SALDO</span></span></th>
+                            <th class="th-forma-pago-saldo"><span class="th-2line"><span>FORMA DE</span><span>PAGO SALDO</span></span></th>
+                            <!-- ENTIDAD BANCARIA SALDO en 2 filas: ENTIDAD / BANCARIA SALDO -->
+                            <th class="th-entidad-saldo"><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA SALDO</span></span></th>
+                            <th class="th-comprobante-saldo">
+                                <span class="th-2line">
+                                    <span>COMPROBANTE</span>
+                                    <span>SALDO</span>
+                                </span>
+                            </th>
+                            <th class="th-saldo-recibido">
+                                <span class="th-2line">
+                                    <span>SALDO</span>
+                                    <span>RECIBIDO POR</span>
+                                </span>
+                            </th>
                             <th>ACCIÓN</th>
                         </tr></thead>
                         <tbody id="reservasTableBodyRegistro"></tbody>
@@ -974,19 +1129,19 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 <div class="modal-overlay" id="loginOverlay">
     <div class="modal-panel" style="max-width:420px;">
         <button class="btn-cerrar-modal" id="cerrarLogin"><i class="fas fa-times"></i></button>
-        <h3 style="margin-bottom:1rem;"><i class="fas fa-user-shield"></i> Acceso editor</h3>
+        <h3 style="margin-bottom:1rem;"><i class="fas fa-user-shield"></i> Acceso</h3>
         <div class="login-tabs">
             <button class="login-tab active" data-tab="login"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button>
             <button class="login-tab" data-tab="cambiar"><i class="fas fa-key"></i> Cambiar contraseña</button>
         </div>
         <div id="loginTabLogin">
-            <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Correo electrónico</label><input type="email" id="loginEmail" placeholder="admin@villaalejo.com" autocomplete="username"></div></div>
+            <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Correo electrónico</label><input type="email" id="loginEmail" placeholder="correo@ejemplo.com" autocomplete="username"></div></div>
             <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Contraseña</label><div class="login-pass-wrapper"><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password"><button type="button" class="btn-ver-pass" id="btnVerPass"><i class="fas fa-eye" id="iconoVerPass"></i></button></div><label class="recordar-box"><input type="checkbox" id="recordarPass"> Recordar contraseña</label></div></div>
             <p id="loginFeedback" style="min-height:20px; font-size:0.82rem; color:#b33a3a; text-align:center; margin:0.5rem 0;"></p>
             <div class="form-botones-inferiores" style="border:none; padding-top:0;"><button class="btn-primary" id="btnLoginSubmit"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</button></div>
         </div>
         <div id="loginTabCambiar" style="display:none;">
-            <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Correo electrónico</label><input type="email" id="cambiarEmail" placeholder="admin@villaalejo.com"></div></div>
+            <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Correo electrónico</label><input type="email" id="cambiarEmail" placeholder="correo@ejemplo.com"></div></div>
             <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Contraseña actual</label><div class="login-pass-wrapper"><input type="password" id="cambiarPassActual" placeholder="••••••••"><button type="button" class="btn-ver-pass" id="btnVerPassActual"><i class="fas fa-eye" id="iconoVerPassActual"></i></button></div></div></div>
             <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Nueva contraseña</label><div class="login-pass-wrapper"><input type="password" id="cambiarPassNueva" placeholder="••••••••"><button type="button" class="btn-ver-pass" id="btnVerPassNueva"><i class="fas fa-eye" id="iconoVerPassNueva"></i></button></div></div></div>
             <div class="form-row"><div class="form-group" style="flex:1 1 100%;"><label>Confirmar nueva contraseña</label><div class="login-pass-wrapper"><input type="password" id="cambiarPassConfirmar" placeholder="••••••••"><button type="button" class="btn-ver-pass" id="btnVerPassConfirmar"><i class="fas fa-eye" id="iconoVerPassConfirmar"></i></button></div></div></div>
@@ -1113,9 +1268,11 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                             </select>
                         </div>
                     </div>
-                    <div class="form-row" id="filaAbono">
-                        <div class="form-group"><label>Valor del abono ($)</label><input type="text" id="valorAbono" class="moneda" placeholder="Ej: $100.000" inputmode="decimal"></div>
-                        <div class="form-group"><label>Forma de pago</label>
+                    <div class="form-row" id="filaAbono" style="display:none;">
+                        <div class="form-group"><label>Valor abono</label><input type="text" id="valorAbono" class="moneda" placeholder="Ej: $100.000" inputmode="decimal"></div>
+                    </div>
+                    <div class="form-row" id="filaFormaPagoAbono" style="display:none;">
+                        <div class="form-group"><label>Forma de pago abono</label>
                             <select id="formaPagoAbono" class="placeholder">
                                 <option value="" disabled selected hidden>Seleccionar</option>
                                 <option value="NO APLICA">NO APLICA</option>
@@ -1123,12 +1280,20 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                                 <option value="Transferencia">TRANSFERENCIA</option>
                             </select>
                         </div>
+                        <div class="form-group" id="grupoFechaPagoAbonoForma" style="display:none;">
+                            <label>Fecha de Pago Abono</label>
+                            <input type="date" id="fechaPagoAbonoForma">
+                        </div>
                         <div class="form-group" id="grupoEntidadBancaria" style="display:none;">
                             <label>Entidad bancaria</label>
                             <select id="entidadBancaria"><option value="NO APLICA">NO APLICA</option><option value="Bancolombia">BANCOLOMBIA</option><option value="Nequi">NEQUI</option></select>
                         </div>
+                        <div class="form-group" id="grupoFechaPagoAbonoEntidad" style="display:none;">
+                            <label>Fecha de Pago Abono</label>
+                            <input type="date" id="fechaPagoAbonoEntidad">
+                        </div>
                     </div>
-                    <div class="recibido-box" id="recibidoBox" style="display:none;"><label><i class="fas fa-user-check"></i> Recibido por:</label><input type="text" id="recibidoPor" placeholder="NOMBRE" style="text-transform:uppercase;"></div>
+                    <div class="recibido-box" id="recibidoBox" style="display:none;"><label><i class="fas fa-user-check"></i> ABONO RECIBIDO POR:</label><input type="text" id="recibidoPor" placeholder="NOMBRE" style="text-transform:uppercase;"></div>
                     <div class="form-row" id="filaComprobante" style="display:none;">
                         <div class="form-group" style="flex:1 1 100%;">
                             <label><i class="fas fa-image" style="color:#1976d2;"></i> Comprobantes de transferencia (puedes añadir varios)</label>
@@ -1144,6 +1309,47 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                         <div class="item"><span class="lbl">Total reserva</span><span class="val" id="resumenTotal2">$0</span></div>
                         <div class="item"><span class="lbl">Abono</span><span class="val" id="resumenAbono">$0</span></div>
                         <div class="item pendiente"><span class="lbl">Saldo</span><span class="val saldo-pendiente-verde" id="resumenPendiente">$0</span></div>
+                    </div>
+                    <div id="seccionDatosSaldo">
+                        <div class="form-section-title" style="margin-top:1.2rem;"><i class="fas fa-hand-holding-usd"></i> DATOS DEL SALDO</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Fecha de pago saldo</label>
+                                <input type="date" id="fechaPagoSaldo">
+                            </div>
+                            <div class="form-group">
+                                <label>Forma de pago saldo</label>
+                                <select id="formaPagoSaldo" class="placeholder">
+                                    <option value="" disabled selected hidden>Seleccionar</option>
+                                    <option value="NO APLICA">NO APLICA</option>
+                                    <option value="EFECTIVO">EFECTIVO</option>
+                                    <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="grupoEntidadBancariaSaldo" style="display:none;">
+                                <label>Entidad Bancaria Saldo</label>
+                                <select id="entidadBancariaSaldo" class="placeholder">
+                                    <option value="" disabled selected hidden>Seleccionar</option>
+                                    <option value="NO APLICA">NO APLICA</option>
+                                    <option value="BANCOLOMBIA">BANCOLOMBIA</option>
+                                    <option value="NEQUI">NEQUI</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="recibido-box" id="saldoRecibidoBox">
+                            <label><i class="fas fa-user-check"></i> SALDO RECIBIDO POR:</label>
+                            <input type="text" id="saldoRecibidoPor" placeholder="NOMBRE" style="text-transform:uppercase;">
+                        </div>
+                        <div class="form-row" id="filaComprobanteSaldo" style="display:none;">
+                            <div class="form-group" style="flex:1 1 100%;">
+                                <label><i class="fas fa-image" style="color:#1976d2;"></i> Comprobantes de transferencia del saldo</label>
+                                <div class="comprobante-upload-wrapper">
+                                    <div class="comprobante-dropzone" id="comprobanteSaldoDropzone"><i class="fas fa-cloud-upload-alt"></i><div class="txt-principal">Añadir comprobante(s) del saldo</div><div class="txt-secundario">JPG · JPEG · PNG · PDF · Múltiples archivos</div></div>
+                                    <input type="file" id="comprobanteSaldoFileInput" accept=".jpg,.jpeg,.png,.pdf" multiple style="display:none;">
+                                    <div class="comprobante-list" id="comprobanteSaldoList"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-botones-inferiores">
@@ -1255,10 +1461,15 @@ const FESTIVOS = {
 };
 function esFestivo(f){ return FESTIVOS[f]||null; }
 
-const LS_CACHE = 'villaAlejo_cache_v16';
-const LS_CRED = 'villaAlejo_credenciales_v16';
-const LS_TARIFAS = 'villaAlejo_tarifas_v16';
-const LS_CAPACIDAD = 'villaAlejo_capacidad_v16';
+const LS_CACHE = 'villaAlejo_cache_v18';
+const LS_CRED = 'villaAlejo_credenciales_v18';
+const LS_TARIFAS = 'villaAlejo_tarifas_v18';
+const LS_CAPACIDAD = 'villaAlejo_capacidad_v18';
+
+const ROLES_USUARIOS = {
+    'silvita.0331@gmail.com': 'editor',
+    'villaalejoposada@gmail.com': 'lector'
+};
 
 let reservas = [];
 let clientesBD = [];
@@ -1291,6 +1502,9 @@ let tarifasRespaldo = null;
 let tarifaPersonalizadaActiva = false;
 let nombrePersonalizadoActivo = false;
 let modoEdicionReserva = false;
+
+let comprobantesSaldoArchivosSeleccionados = [];
+let comprobantesSaldoUrlsExistentes = [];
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_ABREV = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -1389,10 +1603,6 @@ async function cargarClientesBD(){
     } catch(e){ console.warn('No se pudieron cargar clientes:', e); clientesBD = []; return []; }
 }
 
-/* ==================================================================
-   GUARDAR CLIENTE (SIN DUPLICAR): si existe por nombre, actualiza;
-   si no existe, inserta. Se usa al registrar/editar reservas.
-   ================================================================== */
 async function guardarClienteSiNoExiste(cliente){
     try {
         const nombreNorm = String(cliente.nombre||'').trim().toUpperCase();
@@ -1400,7 +1610,6 @@ async function guardarClienteSiNoExiste(cliente){
         const existente = clientesBD.find(c => String(c.nombre||'').trim().toUpperCase() === nombreNorm);
         if(existente){
             const updates = {};
-            // Actualizar solo los campos que tienen datos nuevos válidos
             const docFormateado = cliente.documento && cliente.documento !== '—' ? formatDocumento(cliente.documento) : '';
             if(docFormateado && existente.documento !== docFormateado) updates.documento = docFormateado;
             if(cliente.telefono && cliente.telefono !== '—' && existente.telefono !== cliente.telefono) updates.telefono = cliente.telefono;
@@ -1558,7 +1767,7 @@ function setSyncStatus(tipo, msg){
     const iconos = { cloud:'fa-cloud', cache:'fa-bolt', syncing:'fa-sync-alt fa-spin', error:'fa-exclamation-triangle' };
     el.className = 'sync-status ' + tipo;
     el.innerHTML = `<i class="fas ${iconos[tipo]}"></i> ${msg}`;
-    if(modo==='editor') el.classList.remove('hidden-sync'); else el.classList.add('hidden-sync');
+    if(modo==='editor' || modo==='lector') el.classList.remove('hidden-sync'); else el.classList.add('hidden-sync');
 }
 function setUltimaActualizacion(date){
     const el = document.getElementById('ultimaAct');
@@ -1568,7 +1777,19 @@ function actualizarDineroPendiente(){
     const el = document.getElementById('infoDineroPendiente');
     const elSub = document.getElementById('infoDineroPendienteSub');
     if(!el) return;
-    const hoy = new Date(); const m = hoy.getMonth(), y = hoy.getFullYear();
+    let m, y, etiqueta;
+    const fm = filtroMesRegistro.value;
+    const fa = filtroAnioRegistro.value;
+    if(fm !== '' || fa !== ''){
+        m = fm !== '' ? parseInt(fm) : new Date().getMonth();
+        y = fa !== '' ? parseInt(fa) : new Date().getFullYear();
+        etiqueta = `${MESES[m]} ${y}`;
+    } else {
+        const hoy = new Date();
+        m = hoy.getMonth();
+        y = hoy.getFullYear();
+        etiqueta = `${MESES[m]} ${y}`;
+    }
     let total = 0;
     reservas.forEach(r=>{
         if(r.estado === 'Cancelada') return;
@@ -1578,7 +1799,35 @@ function actualizarDineroPendiente(){
         if(r.entrada.getMonth() === m && r.entrada.getFullYear() === y){ total += saldo; }
     });
     el.textContent = formatPeso(total);
-    if(elSub) elSub.textContent = `${MESES[m]} ${y}`;
+    if(elSub) elSub.textContent = etiqueta;
+}
+function actualizarDineroRecibido(){
+    const el = document.getElementById('infoDineroRecibido');
+    const elSub = document.getElementById('infoDineroRecibidoSub');
+    if(!el) return;
+    let m, y, etiqueta;
+    const fm = filtroMesRegistro.value;
+    const fa = filtroAnioRegistro.value;
+    if(fm !== '' || fa !== ''){
+        m = fm !== '' ? parseInt(fm) : new Date().getMonth();
+        y = fa !== '' ? parseInt(fa) : new Date().getFullYear();
+        etiqueta = `${MESES[m]} ${y}`;
+    } else {
+        const hoy = new Date();
+        m = hoy.getMonth();
+        y = hoy.getFullYear();
+        etiqueta = `${MESES[m]} ${y}`;
+    }
+    let total = 0;
+    reservas.forEach(r=>{
+        if(r.estado === 'Cancelada') return;
+        if(!r.entrada) return;
+        if(r.entrada.getMonth() === m && r.entrada.getFullYear() === y){
+            total += calcularTotalBase(r);
+        }
+    });
+    el.textContent = formatPeso(total);
+    if(elSub) elSub.textContent = etiqueta;
 }
 function guardarCache(){
     try {
@@ -1608,7 +1857,12 @@ function deSupabase(fila){
         formaPagoAbono: fila.forma_pago_abono || '—', entidadBancaria: fila.entidad_bancaria || '—',
         valorSaldo: Number(fila.valor_saldo) || 0, formaPagoSaldo: fila.forma_pago_saldo || '—',
         estado: fila.estado || '—', cocina: fila.cocina || 'NO', recibidoPor: fila.recibido_por || '—',
-        comprobanteUrl: fila.comprobante_url || '', ordenOriginal: fila.orden_original || 0, timestamp: fila.created_at
+        comprobanteUrl: fila.comprobante_url || '', ordenOriginal: fila.orden_original || 0,
+        fechaPagoAbono: fila.fecha_pago_abono || '', timestamp: fila.created_at,
+        fechaPagoSaldo: fila.fecha_pago_saldo || '',
+        formaPagoSaldoVal: fila.forma_pago_saldo || 'NO APLICA',
+        entidadBancariaSaldo: fila.entidad_bancaria_saldo || 'NO APLICA',
+        saldoRecibidoPor: fila.saldo_recibido_por || '—'
     };
 }
 async function cargarReservas(){
@@ -1616,36 +1870,72 @@ async function cargarReservas(){
     if(error) throw error;
     return (data||[]).map(deSupabase);
 }
-async function aplicarModoEditor(){
-    modo = 'editor';
-    document.body.classList.remove('modo-visitante');
-    document.body.classList.add('modo-editor');
-    document.getElementById('modoIndicador').textContent = '✏️ Modo editor';
-    document.getElementById('modoIndicador').className = 'modo-indicador editor';
-    document.getElementById('userInfo').textContent = currentUser?.email || '';
-    document.querySelectorAll('.btn-sesion').forEach(b => b.style.display = 'none');
+
+function getRolUsuario(email){
+    if(!email) return 'visitante';
+    const key = String(email).trim().toLowerCase();
+    return ROLES_USUARIOS[key] || 'visitante';
+}
+function aplicarRolVisual(rol){
+    document.body.classList.remove('modo-visitante','modo-lector','modo-editor');
+    if(rol === 'editor') document.body.classList.add('modo-editor');
+    else if(rol === 'lector') document.body.classList.add('modo-lector');
+    else document.body.classList.add('modo-visitante');
+
+    const modoInd = document.getElementById('modoIndicador');
+    if(rol === 'editor'){ modoInd.textContent = '✏️ Modo editor'; modoInd.className = 'modo-indicador editor'; }
+    else if(rol === 'lector'){ modoInd.textContent = '📖 Modo lectura'; modoInd.className = 'modo-indicador lector'; }
+    else { modoInd.textContent = '👁️ Solo lectura'; modoInd.className = 'modo-indicador visitante'; }
+
+    const btnCerrar = document.getElementById('btnCerrarSesionBanner');
+    if(rol === 'editor' || rol === 'lector') btnCerrar.style.display = 'inline-flex';
+    else btnCerrar.style.display = 'none';
+
+    // Ícono de login solo visible para visitantes
+    const btnLoginIcono = document.getElementById('btnLoginIcono');
+    if(btnLoginIcono) btnLoginIcono.style.display = (rol === 'visitante') ? 'inline-flex' : 'none';
+
+    // Botones antiguos siempre ocultos
+    const btnLogin = document.getElementById('btnLogin');
+    if(btnLogin) btnLogin.style.display = 'none';
     const btnLogout = document.getElementById('btnLogout');
-    if (btnLogout) btnLogout.style.display = 'inline-flex';
+    if(btnLogout) btnLogout.style.display = 'none';
+
     const ind = document.getElementById('syncIndicator');
-    if(ind) ind.classList.remove('hidden-sync');
+    if(rol === 'visitante') ind.classList.add('hidden-sync'); else ind.classList.remove('hidden-sync');
+
+    if(rol === 'visitante'){
+        activateSection('calendar');
+    }
+}
+
+function aplicarModoEditor(){
+    modo = 'editor';
+    currentUser = currentUser || {};
+    document.getElementById('userInfo').textContent = currentUser?.email || '';
+    aplicarRolVisual('editor');
     renderReservasRegistro();
     renderTarifas();
     if(document.getElementById('dash-panel').classList.contains('active')) renderDashboard();
+    if(document.getElementById('bd-panel').classList.contains('active')) renderBaseDatos();
+}
+function aplicarModoLector(){
+    modo = 'lector';
+    currentUser = currentUser || {};
+    document.getElementById('userInfo').textContent = currentUser?.email || '';
+    aplicarRolVisual('lector');
+    renderReservasRegistro();
+    renderTarifas();
+    if(document.getElementById('dash-panel').classList.contains('active')) activateSection('calendar');
+    if(document.getElementById('bd-panel').classList.contains('active')) activateSection('calendar');
 }
 function aplicarModoVisitante(){
     modo = 'visitante';
-    document.body.classList.remove('modo-editor');
-    document.body.classList.add('modo-visitante');
-    document.getElementById('modoIndicador').textContent = '👁️ Solo lectura';
-    document.getElementById('modoIndicador').className = 'modo-indicador visitante';
     document.getElementById('userInfo').textContent = '';
-    document.querySelectorAll('.btn-sesion').forEach(b => b.style.display = 'none');
+    aplicarRolVisual('visitante');
     document.querySelectorAll('.modal-form-overlay, .import-overlay, .confirm-overlay').forEach(el => el.classList.remove('show'));
-    const ind = document.getElementById('syncIndicator');
-    if(ind) ind.classList.add('hidden-sync');
     if(tarifasEditando){ tarifasEditando = false; tarifasRespaldo = null; }
     document.getElementById('tarifasControles').classList.remove('editando-activo');
-    activateSection('calendar');
     renderReservasRegistro();
     renderTarifas();
 }
@@ -1653,6 +1943,7 @@ function renderTarifas(){
     const tbody = document.getElementById('tarifasTbody');
     if(!tbody) return;
     tbody.innerHTML = '';
+    const puedeEditar = (modo === 'editor');
     HABITACIONES.forEach((hab, idx)=>{
         const cap = CAPACIDAD_MAX[hab];
         const t = TARIFAS[hab];
@@ -1660,14 +1951,14 @@ function renderTarifas(){
         const tr = document.createElement('tr');
         tr.dataset.hab = hab;
         if(tarifasEditando) tr.classList.add('editando');
-        if(tarifasEditando){
+        if(tarifasEditando && puedeEditar){
             tr.innerHTML = `<td>${idx+1}</td><td><input type="text" class="tarifa-input bloqueado" data-field="habitacion" value="${hab}" readonly tabindex="-1"></td><td><input type="text" inputmode="numeric" class="tarifa-input" data-field="baja" value="${t.Baja}"></td><td><input type="text" inputmode="numeric" class="tarifa-input" data-field="alta" value="${t.Alta}"></td><td><input type="text" inputmode="numeric" class="tarifa-input" data-field="ferias" value="${t.Ferias}"></td><td><input type="text" inputmode="numeric" class="tarifa-input capacidad-input bloqueado" data-field="capacidad" value="${cap}" readonly tabindex="-1"></td>`;
         } else {
             tr.innerHTML = `<td>${idx+1}</td><td><span class="nombre-hab"><i class="fas ${iconos[hab]||'fa-tree'}"></i> ${hab}</span></td><td><span class="precio-baja">${formatPeso(t.Baja)}</span></td><td><span class="precio-alta">${formatPeso(t.Alta)}</span></td><td><span class="precio-feria">${formatPeso(t.Ferias)}</span></td><td class="capacidad">${cap} personas</td>`;
         }
         tbody.appendChild(tr);
     });
-    if(tarifasEditando){
+    if(tarifasEditando && puedeEditar){
         tbody.querySelectorAll('input[data-field="baja"], input[data-field="alta"], input[data-field="ferias"]').forEach(inp=>{
             inp.addEventListener('input', ()=>{ inp.value = inp.value.replace(/[^0-9]/g,''); });
         });
@@ -1813,8 +2104,20 @@ const loginFeedback = document.getElementById('loginFeedback');
 const btnVerPass = document.getElementById('btnVerPass');
 const iconoVerPass = document.getElementById('iconoVerPass');
 const recordarPass = document.getElementById('recordarPass');
+
+// ABRIR LOGIN CON EL ÍCONO PEQUEÑO
+const btnLoginIcono = document.getElementById('btnLoginIcono');
+if(btnLoginIcono){
+    btnLoginIcono.addEventListener('click', ()=>{
+        if(modo !== 'visitante') return;
+        loginOverlay.classList.add('show');
+        setTimeout(()=>loginEmail.focus(), 200);
+    });
+}
+
 document.getElementById('cerrarLogin').addEventListener('click', () => loginOverlay.classList.remove('show'));
-loginOverlay.addEventListener('click', (e)=>{ if(e.target===loginOverlay) loginOverlay.classList.remove('show'); });
+// CERRAR SOLO CON LA X (no con clic fuera)
+loginOverlay.addEventListener('click', (e)=>{ /* No hacer nada al hacer clic fuera */ });
 btnVerPass.addEventListener('click', (e)=>{
     e.preventDefault();
     if(loginPassword.type === 'password'){ loginPassword.type = 'text'; iconoVerPass.classList.remove('fa-eye'); iconoVerPass.classList.add('fa-eye-slash'); }
@@ -1860,7 +2163,7 @@ if (logoSecreto) {
         temporizadorToques = setTimeout(() => { toquesLogo = 0; }, 1500);
         if (toquesLogo >= 5) {
             toquesLogo = 0;
-            if (modo === 'editor') return;
+            if (modo === 'editor' || modo === 'lector') return;
             loginOverlay.classList.add('show');
             setTimeout(()=>loginEmail.focus(), 200);
         }
@@ -1878,10 +2181,13 @@ document.getElementById('btnLoginSubmit').addEventListener('click', async ()=>{
         const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
         if(error) throw error;
         currentUser = data.user;
+        const rol = getRolUsuario(data.user.email);
+        if(rol === 'visitante'){ throw new Error('Usuario sin rol asignado'); }
         try { if(recordarPass.checked){ localStorage.setItem(LS_CRED, JSON.stringify({ email, pass, recordar:true })); } else { localStorage.removeItem(LS_CRED); } } catch(e){}
         loginOverlay.classList.remove('show'); loginFeedback.textContent = '';
-        await aplicarModoEditor();
-        mostrarToast('✅ Sesión iniciada como editor', 'ok');
+        if(rol === 'editor') await aplicarModoEditor();
+        else await aplicarModoLector();
+        mostrarToast(`✅ Sesión iniciada como ${rol === 'editor' ? 'editor' : 'lector'}`, 'ok');
     } catch(err) { loginFeedback.style.color = '#b33a3a'; loginFeedback.textContent = MSG_ERROR_LOGIN; }
 });
 document.getElementById('btnCambiarSubmit').addEventListener('click', async ()=>{
@@ -1908,9 +2214,9 @@ document.getElementById('btnCambiarSubmit').addEventListener('click', async ()=>
     } catch(err) { fb.style.color = '#b33a3a'; fb.textContent = MSG_ERROR_LOGIN; }
 });
 async function cerrarSesionEditor(){
-    if(!confirm('¿Cerrar sesión de editor?')) return;
+    if(!confirm('¿Cerrar sesión?')) return;
     await sb.auth.signOut(); currentUser = null; aplicarModoVisitante();
-    mostrarToast('👁️ Sesión cerrada. Modo visitante.', 'info');
+    mostrarToast('👁️ Sesión cerrada.', 'info');
 }
 document.getElementById('btnLogout').addEventListener('click', cerrarSesionEditor);
 document.getElementById('btnCerrarSesionBanner').addEventListener('click', cerrarSesionEditor);
@@ -2100,6 +2406,7 @@ modalDia.addEventListener('click',(e)=>{ if(e.target===modalDia) modalDia.classL
 document.getElementById('modalBtnInfo').addEventListener('click', ()=>document.getElementById('modalInfoHabitaciones').classList.toggle('show'));
 modalBtnAñadir.addEventListener('click', ()=>{
     if(modalBtnAñadir.disabled) return;
+    if(modo !== 'editor') return;
     modalDia.classList.remove('show');
     abrirFormularioNuevaReserva(fechaModalSeleccionada);
 });
@@ -2144,6 +2451,22 @@ const tarifaCustomLabel = document.getElementById('tarifaCustomLabel');
 const btnNombreCustom = document.getElementById('btnNombreCustom');
 const iconoNombreCustom = document.getElementById('iconoNombreCustom');
 const nombreCustomLabel = document.getElementById('nombreCustomLabel');
+const filaAbono = document.getElementById('filaAbono');
+const filaFormaPagoAbono = document.getElementById('filaFormaPagoAbono');
+const grupoFechaPagoAbonoForma = document.getElementById('grupoFechaPagoAbonoForma');
+const grupoFechaPagoAbonoEntidad = document.getElementById('grupoFechaPagoAbonoEntidad');
+const fechaPagoAbonoForma = document.getElementById('fechaPagoAbonoForma');
+const fechaPagoAbonoEntidad = document.getElementById('fechaPagoAbonoEntidad');
+const seccionDatosSaldo = document.getElementById('seccionDatosSaldo');
+const fechaPagoSaldo = document.getElementById('fechaPagoSaldo');
+const formaPagoSaldo = document.getElementById('formaPagoSaldo');
+const entidadBancariaSaldo = document.getElementById('entidadBancariaSaldo');
+const grupoEntidadBancariaSaldo = document.getElementById('grupoEntidadBancariaSaldo');
+const saldoRecibidoPor = document.getElementById('saldoRecibidoPor');
+const filaComprobanteSaldo = document.getElementById('filaComprobanteSaldo');
+const comprobanteSaldoDropzone = document.getElementById('comprobanteSaldoDropzone');
+const comprobanteSaldoFileInput = document.getElementById('comprobanteSaldoFileInput');
+const comprobanteSaldoList = document.getElementById('comprobanteSaldoList');
 
 function habilitarDatosHuesped(){
     guestNameSelect.disabled = false;
@@ -2348,6 +2671,33 @@ function renderListaComprobantes(){
         });
     });
 }
+function resetComprobanteSaldoUI(){ comprobanteSaldoFileInput.value=''; comprobanteSaldoList.innerHTML=''; }
+function renderListaComprobantesSaldo(){
+    comprobanteSaldoList.innerHTML = '';
+    comprobantesSaldoUrlsExistentes.forEach((url, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'comprobante-item';
+        const esPdf = url.toLowerCase().split('?')[0].endsWith('.pdf');
+        const miniaturaHtml = esPdf ? `<i class="fas fa-file-pdf" style="color:#c62828; font-size:1.3rem;"></i>` : `<img src="${url}" class="comprobante-imagen-mini" onerror="this.style.display='none'">`;
+        div.innerHTML = `<div class="info-file">${miniaturaHtml}<span class="nombre-file">Comprobante saldo guardado ${idx+1}</span></div><button type="button" class="btn-quitar-file" data-tipo="url" data-idx="${idx}"><i class="fas fa-times"></i></button>`;
+        comprobanteSaldoList.appendChild(div);
+    });
+    comprobantesSaldoArchivosSeleccionados.forEach((file, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'comprobante-item';
+        const esImagen = file.type.startsWith('image/');
+        div.innerHTML = `<div class="info-file"><i class="fas ${esImagen?'fa-image':'fa-file-pdf'}" style="color:${esImagen?'#1976d2':'#c62828'}; font-size:1.3rem;"></i><span class="nombre-file">${file.name}</span></div><button type="button" class="btn-quitar-file" data-tipo="file" data-idx="${idx}"><i class="fas fa-times"></i></button>`;
+        comprobanteSaldoList.appendChild(div);
+    });
+    comprobanteSaldoList.querySelectorAll('.btn-quitar-file').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            const tipo = btn.dataset.tipo; const idx = parseInt(btn.dataset.idx);
+            if(tipo==='file') comprobantesSaldoArchivosSeleccionados.splice(idx,1); else comprobantesSaldoUrlsExistentes.splice(idx,1);
+            renderListaComprobantesSaldo();
+        });
+    });
+}
+
 function validarArchivo(f){
     const extOk = /\.(jpg|jpeg|png|pdf)$/i.test(f.name);
     if(!extOk){ mostrarToast('⚠️ Solo JPG, JPEG, PNG o PDF','error'); return false; }
@@ -2361,6 +2711,15 @@ comprobanteFileInput.addEventListener('change', e=>{
         for(const f of e.target.files){ if(validarArchivo(f)) validos.push(f); }
         comprobantesArchivosSeleccionados = comprobantesArchivosSeleccionados.concat(validos);
         renderListaComprobantes();
+    }
+});
+comprobanteSaldoDropzone.addEventListener('click', ()=>comprobanteSaldoFileInput.click());
+comprobanteSaldoFileInput.addEventListener('change', e=>{
+    if(e.target.files.length>0){
+        const validos = [];
+        for(const f of e.target.files){ if(validarArchivo(f)) validos.push(f); }
+        comprobantesSaldoArchivosSeleccionados = comprobantesSaldoArchivosSeleccionados.concat(validos);
+        renderListaComprobantesSaldo();
     }
 });
 async function subirComprobante(file){
@@ -2546,6 +2905,11 @@ function actualizarSaldo(total){
     valorSaldo.classList.add(s===0?'saldo-pendiente-verde':'saldo-pendiente-rojo');
     resumenPendiente.classList.remove('saldo-pendiente-rojo','saldo-pendiente-verde');
     resumenPendiente.classList.add(s===0?'saldo-pendiente-verde':'saldo-pendiente-rojo');
+    if(s > 0){
+        seccionDatosSaldo.style.display = 'block';
+    } else {
+        seccionDatosSaldo.style.display = 'none';
+    }
 }
 [descuentoPct, descuentoPesos, valorAbono].forEach(i=>{ i.addEventListener('input', actualizarResumen); i.addEventListener('change', actualizarResumen); });
 function bindMoneda(inp, esDesc){
@@ -2560,26 +2924,89 @@ estadoPago.addEventListener('change', ()=>{
     const totalActual = calcularTotalActual().total;
     const estadoAnterior = estadoPagoOriginalEdicion;
     const estadoNuevo = estadoPago.value;
-    if(estadoNuevo === 'Pago completo'){
+
+    if(estadoNuevo === 'Abonado'){
+        filaAbono.style.display = 'flex';
+        filaFormaPagoAbono.style.display = 'flex';
+        const fp = formaPagoAbono.value;
+        if(fp === 'Transferencia'){
+            grupoEntidadBancaria.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'flex';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            filaComprobante.style.display = 'flex';
+            recibidoBox.style.display = 'flex';
+        } else if(fp === 'Efectivo'){
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'flex';
+        } else if(fp === 'NO APLICA'){
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'none';
+        }
+        if(estadoAnterior === 'Pago completo' || estadoAnterior === 'Pendiente' || !estadoAnterior){ valorAbono.value = formatPeso(0); }
+        actualizarSaldo();
+        mostrarToast('✏️ Ingrese el valor del abono', 'info');
+    } else if(estadoNuevo === 'Pago completo'){
+        filaAbono.style.display = 'none';
+        filaFormaPagoAbono.style.display = 'flex';
         valorAbono.value = formatPeso(totalActual);
         valorSaldo.value = formatPeso(0);
         valorSaldo.classList.remove('saldo-pendiente-rojo'); valorSaldo.classList.add('saldo-pendiente-verde');
         resumenAbono.textContent = formatPeso(totalActual);
         resumenPendiente.textContent = formatPeso(0);
         resumenPendiente.classList.remove('saldo-pendiente-rojo'); resumenPendiente.classList.add('saldo-pendiente-verde');
+        seccionDatosSaldo.style.display = 'none';
+        const fp = formaPagoAbono.value;
+        if(fp === 'Transferencia'){
+            grupoEntidadBancaria.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'flex';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            filaComprobante.style.display = 'flex';
+            recibidoBox.style.display = 'flex';
+        } else if(fp === 'Efectivo'){
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'flex';
+        } else if(fp === 'NO APLICA'){
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'none';
+        }
         mostrarToast('💰 Pago completo: abono ajustado al total', 'info');
-    } else if(estadoNuevo === 'Abonado'){
-        if(estadoAnterior === 'Pago completo' || estadoAnterior === 'Pendiente' || !estadoAnterior){ valorAbono.value = formatPeso(0); }
-        actualizarSaldo();
-        mostrarToast('✏️ Ingrese el valor del abono', 'info');
     } else if(estadoNuevo === 'Pendiente'){
+        filaAbono.style.display = 'none';
+        filaFormaPagoAbono.style.display = 'none';
+        grupoEntidadBancaria.style.display = 'none';
+        grupoFechaPagoAbonoForma.style.display = 'none';
+        grupoFechaPagoAbonoEntidad.style.display = 'none';
+        filaComprobante.style.display = 'none';
+        recibidoBox.style.display = 'none';
         valorAbono.value = formatPeso(0);
         valorSaldo.value = formatPeso(totalActual);
         valorSaldo.classList.remove('saldo-pendiente-verde'); valorSaldo.classList.add('saldo-pendiente-rojo');
         resumenAbono.textContent = formatPeso(0);
         resumenPendiente.textContent = formatPeso(totalActual);
         resumenPendiente.classList.remove('saldo-pendiente-verde'); resumenPendiente.classList.add('saldo-pendiente-rojo');
+        seccionDatosSaldo.style.display = 'block';
         mostrarToast('⏳ Pendiente: se cobrará el total', 'info');
+    } else {
+        filaAbono.style.display = 'none';
+        filaFormaPagoAbono.style.display = 'none';
+        grupoEntidadBancaria.style.display = 'none';
+        grupoFechaPagoAbonoForma.style.display = 'none';
+        grupoFechaPagoAbonoEntidad.style.display = 'none';
+        filaComprobante.style.display = 'none';
+        recibidoBox.style.display = 'none';
+        seccionDatosSaldo.style.display = 'none';
     }
 });
 [formaPagoAbono, entidadBancaria].forEach(sel=>{
@@ -2588,14 +3015,61 @@ estadoPago.addEventListener('change', ()=>{
         if(sel===formaPagoAbono){
             const esTransferencia = formaPagoAbono.value==='Transferencia';
             const esEfectivo = formaPagoAbono.value==='Efectivo';
-            if(esTransferencia){ grupoEntidadBancaria.style.display='flex'; filaComprobante.style.display='flex'; recibidoBox.style.display='flex'; }
-            else if(esEfectivo){ grupoEntidadBancaria.style.display='none'; entidadBancaria.value='NO APLICA'; filaComprobante.style.display='none'; comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI(); recibidoBox.style.display='flex'; }
-            else { grupoEntidadBancaria.style.display='none'; entidadBancaria.value='NO APLICA'; filaComprobante.style.display='none'; comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI(); recibidoBox.style.display='none'; }
+            const esNoAplica = formaPagoAbono.value==='NO APLICA';
+
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'none';
+
+            if(esTransferencia){
+                grupoEntidadBancaria.style.display = 'flex';
+                grupoFechaPagoAbonoEntidad.style.display = 'flex';
+                filaComprobante.style.display = 'flex';
+                recibidoBox.style.display = 'flex';
+                entidadBancaria.value = 'NO APLICA';
+            } else if(esEfectivo){
+                grupoFechaPagoAbonoForma.style.display = 'flex';
+                recibidoBox.style.display = 'flex';
+                entidadBancaria.value='NO APLICA';
+                comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI();
+            } else if(esNoAplica){
+                entidadBancaria.value='NO APLICA';
+                comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI();
+                recibidoBox.style.display = 'none';
+            } else {
+                entidadBancaria.value='NO APLICA';
+                comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[]; resetComprobanteUI();
+            }
         }
     });
 });
+formaPagoSaldo.addEventListener('change', ()=>{
+    if(formaPagoSaldo.value==='') formaPagoSaldo.classList.add('placeholder'); else formaPagoSaldo.classList.remove('placeholder');
+    const esTransferencia = formaPagoSaldo.value === 'TRANSFERENCIA';
+    const esEfectivo = formaPagoSaldo.value === 'EFECTIVO';
+    const esNoAplica = formaPagoSaldo.value === 'NO APLICA';
+    
+    if(esTransferencia){
+        grupoEntidadBancariaSaldo.style.display = 'flex';
+        filaComprobanteSaldo.style.display = 'flex';
+    } else if(esEfectivo){
+        grupoEntidadBancariaSaldo.style.display = 'none';
+        filaComprobanteSaldo.style.display = 'none';
+        comprobantesSaldoArchivosSeleccionados=[]; comprobantesSaldoUrlsExistentes=[]; resetComprobanteSaldoUI();
+    } else if(esNoAplica){
+        grupoEntidadBancariaSaldo.style.display = 'none';
+        filaComprobanteSaldo.style.display = 'none';
+        comprobantesSaldoArchivosSeleccionados=[]; comprobantesSaldoUrlsExistentes=[]; resetComprobanteSaldoUI();
+    }
+});
+entidadBancariaSaldo.addEventListener('change', ()=>{
+    if(entidadBancariaSaldo.value==='') entidadBancariaSaldo.classList.add('placeholder'); else entidadBancariaSaldo.classList.remove('placeholder');
+});
 
 function abrirFormularioNuevaReserva(fISO){
+    if(modo !== 'editor') return;
     temporadaOriginalEdicion = null;
     estadoPagoOriginalEdicion = null;
     tarifaPersonalizadaActiva = false;
@@ -2629,9 +3103,26 @@ function abrirFormularioNuevaReserva(fISO){
     valorAbono.value='';
     formaPagoAbono.value=''; formaPagoAbono.classList.add('placeholder');
     entidadBancaria.value='NO APLICA';
-    grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='none'; recibidoPor.value='';
+    filaAbono.style.display='none';
+    filaFormaPagoAbono.style.display='none';
+    grupoEntidadBancaria.style.display='none';
+    grupoFechaPagoAbonoForma.style.display='none';
+    grupoFechaPagoAbonoEntidad.style.display='none';
+    filaComprobante.style.display='none';
+    recibidoBox.style.display='none'; recibidoPor.value='';
+    fechaPagoAbonoForma.value='';
+    fechaPagoAbonoEntidad.value='';
     comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[];
     resetComprobanteUI();
+    fechaPagoSaldo.value='';
+    formaPagoSaldo.value=''; formaPagoSaldo.classList.add('placeholder');
+    entidadBancariaSaldo.value=''; entidadBancariaSaldo.classList.add('placeholder');
+    saldoRecibidoPor.value='';
+    comprobantesSaldoArchivosSeleccionados=[]; comprobantesSaldoUrlsExistentes=[];
+    resetComprobanteSaldoUI();
+    seccionDatosSaldo.style.display = 'none';
+    grupoEntidadBancariaSaldo.style.display = 'none';
+    filaComprobanteSaldo.style.display = 'none';
     feedback.innerHTML='';
     fechaModalSeleccionada = fISO;
     agregarBloqueHabitacion();
@@ -2677,15 +3168,33 @@ function limpiarFormulario(){
     valorAbono.value='';
     formaPagoAbono.value=''; formaPagoAbono.classList.add('placeholder');
     entidadBancaria.value='NO APLICA';
-    grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='none'; recibidoPor.value='';
+    filaAbono.style.display='none';
+    filaFormaPagoAbono.style.display='none';
+    grupoEntidadBancaria.style.display='none';
+    grupoFechaPagoAbonoForma.style.display='none';
+    grupoFechaPagoAbonoEntidad.style.display='none';
+    filaComprobante.style.display='none';
+    recibidoBox.style.display='none'; recibidoPor.value='';
+    fechaPagoAbonoForma.value='';
+    fechaPagoAbonoEntidad.value='';
     comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes=[];
     resetComprobanteUI();
+    fechaPagoSaldo.value='';
+    formaPagoSaldo.value=''; formaPagoSaldo.classList.add('placeholder');
+    entidadBancariaSaldo.value=''; entidadBancariaSaldo.classList.add('placeholder');
+    saldoRecibidoPor.value='';
+    comprobantesSaldoArchivosSeleccionados=[]; comprobantesSaldoUrlsExistentes=[];
+    resetComprobanteSaldoUI();
+    seccionDatosSaldo.style.display = 'none';
+    grupoEntidadBancariaSaldo.style.display = 'none';
+    filaComprobanteSaldo.style.display = 'none';
     feedback.innerHTML='';
 }
 document.getElementById('btnLimpiar').addEventListener('click', ()=>{ const f = fechaModalSeleccionada; limpiarFormulario(); fechaModalSeleccionada = f; agregarBloqueHabitacion(); const pb = bloquesHabitacion.querySelector('.bloque-habitacion'); if(pb && f) pb.querySelector('.inp-entrada').value = f; refrescarBloques(); actualizarResumen(); mostrarToast('🧹 Formulario limpiado','ok'); });
 document.getElementById('cancelBtn').addEventListener('click', ()=>{ modalFormReserva.classList.remove('show'); limpiarFormulario(); });
 
 document.getElementById('registerBtn').addEventListener('click', async ()=>{
+    if(modo !== 'editor') return;
     let nombre = '';
     if(nombrePersonalizadoActivo){ nombre = guestNameInput.value.trim().toUpperCase(); }
     else { nombre = guestNameSelect.value.trim().toUpperCase(); }
@@ -2701,8 +3210,17 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     const abVal = parsePeso(valorAbono.value);
     const fAb = formaPagoAbono.value || '—';
     const entB = (fAb === 'Transferencia') ? (entidadBancaria.value || 'NO APLICA') : 'NO APLICA';
-    const fSal = '—';
     const recibidoV = recibidoPor.value.trim().toUpperCase() || '—';
+    let fechaPagoAbonoV = '';
+    if(estadoPagoV === 'Abonado' || estadoPagoV === 'Pago completo'){
+        if(fAb === 'Transferencia') fechaPagoAbonoV = fechaPagoAbonoEntidad.value || '';
+        else if(fAb === 'Efectivo') fechaPagoAbonoV = fechaPagoAbonoForma.value || '';
+    }
+    const fechaPagoSaldoV = fechaPagoSaldo.value || null;
+    const formaPagoSaldoV = formaPagoSaldo.value || 'NO APLICA';
+    const entidadBancariaSaldoV = (formaPagoSaldoV === 'TRANSFERENCIA') ? (entidadBancariaSaldo.value || 'NO APLICA') : 'NO APLICA';
+    const saldoRecibidoPorV = saldoRecibidoPor.value.trim().toUpperCase() || '—';
+
     if(!nombre){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Ingresa el nombre.'; return; }
     if(!temporadaSeleccionada && !tarifaPersonalizadaActiva){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Selecciona temporada o activa tarifa personalizada.'; return; }
     if(!tarVal || tarVal<=0){ feedback.style.color='#b33a3a'; feedback.innerHTML='⚠️ Tarifa no calculada.'; return; }
@@ -2776,8 +3294,19 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
                 for(const file of comprobantesArchivosSeleccionados){ const url = await subirComprobante(file); nuevasUrls.push(url); }
             } catch(errC){ feedback.style.color='#b33a3a'; feedback.innerHTML='❌ Error comprobante: '+(errC.message||errC); return; }
         }
+        let nuevasUrlsSaldo = [];
+        if(comprobantesSaldoArchivosSeleccionados.length > 0){
+            feedback.innerHTML = `⏳ Subiendo ${comprobantesSaldoArchivosSeleccionados.length} comprobante(s) de saldo...`;
+            try {
+                for(const file of comprobantesSaldoArchivosSeleccionados){ const url = await subirComprobante(file); nuevasUrlsSaldo.push(url); }
+            } catch(errC){ feedback.style.color='#b33a3a'; feedback.innerHTML='❌ Error comprobante saldo: '+(errC.message||errC); return; }
+        }
         const todasLasUrls = comprobantesUrlsExistentes.concat(nuevasUrls);
         const compUrlFinal = todasLasUrls.join(',');
+        const todasLasUrlsSaldo = comprobantesSaldoUrlsExistentes.concat(nuevasUrlsSaldo);
+        const compUrlSaldoFinal = todasLasUrlsSaldo.join(',');
+        const compUrlTotal = [compUrlFinal, compUrlSaldoFinal].filter(u=>u).join(',');
+        
         if(esEdicion && reservaOriginal){
             const hermanas = getReservasHermanas(reservaOriginal);
             for(const her of hermanas){ await sb.from(TABLA).delete().eq('id', her.id); }
@@ -2792,11 +3321,16 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
             descuento_pct: dPct, descuento_pesos: dPesos,
             estado_pago: estadoPagoV, valor_abono: f.abono,
             forma_pago_abono: fAb, entidad_bancaria: entB,
-            valor_saldo: f.saldo, forma_pago_saldo: fSal, estado: f.estado,
+            valor_saldo: f.saldo, forma_pago_saldo: formaPagoSaldoV, estado: f.estado,
             cocina: cocinaSeleccionada || 'NO',
             recibido_por: recibidoV,
-            comprobante_url: compUrlFinal,
-            orden_original: ordenOriginalMantenido
+            fecha_pago_abono: fechaPagoAbonoV,
+            comprobante_url: compUrlTotal,
+            orden_original: ordenOriginalMantenido,
+            fecha_pago_saldo: fechaPagoSaldoV,
+            forma_pago_saldo_val: formaPagoSaldoV,
+            entidad_bancaria_saldo: entidadBancariaSaldoV,
+            saldo_recibido_por: saldoRecibidoPorV
         }));
         let { data, error } = await sb.from(TABLA).insert(inserts).select();
         if(error && error.message && error.message.toLowerCase().includes('invalid input syntax')){
@@ -2827,8 +3361,10 @@ const buscadorRegistro = document.getElementById('buscadorRegistro');
 const filtroMesRegistro = document.getElementById('filtroMesRegistro');
 const filtroAnioRegistro = document.getElementById('filtroAnioRegistro');
 const filtroHabitacionRegistro = document.getElementById('filtroHabitacionRegistro');
-const filtroEntidadRegistro = document.getElementById('filtroEntidadRegistro');
-const filtroRecibidoRegistro = document.getElementById('filtroRecibidoRegistro');
+const filtroEntidadAbonoRegistro = document.getElementById('filtroEntidadAbonoRegistro');
+const filtroEntidadSaldoRegistro = document.getElementById('filtroEntidadSaldoRegistro');
+const filtroAbonoRegistro = document.getElementById('filtroAbonoRegistro');
+const filtroSaldoRegistro = document.getElementById('filtroSaldoRegistro');
 const checkTodos = document.getElementById('checkTodos');
 const barraAccionesMasivas = document.getElementById('barraAccionesMasivas');
 const contadorSeleccionados = document.getElementById('contadorSeleccionados');
@@ -2837,12 +3373,20 @@ const btnCancelarSeleccion = document.getElementById('btnCancelarSeleccion');
 MESES.forEach((m,i)=>{ const o = document.createElement('option'); o.value=i; o.textContent=m; filtroMesRegistro.appendChild(o); });
 for(let y=ANIO_MIN; y<=ANIO_MAX; y++){ const o = document.createElement('option'); o.value=y; o.textContent=y; filtroAnioRegistro.appendChild(o); }
 function actualizarFiltroRecibido(){
-    const set = new Set();
-    reservas.forEach(r=>{ if(r.recibidoPor && r.recibidoPor !== '—') set.add(r.recibidoPor); });
-    const actual = filtroRecibidoRegistro.value;
-    filtroRecibidoRegistro.innerHTML = '<option value="">Recibido Por</option>';
-    Array.from(set).sort().forEach(v=>{ const o = document.createElement('option'); o.value = v; o.textContent = v; filtroRecibidoRegistro.appendChild(o); });
-    if(actual) filtroRecibidoRegistro.value = actual;
+    const setAbono = new Set();
+    const setSaldo = new Set();
+    reservas.forEach(r=>{
+        if(r.recibidoPor && r.recibidoPor !== '—') setAbono.add(r.recibidoPor);
+        if(r.saldoRecibidoPor && r.saldoRecibidoPor !== '—') setSaldo.add(r.saldoRecibidoPor);
+    });
+    const actualAbono = filtroAbonoRegistro.value;
+    filtroAbonoRegistro.innerHTML = '<option value="">Abonos</option>';
+    Array.from(setAbono).sort().forEach(v=>{ const o = document.createElement('option'); o.value = v; o.textContent = v; filtroAbonoRegistro.appendChild(o); });
+    if(actualAbono) filtroAbonoRegistro.value = actualAbono;
+
+    const actualSaldo = filtroSaldoRegistro.value;
+    filtroSaldoRegistro.innerHTML = '<option value="">Saldos</option><option value="Heylem">Heylem</option><option value="Nelson">Nelson</option>';
+    if(actualSaldo) filtroSaldoRegistro.value = actualSaldo;
 }
 function actualizarBarraMasiva(){
     const n = seleccionados.size;
@@ -2850,6 +3394,7 @@ function actualizarBarraMasiva(){
     barraAccionesMasivas.classList.toggle('show', n>0);
 }
 async function guardarPagoTotal(idReserva, valor){
+    if(modo !== 'editor') return;
     const r = reservas.find(x=>String(x.id)===String(idReserva));
     if(!r) return;
     const total = calcularTotalBase(r);
@@ -2864,6 +3409,7 @@ async function guardarPagoTotal(idReserva, valor){
         mostrarToast('✅ Pago registrado. Saldo actualizado.','ok');
         renderReservasRegistro();
         actualizarDineroPendiente();
+        actualizarDineroRecibido();
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 }
 function obtenerReservasOrdenadas(lista){
@@ -2890,16 +3436,30 @@ function obtenerReservasOrdenadas(lista){
     });
     return resultado;
 }
+async function eliminarClienteDeBD(nombreCliente){
+    const nombreNorm = String(nombreCliente||'').trim().toUpperCase();
+    if(!nombreNorm) return;
+    const cliente = clientesBD.find(c => String(c.nombre||'').trim().toUpperCase() === nombreNorm);
+    if(cliente && cliente.id){
+        try {
+            await sb.from(TABLA_CLIENTES).delete().eq('id', cliente.id);
+        } catch(e){ console.warn('Error eliminando cliente:', e); }
+    }
+}
 function renderReservasRegistro(){
     const t = (buscadorRegistro.value||'').toLowerCase().trim();
-    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value, fr = filtroRecibidoRegistro.value;
+    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value;
+    const feAb = filtroEntidadAbonoRegistro.value, feSal = filtroEntidadSaldoRegistro.value;
+    const frAb = filtroAbonoRegistro.value, frSal = filtroSaldoRegistro.value;
     let fil = reservas.slice();
     if(t) fil = fil.filter(r=>(r.nombre && r.nombre.toLowerCase().includes(t)) || (r.hab && r.hab.toLowerCase().includes(t)));
     if(fm!=='') fil = fil.filter(r=>r.entrada && r.entrada.getMonth()===parseInt(fm));
     if(fa!=='') fil = fil.filter(r=>r.entrada && r.entrada.getFullYear()===parseInt(fa));
     if(fh!=='') fil = fil.filter(r=>r.hab===fh);
-    if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
-    if(fr!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === fr);
+    if(feAb!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === feAb.toLowerCase());
+    if(feSal!=='') fil = fil.filter(r=> (r.entidadBancariaSaldo||'').toLowerCase() === feSal.toLowerCase());
+    if(frAb!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === frAb);
+    if(frSal!=='') fil = fil.filter(r=>(r.saldoRecibidoPor||'—') === frSal);
     fil = obtenerReservasOrdenadas(fil);
     const reservasCompletasOrdenadas = obtenerReservasOrdenadas(reservas);
     const idRealMap = new Map();
@@ -2908,7 +3468,7 @@ function renderReservasRegistro(){
     });
     reservasTableBody.innerHTML = '';
     if(fil.length===0){
-        reservasTableBody.innerHTML = `<tr><td colspan="17"><div class="empty-state"><i class="fas fa-search"></i><p>No se encontraron reservas</p></div></td></tr>`;
+        reservasTableBody.innerHTML = `<tr><td colspan="24"><div class="empty-state"><i class="fas fa-search"></i><p>No se encontraron reservas</p></div></td></tr>`;
         checkTodos.checked = false; checkTodos.indeterminate = false;
         actualizarBarraMasiva();
     } else {
@@ -2933,16 +3493,44 @@ function renderReservasRegistro(){
             const recibidoHtml = formatearRecibidoPor(r.recibidoPor);
             const accionHtml = modo==='editor'
                 ? `<div style="display:flex; gap:4px; justify-content:center;">
-                    <div class="btn-accion-col editar"><button class="btn-icon btn-editar" data-id="${r.id}" title="Editar"><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
-                    <div class="btn-accion-col eliminar"><button class="btn-icon btn-danger" data-id="${r.id}" title="Eliminar"><i class="fas fa-trash-alt"></i></button><span class="etiqueta-accion">Eliminar</span></div>
-                </div>`
+                    <div class="btn-accion-col editar"><button class="btn-icon btn-editar" data-id="${r.id}" title="Editar"><i class="fas fa-edit"></i></button></div>
+                    <div class="btn-accion-col eliminar"><button class="btn-icon btn-danger" data-id="${r.id}" title="Eliminar"><i class="fas fa-trash-alt"></i></button></div>
+                  </div>`
                 : `<span class="col-accion-vacia">—</span>`;
-            const pagoTotalHtml = modo==='editor'
-                ? (saldo > 0
+
+            let estadoPagoHtml = '';
+            if(saldo > 0){
+                estadoPagoHtml = modo === 'editor'
                     ? `<input type="text" class="pago-total-input" data-id="${r.id}" placeholder="Ej: $1.000.000" inputmode="decimal">`
-                    : `<span class="saldo-cero" style="font-size:0.6rem; font-weight:700;"><i class="fas fa-check-circle"></i> PAGADO</span>`)
+                    : `<span class="saldo-deuda" style="font-size:0.6rem; font-weight:700;">PENDIENTE</span>`;
+            } else {
+                estadoPagoHtml = `<span class="saldo-cero" style="font-size:0.6rem; font-weight:700;"><i class="fas fa-check-circle"></i> PAGADO</span>`;
+            }
+
+            const fechaPagoSaldoHtml = r.fechaPagoSaldo
+                ? `<span style="font-size:0.6rem; font-weight:700; color:#50260c;">${r.fechaPagoSaldo}</span>`
                 : `<span style="color:#b8a89a; font-size:0.6rem;">—</span>`;
+
+            const formaPagoSaldoHtml = `<span class="forma-pago-texto">${r.formaPagoSaldoVal || '—'}</span>`;
+
+            const entidadSaldoHtml = (r.entidadBancariaSaldo && r.entidadBancariaSaldo !== 'NO APLICA')
+                ? `<span class="entidad-tag ${getClaseEntidad(r.entidadBancariaSaldo)}">${r.entidadBancariaSaldo}</span>`
+                : `<span class="entidad-tag vacio">—</span>`;
+
+            const saldoRecibidoHtml = formatearRecibidoPor(r.saldoRecibidoPor || '—');
+
+            const fechaPagoAbonoHtml = r.fechaPagoAbono
+                ? `<span style="font-size:0.6rem; font-weight:700; color:#50260c;">${r.fechaPagoAbono}</span>`
+                : `<span style="color:#b8a89a; font-size:0.6rem;">—</span>`;
+
             const idReal = idRealMap.get(String(r.id)) || (idx+1);
+            const abonoVal = r.valorAbono || 0;
+            const abonoHtml = (r.estadoPago === 'Pago completo')
+                ? `<span class="saldo-cero" style="font-weight:700;">${formatPeso(abonoVal)}</span>`
+                : `<span style="font-weight:700; color:#50260c;">${formatPeso(abonoVal)}</span>`;
+
+            const compSaldoHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`;
+
             row.innerHTML = `
                 <td>${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
                 <td>${idReal}</td>
@@ -2954,12 +3542,19 @@ function renderReservasRegistro(){
                 <td>${r.personas}</td>
                 <td>${cocinaHtml}</td>
                 <td><strong>${formatPeso(total)}</strong></td>
+                <td>${abonoHtml}</td>
+                <td>${fechaPagoAbonoHtml}</td>
                 <td><span class="${saldoClass}">${formatPeso(saldo)}</span></td>
                 <td>${fpHtml}</td>
                 <td>${entHtml}</td>
                 <td>${compHtml}</td>
-                <td>${pagoTotalHtml}</td>
                 <td>${recibidoHtml}</td>
+                <td>${estadoPagoHtml}</td>
+                <td>${fechaPagoSaldoHtml}</td>
+                <td>${formaPagoSaldoHtml}</td>
+                <td>${entidadSaldoHtml}</td>
+                <td class="col-comprobante-saldo">${compSaldoHtml}</td>
+                <td>${saldoRecibidoHtml}</td>
                 <td>${accionHtml}</td>`;
             reservasTableBody.appendChild(row);
         });
@@ -2969,6 +3564,7 @@ function renderReservasRegistro(){
     }
     badgeTotalRegistro.textContent = `${fil.length} reservas`;
     actualizarDineroPendiente();
+    actualizarDineroRecibido();
     if(modo==='editor'){
         document.querySelectorAll('.check-fila').forEach(chk=>{
             chk.addEventListener('change', ()=>{
@@ -2988,9 +3584,14 @@ function renderReservasRegistro(){
             const r = reservas.find(x=>String(x.id)===String(id));
             if(!confirm(`¿Eliminar reserva de ${r?.nombre||''}?`)) return;
             try {
+                const nombreCliente = r?.nombre;
                 await sb.from(TABLA).delete().eq('id', id);
                 reservas = reservas.filter(x=>String(x.id)!==String(id));
                 seleccionados.delete(String(id));
+                if(nombreCliente){
+                    const otras = reservas.filter(x=>String(x.nombre||'').trim().toUpperCase() === String(nombreCliente).trim().toUpperCase());
+                    if(otras.length === 0){ await eliminarClienteDeBD(nombreCliente); await cargarClientesBD(); llenarSelectNombres(); }
+                }
                 guardarCache(); renderTodo();
                 setUltimaActualizacion(new Date());
                 mostrarToast('🗑️ Reserva eliminada','info');
@@ -3007,6 +3608,18 @@ function renderReservasRegistro(){
                 await guardarPagoTotal(inp.dataset.id, n);
             });
             inp.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); inp.blur(); } });
+        });
+        document.querySelectorAll('.fecha-saldo-input').forEach(inp=>{
+            inp.addEventListener('change', async ()=>{
+                const id = inp.dataset.id;
+                const fecha = inp.value;
+                const r = reservas.find(x=>String(x.id)===String(id));
+                if(r){ r.fechaPagoSaldo = fecha; }
+                try {
+                    await sb.from(TABLA).update({ fecha_pago_saldo: fecha || null }).eq('id', id);
+                    mostrarToast('📅 Fecha de pago saldo guardada','ok');
+                } catch(e){ mostrarToast('❌ '+e.message,'error'); }
+            });
         });
     }
     document.querySelectorAll('.btn-ver-comp').forEach(b=>b.addEventListener('click', ()=>abrirComprobanteModal(b.dataset.id)));
@@ -3029,13 +3642,24 @@ btnCancelarSeleccion.addEventListener('click', ()=>{
     mostrarToast('✅ Selección cancelada','ok');
 });
 btnEliminarSeleccionados.addEventListener('click', ()=>{
+    if(modo !== 'editor') return;
     if(seleccionados.size===0) return;
     abrirConfirm('¿Eliminar reservas seleccionadas?', `Se eliminarán ${seleccionados.size} reserva(s).`, async ()=>{
         try {
             const ids = [...seleccionados];
+            const nombres = new Set();
+            ids.forEach(id=>{
+                const r = reservas.find(x=>String(x.id)===String(id));
+                if(r && r.nombre) nombres.add(String(r.nombre).trim().toUpperCase());
+            });
             await sb.from(TABLA).delete().in('id', ids);
             reservas = reservas.filter(r=>!seleccionados.has(String(r.id)));
             seleccionados.clear();
+            for(const nom of nombres){
+                const otras = reservas.filter(x=>String(x.nombre||'').trim().toUpperCase() === nom);
+                if(otras.length === 0){ await eliminarClienteDeBD(nom); }
+            }
+            await cargarClientesBD(); llenarSelectNombres();
             guardarCache(); renderTodo();
             setUltimaActualizacion(new Date());
             mostrarToast(`🗑️ ${ids.length} eliminada(s)`,'info');
@@ -3046,14 +3670,19 @@ buscadorRegistro.addEventListener('input', renderReservasRegistro);
 filtroMesRegistro.addEventListener('change', renderReservasRegistro);
 filtroAnioRegistro.addEventListener('change', renderReservasRegistro);
 filtroHabitacionRegistro.addEventListener('change', renderReservasRegistro);
-filtroEntidadRegistro.addEventListener('change', renderReservasRegistro);
-filtroRecibidoRegistro.addEventListener('change', renderReservasRegistro);
+filtroEntidadAbonoRegistro.addEventListener('change', renderReservasRegistro);
+filtroEntidadSaldoRegistro.addEventListener('change', renderReservasRegistro);
+filtroAbonoRegistro.addEventListener('change', renderReservasRegistro);
+filtroSaldoRegistro.addEventListener('change', renderReservasRegistro);
 document.getElementById('btnLimpiarBusqueda').addEventListener('click', ()=>{
-    buscadorRegistro.value=''; filtroMesRegistro.value=''; filtroAnioRegistro.value=''; filtroHabitacionRegistro.value=''; filtroEntidadRegistro.value=''; filtroRecibidoRegistro.value='';
+    buscadorRegistro.value=''; filtroMesRegistro.value=''; filtroAnioRegistro.value=''; filtroHabitacionRegistro.value='';
+    filtroEntidadAbonoRegistro.value=''; filtroEntidadSaldoRegistro.value='';
+    filtroAbonoRegistro.value=''; filtroSaldoRegistro.value='';
     renderReservasRegistro(); mostrarToast('🧹 Limpiado','ok');
 });
 
 function editarReserva(id){
+    if(modo !== 'editor') return;
     const r = reservas.find(x=>String(x.id)===String(id));
     if(!r) return;
     modoEdicionReserva = true;
@@ -3116,11 +3745,87 @@ function editarReserva(id){
     if(formaPagoAbono.value) formaPagoAbono.classList.remove('placeholder'); else formaPagoAbono.classList.add('placeholder');
     entidadBancaria.value = (r.entidadBancaria && r.entidadBancaria!=='—') ? r.entidadBancaria : 'NO APLICA';
     recibidoPor.value = (r.recibidoPor && r.recibidoPor!=='—') ? r.recibidoPor : '';
-    if(formaPagoAbono.value==='Transferencia'){ grupoEntidadBancaria.style.display='flex'; filaComprobante.style.display='flex'; recibidoBox.style.display='flex'; }
-    else if(formaPagoAbono.value==='Efectivo'){ grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='flex'; }
-    else { grupoEntidadBancaria.style.display='none'; filaComprobante.style.display='none'; recibidoBox.style.display='none'; }
+    fechaPagoAbonoForma.value = r.fechaPagoAbono || '';
+    fechaPagoAbonoEntidad.value = r.fechaPagoAbono || '';
+    fechaPagoSaldo.value = r.fechaPagoSaldo || '';
+    formaPagoSaldo.value = r.formaPagoSaldoVal || '';
+    if(formaPagoSaldo.value) formaPagoSaldo.classList.remove('placeholder'); else formaPagoSaldo.classList.add('placeholder');
+    entidadBancariaSaldo.value = r.entidadBancariaSaldo || '';
+    if(entidadBancariaSaldo.value) entidadBancariaSaldo.classList.remove('placeholder'); else entidadBancariaSaldo.classList.add('placeholder');
+    saldoRecibidoPor.value = (r.saldoRecibidoPor && r.saldoRecibidoPor!=='—') ? r.saldoRecibidoPor : '';
+
+    if(estadoPago.value === 'Abonado'){
+        filaAbono.style.display = 'flex';
+        filaFormaPagoAbono.style.display = 'flex';
+        if(formaPagoAbono.value === 'Transferencia'){
+            grupoEntidadBancaria.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'flex';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            filaComprobante.style.display = 'flex';
+            recibidoBox.style.display = 'flex';
+        } else if(formaPagoAbono.value === 'Efectivo'){
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'flex';
+        } else {
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'none';
+        }
+    } else if(estadoPago.value === 'Pago completo'){
+        filaAbono.style.display = 'none';
+        filaFormaPagoAbono.style.display = 'flex';
+        if(formaPagoAbono.value === 'Transferencia'){
+            grupoEntidadBancaria.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'flex';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            filaComprobante.style.display = 'flex';
+            recibidoBox.style.display = 'flex';
+        } else if(formaPagoAbono.value === 'Efectivo'){
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'flex';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'flex';
+        } else {
+            grupoEntidadBancaria.style.display = 'none';
+            grupoFechaPagoAbonoForma.style.display = 'none';
+            grupoFechaPagoAbonoEntidad.style.display = 'none';
+            filaComprobante.style.display = 'none';
+            recibidoBox.style.display = 'none';
+        }
+    } else {
+        filaAbono.style.display = 'none';
+        filaFormaPagoAbono.style.display = 'none';
+        grupoEntidadBancaria.style.display = 'none';
+        grupoFechaPagoAbonoForma.style.display = 'none';
+        grupoFechaPagoAbonoEntidad.style.display = 'none';
+        filaComprobante.style.display = 'none';
+        recibidoBox.style.display = 'none';
+    }
+    if(r.valorSaldo > 0){
+        seccionDatosSaldo.style.display = 'block';
+        if(formaPagoSaldo.value === 'TRANSFERENCIA'){
+            grupoEntidadBancariaSaldo.style.display = 'flex';
+            filaComprobanteSaldo.style.display = 'flex';
+        } else {
+            grupoEntidadBancariaSaldo.style.display = 'none';
+            filaComprobanteSaldo.style.display = 'none';
+        }
+    } else {
+        seccionDatosSaldo.style.display = 'none';
+        grupoEntidadBancariaSaldo.style.display = 'none';
+        filaComprobanteSaldo.style.display = 'none';
+    }
+
     comprobantesArchivosSeleccionados=[]; comprobantesUrlsExistentes = getComprobantesUrls(r);
     resetComprobanteUI(); renderListaComprobantes();
+    comprobantesSaldoArchivosSeleccionados=[]; comprobantesSaldoUrlsExistentes = [];
+    resetComprobanteSaldoUI(); renderListaComprobantesSaldo();
 
     const hermanas = getReservasHermanas(r);
     bloquesHabitacion.innerHTML = '';
@@ -3255,8 +3960,9 @@ function abrirComprobanteModal(id){
     renderCompModal();
     compModalOverlay.classList.add('show');
 }
-document.getElementById('btnCambiarComprobanteModal').addEventListener('click', ()=>{ compModalFileInput.value=''; compModalFileInput.click(); });
+document.getElementById('btnCambiarComprobanteModal').addEventListener('click', ()=>{ if(modo !== 'editor') return; compModalFileInput.value=''; compModalFileInput.click(); });
 compModalFileInput.addEventListener('change', async (e)=>{
+    if(modo !== 'editor') return;
     if(!e.target.files.length) return;
     if(!comprobanteModalIdReserva){ mostrarToast('⚠️ Sin reserva','error'); return; }
     const validos = [];
@@ -3285,6 +3991,7 @@ compModalFileInput.addEventListener('change', async (e)=>{
     } catch(err){ compModalBody.innerHTML = '<div class="sin-comprobante">❌ '+err.message+'</div>'; mostrarToast('❌ '+err.message,'error'); }
 });
 document.getElementById('btnEliminarComprobanteModal').addEventListener('click', async ()=>{
+    if(modo !== 'editor') return;
     if(!comprobanteModalIdReserva) return;
     const rOrig = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
     if(!rOrig) return;
@@ -3353,6 +4060,7 @@ function getReservasFiltradas(){
     return fil;
 }
 function renderDashboard(){
+    if(modo !== 'editor') return;
     if(typeof Chart === 'undefined'){ console.warn('Chart.js no cargado'); return; }
     destruirCharts();
     const fil = getReservasFiltradas(); const periodoLbl = getPeriodoLabel();
@@ -3445,6 +4153,7 @@ document.getElementById('dashFiltroHab').addEventListener('change', renderDashbo
 document.getElementById('dashFiltroCobra').addEventListener('change', renderDashboard);
 document.getElementById('dashBtnAplicar').addEventListener('click', ()=>{ renderDashboard(); mostrarToast('📊 Dashboard actualizado','ok'); });
 document.getElementById('dashBtnExportar').addEventListener('click', ()=>{
+    if(modo !== 'editor') return;
     const fil = getReservasFiltradas();
     if(!fil.length){ mostrarToast('⚠️ Sin datos para exportar','error'); return; }
     const lbl = getPeriodoLabel().replace(/\s+/g,'_');
@@ -3480,6 +4189,7 @@ document.getElementById('viewerDownloadAgain').addEventListener('click', ()=>{
     setTimeout(()=>URL.revokeObjectURL(u), 300);
 });
 function exportarExcel(lista, nombreHoja){
+    if(modo === 'visitante') return;
     if(!lista || !lista.length){ mostrarToast('⚠️ Sin reservas','error'); return; }
     try {
         const datos = lista.slice().map((r,i)=>({
@@ -3489,9 +4199,12 @@ function exportarExcel(lista, nombreHoja){
             'Noches':r.noches||0, 'Personas':r.personas, 'Tarifa x Persona':formatPeso(r.tarifa),
             'Desc. (%)':(r.descuentoPct||0)+'%', 'Desc. ($)':formatPesoNegativo(r.descuentoPesos||0),
             'Total':formatPeso(calcularTotalBase(r)), 'Estado Pago':r.estadoPago, 'Abono ($)':formatPeso(r.valorAbono||0),
-            'Forma Pago':r.formaPagoAbono, 'Entidad':getTextoEntidad(r),
+            'Fecha Pago Abono':r.fechaPagoAbono||'—',
+            'Forma Pago Abono':r.formaPagoAbono, 'Entidad Abono':getTextoEntidad(r),
             'Uso Cocina':r.cocina||'NO', 'Recibido Por':r.recibidoPor||'—',
-            'Saldo ($)':formatPeso(r.valorSaldo||0), 'Estado':r.estado
+            'Saldo ($)':formatPeso(r.valorSaldo||0), 'Estado':r.estado,
+            'Fecha Pago Saldo':r.fechaPagoSaldo||'—', 'Forma Pago Saldo':r.formaPagoSaldoVal||'—',
+            'Entidad Saldo':r.entidadBancariaSaldo||'—', 'Saldo Recibido Por':r.saldoRecibidoPor||'—'
         }));
         const ws = XLSX.utils.json_to_sheet(datos);
         ws['!cols'] = Object.keys(datos[0]).map(k=>({ wch: Math.min(Math.max(k.length+2, 12), 40) }));
@@ -3509,25 +4222,32 @@ function exportarExcel(lista, nombreHoja){
     } catch(e){ console.error(e); mostrarToast('❌ Error Excel','error'); }
 }
 document.getElementById('btnExportarHistorial').addEventListener('click', ()=>{
+    if(modo === 'visitante') return;
     const t = (buscadorRegistro.value||'').toLowerCase().trim();
-    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value, fe = filtroEntidadRegistro.value, fr = filtroRecibidoRegistro.value;
+    const fm = filtroMesRegistro.value, fa = filtroAnioRegistro.value, fh = filtroHabitacionRegistro.value;
+    const feAb = filtroEntidadAbonoRegistro.value, feSal = filtroEntidadSaldoRegistro.value;
+    const frAb = filtroAbonoRegistro.value, frSal = filtroSaldoRegistro.value;
     let fil = reservas.slice();
     if(t) fil = fil.filter(r=>(r.nombre && r.nombre.toLowerCase().includes(t)) || (r.hab && r.hab.toLowerCase().includes(t)));
     if(fm!=='') fil = fil.filter(r=>r.entrada && r.entrada.getMonth()===parseInt(fm));
     if(fa!=='') fil = fil.filter(r=>r.entrada && r.entrada.getFullYear()===parseInt(fa));
     if(fh!=='') fil = fil.filter(r=>r.hab===fh);
-    if(fe!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === fe.toLowerCase());
-    if(fr!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === fr);
+    if(feAb!=='') fil = fil.filter(r=>getTextoEntidad(r).toLowerCase() === feAb.toLowerCase());
+    if(feSal!=='') fil = fil.filter(r=> (r.entidadBancariaSaldo||'').toLowerCase() === feSal.toLowerCase());
+    if(frAb!=='') fil = fil.filter(r=>(r.recibidoPor||'—') === frAb);
+    if(frSal!=='') fil = fil.filter(r=>(r.saldoRecibidoPor||'—') === frSal);
     if(!fil.length){ mostrarToast('⚠️ No hay reservas para exportar','error'); return; }
     fil = obtenerReservasOrdenadas(fil);
     exportarExcel(fil, 'Historial_Reservas');
 });
 document.getElementById('btnDescargarExcelCal').addEventListener('click', ()=>{
+    if(modo === 'visitante') return;
     const m = mesCalendarioActual, y = anioCalendarioActual;
     const ini = new Date(y,m,1), fin = new Date(y,m+1,0,23,59,59);
     exportarExcel(reservas.filter(r=>r.salida>=ini && r.entrada<=fin), `${MESES[m]}_${y}`);
 });
 document.getElementById('btnDescargarPdfCal').addEventListener('click', async ()=>{
+    if(modo === 'visitante') return;
     try {
         const { jsPDF } = window.jspdf;
         if(!jsPDF || !window.html2canvas){ mostrarToast('⚠️ PDF no disponible','error'); return; }
@@ -3618,7 +4338,7 @@ function resetImport(){
     importFileInput.value = '';
     btnConfirmarImport.disabled = true;
 }
-document.getElementById('btnImportarExcel').addEventListener('click', ()=>{ resetImport(); importOverlay.classList.add('show'); });
+document.getElementById('btnImportarExcel').addEventListener('click', ()=>{ if(modo !== 'editor') return; resetImport(); importOverlay.classList.add('show'); });
 document.getElementById('cerrarImport').addEventListener('click', ()=>{ importOverlay.classList.remove('show'); resetImport(); });
 document.getElementById('btnCancelarImport').addEventListener('click', ()=>{ importOverlay.classList.remove('show'); resetImport(); });
 importDropzone.addEventListener('click', ()=>importFileInput.click());
@@ -3646,6 +4366,7 @@ function normEstadoPago(v){ if(!v) return '—'; const s=norm(v); if(s.includes(
 function normFormaPago(v){ if(!v) return 'NO APLICA'; const s=norm(v); if(s.includes('efect'))return 'Efectivo'; if(s.includes('transf'))return 'Transferencia'; if(s.includes('noaplica')||s.includes('no aplica'))return 'NO APLICA'; return 'NO APLICA'; }
 function normEntidad(v){ if(!v) return 'NO APLICA'; const s=norm(v); if(s.includes('bancolombia'))return 'Bancolombia'; if(s.includes('nequi'))return 'Nequi'; if(s.includes('noaplica')||s.includes('no aplica'))return 'NO APLICA'; return 'NO APLICA'; }
 function procesarExcel(file){
+    if(modo !== 'editor') return;
     importError.classList.remove('show'); importDuplicado.classList.remove('show');
     btnConfirmarImport.disabled = true; importFilasValidas = [];
     importPreview.classList.remove('show'); importPreviewBody.innerHTML = '';
@@ -3692,6 +4413,7 @@ function procesarExcel(file){
                 const ciudad = String(pick(fila,['ciudad']))||'—';
                 const departamento = String(pick(fila,['departamento']))||'—';
                 const municipio = String(pick(fila,['municipio']))||'—';
+                const fechaPagoAbono = String(pick(fila,['fecha pago abono','fecha abono']))||'';
                 validas.push({
                     nombre_huesped: nombre, documento: doc, telefono: tel,
                     ciudad, departamento, municipio,
@@ -3702,7 +4424,12 @@ function procesarExcel(file){
                     forma_pago_abono: fPago, entidad_bancaria: ent,
                     valor_saldo: saldo, forma_pago_saldo: '—', estado: estadoR,
                     cocina: (cocinaV.toUpperCase()==='SI'?'SI':'NO'),
-                    recibido_por: recibidoV, comprobante_url: ''
+                    recibido_por: recibidoV, fecha_pago_abono: fechaPagoAbono,
+                    comprobante_url: '',
+                    fecha_pago_saldo: null,
+                    forma_pago_saldo_val: 'NO APLICA',
+                    entidad_bancaria_saldo: 'NO APLICA',
+                    saldo_recibido_por: '—'
                 });
             });
             if(!validas.length && duplicadas.length){ importDuplicadoMsg.innerHTML = `⚠️ Las ${duplicadas.length} fila(s) ya existen.`; importDuplicado.classList.add('show'); return; }
@@ -3720,6 +4447,7 @@ function procesarExcel(file){
 }
 function mostrarErrorImport(m){ importErrorMsg.textContent = m; importError.classList.add('show'); btnConfirmarImport.disabled = true; }
 btnConfirmarImport.addEventListener('click', async ()=>{
+    if(modo !== 'editor') return;
     if(!importFilasValidas.length) return;
     btnConfirmarImport.disabled = true;
     btnConfirmarImport.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
@@ -3768,7 +4496,7 @@ function resetImportBD(){
     importBDFileInput.value = '';
     btnConfirmarImportBD.disabled = true;
 }
-document.getElementById('btnImportarBDExcel').addEventListener('click', ()=>{ resetImportBD(); importBDOverlay.classList.add('show'); });
+document.getElementById('btnImportarBDExcel').addEventListener('click', ()=>{ if(modo !== 'editor') return; resetImportBD(); importBDOverlay.classList.add('show'); });
 document.getElementById('cerrarImportBD').addEventListener('click', ()=>{ importBDOverlay.classList.remove('show'); resetImportBD(); });
 document.getElementById('btnCancelarImportBD').addEventListener('click', ()=>{ importBDOverlay.classList.remove('show'); resetImportBD(); });
 importBDDropzone.addEventListener('click', ()=>importBDFileInput.click());
@@ -3778,6 +4506,7 @@ importBDDropzone.addEventListener('drop', e=>{ e.preventDefault(); importBDDropz
 importBDFileInput.addEventListener('change', e=>{ if(e.target.files.length) procesarExcelBD(e.target.files[0]); });
 document.getElementById('btnCambiarArchivoBD').addEventListener('click', ()=>importBDFileInput.click());
 function procesarExcelBD(file){
+    if(modo !== 'editor') return;
     importBDError.classList.remove('show'); importBDDuplicado.classList.remove('show');
     btnConfirmarImportBD.disabled = true; importBDFilasValidas = [];
     importBDPreview.classList.remove('show'); importBDPreviewBody.innerHTML = '';
@@ -3823,6 +4552,7 @@ function procesarExcelBD(file){
 }
 function mostrarErrorImportBD(m){ importBDErrorMsg.textContent = m; importBDError.classList.add('show'); btnConfirmarImportBD.disabled = true; }
 btnConfirmarImportBD.addEventListener('click', async ()=>{
+    if(modo !== 'editor') return;
     if(!importBDFilasValidas.length) return;
     btnConfirmarImportBD.disabled = true;
     btnConfirmarImportBD.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
@@ -3897,12 +4627,12 @@ function obtenerClientesConsolidados(){
         }
     });
     const arr = [...map.values()];
-    /* ORDEN ALFABÉTICO A-Z por nombre */
     arr.sort((a,b)=> String(a.nombre||'').localeCompare(String(b.nombre||''), 'es', { sensitivity: 'base' }));
     return arr;
 }
 function actualizarBarraBD(){ const n = seleccionadosBD.size; contadorSeleccionadosBD.textContent = n; barraAccionesBD.classList.toggle('show', n>0); }
 function renderBaseDatos(){
+    if(modo !== 'editor') return;
     const t = (buscadorBD.value||'').toLowerCase().trim();
     const fa = filtroAnioBD.value;
     let cli = obtenerClientesConsolidados();
@@ -3933,8 +4663,8 @@ function renderBaseDatos(){
                 <td>${c.anio||'—'}</td>
                 <td>
                     <div style="display:flex; gap:4px; justify-content:center;">
-                        <div class="btn-accion-col editar"><button class="btn-icon btn-editar-cliente" data-nombre="${nombreKey}" title="Editar"><i class="fas fa-edit"></i></button><span class="etiqueta-accion">Editar</span></div>
-                        <div class="btn-accion-col eliminar"><button class="btn-icon btn-eliminar-cliente" data-nombre="${nombreKey}" title="Eliminar"><i class="fas fa-trash-alt"></i></button><span class="etiqueta-accion">Eliminar</span></div>
+                        <div class="btn-accion-col editar"><button class="btn-icon btn-editar-cliente" data-nombre="${nombreKey}" title="Editar"><i class="fas fa-edit"></i></button></div>
+                        <div class="btn-accion-col eliminar"><button class="btn-icon btn-eliminar-cliente" data-nombre="${nombreKey}" title="Eliminar"><i class="fas fa-trash-alt"></i></button></div>
                     </div>
                 </td>`;
             bdTableBody.appendChild(row);
@@ -3964,13 +4694,8 @@ function renderBaseDatos(){
     });
 }
 
-/* ==================================================================
-   EDICIÓN INLINE DE CLIENTE EN BASE DE DATOS
-   - Documento con formato (puntos de miles)
-   - Al guardar, sincroniza los cambios con las reservas existentes
-   - Inserta si no existe, actualiza si existe
-   ================================================================== */
 function activarEdicionCliente(nombreKey){
+    if(modo !== 'editor') return;
     const row = bdTableBody.querySelector(`tr[data-nombre-key="${nombreKey}"]`);
     if(!row) return;
     if(row.dataset.editando === '1') return;
@@ -3997,7 +4722,6 @@ function activarEdicionCliente(nombreKey){
         td.classList.add('celda-editable');
         td.innerHTML = '';
         td.appendChild(input);
-        // Input listener: formatear documento, mayúsculas en texto
         input.addEventListener('input', ()=>{
             if(input.dataset.tipo === 'documento'){
                 input.value = formatDocumento(input.value);
@@ -4014,6 +4738,7 @@ function activarEdicionCliente(nombreKey){
     mostrarToast('✏️ Edita los campos y presiona ENTER para guardar', 'info');
 }
 async function guardarEdicionCliente(nombreKey){
+    if(modo !== 'editor') return;
     const row = bdTableBody.querySelector(`tr[data-nombre-key="${nombreKey}"]`);
     if(!row) return;
     const inputs = row.querySelectorAll('.campo-editable');
@@ -4028,9 +4753,7 @@ async function guardarEdicionCliente(nombreKey){
     const nombreNuevo = (nuevos.nombre||'').trim().toUpperCase();
     if(!nombreNuevo){ mostrarToast('⚠️ El nombre no puede estar vacío','error'); return; }
     const nombreKeyNorm = String(nombreKey||'').trim().toLowerCase();
-    // Buscar cliente en clientesBD
     let clienteOrig = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreKeyNorm);
-    // Verificar duplicado de nombre
     if(nombreNuevo.toLowerCase() !== nombreKeyNorm){
         const existente = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreNuevo.toLowerCase() && (!clienteOrig || c.id !== clienteOrig.id));
         if(existente){ mostrarToast('⚠️ Ya existe un cliente con ese nombre','error'); return; }
@@ -4045,7 +4768,6 @@ async function guardarEdicionCliente(nombreKey){
         updated_at: new Date().toISOString()
     };
     try {
-        // 1. Guardar en tabla clientes (INSERT si no existe, UPDATE si existe)
         if(clienteOrig && clienteOrig.id){
             const { error } = await sb.from(TABLA_CLIENTES).update(datosCliente).eq('id', clienteOrig.id);
             if(error) throw error;
@@ -4065,11 +4787,9 @@ async function guardarEdicionCliente(nombreKey){
                 mostrarToast('✅ Cliente guardado en Supabase','ok');
             }
         }
-        // 2. SINCRONIZAR con las reservas existentes que tengan ese nombre viejo
         const reservasAfectadas = reservas.filter(r => String(r.nombre||'').trim().toLowerCase() === nombreKeyNorm);
         if(reservasAfectadas.length > 0){
             const idsReservas = reservasAfectadas.map(r=>r.id);
-            // Actualizar todas las reservas con los nuevos datos
             const updatesReservas = {
                 nombre_huesped: nombreNuevo,
                 documento: nuevos.documento || '—',
@@ -4084,7 +4804,6 @@ async function guardarEdicionCliente(nombreKey){
             }
             mostrarToast(`✅ Cliente y ${reservasAfectadas.length} reserva(s) sincronizadas`,'ok');
         }
-        // 3. Recargar todo
         await cargarClientesBD();
         const nuevasReservas = await cargarReservas();
         reservas = nuevasReservas;
@@ -4098,10 +4817,8 @@ async function guardarEdicionCliente(nombreKey){
     }
 }
 
-/* ==================================================================
-   ELIMINAR CLIENTE DE BASE DE DATOS (SIN ELIMINAR SUS RESERVAS)
-   ================================================================== */
 async function eliminarClienteBD(nombreKey){
+    if(modo !== 'editor') return;
     const nombreKeyNorm = String(nombreKey||'').trim().toLowerCase();
     const cliente = clientesBD.find(c => String(c.nombre||'').trim().toLowerCase() === nombreKeyNorm);
     if(!cliente){
@@ -4136,6 +4853,7 @@ checkTodosBD.addEventListener('change', ()=>{
     actualizarBarraBD();
 });
 btnEliminarClientesBD.addEventListener('click', ()=>{
+    if(modo !== 'editor') return;
     if(seleccionadosBD.size===0) return;
     const nombresSel = Array.from(seleccionadosBD);
     abrirConfirm('¿Eliminar clientes seleccionados?', `Se eliminarán ${nombresSel.length} cliente(s) de la Base de Datos. Las reservas del historial NO se eliminarán.`, async ()=>{
@@ -4163,6 +4881,7 @@ buscadorBD.addEventListener('input', renderBaseDatos);
 filtroAnioBD.addEventListener('change', renderBaseDatos);
 document.getElementById('btnLimpiarBusquedaBD').addEventListener('click', ()=>{ buscadorBD.value=''; filtroAnioBD.value=''; seleccionadosBD.clear(); renderBaseDatos(); });
 document.getElementById('btnActualizarBD').addEventListener('click', async ()=>{
+    if(modo !== 'editor') return;
     try {
         mostrarToast('🔄 Actualizando...','info');
         const d = await cargarReservas();
@@ -4176,6 +4895,7 @@ document.getElementById('btnActualizarBD').addEventListener('click', async ()=>{
     } catch(e){ mostrarToast('❌ '+e.message,'error'); }
 });
 document.getElementById('btnExportarBDExcel').addEventListener('click', ()=>{
+    if(modo !== 'editor') return;
     const cli = obtenerClientesConsolidados();
     if(!cli.length){ mostrarToast('⚠️ Sin clientes','error'); return; }
     try {
@@ -4191,15 +4911,15 @@ document.getElementById('btnExportarBDExcel').addEventListener('click', ()=>{
 });
 
 function suscribirRealtime(){
-    sb.channel('cambios-villa-alejo-v16')
+    sb.channel('cambios-villa-alejo-v18')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA }, ()=>{
             cargarReservas().then(d=>{ reservas=d; guardarCache(); renderTodo(); setUltimaActualizacion(new Date()); }).catch(console.error);
         }).subscribe();
-    sb.channel('cambios-tarifas-villa-alejo-v16')
+    sb.channel('cambios-tarifas-villa-alejo-v18')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA_TARIFAS }, async ()=>{
             try { await cargarTarifasPersonalizadas(); renderTarifas(); mostrarToast('📋 Tarifas actualizadas en tiempo real','info'); } catch(e){ console.warn(e); }
         }).subscribe();
-    sb.channel('cambios-clientes-villa-alejo-v16')
+    sb.channel('cambios-clientes-villa-alejo-v18')
         .on('postgres_changes', { event:'*', schema:'public', table:TABLA_CLIENTES }, async ()=>{
             try { await cargarClientesBD(); llenarSelectNombres(); if(document.getElementById('bd-panel').classList.contains('active')) renderBaseDatos(); } catch(e){ console.warn(e); }
         }).subscribe();
@@ -4214,13 +4934,19 @@ function renderTodo(){
     actualizarFiltroRecibido();
 }
 async function init(){
-    try { ['villaAlejo_cache_v6','villaAlejo_cache_v7','villaAlejo_cache_v8','villaAlejo_cache_v9','villaAlejo_cache_v10','villaAlejo_cache_v11','villaAlejo_cache_v12','villaAlejo_cache_v13','villaAlejo_cache_v14','villaAlejo_cache_v15','villaAlejo_tarifas_v1','villaAlejo_tarifas_v7','villaAlejo_tarifas_v8','villaAlejo_tarifas_v9','villaAlejo_tarifas_v10','villaAlejo_tarifas_v11','villaAlejo_tarifas_v12','villaAlejo_tarifas_v13','villaAlejo_tarifas_v14','villaAlejo_tarifas_v15'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
+    try { ['villaAlejo_cache_v6','villaAlejo_cache_v7','villaAlejo_cache_v8','villaAlejo_cache_v9','villaAlejo_cache_v10','villaAlejo_cache_v11','villaAlejo_cache_v12','villaAlejo_cache_v13','villaAlejo_cache_v14','villaAlejo_cache_v15','villaAlejo_cache_v16','villaAlejo_cache_v17','villaAlejo_tarifas_v1','villaAlejo_tarifas_v7','villaAlejo_tarifas_v8','villaAlejo_tarifas_v9','villaAlejo_tarifas_v10','villaAlejo_tarifas_v11','villaAlejo_tarifas_v12','villaAlejo_tarifas_v13','villaAlejo_tarifas_v14','villaAlejo_tarifas_v15','villaAlejo_tarifas_v16','villaAlejo_tarifas_v17'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
     cargarCiudadesSelect();
     await cargarTarifasPersonalizadas();
     await cargarClientesBD();
     llenarSelectNombres();
     const { data: { session } } = await sb.auth.getSession();
-    if(session && session.user){ currentUser = session.user; await aplicarModoEditor(); }
+    if(session && session.user){
+        currentUser = session.user;
+        const rol = getRolUsuario(session.user.email);
+        if(rol === 'editor') await aplicarModoEditor();
+        else if(rol === 'lector') await aplicarModoLector();
+        else aplicarModoVisitante();
+    }
     else { aplicarModoVisitante(); }
     initDashFiltros();
     actualizarDashFiltroCobra();
@@ -4246,8 +4972,16 @@ async function init(){
     } catch(e){ console.error(e); setSyncStatus('error','Sin conexión'); }
 }
 sb.auth.onAuthStateChange((event, session)=>{
-    if(session && session.user){ currentUser = session.user; if(modo!=='editor') aplicarModoEditor(); }
-    else { currentUser = null; if(modo!=='visitante') aplicarModoVisitante(); }
+    if(session && session.user){
+        currentUser = session.user;
+        const rol = getRolUsuario(session.user.email);
+        if(rol === 'editor' && modo !== 'editor') aplicarModoEditor();
+        else if(rol === 'lector' && modo !== 'lector') aplicarModoLector();
+        else if(rol === 'visitante' && modo !== 'visitante') aplicarModoVisitante();
+    } else {
+        currentUser = null;
+        if(modo !== 'visitante') aplicarModoVisitante();
+    }
 });
 document.addEventListener('DOMContentLoaded', init);
 window.addEventListener('beforeunload', guardarCache);
