@@ -156,7 +156,7 @@ th { text-align: left; padding: 0.8rem 0.9rem; background: #faf3ee; color: #5026
 td { padding: 0.8rem 0.9rem; border-bottom: 1px solid #f0e4d9; color: #3d1c09; white-space: nowrap; font-size: 0.83rem; }
 tr:last-child td { border-bottom: none; }
 .tabla-historial { width: 100%; table-layout: auto; font-size: 0.7rem; }
-.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; position: sticky; top: 0; z-index: 2; }
+.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; position: sticky; top: 0; z-index: 10; }
 .tabla-historial td { padding: 0.45rem 0.4rem; font-size: 0.66rem; white-space: normal; word-wrap: break-word; text-align: center; vertical-align: middle; }
 .th-2line { display: inline-block; line-height: 1.1; }
 .th-2line span { display: block; }
@@ -255,7 +255,7 @@ tr:last-child td { border-bottom: none; }
 .selector-acciones button { border: none; padding: 0.7rem 1.3rem; border-radius: 40px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
 .btn-selector-cancel { background: transparent; color: #50260c; border: 2px solid #e0cbb8 !important; }
 .btn-selector-ok { background: #50260c; color: #fff; }
-.calendar-layout { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; align-items: start; }
+.calendar-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-top: 1rem; align-items: start; }
 .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; background: #faf3ee; padding: 0.6rem; border-radius: 16px; border: 1px solid #e8d5c6; }
 .calendar-day-header { text-align: center; font-weight: 700; font-size: 0.62rem; color: #50260c; text-transform: uppercase; padding: 0.3rem 0; }
 .calendar-day { border-radius: 10px; padding: 0.3rem 0.2rem; min-height: 84px; display: flex; flex-direction: column; background: #e8f5e9; border: 1.5px solid #66bb6a; color: #1b5e20; overflow: hidden; cursor: pointer; }
@@ -437,31 +437,31 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .lista-reservas-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
 .lista-reservas-header h3 { font-size: 1.1rem; font-weight: 700; color: #50260c; display: flex; align-items: center; gap: 8px; }
 .buscador-container { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #faf3ee; padding: 0.9rem 1.1rem; border-radius: 20px; border: 1px solid #e8d5c6; margin-bottom: 1rem; width: 100%; }
-.buscador-input { flex: 1 1 200px; position: relative; min-width: 180px; max-width: 340px; }
+.buscador-input { flex: 1 1 200px; position: relative; min-width: 180px; max-width: 200px; }
 .buscador-input input { width: 100%; padding: 0.7rem 0.9rem 0.7rem 2.4rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.88rem; outline: none; }
 
 /* ===== FILTROS MÁS ANCHOS ===== */
 .filtro-select {
     flex: 0 1 auto;
-    min-width: 120px;
-    max-width: 180px;
-    padding: 0.7rem 0.9rem;
+    min-width: 90px;
+    max-width: 140px;
+    padding: 0.7rem 0.6rem; /* Un poco menos de padding para que quepan */
     border-radius: 30px;
     border: 1px solid #e0cbb8;
     background: #fff;
-    font-size: 0.82rem;
+    font-size: 0.75rem; /* TAMAÑO DE LA LETRA MÁS PEQUEÑO */
     font-weight: 600;
     color: #50260c;
     cursor: pointer;
     outline: none;
 }
-.filtro-select.ancho-mes { min-width: 100px; max-width: 120px; }
-.filtro-select.ancho-anio { min-width: 90px; max-width: 105px; }
+.filtro-select.ancho-mes { min-width: 100px; max-width: 100px; }
+.filtro-select.ancho-anio { min-width: 90px; max-width: 90px; }
 .filtro-select.ancho-hab { min-width: 110px; max-width: 130px; }
-.filtro-select.ancho-entidad { min-width: 130px; max-width: 150px; }
-.filtro-select.ancho-recibido { min-width: 115px; max-width: 135px; }
-.filtro-select.ancho-recibido-saldos { min-width: 115px; max-width: 135px; }
-.btn-limpiar-busqueda { flex: 0 0 auto; background: #f5e6dc; color: #50260c; border: 1px solid #e0cbb8; padding: 0.7rem 1.1rem; border-radius: 30px; font-weight: 700; font-size: 0.82rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.filtro-select.ancho-entidad { min-width: 150px; max-width: 150px; }
+.filtro-select.ancho-recibido { min-width: 115px; max-width: 115px; }
+.filtro-select.ancho-recibido-saldos { min-width: 115px; max-width: 115px; }
+.btn-limpiar-busqueda { flex: 0 0 auto; background: #f5e6dc; color: #50260c; border: 1px solid #e0cbb8; padding: 0.7rem 0.8rem; border-radius: 30px; font-weight: 700; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 .bd-section { background: #fff; border-radius: 24px; padding: 1.5rem; border: 1px solid #e8d5c6; }
 .bd-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
 .bd-header h3 { font-size: 1.1rem; font-weight: 700; color: #50260c; display: flex; align-items: center; gap: 8px; }
@@ -640,7 +640,43 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     word-wrap: break-word;
     line-height: 1.15;
 }
+/* ===== RECUADRO LATERAL DE RESERVAS SEMANALES ===== */
+.semana-reservas-panel { background: #fff; border-radius: 16px; border: 1px solid #e8d5c6; padding: 1rem; box-shadow: 0 4px 12px rgba(80,38,12,0.06); }
+.semana-reservas-header { font-size: 0.85rem; font-weight: 800; color: #50260c; text-transform: uppercase; padding-bottom: 0.6rem; border-bottom: 2px dashed #e8d5c6; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 6px; }
+.semana-reservas-lista { display: flex; flex-direction: column; gap: 0.6rem; }
+.semana-dia-bloque { background: #faf3ee; border-radius: 10px; padding: 0.5rem 0.7rem; border-left: 4px solid #d4b9a4; }
+.semana-dia-header { font-size: 0.7rem; font-weight: 800; color: #50260c; text-transform: uppercase; display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+.semana-reserva-item { background: #fff3cd; border: 1px solid #ffe082; border-radius: 8px; padding: 0.4rem; margin-bottom: 0.3rem; display: flex; flex-direction: column; gap: 2px; }
+.semana-reserva-item.lleno { background: #ffcdd2; border-color: #ef9a9a; }
+.semana-reserva-item.confirmada { background: #e8f5e9; border-color: #c8e6c9; }
+.semana-reserva-hab { font-size: 0.65rem; font-weight: 900; color: #1b5e20; text-transform: uppercase; }
+.semana-reserva-nombre { font-size: 0.7rem; font-weight: 700; color: #3d1c09; }
+.semana-reserva-info { font-size: 0.6rem; font-weight: 600; color: #8a6b55; display: flex; gap: 8px; }
+.semana-sin-reservas { font-size: 0.65rem; color: #8a6b55; font-style: italic; text-align: center; padding: 0.2rem; }
+/* ===== COLUMNAS FIJAS (STICKY) ===== */
+.sticky-col {
+    position: sticky !important;
+    z-index: 5;
+    background: #fff !important;
+}
 
+.tabla-historial thead tr th.sticky-col {
+    z-index: 15 !important;
+    background: #faf3ee !important;
+}
+
+/* Anchos y posiciones calculadas */
+.col-1 { left: 0; min-width: 45px; max-width: 45px; }
+.col-2 { left: 45px; min-width: 35px; max-width: 35px; }
+.col-3 { left: 80px; min-width: 180px; max-width: 180px; text-align: center !important; }
+.col-4 { left: 260px; min-width: 90px; max-width: 90px; }
+.col-5 { left: 350px; min-width: 85px; max-width: 85px; }
+.col-6 { left: 435px; min-width: 85px; max-width: 85px; }
+
+/* Para que el color de fondo respete la selección de la fila */
+.fila-seleccionada td.sticky-col {
+    background: #ffe6e6 !important; 
+}
 @media (max-width: 768px) {
     body { padding: 8px; }
     .dashboard { border-radius: 20px; }
@@ -666,7 +702,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .reserva-chip .hab { font-size: 0.42rem; }
     .reserva-chip .nombre { font-size: 0.38rem; }
     .panel-header h2 { font-size: 1.1rem; }
-    .buscador-container { padding: 0.6rem; gap: 6px; }
+    .buscador-container { display: flex; flex-wrap: nowrap; gap: 8px; align-items: center; background: #faf3ee; padding: 0.9rem 1.1rem; border-radius: 20px; border: 1px solid #e8d5c6; margin-bottom: 1rem; width: 100%; overflow-x: auto; }
     .buscador-input { flex: 1 1 100%; min-width: 0; max-width: 100%; }
     .filtro-select { flex: 1 1 calc(50% - 3px); font-size: 0.72rem; padding: 0.55rem; min-width: 0; max-width: none; }
     .btn-limpiar-busqueda { flex: 1 1 calc(50% - 3px); justify-content: center; font-size: 0.72rem; }
@@ -856,7 +892,22 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                 <div class="calendar-month-title" id="calendarMonthTitle"><span id="calendarMonthLabel">...</span><i class="fas fa-caret-down"></i></div>
                 <button class="calendar-nav-btn" id="btnMesSiguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
-            <div class="calendar-layout"><div><div class="calendar-grid" id="calendarGrid"></div></div></div>
+<div class="calendar-layout">
+    <div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    <div class="semana-reservas-panel">
+<div class="semana-reservas-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <i class="fas fa-calendar-week" style="margin-right: 5px;"></i> 
+    <span style="flex: 1;">Reservas de la Semana</span>
+    <div style="display: flex; gap: 5px;">
+        <button id="btnSemanaAnterior" style="background: #f5e6dc; border: 1px solid #e0cbb8; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; color: #50260c; display: flex; align-items: center; justify-content: center; transition: 0.2s;"><i class="fas fa-chevron-left" style="font-size: 0.7rem;"></i></button>
+        <button id="btnSemanaSiguiente" style="background: #f5e6dc; border: 1px solid #e0cbb8; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; color: #50260c; display: flex; align-items: center; justify-content: center; transition: 0.2s;"><i class="fas fa-chevron-right" style="font-size: 0.7rem;"></i></button>
+    </div>
+</div>
+        <div class="semana-reservas-lista" id="semanaReservasLista"></div>
+    </div>
+</div>
             <p id="calendarInfo" style="color:#8a6b55; font-size:0.85rem; margin-top:0.8rem; text-align:center;"></p>
         </div>
         <div class="content-panel" id="reservas-panel">
@@ -906,10 +957,12 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                 <div class="table-wrapper">
                     <table class="tabla-historial">
                         <thead><tr>
-                            <th><span class="th-check"><input type="checkbox" class="check-reserva" id="checkTodos"><span class="txt-check">TODOS</span></span></th>
-                            <th>ID</th><th>NOMBRE COMPLETO</th><th style="white-space:nowrap;">HABITACIÓN</th>
-                            <th><span class="th-2line"><span>FECHA DE</span><span>ENTRADA</span></span></th>
-                            <th><span class="th-2line"><span>FECHA DE</span><span>SALIDA</span></span></th>
+                            <th class="sticky-col col-1"><span class="th-check"><input type="checkbox" class="check-reserva" id="checkTodos"><span class="txt-check">TODOS</span></span></th>
+                            <th class="sticky-col col-2">ID</th>
+                            <th class="sticky-col col-3">NOMBRE COMPLETO</th>
+                            <th class="sticky-col col-4" style="white-space:nowrap;">HABITACIÓN</th>
+                            <th class="sticky-col col-5"><span class="th-2line"><span>FECHA DE</span><span>ENTRADA</span></span></th>
+                            <th class="sticky-col col-6"><span class="th-2line"><span>FECHA DE</span><span>SALIDA</span></span></th>
                             <th style="white-space:nowrap;">NOCHES</th><th style="white-space:nowrap;">PERSONAS</th>
                             <th><span class="th-2line"><span>USO DE</span><span>COCINA</span></span></th>
                             <th><span class="th-2line"><span>TOTAL A</span><span>PAGAR</span></span></th>
@@ -931,8 +984,6 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                                     <span>RECIBIDO POR</span>
                                 </span>
                             </th>
-                            <!-- ESTADO DEL PAGO en 2 filas: ESTADO / DEL PAGO -->
-                            <th class="th-estado-pago"><span class="th-2line"><span>ESTADO</span><span>DEL PAGO</span></span></th>
                             <th class="th-fecha-pago"><span class="th-2line"><span>FECHA DE</span><span>PAGO SALDO</span></span></th>
                             <th class="th-forma-pago-saldo"><span class="th-2line"><span>FORMA DE</span><span>PAGO SALDO</span></span></th>
                             <!-- ENTIDAD BANCARIA SALDO en 2 filas: ENTIDAD / BANCARIA SALDO -->
@@ -949,6 +1000,8 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                                     <span>RECIBIDO POR</span>
                                 </span>
                             </th>
+                            <!-- ESTADO DEL PAGO en 2 filas: ESTADO / DEL PAGO -->
+                            <th class="th-estado-pago"><span class="th-2line"><span>ESTADO</span><span>DEL PAGO</span></span></th>                            
                             <th>ACCIÓN</th>
                         </tr></thead>
                         <tbody id="reservasTableBodyRegistro"></tbody>
@@ -1497,6 +1550,7 @@ let estadoPagoOriginalEdicion = null;
 let chartsInstancias = {};
 let dashVistaActual = 'mes';
 let dashSubActual = 'clientes';
+let desfaseSemana = 0;
 let tarifasEditando = false;
 let tarifasRespaldo = null;
 let tarifaPersonalizadaActiva = false;
@@ -1857,7 +1911,9 @@ function deSupabase(fila){
         formaPagoAbono: fila.forma_pago_abono || '—', entidadBancaria: fila.entidad_bancaria || '—',
         valorSaldo: Number(fila.valor_saldo) || 0, formaPagoSaldo: fila.forma_pago_saldo || '—',
         estado: fila.estado || '—', cocina: fila.cocina || 'NO', recibidoPor: fila.recibido_por || '—',
-        comprobanteUrl: fila.comprobante_url || '', ordenOriginal: fila.orden_original || 0,
+        comprobanteUrl: fila.comprobante_url ? fila.comprobante_url.split('|')[0] || '' : '',
+        comprobanteSaldoUrl: fila.comprobante_url && fila.comprobante_url.includes('|') ? fila.comprobante_url.split('|')[1] || '' : '',
+        ordenOriginal: fila.orden_original || 0,
         fechaPagoAbono: fila.fecha_pago_abono || '', timestamp: fila.created_at,
         fechaPagoSaldo: fila.fecha_pago_saldo || '',
         formaPagoSaldoVal: fila.forma_pago_saldo || 'NO APLICA',
@@ -2337,6 +2393,85 @@ function renderCalendar(m, y){
     calendarMonthLabel.textContent = `${MESES[m]} ${y}`;
     calendarInfo.innerHTML = `<i class="fas fa-info-circle"></i> <strong>${MESES[m]} ${y}</strong>: ${dDisp} disp. · ${dParc} reserv. · ${dLleno} no disp.${dFest?` · ${dFest} festivo(s)`:''}`;
     actualizarInfoCalendario(m, y);
+    
+    renderSemanaReservas();
+}
+
+function renderSemanaReservas(){
+    const contenedor = document.getElementById('semanaReservasLista');
+    if(!contenedor) return;
+    contenedor.innerHTML = '';
+
+    const hoy = new Date();
+    const diaSemana = hoy.getDay(); 
+    const difLunes = hoy.getDate() - diaSemana + (diaSemana === 0 ? -6 : 1);
+    
+    // Calculamos el lunes de la semana actual y le sumamos el desfase (si avanzamos o retrocedemos)
+    const lunes = new Date(hoy.setDate(difLunes + (desfaseSemana * 7)));
+    const domingo = new Date(lunes);
+    domingo.setDate(lunes.getDate() + 6);
+
+    const opcionesFormato = { day: '2-digit', month: 'short' };
+    const rangoText = `${lunes.toLocaleDateString('es-CO', opcionesFormato)} al ${domingo.toLocaleDateString('es-CO', opcionesFormato)}`;
+    
+    let html = `<div style="font-size:0.65rem; color:#8a6b55; text-align:center; margin-bottom:0.5rem; font-weight:700;">Semana del ${rangoText}</div>`;
+
+    for(let i = 0; i < 7; i++){
+        const fechaDia = new Date(lunes);
+        fechaDia.setDate(lunes.getDate() + i);
+        const fISO = formatFechaISO(fechaDia);
+        
+        const nombresDias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+        const nombreDia = nombresDias[i];
+        const fechaCorta = `${fechaDia.getDate()} ${MESES_ABREV[fechaDia.getMonth()]}`;
+
+        const reservasDia = reservas.filter(r => {
+            if(r.estado === 'Cancelada' || !r.entrada || !r.salida) return false;
+            return fISO >= formatFechaISO(r.entrada) && fISO <= formatFechaISO(r.salida);
+        });
+
+        const agrupadas = {};
+        reservasDia.forEach(r => {
+            const k = r.nombre;
+            if(!agrupadas[k]) agrupadas[k] = [];
+            agrupadas[k].push(r);
+        });
+
+        html += `<div class="semana-dia-bloque">
+                    <div class="semana-dia-header">
+                        <span>${nombreDia}</span>
+                        <span style="color:#8a6b55;">${fechaCorta}</span>
+                    </div>`;
+
+        if(reservasDia.length === 0){
+            html += `<div class="semana-sin-reservas">Sin reservas</div>`;
+        } else {
+            Object.keys(agrupadas).forEach(nombre => {
+                const habs = agrupadas[nombre];
+                const habsNombres = habs.map(h => h.hab).join(', ');
+                const rBase = habs[0]; 
+                const noches = rBase.noches || 0;
+                const personas = rBase.personas || 0;
+                
+                const activas = reservasDia.filter(r=>r.estado!=='Cancelada');
+                const habsOcupadas = new Set(activas.map(r=>r.hab));
+                let claseColor = 'lleno'; 
+                if (habsOcupadas.size >= 6) claseColor = 'lleno'; 
+                else claseColor = 'confirmada'; 
+                
+                html += `<div class="semana-reserva-item ${claseColor}">
+                            <div class="semana-reserva-hab"><i class="fas fa-bed"></i> ${habsNombres}</div>
+                            <div class="semana-reserva-nombre">${nombre}</div>
+                            <div class="semana-reserva-info">
+                                <span><i class="fas fa-moon"></i> ${noches} noches</span>
+                                <span><i class="fas fa-users"></i> ${personas} pers.</span>
+                            </div>
+                         </div>`;
+            });
+        }
+        html += `</div>`;
+    }
+    contenedor.innerHTML = html;
 }
 document.getElementById('btnMesAnterior').addEventListener('click', ()=>{ mesCalendarioActual--; if(mesCalendarioActual<0){ mesCalendarioActual=11; anioCalendarioActual--; } if(anioCalendarioActual<ANIO_MIN){ anioCalendarioActual=ANIO_MIN; mesCalendarioActual=0; } renderCalendar(mesCalendarioActual, anioCalendarioActual); });
 document.getElementById('btnMesSiguiente').addEventListener('click', ()=>{ mesCalendarioActual++; if(mesCalendarioActual>11){ mesCalendarioActual=0; anioCalendarioActual++; } if(anioCalendarioActual>ANIO_MAX){ anioCalendarioActual=ANIO_MAX; mesCalendarioActual=11; } renderCalendar(mesCalendarioActual, anioCalendarioActual); });
@@ -2363,6 +2498,15 @@ document.getElementById('btnAnioSiguiente').addEventListener('click', ()=>{ if(s
 document.getElementById('btnSelectorOk').addEventListener('click', ()=>{ mesCalendarioActual = selectorMesTemp; anioCalendarioActual = selectorAnioTemp; renderCalendar(mesCalendarioActual, anioCalendarioActual); selectorOverlay.classList.remove('show'); });
 document.getElementById('btnSelectorCancel').addEventListener('click', ()=>selectorOverlay.classList.remove('show'));
 document.getElementById('cerrarCalendarSelector').addEventListener('click', ()=>selectorOverlay.classList.remove('show'));
+document.getElementById('btnSemanaAnterior').addEventListener('click', ()=>{
+    desfaseSemana--;
+    renderSemanaReservas();
+});
+
+document.getElementById('btnSemanaSiguiente').addEventListener('click', ()=>{
+    desfaseSemana++;
+    renderSemanaReservas();
+});
 selectorOverlay.addEventListener('click', (e)=>{ if(e.target===selectorOverlay) selectorOverlay.classList.remove('show'); });
 
 const modalDia = document.getElementById('modalDia');
@@ -2996,7 +3140,7 @@ estadoPago.addEventListener('change', ()=>{
         resumenAbono.textContent = formatPeso(0);
         resumenPendiente.textContent = formatPeso(totalActual);
         resumenPendiente.classList.remove('saldo-pendiente-verde'); resumenPendiente.classList.add('saldo-pendiente-rojo');
-        seccionDatosSaldo.style.display = 'block';
+        seccionDatosSaldo.style.display = 'none';
         mostrarToast('⏳ Pendiente: se cobrará el total', 'info');
     } else {
         filaAbono.style.display = 'none';
@@ -3211,10 +3355,10 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
     const fAb = formaPagoAbono.value || '—';
     const entB = (fAb === 'Transferencia') ? (entidadBancaria.value || 'NO APLICA') : 'NO APLICA';
     const recibidoV = recibidoPor.value.trim().toUpperCase() || '—';
-    let fechaPagoAbonoV = '';
+    let fechaPagoAbonoV = null;
     if(estadoPagoV === 'Abonado' || estadoPagoV === 'Pago completo'){
-        if(fAb === 'Transferencia') fechaPagoAbonoV = fechaPagoAbonoEntidad.value || '';
-        else if(fAb === 'Efectivo') fechaPagoAbonoV = fechaPagoAbonoForma.value || '';
+        if(fAb === 'Transferencia') fechaPagoAbonoV = fechaPagoAbonoEntidad.value || null;
+        else if(fAb === 'Efectivo') fechaPagoAbonoV = fechaPagoAbonoForma.value || null;
     }
     const fechaPagoSaldoV = fechaPagoSaldo.value || null;
     const formaPagoSaldoV = formaPagoSaldo.value || 'NO APLICA';
@@ -3305,7 +3449,7 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         const compUrlFinal = todasLasUrls.join(',');
         const todasLasUrlsSaldo = comprobantesSaldoUrlsExistentes.concat(nuevasUrlsSaldo);
         const compUrlSaldoFinal = todasLasUrlsSaldo.join(',');
-        const compUrlTotal = [compUrlFinal, compUrlSaldoFinal].filter(u=>u).join(',');
+        const compUrlTotal = `${compUrlFinal}|${compUrlSaldoFinal}`;
         
         if(esEdicion && reservaOriginal){
             const hermanas = getReservasHermanas(reservaOriginal);
@@ -3487,7 +3631,7 @@ function renderReservasRegistro(){
             const entHtml = textoEnt==='—' ? '<span class="entidad-tag vacio">—</span>' : `<span class="entidad-tag ${getClaseEntidad(textoEnt)}">${textoEnt}</span>`;
             const urls = getComprobantesUrls(r);
             const numComp = urls.length;
-            const compHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`;
+            const compHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}" data-tipo="abono"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`;
             const cocinaVal = (r.cocina === 'SI') ? 'SI' : 'NO';
             const cocinaHtml = `<span class="cocina-texto">${cocinaVal}</span>`;
             const recibidoHtml = formatearRecibidoPor(r.recibidoPor);
@@ -3499,12 +3643,21 @@ function renderReservasRegistro(){
                 : `<span class="col-accion-vacia">—</span>`;
 
             let estadoPagoHtml = '';
-            if(saldo > 0){
-                estadoPagoHtml = modo === 'editor'
-                    ? `<input type="text" class="pago-total-input" data-id="${r.id}" placeholder="Ej: $1.000.000" inputmode="decimal">`
-                    : `<span class="saldo-deuda" style="font-size:0.6rem; font-weight:700;">PENDIENTE</span>`;
+            const estaPagado = (saldo <= 0 || r.estadoPago === 'Pago completo');
+            
+            if(modo === 'editor'){
+                if(estaPagado){
+                    estadoPagoHtml = `<span class="saldo-cero" style="font-size:0.65rem;"><i class="fas fa-check-circle"></i> PAGADO</span>`;
+                } else {
+                    estadoPagoHtml = `<select class="select-estado-pago" data-id="${r.id}" style="background: #fff; color: #c62828; font-size: 0.65rem; border: 1px solid #c62828; border-radius: 6px; padding: 2px 4px; outline: none; cursor: pointer;">
+                        <option value="Pendiente" selected>PENDIENTE</option>
+                        <option value="Pagado">PAGADO</option>
+                    </select>`;
+                }
             } else {
-                estadoPagoHtml = `<span class="saldo-cero" style="font-size:0.6rem; font-weight:700;"><i class="fas fa-check-circle"></i> PAGADO</span>`;
+                estadoPagoHtml = estaPagado 
+                    ? `<span class="saldo-cero" style="font-size:0.65rem;"><i class="fas fa-check-circle"></i> PAGADO</span>`
+                    : `<span class="saldo-deuda" style="font-size:0.65rem;">PENDIENTE</span>`;
             }
 
             const fechaPagoSaldoHtml = r.fechaPagoSaldo
@@ -3529,15 +3682,17 @@ function renderReservasRegistro(){
                 ? `<span class="saldo-cero" style="font-weight:700;">${formatPeso(abonoVal)}</span>`
                 : `<span style="font-weight:700; color:#50260c;">${formatPeso(abonoVal)}</span>`;
 
-            const compSaldoHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}"><i class="fas fa-image"></i>${numComp>1?`<span class="badge-count">${numComp}</span>`:''}</button>`;
+            const urlsSaldo = getComprobantesUrls({comprobanteUrl: r.comprobanteSaldoUrl});
+            const numCompSaldo = urlsSaldo.length;
+            const compSaldoHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}" data-tipo="saldo"><i class="fas fa-image"></i>${numCompSaldo>1?`<span class="badge-count">${numCompSaldo}</span>`:''}</button>`;
 
             row.innerHTML = `
-                <td>${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
-                <td>${idReal}</td>
-                <td><span class="nombre-texto">${r.nombre}</span></td>
-                <td><strong>${r.hab}</strong></td>
-                <td class="celda-fecha">${formatFecha(r.entrada)}</td>
-                <td class="celda-fecha">${formatFecha(r.salida)}</td>
+                <td class="sticky-col col-1">${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
+                <td class="sticky-col col-2">${idReal}</td>
+                <td class="sticky-col col-3"><span class="nombre-texto">${r.nombre}</span></td>
+                <td class="sticky-col col-4"><strong>${r.hab}</strong></td>
+                <td class="sticky-col col-5 celda-fecha">${formatFecha(r.entrada)}</td>
+                <td class="sticky-col col-6 celda-fecha">${formatFecha(r.salida)}</td>
                 <td>${r.noches||0}</td>
                 <td>${r.personas}</td>
                 <td>${cocinaHtml}</td>
@@ -3549,12 +3704,12 @@ function renderReservasRegistro(){
                 <td>${entHtml}</td>
                 <td>${compHtml}</td>
                 <td>${recibidoHtml}</td>
-                <td>${estadoPagoHtml}</td>
                 <td>${fechaPagoSaldoHtml}</td>
                 <td>${formaPagoSaldoHtml}</td>
                 <td>${entidadSaldoHtml}</td>
                 <td class="col-comprobante-saldo">${compSaldoHtml}</td>
                 <td>${saldoRecibidoHtml}</td>
+                <td>${estadoPagoHtml}</td>
                 <td>${accionHtml}</td>`;
             reservasTableBody.appendChild(row);
         });
@@ -3597,17 +3752,45 @@ function renderReservasRegistro(){
                 mostrarToast('🗑️ Reserva eliminada','info');
             } catch(e){ mostrarToast('❌ '+e.message,'error'); }
         }));
-        document.querySelectorAll('.pago-total-input').forEach(inp=>{
-            inp.addEventListener('input', (e)=>{ let v = e.target.value.replace(/[^\d.,]/g, ''); if(e.target.value !== v) e.target.value = v; });
-            inp.addEventListener('focus', ()=>{ const n = parsePeso(inp.value); inp.value = n===0 ? '' : String(n); });
-            inp.addEventListener('blur', async ()=>{
-                const n = parsePeso(inp.value);
-                if(n === 0){ inp.value=''; return; }
-                inp.value = formatPeso(n);
-                inp.classList.add('guardado');
-                await guardarPagoTotal(inp.dataset.id, n);
+        document.querySelectorAll('.select-estado-pago').forEach(sel => {
+            sel.addEventListener('change', async (e) => {
+                const id = e.target.dataset.id;
+                const nuevoEstado = e.target.value;
+                const r = reservas.find(x => String(x.id) === String(id));
+                if(!r) return;
+                
+                if(nuevoEstado === 'Pagado'){
+                    // Si pasa a pagado, el saldo se vuelve 0
+                    r.valorSaldo = 0;
+                    r.estadoPago = 'Pago completo';
+                    if(r.valorAbono < calcularTotalBase(r)){
+                        r.valorAbono = calcularTotalBase(r);
+                    }
+                } else {
+                    // Si vuelve a pendiente, el saldo se restaura a su valor original
+                    const totalReal = calcularTotalBase(r);
+                    r.estadoPago = 'Pendiente';
+                    r.valorSaldo = Math.max(0, totalReal - (r.valorAbono || 0));
+                }
+
+                try {
+                    const { error } = await sb.from(TABLA).update({ 
+                        estado_pago: r.estadoPago, 
+                        valor_saldo: r.valorSaldo, 
+                        valor_abono: r.valorAbono 
+                    }).eq('id', id);
+                    
+                    if(error) throw error;
+                    mostrarToast('✅ Estado actualizado', 'ok');
+                    guardarCache();
+                    renderReservasRegistro();
+                    actualizarDineroPendiente();
+                    actualizarDineroRecibido();
+                } catch(err) {
+                    mostrarToast('❌ Error: ' + err.message, 'error');
+                    renderReservasRegistro();
+                }
             });
-            inp.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ e.preventDefault(); inp.blur(); } });
         });
         document.querySelectorAll('.fecha-saldo-input').forEach(inp=>{
             inp.addEventListener('change', async ()=>{
@@ -3622,7 +3805,7 @@ function renderReservasRegistro(){
             });
         });
     }
-    document.querySelectorAll('.btn-ver-comp').forEach(b=>b.addEventListener('click', ()=>abrirComprobanteModal(b.dataset.id)));
+    document.querySelectorAll('.btn-ver-comp').forEach(b=>b.addEventListener('click', ()=>abrirComprobanteModal(b.dataset.id, b.dataset.tipo)));
 }
 checkTodos.addEventListener('change', ()=>{
     const m = checkTodos.checked;
@@ -3951,14 +4134,22 @@ function renderCompModal(){
     if(prev) prev.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual - 1 + comprobanteModalUrls.length) % comprobanteModalUrls.length; renderCompModal(); });
     if(next) next.addEventListener('click', ()=>{ comprobanteModalIndexActual = (comprobanteModalIndexActual + 1) % comprobanteModalUrls.length; renderCompModal(); });
 }
-function abrirComprobanteModal(id){
+function abrirComprobanteModal(id, tipo = 'abono'){
     const r = reservas.find(x=>String(x.id)===String(id));
     if(!r){ mostrarToast('⚠️ Reserva no encontrada','error'); return; }
+    
     comprobanteModalIdReserva = id;
-    comprobanteModalUrls = getComprobantesUrls(r);
+    
+    // Seleccionamos si mostramos los del abono o los del saldo
+    const urlAUsar = tipo === 'saldo' ? r.comprobanteSaldoUrl : r.comprobanteUrl;
+    comprobanteModalUrls = getComprobantesUrls({comprobanteUrl: urlAUsar});
+    
     comprobanteModalIndexActual = 0;
     renderCompModal();
     compModalOverlay.classList.add('show');
+    
+    // Guardamos el tipo actual en el contenedor para saber qué foto estamos viendo
+    compModalOverlay.dataset.tipo = tipo;
 }
 document.getElementById('btnCambiarComprobanteModal').addEventListener('click', ()=>{ if(modo !== 'editor') return; compModalFileInput.value=''; compModalFileInput.click(); });
 compModalFileInput.addEventListener('change', async (e)=>{
@@ -3972,13 +4163,24 @@ compModalFileInput.addEventListener('change', async (e)=>{
     try {
         const rOrig = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
         if(!rOrig) throw new Error('No encontrada');
-        const urlsActuales = getComprobantesUrls(rOrig);
+         const tipo = compModalOverlay.dataset.tipo || 'abono';
+        const urlsActuales = getComprobantesUrls({comprobanteUrl: tipo === 'saldo' ? rOrig.comprobanteSaldoUrl : rOrig.comprobanteUrl});
         const nuevasUrls = [];
         for(const file of validos){ const u = await subirComprobante(file); nuevasUrls.push(u); }
         const todasUrls = urlsActuales.concat(nuevasUrls);
         const firma = getFirmaReserva(rOrig);
         const idsHer = reservas.filter(r=>getFirmaReserva(r)===firma).map(r=>r.id);
-        const { error } = await sb.from(TABLA).update({ comprobante_url: todasUrls.join(',') }).in('id', idsHer);
+        const compUrlAbonoOrig = getComprobantesUrls({comprobanteUrl: rOrig.comprobanteUrl}).join(',');
+        const compUrlSaldoOrig = getComprobantesUrls({comprobanteUrl: rOrig.comprobanteSaldoUrl}).join(',');
+        
+        let nuevoCompUrlTotal = '';
+        if(tipo === 'saldo') {
+            nuevoCompUrlTotal = `${compUrlAbonoOrig}|${todasUrls.join(',')}`;
+        } else {
+            nuevoCompUrlTotal = `${todasUrls.join(',')}|${compUrlSaldoOrig}`;
+        }
+
+        const { error } = await sb.from(TABLA).update({ comprobante_url: nuevoCompUrlTotal }).in('id', idsHer);
         if(error) throw error;
         const nuevas = await cargarReservas();
         reservas = nuevas; guardarCache(); renderTodo();
@@ -3995,7 +4197,8 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
     if(!comprobanteModalIdReserva) return;
     const rOrig = reservas.find(x=>String(x.id)===String(comprobanteModalIdReserva));
     if(!rOrig) return;
-    const urlsActuales = getComprobantesUrls(rOrig);
+const tipo = compModalOverlay.dataset.tipo || 'abono';
+const urlsActuales = getComprobantesUrls({comprobanteUrl: tipo === 'saldo' ? rOrig.comprobanteSaldoUrl : rOrig.comprobanteUrl});
     if(urlsActuales.length === 0) return;
     if(!confirm('¿Eliminar el comprobante actual?')) return;
     try {
@@ -4004,7 +4207,17 @@ document.getElementById('btnEliminarComprobanteModal').addEventListener('click',
         const nuevasUrls = urlsActuales.filter((_,i)=>i !== comprobanteModalIndexActual);
         const firma = getFirmaReserva(rOrig);
         const idsHer = reservas.filter(r=>getFirmaReserva(r)===firma).map(r=>r.id);
-        await sb.from(TABLA).update({ comprobante_url: nuevasUrls.join(',') }).in('id', idsHer);
+    const compUrlAbonoOrig = getComprobantesUrls({comprobanteUrl: rOrig.comprobanteUrl}).join(',');
+const compUrlSaldoOrig = getComprobantesUrls({comprobanteUrl: rOrig.comprobanteSaldoUrl}).join(',');
+
+let nuevoCompUrlTotal = '';
+if(tipo === 'saldo') {
+    nuevoCompUrlTotal = `${compUrlAbonoOrig}|${nuevasUrls.join(',')}`;
+} else {
+    nuevoCompUrlTotal = `${nuevasUrls.join(',')}|${compUrlSaldoOrig}`;
+}
+
+await sb.from(TABLA).update({ comprobante_url: nuevoCompUrlTotal }).in('id', idsHer);
         const nuevas = await cargarReservas();
         reservas = nuevas; guardarCache(); renderTodo();
         setUltimaActualizacion(new Date());
@@ -4968,7 +5181,7 @@ async function init(){
         renderTodo();
         setSyncStatus('cloud','Sincronizado');
         setUltimaActualizacion(new Date());
-        suscribirRealtime();
+ 
     } catch(e){ console.error(e); setSyncStatus('error','Sin conexión'); }
 }
 sb.auth.onAuthStateChange((event, session)=>{
@@ -4984,6 +5197,9 @@ sb.auth.onAuthStateChange((event, session)=>{
     }
 });
 document.addEventListener('DOMContentLoaded', init);
+setTimeout(() => {
+    suscribirRealtime();
+}, 2000);
 window.addEventListener('beforeunload', guardarCache);
 
 })();
