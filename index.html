@@ -437,8 +437,32 @@ body.modo-editor .btn-header.cambiar, body.modo-editor .btn-header.eliminar { di
 .lista-reservas-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
 .lista-reservas-header h3 { font-size: 1.1rem; font-weight: 700; color: #50260c; display: flex; align-items: center; gap: 8px; }
 .buscador-container { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: #faf3ee; padding: 0.9rem 1.1rem; border-radius: 20px; border: 1px solid #e8d5c6; margin-bottom: 1rem; width: 100%; }
-.buscador-input { flex: 1 1 200px; position: relative; min-width: 180px; max-width: 200px; }
-.buscador-input input { width: 100%; padding: 0.7rem 0.9rem 0.7rem 2.4rem; border-radius: 30px; border: 1px solid #e0cbb8; background: #fff; font-size: 0.88rem; outline: none; }
+.buscador-input { 
+    flex: 1 1 100%; 
+    position: relative; 
+    min-width: 250px; 
+    max-width: 100%; 
+}
+
+.buscador-input i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a58671;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.buscador-input input { 
+    width: 100%; 
+    padding: 0.7rem 0.9rem 0.7rem 2.8rem; /* El 2.8rem a la izquierda deja el hueco para la lupa */
+    border-radius: 30px; 
+    border: 1px solid #e0cbb8; 
+    background: #fff; 
+    font-size: 0.88rem; 
+    outline: none; 
+}
 
 /* ===== FILTROS MÁS ANCHOS ===== */
 .filtro-select {
@@ -649,8 +673,8 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .semana-reserva-item { background: #fff3cd; border: 1px solid #ffe082; border-radius: 8px; padding: 0.4rem; margin-bottom: 0.3rem; display: flex; flex-direction: column; gap: 2px; }
 .semana-reserva-item.lleno { background: #ffcdd2; border-color: #ef9a9a; }
 .semana-reserva-item.confirmada { background: #e8f5e9; border-color: #c8e6c9; }
-.semana-reserva-hab { font-size: 0.65rem; font-weight: 900; color: #1b5e20; text-transform: uppercase; }
-.semana-reserva-nombre { font-size: 0.7rem; font-weight: 700; color: #3d1c09; }
+.semana-reserva-hab { font-size: 0.55rem; font-weight: 900; color: #1b5e20; text-transform: uppercase; }
+.semana-reserva-nombre { font-size: 0.5rem; font-weight: 700; color: #3d1c09; }
 .semana-reserva-info { font-size: 0.6rem; font-weight: 600; color: #8a6b55; display: flex; gap: 8px; }
 .semana-sin-reservas { font-size: 0.65rem; color: #8a6b55; font-style: italic; text-align: center; padding: 0.2rem; }
 /* ===== COLUMNAS FIJAS (STICKY) ===== */
@@ -677,6 +701,61 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .fila-seleccionada td.sticky-col {
     background: #ffe6e6 !important; 
 }
+
+/* ===== ESTADOS DE LA RESERVA (BADGES Y SELECTS) ===== */
+.estado-reserva-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    text-align: center;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    
+    /* Fondo blanco por defecto para el menú desplegable */
+    background-color: #ffffff !important;
+    
+    /* Quitamos la flechita por defecto para que se vea más limpio */
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Colores del TEXTO y BORDE según el estado (el fondo se queda blanco) */
+.estado-reserva-badge.confirmada {
+    color: #50260c !important;
+    border: 1.5px solid #50260c !important;
+}
+
+.estado-reserva-badge.pendiente {
+    color: #e6a800 !important;
+    border: 1.5px solid #e6a800 !important;
+}
+
+.estado-reserva-badge.cancelada {
+    color: #c62828 !important;
+    border: 1.5px solid #c62828 !important;
+}
+
+.estado-reserva-badge.finalizada {
+    color: #2e7d32 !important;
+    border: 1.5px solid #2e7d32 !important;
+}
+
+/* Ajuste específico para cuando el menú está cerrado (para que el texto resalte) */
+select.estado-reserva-badge {
+    font-weight: 900;
+    padding-right: 20px;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2350260c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 8px;
+}
+
 @media (max-width: 768px) {
     body { padding: 8px; }
     .dashboard { border-radius: 20px; }
@@ -710,7 +789,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .section-content { padding: 1rem; }
     .calendar-month-title { font-size: 0.92rem; min-width: 150px; padding: 0.35rem 0.8rem; }
     .calendar-nav-btn { width: 36px; height: 36px; font-size: 0.85rem; }
-    .tabla-historial { min-width: 100% !important; table-layout: auto; }
+.tabla-historial {
+    min-width: 1000px !important; /* Forza a la tabla a ser ancha para que se pueda deslizar */
+    table-layout: auto;
+}
     .tabla-historial thead tr th { padding: 0.5rem 0.6rem; font-size: 0.55rem; }
     .tabla-historial td { padding: 0.55rem 0.6rem; font-size: 0.68rem; }
     .tabla-historial .check-reserva { width: 15px; height: 15px; }
@@ -768,6 +850,10 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
     .col-comprobante-saldo { padding: 0.45rem 0.2rem; }
     .th-abono-recibido, .th-saldo-recibido { min-width: 60px; font-size: 0.48rem; }
     .btn-login-icono { width: 26px; height: 26px; font-size: 0.7rem; }
+}
+/* En celulares, liberamos las columnas 3 en adelante para que se puedan deslizar */
+.col-3, .col-4, .col-5, .col-6 {
+    position: static !important;
 }
 @media (max-width: 480px) {
     .section-btn span { display: none; }
@@ -1002,6 +1088,7 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
                             </th>
                             <!-- ESTADO DEL PAGO en 2 filas: ESTADO / DEL PAGO -->
                             <th class="th-estado-pago"><span class="th-2line"><span>ESTADO</span><span>DEL PAGO</span></span></th>                            
+                            <th class="th-estado-reserva"><span class="th-2line"><span>ESTADO DE</span><span>LA RESERVA</span></span></th>
                             <th>ACCIÓN</th>
                         </tr></thead>
                         <tbody id="reservasTableBodyRegistro"></tbody>
@@ -2313,6 +2400,7 @@ function obtenerReservasPorDia(m, y){
     const mapa = {};
     reservas.forEach(r=>{
         if(!r.entrada || !r.salida) return;
+        if(r.estado === 'Cancelada') return; // <--- AGREGAS ESTA LÍNEA
         const cur = new Date(r.entrada), fin = new Date(r.salida);
         while(cur <= fin){
             if(cur.getFullYear()===y && cur.getMonth()===m){
@@ -2908,13 +2996,14 @@ function agregarBloqueHabitacion(datos=null, bloquearEdicion=false){
         <div class="form-row">
             <div class="form-group small"><label>Personas <span class="req">*</span></label><input type="number" min="1" class="inp-personas" placeholder="Ej: 3" value="${personas||''}" ${bloquearEdicion?'readonly':''}></div>
             <div class="form-group small"><label>Noches <span class="req">*</span></label><input type="number" min="1" class="inp-noches" placeholder="Ej: 3" value="${noches||''}" ${bloquearEdicion?'readonly':''}></div>
-            <div class="form-group"><label>Estado <span class="req">*</span></label>
+<div class="form-group"><label>Estado de la reserva <span class="req">*</span></label>
                 <select class="inp-estado ${estadoV?'':'placeholder'}">
                     <option value="" disabled ${estadoV?'':'selected'} hidden>Seleccionar</option>
                     <option value="Confirmada" ${estadoV==='Confirmada'?'selected':''}>CONFIRMADA</option>
                     <option value="Pendiente" ${estadoV==='Pendiente'?'selected':''}>PENDIENTE</option>
                     <option value="Cancelada" ${estadoV==='Cancelada'?'selected':''}>CANCELADA</option>
-                </select>
+                    <option value="Finalizada" ${estadoV==='Finalizada'?'selected':''}>FINALIZADA</option>
+                    </select>
             </div>
         </div>
         <div class="form-row">
@@ -3686,6 +3775,18 @@ function renderReservasRegistro(){
             const numCompSaldo = urlsSaldo.length;
             const compSaldoHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}" data-tipo="saldo"><i class="fas fa-image"></i>${numCompSaldo>1?`<span class="badge-count">${numCompSaldo}</span>`:''}</button>`;
 
+            let estadoReservaHtml = '';
+            if(modo === 'editor'){
+                           const esFinalizada = (r.estado === 'Finalizada');
+                estadoReservaHtml = `<select class="select-estado-reserva estado-reserva-badge ${(r.estado || '').toLowerCase()}" data-id="${r.id}" ${esFinalizada ? 'disabled style="pointer-events: none; opacity: 1;"' : ''}>
+                    <option value="Confirmada" ${r.estado === 'Confirmada' ? 'selected' : ''}>CONFIRMADA</option>
+                    <option value="Pendiente" ${r.estado === 'Pendiente' ? 'selected' : ''}>PENDIENTE</option>
+                    <option value="Cancelada" ${r.estado === 'Cancelada' ? 'selected' : ''}>CANCELADA</option>
+                    <option value="Finalizada" ${r.estado === 'Finalizada' ? 'selected' : ''}>FINALIZADA</option>
+                </select>`;
+            } else {
+                estadoReservaHtml = `<span class="estado-reserva-badge ${(r.estado || '').toLowerCase()}">${r.estado || '—'}</span>`;
+            }
             row.innerHTML = `
                 <td class="sticky-col col-1">${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
                 <td class="sticky-col col-2">${idReal}</td>
@@ -3710,6 +3811,7 @@ function renderReservasRegistro(){
                 <td class="col-comprobante-saldo">${compSaldoHtml}</td>
                 <td>${saldoRecibidoHtml}</td>
                 <td>${estadoPagoHtml}</td>
+                <td>${estadoReservaHtml}</td>
                 <td>${accionHtml}</td>`;
             reservasTableBody.appendChild(row);
         });
@@ -3792,6 +3894,31 @@ function renderReservasRegistro(){
                 }
             });
         });
+
+                document.querySelectorAll('.select-estado-reserva').forEach(sel => {
+            sel.addEventListener('change', async (e) => {
+                const id = e.target.dataset.id;
+                const nuevoEstado = e.target.value;
+                const r = reservas.find(x => String(x.id) === String(id));
+                if(!r) return;
+                
+                r.estado = nuevoEstado;
+                // Actualizamos la clase para que cambie de color inmediatamente
+                e.target.className = `select-estado-reserva estado-reserva-badge ${nuevoEstado.toLowerCase()}`;
+
+                try {
+                    const { error } = await sb.from(TABLA).update({ estado: nuevoEstado }).eq('id', id);
+                    if(error) throw error;
+                    mostrarToast('✅ Estado de reserva actualizado', 'ok');
+                    guardarCache();
+                    actualizarDineroPendiente();
+                    actualizarDineroRecibido();
+                } catch(err) {
+                    mostrarToast('❌ Error: ' + err.message, 'error');
+                }
+            });
+        }); 
+
         document.querySelectorAll('.fecha-saldo-input').forEach(inp=>{
             inp.addEventListener('change', async ()=>{
                 const id = inp.dataset.id;
@@ -4016,10 +4143,17 @@ function editarReserva(id){
     hermanas.forEach(her => { agregarBloqueHabitacion(her, false); });
     if(hermanas.length === 0){ agregarBloqueHabitacion(r, false); }
     bloquesHabitacion.querySelectorAll('.bloque-habitacion').forEach(b=>{
-        b.querySelectorAll('.inp-personas, .inp-noches, .inp-estado, .inp-entrada, .inp-salida').forEach(el=>{
+        b.querySelectorAll('.inp-personas, .inp-noches, .inp-entrada, .inp-salida').forEach(el=>{
             el.disabled = true;
             if(el.tagName === 'INPUT') el.readOnly = true;
         });
+        
+        const selEstado = b.querySelector('.inp-estado');
+        if (selEstado) {
+            selEstado.disabled = false;
+            if (selEstado.value !== '') selEstado.classList.remove('placeholder');
+        }
+
         const btnQ = b.querySelector('.btn-quitar-bloque');
         if(btnQ) btnQ.style.display = 'none';
     });
