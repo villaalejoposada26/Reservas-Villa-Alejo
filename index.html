@@ -156,7 +156,7 @@ th { text-align: left; padding: 0.8rem 0.9rem; background: #faf3ee; color: #5026
 td { padding: 0.8rem 0.9rem; border-bottom: 1px solid #f0e4d9; color: #3d1c09; white-space: nowrap; font-size: 0.83rem; }
 tr:last-child td { border-bottom: none; }
 .tabla-historial { width: 100%; table-layout: auto; font-size: 0.7rem; }
-.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; position: sticky; top: 0; z-index: 10; }
+.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; position: sticky; top: 0; z-index: 20; }
 .tabla-historial td { padding: 0.45rem 0.4rem; font-size: 0.66rem; white-space: normal; word-wrap: break-word; text-align: center; vertical-align: middle; }
 .th-2line { display: inline-block; line-height: 1.1; }
 .th-2line span { display: block; }
@@ -677,27 +677,27 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .semana-reserva-nombre { font-size: 0.5rem; font-weight: 700; color: #3d1c09; }
 .semana-reserva-info { font-size: 0.6rem; font-weight: 600; color: #8a6b55; display: flex; gap: 8px; }
 .semana-sin-reservas { font-size: 0.65rem; color: #8a6b55; font-style: italic; text-align: center; padding: 0.2rem; }
+
 /* ===== COLUMNAS FIJAS (STICKY) ===== */
 .sticky-col {
     position: sticky !important;
-    z-index: 5;
+    z-index: 10;
     background: #fff !important;
+    border-right: 1px solid #f0e4d9;
 }
 
 .tabla-historial thead tr th.sticky-col {
-    z-index: 15 !important;
+    z-index: 25 !important;
     background: #faf3ee !important;
 }
 
-/* Anchos y posiciones calculadas */
+/* Anchos fijos y posición desde la izquierda */
 .col-1 { left: 0; min-width: 45px; max-width: 45px; }
-.col-2 { left: 45px; min-width: 35px; max-width: 35px; }
-.col-3 { left: 80px; min-width: 180px; max-width: 180px; text-align: center !important; }
+.col-2 { left: 45px; min-width: 45px; max-width: 45px; }
+.col-3 { left: 90px; min-width: 170px; max-width: 170px; text-align: center !important; }
 .col-4 { left: 260px; min-width: 90px; max-width: 90px; }
-.col-5 { left: 350px; min-width: 85px; max-width: 85px; }
-.col-6 { left: 435px; min-width: 85px; max-width: 85px; }
 
-/* Para que el color de fondo respete la selección de la fila */
+/* Si la fila se selecciona, cambia el fondo también en las columnas fijas */
 .fila-seleccionada td.sticky-col {
     background: #ffe6e6 !important; 
 }
@@ -855,6 +855,24 @@ select.estado-reserva-badge {
 .col-3, .col-4, .col-5, .col-6 {
     position: static !important;
 }
+
+    /* Permite el scroll táctil en celular */
+    .table-wrapper {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Forzamos a la tabla a ser ancha para que se pueda deslizar */
+    .tabla-historial {
+        min-width: 1500px !important; 
+        table-layout: auto;
+    }
+
+    /* Desactivamos el sticky en algunas columnas si se ven muy apretadas, 
+       o ajustamos sus tamaños */
+    .col-1, .col-2, .col-3, .col-4 {
+        /* Aquí mantenemos el sticky pero aseguramos el ancho */
+        box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1); /* Sombrita para separar */
+    }
 @media (max-width: 480px) {
     .section-btn span { display: none; }
     .section-btn.active span { display: inline; }
