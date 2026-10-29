@@ -135,15 +135,13 @@ body.modo-editor .btn-accion-historial { display: inline-flex; }
 
 /* ===== TABLE WRAPPER: 8 filas visibles con scroll ===== */
 .table-wrapper {
-    overflow-x: auto;
-    overflow-y: auto;
+    overflow: auto !important; /* Permite scroll en ambas direcciones */
+    max-height: 460px; /* Altura máxima para que funcione el scroll vertical */
     border-radius: 20px;
     border: 1px solid #f0e4d9;
     background: #fff;
     margin-top: 1rem;
-    max-height: 460px; /* 8 filas aprox (header + 8 filas de ~48px) */
-    scrollbar-width: thin;
-    scrollbar-color: #d4b9a4 #faf3ee;
+    position: relative;
 }
 .table-wrapper::-webkit-scrollbar { width: 8px; height: 8px; }
 .table-wrapper::-webkit-scrollbar-track { background: #faf3ee; border-radius: 4px; }
@@ -155,9 +153,29 @@ table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 th { text-align: left; padding: 0.8rem 0.9rem; background: #faf3ee; color: #50260c; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; border-bottom: 1px solid #e8d5c6; white-space: nowrap; }
 td { padding: 0.8rem 0.9rem; border-bottom: 1px solid #f0e4d9; color: #3d1c09; white-space: nowrap; font-size: 0.83rem; }
 tr:last-child td { border-bottom: none; }
-.tabla-historial { width: 100%; table-layout: auto; font-size: 0.7rem; }
-.tabla-historial thead tr th { padding: 0.55rem 0.4rem; font-size: 0.54rem; font-weight: 800; text-transform: uppercase; white-space: normal; word-wrap: break-word; line-height: 1.15; text-align: center; vertical-align: middle; color: #50260c; background: #faf3ee; border-bottom: 1px solid #e8d5c6; position: sticky; top: 0; z-index: 20; }
-.tabla-historial td { padding: 0.45rem 0.4rem; font-size: 0.66rem; white-space: normal; word-wrap: break-word; text-align: center; vertical-align: middle; }
+.tabla-historial { width: 100%; table-layout: auto; font-size: 0.5rem; min-width: 1400px !important; }
+.tabla-historial thead tr th {
+    padding: 0.55rem 0.4rem;
+    font-size: 10px !important; /* <--- Títulos un poquito más pequeños que los datos */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    text-align: center !important; /* <--- Títulos centrados */
+    vertical-align: middle !important;
+    color: #50260c;
+    background: #faf3ee;
+    border-bottom: 1px solid #e8d5c6;
+    
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 30 !important;
+}
+/* Forzar negrita en TODOS los títulos y lo que esté dentro de ellos */
+.tabla-historial thead tr th,
+.tabla-historial thead tr th * {
+    font-weight: 900 !important; 
+    color: #50260c !important;
+}
+
 .th-2line { display: inline-block; line-height: 1.1; }
 .th-2line span { display: block; }
 .th-comprobante { white-space: nowrap; letter-spacing: -0.2px; }
@@ -169,13 +187,25 @@ tr:last-child td { border-bottom: none; }
 .forma-pago-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; white-space: nowrap; }
 .entidad-tag { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2px; white-space: nowrap; max-width: 100%; }
 .entidad-tag.bancolombia { background: #fdda24; color: #000; border: 1px solid #e6c200; box-shadow: 0 1px 3px rgba(253,218,36,0.5); }
-.entidad-tag.nequi { background: #da0081; color: #fff; border: 1px solid #a80062; box-shadow: 0 1px 3px rgba(218,0,129,0.5); }
-.entidad-tag.efectivo { background: #060756; color: #fff; border: 1px solid #0a0a7a; box-shadow: 0 1px 3px rgba(6,7,86,0.5); }
+.tabla-historial td .entidad-tag.nequi { 
+    background: #da0081 !important; 
+    color: #ffffff !important; 
+    border: 1px solid #a80062 !important; 
+    box-shadow: 0 1px 3px rgba(218,0,129,0.5); 
+}
+
+.tabla-historial td .entidad-tag.efectivo { 
+    background: #060756 !important; 
+    color: #ffffff !important; 
+    border: 1px solid #0a0a7a !important; 
+    box-shadow: 0 1px 3px rgba(6,7,86,0.5); 
+}
+
 .entidad-tag.vacio { background: transparent; color: #b8a89a; border: 1px dashed #e0cbb8; }
 .cocina-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; text-transform: uppercase; }
 .recibido-texto { font-size: 0.6rem; font-weight: 700; color: #3d1c09; word-break: break-word; text-align: center; line-height: 1.2; }
 .recibido-texto .linea-recibido { display: block; }
-.nombre-texto { font-size: 0.66rem; font-weight: 400; color: #3d1c09; white-space: nowrap; }
+.nombre-texto { font-size: 9px; font-weight: 400; color: #3d1c09; white-space: nowrap; }
 .comprobante-list { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
 .comprobante-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #e8f5e9; border: 1px solid #66bb6a; border-radius: 10px; padding: 0.5rem 0.7rem; }
 .comprobante-item .info-file { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: #1b5e20; font-weight: 600; overflow: hidden; flex: 1; }
@@ -678,24 +708,49 @@ body.modo-editor #btnEditarTabla { display: inline-flex; }
 .semana-reserva-info { font-size: 0.6rem; font-weight: 600; color: #8a6b55; display: flex; gap: 8px; }
 .semana-sin-reservas { font-size: 0.65rem; color: #8a6b55; font-style: italic; text-align: center; padding: 0.2rem; }
 
-/* ===== COLUMNAS FIJAS (STICKY) ===== */
-.sticky-col {
+/* ==========================================
+   TABLA GENERAL (SIN COLUMNAS FIJAS)
+   ========================================== */
+
+/* Ancho para que se pueda deslizar hasta el final */
+.tabla-historial {
+    min-width: 1600px !important; 
+    table-layout: auto;
+    border-collapse: collapse !important; 
+}
+
+/* Letra de 9px y cuadrículas en todas las celdas */
+.tabla-historial td,
+.tabla-historial th {
+    font-size: 9px !important; 
+    border: 1px solid #e8d5c6 !important; 
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0.6rem 0.4rem !important;
+}
+
+/* Que el texto de adentro no tenga recuadros */
+.tabla-historial td *,
+.tabla-historial th * {
+    font-size: 9px !important;
+    border: none !important; 
+}
+
+/* Fijar SOLO la fila de títulos hacia arriba */
+.tabla-historial thead tr th {
     position: sticky !important;
-    z-index: 10;
-    background: #fff !important;
-    border-right: 1px solid #f0e4d9;
+    top: 0 !important;
+    z-index: 30 !important;
+    background-color: #faf3ee !important; /* Fondo para que no se transparente */
 }
 
-.tabla-historial thead tr th.sticky-col {
-    z-index: 25 !important;
-    background: #faf3ee !important;
+/* Asegura el scroll */
+.table-wrapper {
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    max-height: 460px;
+    width: 100%;
 }
-
-/* Anchos fijos y posición desde la izquierda */
-.col-1 { left: 0; min-width: 45px; max-width: 45px; }
-.col-2 { left: 45px; min-width: 45px; max-width: 45px; }
-.col-3 { left: 90px; min-width: 170px; max-width: 170px; text-align: center !important; }
-.col-4 { left: 260px; min-width: 90px; max-width: 90px; }
 
 /* Si la fila se selecciona, cambia el fondo también en las columnas fijas */
 .fila-seleccionada td.sticky-col {
@@ -790,11 +845,24 @@ select.estado-reserva-badge {
     .calendar-month-title { font-size: 0.92rem; min-width: 150px; padding: 0.35rem 0.8rem; }
     .calendar-nav-btn { width: 36px; height: 36px; font-size: 0.85rem; }
 .tabla-historial {
-    min-width: 1000px !important; /* Forza a la tabla a ser ancha para que se pueda deslizar */
+    min-width: 1600px !important; /* Fuerza a la tabla a ser ancha para poder deslizar hasta el final */
     table-layout: auto;
+    border-collapse: collapse !important; /* Mantiene las cuadrículas juntas */
 }
-    .tabla-historial thead tr th { padding: 0.5rem 0.6rem; font-size: 0.55rem; }
-    .tabla-historial td { padding: 0.55rem 0.6rem; font-size: 0.68rem; }
+
+.tabla-historial td, .tabla-historial td * {
+    font-size: 9px !important; 
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0.6rem 0.4rem !important;
+    /* NO pongas font-weight aquí para que el <strong> funcione */
+}
+
+.tabla-historial strong {
+    font-weight: 900 !important; 
+    color: #3d1c09 !important;
+}
+
     .tabla-historial .check-reserva { width: 15px; height: 15px; }
     .nombre-texto { white-space: nowrap !important; word-break: keep-all !important; overflow-wrap: normal !important; display: inline-block; }
     .tabla-historial .btn-icon { width: 24px; height: 24px; font-size: 0.6rem; }
@@ -852,19 +920,13 @@ select.estado-reserva-badge {
     .btn-login-icono { width: 26px; height: 26px; font-size: 0.7rem; }
 }
 /* En celulares, liberamos las columnas 3 en adelante para que se puedan deslizar */
-.col-3, .col-4, .col-5, .col-6 {
+.col-1, .col-2, .col-3, .col-4 {
     position: static !important;
 }
 
     /* Permite el scroll táctil en celular */
     .table-wrapper {
         -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Forzamos a la tabla a ser ancha para que se pueda deslizar */
-    .tabla-historial {
-        min-width: 1500px !important; 
-        table-layout: auto;
     }
 
     /* Desactivamos el sticky en algunas columnas si se ven muy apretadas, 
@@ -924,6 +986,107 @@ select.estado-reserva-badge {
     .th-abono-recibido, .th-saldo-recibido { min-width: 50px; font-size: 0.42rem; }
     .btn-login-icono { width: 24px; height: 24px; font-size: 0.65rem; }
 }
+
+/* REGLA DEFINITIVA PARA LA TABLA */
+.tabla-historial th, 
+.tabla-historial td, 
+.tabla-historial th *, 
+.tabla-historial td * {
+    font-size: 9px !important; /* Cambia este número si quieres la letra más grande o más pequeña */
+    text-align: center !important;
+    font-weight: normal !important; /* Quita la negrita para que todo se vea uniforme */
+}
+
+.tabla-historial th {
+    font-size: 9px !important;
+    font-weight: 800 !important; /* Los títulos sí se quedan en negrita */
+}
+/* Forzar negrita solo en Habitación, Entrada y Salida */
+.tabla-historial td:nth-child(4),
+.tabla-historial td:nth-child(4) *,
+.tabla-historial td:nth-child(9),
+.tabla-historial td:nth-child(10),
+.tabla-historial td:nth-child(11),
+.tabla-historial td:nth-child(12),
+.tabla-historial td:nth-child(13),
+.tabla-historial td:nth-child(14),
+.tabla-historial td:nth-child(15),
+.tabla-historial td:nth-child(18),
+.tabla-historial td:nth-child(19),
+.tabla-historial td:nth-child(20),
+.tabla-historial td:nth-child(22),
+.tabla-historial td:nth-child(23),
+.tabla-historial td:nth-child(9) *,
+.tabla-historial td:nth-child(10) *,
+.tabla-historial td:nth-child(11) *,
+.tabla-historial td:nth-child(12) *,
+.tabla-historial td:nth-child(13) *,
+.tabla-historial td:nth-child(14) *,
+.tabla-historial td:nth-child(15) *,
+.tabla-historial td:nth-child(18) *,
+.tabla-historial td:nth-child(19) *,
+.tabla-historial td:nth-child(20) *,
+.tabla-historial td:nth-child(22) *,
+.tabla-historial td:nth-child(23) * {
+    font-weight: 900 !important;
+    color: #3d1c09 !important; 
+}
+
+/* ==========================================
+   REGLA DEFINITIVA PARA LA TABLA (FILAS Y LETRA)
+   ========================================== */
+.tabla-historial td,
+.tabla-historial th {
+    font-size: 9px !important; /* Conserva la letra pequeña */
+    border: 1px solid #e8d5c6 !important; /* Mantiene las líneas de la cuadrícula */
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0.6rem 0.4rem !important;
+}
+
+/* Quita los recuadros internos para que se vea limpio */
+.tabla-historial td *,
+.tabla-historial th * {
+    font-size: 9px !important;
+    border: none !important; 
+}
+
+/* Cambiar el ancho de columnas específicas */
+.tabla-historial th:nth-child(15), 
+.tabla-historial td:nth-child(15) { 
+    min-width: 110px !important; 
+    max-width: 110px !important; 
+}
+
+.tabla-historial th:nth-child(17), 
+.tabla-historial td:nth-child(17) { 
+    min-width: 130px !important; 
+    max-width: 130px !important; 
+}
+
+.tabla-historial th:nth-child(21), 
+.tabla-historial td:nth-child(21) { 
+    min-width: 110px !important; 
+    max-width: 110px !important; 
+}
+
+.tabla-historial th:nth-child(23), 
+.tabla-historial td:nth-child(23) { 
+    min-width: 130px !important; 
+    max-width: 130px !important; 
+}
+
+/* Asegurar colores en estado de pago */
+.tabla-historial td .saldo-cero {
+    color: #2e7d32 !important;
+}
+.tabla-historial td .saldo-deuda {
+    color: #c62828 !important;
+}
+.tabla-historial td .select-estado-pago {
+    color: #c62828 !important;
+}
+
 </style>
 </head>
 <body class="modo-visitante">
@@ -1061,10 +1224,10 @@ select.estado-reserva-badge {
                 <div class="table-wrapper">
                     <table class="tabla-historial">
                         <thead><tr>
-                            <th class="sticky-col col-1"><span class="th-check"><input type="checkbox" class="check-reserva" id="checkTodos"><span class="txt-check">TODOS</span></span></th>
-                            <th class="sticky-col col-2">ID</th>
-                            <th class="sticky-col col-3">NOMBRE COMPLETO</th>
-                            <th class="sticky-col col-4" style="white-space:nowrap;">HABITACIÓN</th>
+                            <th><span class="th-check"><input type="checkbox" class="check-reserva" id="checkTodos"><span class="txt-check">TODOS</span></span></th>
+                            <th>ID</th>
+                            <th>NOMBRE COMPLETO</th>
+                            <th style="white-space:nowrap;">HABITACIÓN</th>
                             <th class="sticky-col col-5"><span class="th-2line"><span>FECHA DE</span><span>ENTRADA</span></span></th>
                             <th class="sticky-col col-6"><span class="th-2line"><span>FECHA DE</span><span>SALIDA</span></span></th>
                             <th style="white-space:nowrap;">NOCHES</th><th style="white-space:nowrap;">PERSONAS</th>
@@ -1075,35 +1238,26 @@ select.estado-reserva-badge {
                             <th><span class="th-2line"><span>SALDO</span><span>PENDIENTE</span></span></th>
                             <th class="th-forma-pago-abono"><span class="th-2line"><span>FORMA DE</span><span>PAGO ABONO</span></span></th>
                             <!-- ENTIDAD BANCARIA ABONO en 2 filas: ENTIDAD / BANCARIA ABONO -->
-                            <th class="th-entidad-abono"><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA ABONO</span></span></th>
+                            <th><span style="display:block; white-space:nowrap;">ENTIDAD</span><span style="display:block; white-space:nowrap;">BANCARIA ABONO</span></th>
+
                             <th class="th-comprobante">
                                 <span class="th-2line">
                                     <span>COMPROBANTE</span>
                                     <span>ABONO</span>
                                 </span>
                             </th>
-                            <th class="th-abono-recibido">
-                                <span class="th-2line">
-                                    <span>ABONO</span>
-                                    <span>RECIBIDO POR</span>
-                                </span>
-                            </th>
+                            <th><span style="display:block; white-space:nowrap;">ABONO</span><span style="display:block; white-space:nowrap;">RECIBIDO POR</span></th>
                             <th class="th-fecha-pago"><span class="th-2line"><span>FECHA DE</span><span>PAGO SALDO</span></span></th>
                             <th class="th-forma-pago-saldo"><span class="th-2line"><span>FORMA DE</span><span>PAGO SALDO</span></span></th>
                             <!-- ENTIDAD BANCARIA SALDO en 2 filas: ENTIDAD / BANCARIA SALDO -->
-                            <th class="th-entidad-saldo"><span class="th-2line"><span>ENTIDAD</span><span>BANCARIA SALDO</span></span></th>
+                            <th><span style="display:block; white-space:nowrap;">ENTIDAD</span><span style="display:block; white-space:nowrap;">BANCARIA SALDO</span></th>
                             <th class="th-comprobante-saldo">
                                 <span class="th-2line">
                                     <span>COMPROBANTE</span>
                                     <span>SALDO</span>
                                 </span>
                             </th>
-                            <th class="th-saldo-recibido">
-                                <span class="th-2line">
-                                    <span>SALDO</span>
-                                    <span>RECIBIDO POR</span>
-                                </span>
-                            </th>
+                            <th><span style="display:block; white-space:nowrap;">SALDO</span><span style="display:block; white-space:nowrap;">RECIBIDO POR</span></th>
                             <!-- ESTADO DEL PAGO en 2 filas: ESTADO / DEL PAGO -->
                             <th class="th-estado-pago"><span class="th-2line"><span>ESTADO</span><span>DEL PAGO</span></span></th>                            
                             <th class="th-estado-reserva"><span class="th-2line"><span>ESTADO DE</span><span>LA RESERVA</span></span></th>
@@ -3754,17 +3908,17 @@ function renderReservasRegistro(){
             
             if(modo === 'editor'){
                 if(estaPagado){
-                    estadoPagoHtml = `<span class="saldo-cero" style="font-size:0.65rem;"><i class="fas fa-check-circle"></i> PAGADO</span>`;
+                    estadoPagoHtml = `<span class="saldo-cero" style="font-size:10px; font-weight:800; color:#2e7d32 !important;"><i class="fas fa-check-circle"></i> PAGADO</span>`;
                 } else {
-                    estadoPagoHtml = `<select class="select-estado-pago" data-id="${r.id}" style="background: #fff; color: #c62828; font-size: 0.65rem; border: 1px solid #c62828; border-radius: 6px; padding: 2px 4px; outline: none; cursor: pointer;">
-                        <option value="Pendiente" selected>PENDIENTE</option>
-                        <option value="Pagado">PAGADO</option>
+                    estadoPagoHtml = `<select class="select-estado-pago" data-id="${r.id}" style="background: #fff; color: #c62828 !important; font-weight: 800; font-size: 10px; border: 1px solid #c62828; border-radius: 6px; padding: 2px 4px; outline: none; cursor: pointer;">
+                        <option value="Pendiente" selected style="color: #c62828;">PENDIENTE</option>
+                        <option value="Pagado" style="color: #2e7d32;">PAGADO</option>
                     </select>`;
                 }
             } else {
                 estadoPagoHtml = estaPagado 
-                    ? `<span class="saldo-cero" style="font-size:0.65rem;"><i class="fas fa-check-circle"></i> PAGADO</span>`
-                    : `<span class="saldo-deuda" style="font-size:0.65rem;">PENDIENTE</span>`;
+                    ? `<span style="font-size:10px; font-weight:800; color:#2e7d32 !important;"><i class="fas fa-check-circle"></i> PAGADO</span>`
+                    : `<span style="font-size:10px; font-weight:800; color:#c62828 !important;">PENDIENTE</span>`;
             }
 
             const fechaPagoSaldoHtml = r.fechaPagoSaldo
@@ -3809,16 +3963,16 @@ function renderReservasRegistro(){
                 <td class="sticky-col col-1">${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
                 <td class="sticky-col col-2">${idReal}</td>
                 <td class="sticky-col col-3"><span class="nombre-texto">${r.nombre}</span></td>
-                <td class="sticky-col col-4"><strong>${r.hab}</strong></td>
-                <td class="sticky-col col-5 celda-fecha">${formatFecha(r.entrada)}</td>
-                <td class="sticky-col col-6 celda-fecha">${formatFecha(r.salida)}</td>
+                <td class="sticky-col col-4">${r.hab}</td>
+<td class="celda-fecha"><strong>${formatFecha(r.entrada)}</strong></td>
+<td class="celda-fecha"><strong>${formatFecha(r.salida)}</strong></td>
                 <td>${r.noches||0}</td>
                 <td>${r.personas}</td>
                 <td>${cocinaHtml}</td>
                 <td><strong>${formatPeso(total)}</strong></td>
                 <td>${abonoHtml}</td>
                 <td>${fechaPagoAbonoHtml}</td>
-                <td><span class="${saldoClass}">${formatPeso(saldo)}</span></td>
+                <td><span style="font-weight: 900 !important; color: ${saldo > 0 ? '#c62828' : '#2e7d32'} !important;">${formatPeso(saldo)}</span></td>
                 <td>${fpHtml}</td>
                 <td>${entHtml}</td>
                 <td>${compHtml}</td>
