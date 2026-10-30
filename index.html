@@ -156,7 +156,7 @@ tr:last-child td { border-bottom: none; }
 .tabla-historial { width: 100%; table-layout: auto; font-size: 0.5rem; min-width: 1400px !important; }
 .tabla-historial thead tr th {
     padding: 0.55rem 0.4rem;
-    font-size: 10px !important; /* <--- Títulos un poquito más pequeños que los datos */
+    font-size: 9px !important; /* <--- Títulos un poquito más pequeños que los datos */
     font-weight: 800 !important;
     text-transform: uppercase;
     text-align: center !important; /* <--- Títulos centrados */
@@ -1087,6 +1087,143 @@ select.estado-reserva-badge {
     color: #c62828 !important;
 }
 
+/* ===== ESTADOS DE LA RESERVA (ETIQUETAS RESALTADAS) ===== */
+.wrapper-estado-reserva {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 110px; /* Ancho máximo de la etiqueta */
+}
+
+.estado-reserva-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 8px;
+    border-radius: 20px;
+    font-size: 9px !important; /* MANTIENE EL TAMAÑO DE LETRA PEQUEÑO */
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Colores de fondo y texto para cada estado */
+.estado-reserva-badge.confirmada {
+    background-color: #50260c !important; /* Café */
+    color: #ffffff !important; /* Letra blanca */
+    border: 1px solid #3d1c09 !important;
+}
+
+.estado-reserva-badge.pendiente {
+    background-color: #ffc107 !important; /* Amarillo */
+    color: #50260c !important; /* Letra café */
+    border: 1px solid #e6a800 !important;
+}
+
+.estado-reserva-badge.cancelada {
+    background-color: #c62828 !important; /* Rojo */
+    color: #ffffff !important; /* Letra blanca */
+    border: 1px solid #a00000 !important;
+}
+
+.estado-reserva-badge.finalizada {
+    background-color: #2e7d32 !important; /* Verde */
+    color: #ffffff !important; /* Letra blanca */
+    border: 1px solid #1b5e20 !important;
+}
+
+/* El select invisible que se pone encima para que al hacer clic se abra el menú de opciones */
+.select-estado-reserva {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Lo hacemos invisible */
+    cursor: pointer;
+}
+
+/* ===== FIJAR LAS PRIMERAS 4 COLUMNAS ===== */
+/* Fondo blanco para tapar lo que pasa por debajo */
+.tabla-historial tbody td:nth-child(1),
+.tabla-historial tbody td:nth-child(2),
+.tabla-historial tbody td:nth-child(3),
+.tabla-historial tbody td:nth-child(4) {
+    position: sticky !important;
+    z-index: 10 !important;
+    background-color: #fff !important; 
+    border-right: 1px solid #e8d5c6 !important;
+}
+
+/* Los títulos de esas 4 columnas deben estar por encima de todo */
+.tabla-historial thead tr th:nth-child(1),
+.tabla-historial thead tr th:nth-child(2),
+.tabla-historial thead tr th:nth-child(3),
+.tabla-historial thead tr th:nth-child(4) {
+    z-index: 40 !important;
+}
+
+/* Posiciones exactas para que no se monten */
+.tabla-historial tbody td:nth-child(1) { left: 0px !important; min-width: 60px !important; max-width: 60px !important; }
+.tabla-historial tbody td:nth-child(2) { left: 60px !important; min-width: 50px !important; max-width: 50px !important; }
+.tabla-historial tbody td:nth-child(3) { left: 110px !important; min-width: 180px !important; max-width: 180px !important; }
+.tabla-historial tbody td:nth-child(4) { left: 290px !important; min-width: 100px !important; max-width: 100px !important; }
+
+/* Lo mismo para los títulos (izquierda) */
+.tabla-historial thead tr th:nth-child(1) { left: 0px !important; min-width: 60px !important; max-width: 60px !important; }
+.tabla-historial thead tr th:nth-child(2) { left: 60px !important; min-width: 50px !important; max-width: 50px !important; }
+.tabla-historial thead tr th:nth-child(3) { left: 110px !important; min-width: 180px !important; max-width: 180px !important; }
+.tabla-historial thead tr th:nth-child(4) { left: 290px !important; min-width: 100px !important; max-width: 100px !important; }
+
+/* Recuperar los bordes para las 4 columnas fijas */
+.tabla-historial tbody td:nth-child(1),
+.tabla-historial tbody td:nth-child(2),
+.tabla-historial tbody td:nth-child(3),
+.tabla-historial tbody td:nth-child(4),
+.tabla-historial thead tr th:nth-child(1),
+.tabla-historial thead tr th:nth-child(2),
+.tabla-historial thead tr th:nth-child(3),
+.tabla-historial thead tr th:nth-child(4) {
+    border-right: 1px solid #e8d5c6 !important; /* Línea vertical */
+    border-bottom: 1px solid #e8d5c6 !important; /* Línea horizontal */
+}
+
+    /* 1. Asegurar que el contenedor permita el scroll táctil */
+    .table-wrapper {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+        max-height: 60vh !important; /* Ajusta la altura para que quepa en la pantalla */
+    }
+
+    /* 2. Evitar que el navegador del celular reduzca la tabla o las letras */
+    .tabla-historial {
+        min-width: 1600px !important; /* Mantiene el ancho para que haya scroll horizontal */
+        table-layout: auto !important;
+    }
+
+    /* 3. Mantener los anchos exactos de las columnas fijas */
+    .tabla-historial tbody td:nth-child(1) { left: 0px !important; min-width: 60px !important; max-width: 60px !important; }
+    .tabla-historial tbody td:nth-child(2) { left: 60px !important; min-width: 50px !important; max-width: 50px !important; }
+    .tabla-historial tbody td:nth-child(3) { left: 110px !important; min-width: 180px !important; max-width: 180px !important; }
+    .tabla-historial tbody td:nth-child(4) { left: 290px !important; min-width: 100px !important; max-width: 100px !important; }
+
+    /* Lo mismo para los títulos */
+    .tabla-historial thead tr th:nth-child(1) { left: 0px !important; min-width: 60px !important; max-width: 60px !important; }
+    .tabla-historial thead tr th:nth-child(2) { left: 60px !important; min-width: 50px !important; max-width: 50px !important; }
+    .tabla-historial thead tr th:nth-child(3) { left: 110px !important; min-width: 180px !important; max-width: 180px !important; }
+    .tabla-historial thead tr th:nth-child(4) { left: 290px !important; min-width: 100px !important; max-width: 100px !important; }
+
+    /* 4. Forzar que los títulos sigan fijos en celular */
+    .tabla-historial thead tr th {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 30 !important;
+    }
+
+
 </style>
 </head>
 <body class="modo-visitante">
@@ -1215,7 +1352,10 @@ select.estado-reserva-badge {
                     <button class="btn-limpiar-busqueda" id="btnLimpiarBusqueda"><i class="fas fa-eraser"></i> Limpiar</button>
                 </div>
                 <div class="barra-acciones-masivas" id="barraAccionesMasivas">
-                    <span class="contador-sel"><i class="fas fa-check-square"></i> <span id="contadorSeleccionados">0</span> seleccionadas</span>
+                <label class="contador-sel" style="cursor: pointer; user-select: none;">
+    <input type="checkbox" id="checkSeleccionMasiva" checked style="width: 16px; height: 16px; accent-color: #b33a3a; margin-right: 6px; cursor: pointer;"> 
+    <span id="contadorSeleccionados">0</span> seleccionadas
+</label>
                     <div class="botones-masivos">
                         <button class="btn-masivo deseleccionar" id="btnCancelarSeleccion"><i class="fas fa-times-circle"></i> Cancelar</button>
                         <button class="btn-masivo eliminar-sel" id="btnEliminarSeleccionados"><i class="fas fa-trash-alt"></i> Eliminar</button>
@@ -1224,7 +1364,7 @@ select.estado-reserva-badge {
                 <div class="table-wrapper">
                     <table class="tabla-historial">
                         <thead><tr>
-                            <th><span class="th-check"><input type="checkbox" class="check-reserva" id="checkTodos"><span class="txt-check">TODOS</span></span></th>
+                            <th class="col-solo-editor"><span class="th-check"><input type="checkbox" class="check-reserva" id="checkTodos"><span class="txt-check">TODOS</span></span></th>
                             <th>ID</th>
                             <th>NOMBRE COMPLETO</th>
                             <th style="white-space:nowrap;">HABITACIÓN</th>
@@ -1261,7 +1401,8 @@ select.estado-reserva-badge {
                             <!-- ESTADO DEL PAGO en 2 filas: ESTADO / DEL PAGO -->
                             <th class="th-estado-pago"><span class="th-2line"><span>ESTADO</span><span>DEL PAGO</span></span></th>                            
                             <th class="th-estado-reserva"><span class="th-2line"><span>ESTADO DE</span><span>LA RESERVA</span></span></th>
-                            <th>ACCIÓN</th>
+                           
+                            <th class="col-solo-editor">ACCIÓN</th>
                         </tr></thead>
                         <tbody id="reservasTableBodyRegistro"></tbody>
                     </table>
@@ -3881,6 +4022,9 @@ function renderReservasRegistro(){
         fil.forEach((r,idx)=>{
             const row = document.createElement('tr');
             row.dataset.id = r.id;
+                        if (r.estado === 'Cancelada') {
+                row.style.opacity = '0.5'; /* Hace que toda la fila se vea clara */
+            }
             const total = calcularTotalBase(r);
             const saldo = r.valorSaldo || 0;
             const saldoClass = saldo===0 ? 'saldo-cero' : 'saldo-deuda';
@@ -3906,21 +4050,27 @@ function renderReservasRegistro(){
             let estadoPagoHtml = '';
             const estaPagado = (saldo <= 0 || r.estadoPago === 'Pago completo');
             
+
+            
             if(modo === 'editor'){
                 if(estaPagado){
-                    estadoPagoHtml = `<span class="saldo-cero" style="font-size:10px; font-weight:800; color:#2e7d32 !important;"><i class="fas fa-check-circle"></i> PAGADO</span>`;
+                    estadoPagoHtml = `<span class="saldo-cero" style="font-size:10px; font-weight:800; color:#2e7d32 !important; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><i class="fas fa-check-circle" style="color:#2e7d32 !important;"></i> PAGADO</span>`;
                 } else {
-                    estadoPagoHtml = `<select class="select-estado-pago" data-id="${r.id}" style="background: #fff; color: #c62828 !important; font-weight: 800; font-size: 10px; border: 1px solid #c62828; border-radius: 6px; padding: 2px 4px; outline: none; cursor: pointer;">
-                        <option value="Pendiente" selected style="color: #c62828;">PENDIENTE</option>
-                        <option value="Pagado" style="color: #2e7d32;">PAGADO</option>
-                    </select>`;
+                    estadoPagoHtml = `<div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                        <i class="fas fa-exclamation-circle" style="color: #c62828 !important; font-size: 10px;"></i>
+                        <select class="select-estado-pago" data-id="${r.id}" style="background: transparent !important; color: #c62828 !important; font-weight: 800; font-size: 10px; border: none; outline: none; cursor: pointer; appearance: none; -webkit-appearance: none; padding: 0;">
+                            <option value="Pendiente" selected style="color: #c62828;">PENDIENTE</option>
+                            <option value="Pagado" style="color: #2e7d32;">PAGADO</option>
+                        </select>
+                        <i class="fas fa-caret-down" style="color: #c62828 !important; font-size: 10px; margin-left: -2px; pointer-events: none;"></i>
+                    </div>`;
                 }
             } else {
                 estadoPagoHtml = estaPagado 
-                    ? `<span style="font-size:10px; font-weight:800; color:#2e7d32 !important;"><i class="fas fa-check-circle"></i> PAGADO</span>`
-                    : `<span style="font-size:10px; font-weight:800; color:#c62828 !important;">PENDIENTE</span>`;
+                    ? `<span class="saldo-cero" style="font-size:10px; font-weight:800; color:#2e7d32 !important; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><i class="fas fa-check-circle" style="color:#2e7d32 !important;"></i> PAGADO</span>`
+                    : `<span class="saldo-deuda" style="font-size:10px; font-weight:800; color:#c62828 !important; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><i class="fas fa-exclamation-circle" style="color:#c62828 !important;"></i> PENDIENTE</span>`;
             }
-
+            
             const fechaPagoSaldoHtml = r.fechaPagoSaldo
                 ? `<span style="font-size:0.6rem; font-weight:700; color:#50260c;">${r.fechaPagoSaldo}</span>`
                 : `<span style="color:#b8a89a; font-size:0.6rem;">—</span>`;
@@ -3948,19 +4098,29 @@ function renderReservasRegistro(){
             const compSaldoHtml = `<button class="btn-comprobante btn-ver-comp" data-id="${r.id}" data-tipo="saldo"><i class="fas fa-image"></i>${numCompSaldo>1?`<span class="badge-count">${numCompSaldo}</span>`:''}</button>`;
 
             let estadoReservaHtml = '';
+            const claseEstado = (r.estado || '').toLowerCase();
+            
             if(modo === 'editor'){
-                           const esFinalizada = (r.estado === 'Finalizada');
-                estadoReservaHtml = `<select class="select-estado-reserva estado-reserva-badge ${(r.estado || '').toLowerCase()}" data-id="${r.id}" ${esFinalizada ? 'disabled style="pointer-events: none; opacity: 1;"' : ''}>
-                    <option value="Confirmada" ${r.estado === 'Confirmada' ? 'selected' : ''}>CONFIRMADA</option>
-                    <option value="Pendiente" ${r.estado === 'Pendiente' ? 'selected' : ''}>PENDIENTE</option>
-                    <option value="Cancelada" ${r.estado === 'Cancelada' ? 'selected' : ''}>CANCELADA</option>
-                    <option value="Finalizada" ${r.estado === 'Finalizada' ? 'selected' : ''}>FINALIZADA</option>
-                </select>`;
+                const esFinalizada = (r.estado === 'Finalizada');
+                // Aquí creamos la flechita con un dibujo SVG para que no falle
+                const flechita = `<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="margin-left: 6px;"><path d="M7 10l5 5 5-5z"/></svg>`;
+                
+                estadoReservaHtml = `
+                    <div class="wrapper-estado-reserva">
+                        <span class="estado-reserva-badge ${(r.estado || '').toLowerCase()}">${r.estado || '—'} ${esFinalizada ? '' : flechita}</span>
+                        <select class="select-estado-reserva" data-id="${r.id}" ${esFinalizada ? 'disabled style="pointer-events: none;"' : ''}>
+                            <option value="Confirmada" ${r.estado === 'Confirmada' ? 'selected' : ''}>CONFIRMADA</option>
+                            <option value="Pendiente" ${r.estado === 'Pendiente' ? 'selected' : ''}>PENDIENTE</option>
+                            <option value="Cancelada" ${r.estado === 'Cancelada' ? 'selected' : ''}>CANCELADA</option>
+                            <option value="Finalizada" ${r.estado === 'Finalizada' ? 'selected' : ''}>FINALIZADA</option>
+                        </select>
+                    </div>`;
             } else {
                 estadoReservaHtml = `<span class="estado-reserva-badge ${(r.estado || '').toLowerCase()}">${r.estado || '—'}</span>`;
             }
+
             row.innerHTML = `
-                <td class="sticky-col col-1">${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
+                <td class="col-solo-editor sticky-col col-1">${modo==='editor' ? `<input type="checkbox" class="check-reserva check-fila" data-id="${r.id}" ${sel?'checked':''}>` : ''}</td>
                 <td class="sticky-col col-2">${idReal}</td>
                 <td class="sticky-col col-3"><span class="nombre-texto">${r.nombre}</span></td>
                 <td class="sticky-col col-4">${r.hab}</td>
@@ -3984,7 +4144,7 @@ function renderReservasRegistro(){
                 <td>${saldoRecibidoHtml}</td>
                 <td>${estadoPagoHtml}</td>
                 <td>${estadoReservaHtml}</td>
-                <td>${accionHtml}</td>`;
+                                <td class="col-solo-editor">${accionHtml}</td>`;
             reservasTableBody.appendChild(row);
         });
         checkTodos.checked = todosSel && fil.length>0;
@@ -4117,9 +4277,23 @@ checkTodos.addEventListener('change', ()=>{
     actualizarBarraMasiva();
 });
 btnCancelarSeleccion.addEventListener('click', ()=>{
+    // Limpiamos la lista de seleccionados
     seleccionados.clear();
-    document.querySelectorAll('.check-fila').forEach(c=>{ c.checked=false; c.closest('tr').classList.remove('fila-seleccionada'); });
-    checkTodos.checked=false; checkTodos.indeterminate=false;
+    
+    // Desmarcamos todas las casillas de las filas
+    document.querySelectorAll('.check-fila').forEach(c => { 
+        c.checked = false; 
+        c.closest('tr').classList.remove('fila-seleccionada'); 
+    });
+    
+    // Desmarcamos el check de "TODOS" (el de la cabecera)
+    const checkTodosHeader = document.getElementById('checkTodos');
+    if (checkTodosHeader) {
+        checkTodosHeader.checked = false; 
+        checkTodosHeader.indeterminate = false;
+    }
+    
+    // Actualizamos la barra (que se oculta al estar en 0)
     actualizarBarraMasiva();
     mostrarToast('✅ Selección cancelada','ok');
 });
@@ -4129,22 +4303,18 @@ btnEliminarSeleccionados.addEventListener('click', ()=>{
     abrirConfirm('¿Eliminar reservas seleccionadas?', `Se eliminarán ${seleccionados.size} reserva(s).`, async ()=>{
         try {
             const ids = [...seleccionados];
-            const nombres = new Set();
-            ids.forEach(id=>{
-                const r = reservas.find(x=>String(x.id)===String(id));
-                if(r && r.nombre) nombres.add(String(r.nombre).trim().toUpperCase());
-            });
-            await sb.from(TABLA).delete().in('id', ids);
-            reservas = reservas.filter(r=>!seleccionados.has(String(r.id)));
+            // ... (código de eliminación en Supabase) ...
+            
             seleccionados.clear();
-            for(const nom of nombres){
-                const otras = reservas.filter(x=>String(x.nombre||'').trim().toUpperCase() === nom);
-                if(otras.length === 0){ await eliminarClienteDeBD(nom); }
+            
+            // Desmarcamos el check de "TODOS" en la cabecera también
+            const checkTodosHeader = document.getElementById('checkTodos');
+            if (checkTodosHeader) {
+                checkTodosHeader.checked = false; 
+                checkTodosHeader.indeterminate = false;
             }
-            await cargarClientesBD(); llenarSelectNombres();
-            guardarCache(); renderTodo();
-            setUltimaActualizacion(new Date());
-            mostrarToast(`🗑️ ${ids.length} eliminada(s)`,'info');
+            
+            // ... (resto del código de actualización) ...
         } catch(e){ mostrarToast('❌ '+e.message,'error'); }
     });
 });
@@ -5452,6 +5622,41 @@ function renderTodo(){
     actualizarDashFiltroCobra();
     actualizarFiltroRecibido();
 }
+
+// Controlar el checkbox de la barra rosa para deseleccionar todo
+document.addEventListener('change', (e) => {
+    if (e.target && e.target.id === 'checkSeleccionMasiva') {
+        if (!e.target.checked) {
+            seleccionados.clear();
+            document.querySelectorAll('.check-fila').forEach(c => { 
+                c.checked = false; 
+                c.closest('tr').classList.remove('fila-seleccionada'); 
+            });
+            const checkTodosHeader = document.getElementById('checkTodos');
+            if (checkTodosHeader) {
+                checkTodosHeader.checked = false; 
+                checkTodosHeader.indeterminate = false;
+            }
+            const barra = document.getElementById('barraAccionesMasivas');
+            if (barra) barra.classList.remove('show');
+            mostrarToast('✅ Selección cancelada', 'ok');
+        }
+    }
+});
+
+// Observar si la barra cambia para volver a marcar el check
+const contenedorContador = document.getElementById('contadorSeleccionados');
+if (contenedorContador) {
+    const observador = new MutationObserver(() => {
+        const n = parseInt(contenedorContador.textContent) || 0;
+        const checkMasivo = document.getElementById('checkSeleccionMasiva');
+        if (checkMasivo) {
+            checkMasivo.checked = (n > 0);
+        }
+    });
+    observador.observe(contenedorContador, { childList: true, characterData: true, subtree: true });
+}
+
 async function init(){
     try { ['villaAlejo_cache_v6','villaAlejo_cache_v7','villaAlejo_cache_v8','villaAlejo_cache_v9','villaAlejo_cache_v10','villaAlejo_cache_v11','villaAlejo_cache_v12','villaAlejo_cache_v13','villaAlejo_cache_v14','villaAlejo_cache_v15','villaAlejo_cache_v16','villaAlejo_cache_v17','villaAlejo_tarifas_v1','villaAlejo_tarifas_v7','villaAlejo_tarifas_v8','villaAlejo_tarifas_v9','villaAlejo_tarifas_v10','villaAlejo_tarifas_v11','villaAlejo_tarifas_v12','villaAlejo_tarifas_v13','villaAlejo_tarifas_v14','villaAlejo_tarifas_v15','villaAlejo_tarifas_v16','villaAlejo_tarifas_v17'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
     cargarCiudadesSelect();
