@@ -1227,6 +1227,38 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
     font-weight: 900 !important;
 }
 
+/* ===== FORZAR SCROLL COMPLETO EN CELULARES ===== */
+@media (max-width: 768px) {
+    /* 1. Le decimos al celular que IGNORE el sticky de todas las celdas y títulos */
+    .tabla-historial tbody td,
+    .tabla-historial thead tr th {
+        position: static !important; 
+        left: auto !important;
+        background-color: transparent !important;
+        border-right: none !important;
+    }
+
+    /* 2. Volvemos a fijar ÚNICAMENTE la fila de títulos arriba */
+    .tabla-historial thead tr th {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 30 !important;
+        background-color: #faf3ee !important;
+    }
+
+    /* 3. Aseguramos que la tabla sea ancha y el contenedor tenga scroll */
+    .tabla-historial {
+        min-width: 1600px !important;
+    }
+    
+    .table-wrapper {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        max-height: 65vh !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+}
+
 </style>
 </head>
 <body class="modo-visitante">
