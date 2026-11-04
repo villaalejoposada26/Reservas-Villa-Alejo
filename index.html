@@ -880,38 +880,43 @@ select.estado-reserva-badge {
         box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
     }
 
-/* ===== DISPOSITIVOS MÓVILES: TÍTULOS FIJOS (VERTICAL) Y SCROLL HORIZONTAL ===== */
+/* ===== DISPOSITIVOS MÓVILES ===== */
 @media (max-width: 768px) {
-    /* 1. El contenedor maneja el scroll de la tabla */
+    /* 1. Permitir que toda la tabla se deslice */
     .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
-        max-height: 65vh !important; /* Altura para que funcione el scroll vertical */
-        -webkit-overflow-scrolling: touch !important; /* Scroll suave en iOS */
-        position: relative;
+        max-height: 65vh !important; 
+        -webkit-overflow-scrolling: touch !important; 
     }
 
-    /* 2. La tabla se mantiene ancha para el scroll horizontal */
+    /* 2. La tabla debe ser ancha para que haya scroll lateral */
     .tabla-historial {
         min-width: 1600px !important;
         table-layout: auto !important;
     }
 
-    /* 3. FIJAR SOLO LOS TÍTULOS ARRIBA (Scroll vertical) */
+    /* 3. FIJAR SOLO LOS TÍTULOS (Para el scroll hacia arriba y abajo) */
     .tabla-historial thead tr th {
         position: sticky !important;
         top: 0 !important;
-        z-index: 20 !important;
-        background-color: #faf3ee !important; /* Fondo sólido para que tape los datos */
+        z-index: 30 !important;
+        background-color: #faf3ee !important;
     }
 
-    /* 4. QUITAR EL STICKY DE LAS 4 COLUMNAS DE DATOS (Para que se muevan a los lados) */
-    .tabla-historial tbody td:nth-child(1),
-    .tabla-historial tbody td:nth-child(2),
-    .tabla-historial tbody td:nth-child(3),
-    .tabla-historial tbody td:nth-child(4) {
-        position: static !important; 
-        background-color: transparent !important;
+    /* 4. QUITAR EL STICKY DE TODAS LAS COLUMNAS (Para que se muevan a los lados) */
+    .tabla-historial tbody td,
+    .tabla-historial thead tr th {
+        position: sticky !important; /* Mantenemos el sticky solo para los títulos arriba */
+    }
+    
+    .tabla-historial tbody td {
+        position: static !important; /* Forzamos a que los datos se muevan */
+    }
+
+    /* 5. Quitar las líneas verticales que puedan estorbar */
+    .tabla-historial tbody td {
+        border-right: none !important;
     }
 }
     
