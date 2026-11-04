@@ -880,23 +880,23 @@ select.estado-reserva-badge {
         box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
     }
 
-/* ===== DISPOSITIVOS MÓVILES ===== */
+/* ===== TABLA EN CELULARES (NINGUNA COLUMNA FIJA) ===== */
 @media (max-width: 768px) {
-    /* 1. Permitir que toda la tabla se deslice */
+    /* 1. El contenedor maneja el scroll en ambas direcciones */
     .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
         max-height: 65vh !important; 
-        -webkit-overflow-scrolling: touch !important; 
+        -webkit-overflow-scrolling: touch !important;
     }
 
-    /* 2. La tabla debe ser ancha para que haya scroll lateral */
+    /* 2. La tabla se mantiene ancha para que se pueda deslizar */
     .tabla-historial {
         min-width: 1600px !important;
         table-layout: auto !important;
     }
 
-    /* 3. FIJAR SOLO LOS TÍTULOS (Para el scroll hacia arriba y abajo) */
+    /* 3. FIJAR SOLO LA FILA DE TÍTULOS ARRIBA (Para el scroll vertical) */
     .tabla-historial thead tr th {
         position: sticky !important;
         top: 0 !important;
@@ -904,19 +904,10 @@ select.estado-reserva-badge {
         background-color: #faf3ee !important;
     }
 
-    /* 4. QUITAR EL STICKY DE TODAS LAS COLUMNAS (Para que se muevan a los lados) */
-    .tabla-historial tbody td,
-    .tabla-historial thead tr th {
-        position: sticky !important; /* Mantenemos el sticky solo para los títulos arriba */
-    }
-    
+    /* 4. QUITAR EL STICKY DE TODAS LAS CELDAS DE DATOS (Para que se muevan a los lados) */
     .tabla-historial tbody td {
-        position: static !important; /* Forzamos a que los datos se muevan */
-    }
-
-    /* 5. Quitar las líneas verticales que puedan estorbar */
-    .tabla-historial tbody td {
-        border-right: none !important;
+        position: static !important; 
+        background-color: transparent !important; /* Quita el fondo blanco que las hacía ver fijas */
     }
 }
     
