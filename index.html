@@ -880,8 +880,9 @@ select.estado-reserva-badge {
         box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
     }
 
-/* ===== DESACTIVAR COLUMNAS FIJAS EN CELULARES ===== */
+/* ===== HACER QUE TODA LA TABLA SE MUEVA EN CELULARES ===== */
 @media (max-width: 768px) {
+    /* 1. Quitamos el efecto fijo a TODAS las celdas y títulos */
     .tabla-historial tbody td:nth-child(1),
     .tabla-historial tbody td:nth-child(2),
     .tabla-historial tbody td:nth-child(3),
@@ -890,10 +891,22 @@ select.estado-reserva-badge {
     .tabla-historial thead tr th:nth-child(2),
     .tabla-historial thead tr th:nth-child(3),
     .tabla-historial thead tr th:nth-child(4) {
-        position: static !important; 
-        border-right: none !important; 
+        position: static !important; /* Quita el sticky */
+        background-color: transparent !important; /* Quita el fondo blanco */
+        border-right: none !important; /* Quita las líneas verticales */
     }
-}    
+
+    /* 2. Ajustamos el contenedor para que permita el scroll táctil fluido */
+    .table-wrapper {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* 3. Aseguramos que la tabla sea ancha para que haya mucho que deslizar */
+    .tabla-historial {
+        min-width: 1600px !important;
+    }
+}  
     
 @media (max-width: 480px) {
     .section-btn span { display: none; }
