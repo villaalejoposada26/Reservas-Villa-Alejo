@@ -1305,6 +1305,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
         <button class="section-btn solo-editor" data-section="dash"><i class="fas fa-chart-line"></i> <span>DASHBOARD</span></button>
         <button class="section-btn solo-editor-y-lector" data-section="tarifas"><i class="fas fa-tags"></i> <span>TARIFAS</span></button>
         <button class="section-btn solo-editor" data-section="bd"><i class="fas fa-database"></i> <span>BASE DE DATOS</span></button>
+        <button class="section-btn solo-editor" data-section="contabilidad"><i class="fas fa-wallet"></i> <span>CONTABILIDAD</span></button>
     </div>
     <div class="section-content">
         <div class="content-panel active" id="calendar-panel">
@@ -1554,6 +1555,71 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
                 </div>
             </div>
         </div>
+        <div class="content-panel" id="contabilidad-panel">
+            <div class="panel-header">
+                <h2><i class="fas fa-wallet"></i> CONTABILIDAD</h2>
+                 <div style="display: flex; gap: 10px;">
+                    <!-- BOTÓN PARA ELIMINAR SELECCIONADOS -->
+                    <button class="btn-primary" id="btnEliminarContabilidadMasivo" style="display: none; background: #c62828; padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-trash-alt"></i> ELIMINAR SELECCIONADOS</button>
+                    <button class="btn-primary" id="btnNuevoMovimiento" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-plus"></i> NUEVO MOVIMIENTO</button>
+                </div>
+            </div>
+
+            <!-- AGREGA EL FORMULARIO AQUÍ ABAJO -->
+            <div id="formContabilidad" style="display: none; background: #faf3ee; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e8d5c6;">
+                <div class="form-row">
+                    <div class="form-group small">
+                        <label>Fecha <span class="req">*</span></label>
+                        <input type="date" id="contFecha">
+                    </div>
+                    <div class="form-group" style="flex: 2 1 200px;">
+                        <label>Descripción <span class="req">*</span></label>
+                        <input type="text" id="contDesc" placeholder="Ej: Pago de luz, Venta abono..." style="text-transform: uppercase;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Egresos ($)</label>
+<input type="text" id="contEgresos" class="moneda" placeholder="Ej: 50.000,00" style="color: #c62828; font-weight: bold; text-align: right;" inputmode="decimal">
+                    </div>
+                    <div class="form-group">
+                        <label>Ingresos ($)</label>
+<input type="text" id="contIngresos" class="moneda" placeholder="Ej: 100.000,00" style="color: #2e7d32; font-weight: bold; text-align: right;" inputmode="decimal">
+                    </div>
+                </div>
+                <div class="form-botones-inferiores" style="border: none; margin-top: 0.5rem; padding-top: 0;">
+                    <button class="btn-primary" id="btnGuardarContabilidad" style="padding: 0.7rem 1.5rem;"><i class="fas fa-save"></i> GUARDAR</button>
+                    <button class="btn-cancelar" id="btnCancelarContabilidad" style="padding: 0.7rem 1.5rem;"><i class="fas fa-times"></i> CANCELAR</button>
+                </div>
+            </div>
+
+            <!-- AQUÍ SIGUE LO QUE YA TENÍAS -->
+            <div class="lista-reservas-section">
+                <div class="table-wrapper" style="max-height: 500px;">
+                    <!-- ... tu tabla ... -->            
+
+            <div class="lista-reservas-section">
+                <div class="table-wrapper" style="max-height: 500px;">
+                    <table class="tabla-historial">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"><input type="checkbox" id="checkTodosContabilidad" class="check-reserva"></th>
+                                <th style="width: 50px;">N</th>
+                                <th>FECHA</th>
+                                <th>DESCRIPCIÓN</th>
+                                <th>EGRESOS</th>
+                                <th>INGRESOS</th>
+                                <th>TOTAL</th>
+                                <th>ACCIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contabilidadTableBody">
+                            <!-- Aquí se cargarán los datos -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
     </div>
 </div>
 
@@ -1972,6 +2038,7 @@ const ROLES_USUARIOS = {
 };
 
 let reservas = [];
+let seleccionadosContabilidad = new Set();
 let clientesBD = [];
 let fechaModalSeleccionada = null;
 let temporadaSeleccionada = null;
@@ -2749,8 +2816,9 @@ function activateSection(id){
     if(id==='reservas') renderReservasRegistro();
     if(id==='tarifas') renderTarifas();
     if(id==='dash' && modo==='editor') renderDashboard();
+    if(id==='contabilidad' && modo==='editor') renderContabilidad();
 }
-const panels = { calendar: document.getElementById('calendar-panel'), reservas: document.getElementById('reservas-panel'), dash: document.getElementById('dash-panel'), tarifas: document.getElementById('tarifas-panel'), bd: document.getElementById('bd-panel') };
+const panels = { calendar: document.getElementById('calendar-panel'), reservas: document.getElementById('reservas-panel'), dash: document.getElementById('dash-panel'), tarifas: document.getElementById('tarifas-panel'), bd: document.getElementById('bd-panel'), contabilidad: document.getElementById('contabilidad-panel')};
 document.querySelectorAll('.section-btn').forEach(b=>b.addEventListener('click', ()=>activateSection(b.dataset.section)));
 document.querySelectorAll('.dash-subtab').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -5827,6 +5895,139 @@ if (contenedorContador) {
     });
     observador.observe(contenedorContador, { childList: true, characterData: true, subtree: true });
 }
+
+async function renderContabilidad(){
+    const tbody = document.getElementById('contabilidadTableBody');
+    if(!tbody) return;
+    
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">Cargando datos...</td></tr>';
+
+    try {
+        // Conectar a la tabla 'contabilidad' de Supabase
+        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true });
+        if(error) throw error;
+
+        tbody.innerHTML = '';
+        let totalAcumulado = 0;
+
+        if(data.length === 0){
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem; color:#8a6b55;">No hay movimientos registrados.</td></tr>';
+            return;
+        }
+
+        data.forEach((mov, index) => {
+            const egresoVal = mov.egresos || 0;
+            const ingresoVal = mov.ingresos || 0;
+            totalAcumulado += (ingresoVal - egresoVal);
+            
+// Formatear la fecha en texto largo (Ej: 20 de Noviembre 2026)
+            const fechaObj = new Date(mov.fecha + 'T00:00:00'); 
+            const fechaStr = fechaObj.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <!-- CHECKBOX PARA SELECCIONAR -->
+                <td><input type="checkbox" class="check-reserva check-fila-cont" data-id="${mov.id}"></td>
+                
+                <td>${index + 1}</td>
+                <td>${fechaStr}</td>
+                <td style="text-align: left; padding-left: 10px;">${mov.descripcion}</td>
+                <td style="color: #c62828 !important; font-weight: 900 !important;">${egresoVal !== 0 ? formatPeso(egresoVal) : '—'}</td>
+                <td style="color: #2e7d32 !important; font-weight: 900 !important;">${ingresoVal > 0 ? formatPeso(ingresoVal) : '—'}</td>
+                <td style="font-weight: 900 !important; background: #faf3ee !important; color: ${totalAcumulado < 0 ? '#c62828' : '#2e7d32'} !important;">${formatPeso(totalAcumulado)}</td>
+                
+                <!-- BOTONES DE ACCIÓN -->
+                <td>
+                    <div style="display:flex; gap:4px; justify-content:center;">
+                        <div class="btn-accion-col editar"><button class="btn-icon btn-editar-cont" data-id="${mov.id}" title="Editar"><i class="fas fa-edit"></i></button></div>
+                        <div class="btn-accion-col eliminar"><button class="btn-icon btn-danger btn-eliminar-cont" data-id="${mov.id}" title="Eliminar"><i class="fas fa-trash-alt"></i></button></div>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            
+                // Asignar eventos a los botones de editar y eliminar
+    tbody.querySelectorAll('.btn-eliminar-cont').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            if(!confirm('¿Eliminar este movimiento?')) return;
+            try {
+                const { error } = await sb.from('contabilidad').delete().eq('id', id);
+                if(error) throw error;
+                mostrarToast('🗑️ Movimiento eliminado', 'info');
+                renderContabilidad(); // Recargar la tabla
+            } catch(e) {
+                alert('Error al eliminar: ' + e.message);
+            }
+        });
+    });
+
+    tbody.querySelectorAll('.btn-editar-cont').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Aquí irá la lógica para editar
+            alert('Función de editar en construcción...');
+        });
+    });
+        });
+
+    } catch(e) {
+        console.error(e);
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: #c62828; padding: 2rem;">Error al cargar datos: ' + e.message + '</td></tr>';
+    }
+}
+
+// Eventos para el formulario de contabilidad
+document.getElementById('btnNuevoMovimiento').addEventListener('click', () => {
+    document.getElementById('formContabilidad').style.display = 'block';
+    document.getElementById('contFecha').value = new Date().toISOString().split('T')[0]; 
+    document.getElementById('contDesc').focus();
+});
+
+document.getElementById('btnCancelarContabilidad').addEventListener('click', () => {
+    document.getElementById('formContabilidad').style.display = 'none';
+    document.getElementById('contDesc').value = '';
+    document.getElementById('contEgresos').value = '';
+    document.getElementById('contIngresos').value = '';
+});
+
+// Aplicar el mismo formato que usa el descuento
+bindMoneda(document.getElementById('contEgresos'), true);
+bindMoneda(document.getElementById('contIngresos'), false);
+
+document.getElementById('btnGuardarContabilidad').addEventListener('click', async () => {
+    const fecha = document.getElementById('contFecha').value;
+    const descripcion = document.getElementById('contDesc').value.trim().toUpperCase();
+
+    let egresos = parsePeso(document.getElementById('contEgresos').value) || 0;
+    let ingresos = parsePeso(document.getElementById('contIngresos').value) || 0;
+    
+    // Guardar egreso en negativo para que salga rojo en la tabla
+    if(egresos > 0) egresos = -Math.abs(egresos);
+    if(!fecha || !descripcion){ alert('Por favor llena la fecha y la descripción.'); return; }
+
+    const btn = document.getElementById('btnGuardarContabilidad');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    btn.disabled = true;
+
+    try {
+        const { error } = await sb.from('contabilidad').insert({
+            fecha: fecha,
+            descripcion: descripcion,
+            egresos: egresos,
+            ingresos: ingresos
+        });
+        if(error) throw error;
+        
+        mostrarToast('✅ Movimiento guardado', 'ok');
+        document.getElementById('btnCancelarContabilidad').click(); 
+        await renderContabilidad(); 
+    } catch(e) {
+        alert('Error al guardar: ' + e.message);
+    } finally {
+        btn.innerHTML = '<i class="fas fa-save"></i> GUARDAR';
+        btn.disabled = false;
+    }
+});
 
 async function init(){
     try { ['villaAlejo_cache_v6','villaAlejo_cache_v7','villaAlejo_cache_v8','villaAlejo_cache_v9','villaAlejo_cache_v10','villaAlejo_cache_v11','villaAlejo_cache_v12','villaAlejo_cache_v13','villaAlejo_cache_v14','villaAlejo_cache_v15','villaAlejo_cache_v16','villaAlejo_cache_v17','villaAlejo_tarifas_v1','villaAlejo_tarifas_v7','villaAlejo_tarifas_v8','villaAlejo_tarifas_v9','villaAlejo_tarifas_v10','villaAlejo_tarifas_v11','villaAlejo_tarifas_v12','villaAlejo_tarifas_v13','villaAlejo_tarifas_v14','villaAlejo_tarifas_v15','villaAlejo_tarifas_v16','villaAlejo_tarifas_v17'].forEach(k=>localStorage.removeItem(k)); } catch(e){}
