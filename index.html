@@ -1008,20 +1008,23 @@ select.estado-reserva-badge {
 
     #contabilidad-panel .tabla-historial th,
     #contabilidad-panel .tabla-historial td {
-        font-size: 9px !important;
-        padding: 4px 2px !important;
-        white-space: normal !important;
-        word-wrap: break-word !important;
+        font-size: 10px !important;
+        padding: 0.6rem 0.4rem !important;
+        white-space: nowrap !important; /* Evita que las fechas se pongan verticales */
+        text-align: center !important;
+        vertical-align: middle !important;
+        border: 1px solid #e8d5c6 !important;
     }
 
-    /* Ajuste de anchos para que todo quepa en la pantalla del celular */
-    #contabilidad-panel .tabla-historial th:nth-child(1) { width: 8% !important; }  /* Checkbox */
-    #contabilidad-panel .tabla-historial th:nth-child(2) { width: 8% !important; }  /* N */
-    #contabilidad-panel .tabla-historial th:nth-child(3) { width: 16% !important; } /* Fecha */
-    #contabilidad-panel .tabla-historial th:nth-child(4) { width: 30% !important; } /* Descripción */
-    #contabilidad-panel .tabla-historial th:nth-child(5) { width: 12% !important; } /* Egresos */
-    #contabilidad-panel .tabla-historial th:nth-child(6) { width: 12% !important; } /* Ingresos */
-    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 14% !important; } /* Total */
+   /* 5. Anchos específicos para que no se aplasten */
+    #contabilidad-panel .tabla-historial th:nth-child(1) { width: 40px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(2) { width: 40px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(3) { width: 110px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(4) { width: 250px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(5) { width: 90px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(6) { width: 90px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 90px !important; }
+    #contabilidad-panel .tabla-historial th:nth-child(8) { width: 70px !important; }
     
     #contabilidad-panel .tabla-historial th:nth-child(8) { 
         width: 40px !important; 
@@ -1029,12 +1032,19 @@ select.estado-reserva-badge {
         max-width: 40px !important;
     } /* Acción */
 
+    /* 8. Ajustar botones de editar/eliminar */
+    #contabilidad-panel .tabla-historial td:nth-child(8) div {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 4px !important;
+}
+
     /* Hacer los botones de acción más pequeños para celular */
     #contabilidad-panel .tabla-historial .btn-icon {
-        width: 22px !important;
-        height: 22px !important;
-        font-size: 0.55rem !important;
-        margin: 0 auto !important;
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 0.6rem !important;
     }
 
     #contabilidad-panel .tabla-historial .btn-accion-col {
@@ -1462,22 +1472,19 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 }
 
 #contabilidad-panel .table-wrapper {
-    margin-top: 0 !important;
-    border: 1px solid #e8d5c6 !important;
-    border-radius: 20px !important;
-    background: #fff !important;
-    width: 100% !important;
-    overflow-x: hidden !important; /* Sin scroll horizontal */
-    overflow-y: auto !important;
-    max-height: 65vh !important;
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        max-height: 65vh !important;
+        -webkit-overflow-scrolling: touch !important;
+        border: 1px solid #e8d5c6 !important;
+        border-radius: 20px !important;
+        background: #fff !important;
 }
 
 #contabilidad-panel .tabla-historial {
-    width: 100% !important;
-    min-width: 100% !important;
-    table-layout: fixed !important; /* Ajuste forzado al 100% de la pantalla */
-    border-collapse: collapse !important;
-    margin: 0 !important;
+        min-width: 900px !important; /* Ancho suficiente para que no se aplasten */
+        width: 100% !important;
+        table-layout: auto !important;
 }
 
 /* Bordes para todas las celdas */
@@ -1505,6 +1512,13 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
         position: static !important;
         left: auto !important;
         box-shadow: none !important;
+    }
+
+    /* 4. Solo la columna de Descripción puede bajar de línea */
+    #contabilidad-panel .tabla-historial td:nth-child(4) {
+        white-space: normal !important;
+        text-align: left !important;
+        min-width: 200px !important;
     }
 
 /* Anchos exactos para que quepan las 8 columnas sí o sí */
@@ -1552,7 +1566,13 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 
 /* 4. Corregir el borde inferior grueso en toda la cabecera */
 #contabilidad-panel .tabla-historial thead tr th {
-    border-bottom: 2px solid #d4b9a4 !important;
+        background-color: #faf3ee !important;
+        color: #50260c !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 30 !important;
 }
 
 /* Quitar bordes externos para que se vea limpio (pero mantener los internos) */
@@ -1617,6 +1637,8 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 /* ===== REDUCIR EL TAMAÑO DE LA LETRA EN LAS FILAS DE CONTABILIDAD ===== */
 #contabilidad-panel .tabla-historial tbody td {
     font-size: 9px !important; /* Cambia el 11px por el tamaño que prefieras (ej: 12px, 10px) */
+    position: static !important;
+    background-color: transparent !important;
 }
 
 /* Opcional: Ajustar también el tamaño de los títulos si los ves muy grandes */
