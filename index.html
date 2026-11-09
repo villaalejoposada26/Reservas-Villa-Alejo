@@ -1054,6 +1054,32 @@ select.estado-reserva-badge {
     #contabilidad-panel .table-wrapper {
         overflow-x: hidden !important;
     }
+
+    /* Esto obliga a que TODAS las celdas de la tabla ignoren el "sticky" */
+    .tabla-historial tbody td,
+    .tabla-historial tbody td:nth-child(1),
+    .tabla-historial tbody td:nth-child(2),
+    .tabla-historial tbody td:nth-child(3),
+    .tabla-historial tbody td:nth-child(4),
+    .tabla-historial tbody td.col-1,
+    .tabla-historial tbody td.col-2,
+    .tabla-historial tbody td.col-3,
+    .tabla-historial tbody td.col-4 {
+        position: static !important;
+        left: auto !important;
+        right: auto !important;
+        box-shadow: none !important;
+        z-index: 1 !important;
+    }
+    
+    /* Solo los títulos se quedan arriba */
+    .tabla-historial thead tr th {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 50 !important;
+        background-color: #faf3ee !important;
+    }
+
     
 @media (max-width: 480px) {
     .section-btn span { display: none; }
@@ -1355,7 +1381,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
     .tabla-historial thead tr th:nth-child(2),
     .tabla-historial thead tr th:nth-child(3),
     .tabla-historial thead tr th:nth-child(4) {
-        position: sticky !important;
+        position: static !important;
         background-color: #fff !important; /* Fondo blanco para que tape lo que pasa por debajo */
         z-index: 20 !important;
         border-right: 1px solid #e8d5c6 !important;
