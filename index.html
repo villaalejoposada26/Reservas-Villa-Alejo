@@ -1018,12 +1018,12 @@ select.estado-reserva-badge {
 
    /* 5. Anchos específicos para que no se aplasten */
     #contabilidad-panel .tabla-historial th:nth-child(1) { width: 20px !important; } /*Checkbox */
-    #contabilidad-panel .tabla-historial th:nth-child(2) { width: 20px !important; } /*N */
-    #contabilidad-panel .tabla-historial th:nth-child(3) { width: 70px !important; } /*Fecha */
+    #contabilidad-panel .tabla-historial th:nth-child(2) { width: 10px !important; min-width: 10px !important; max-width: 10px !important} /*N */
+    #contabilidad-panel .tabla-historial th:nth-child(3) { width: 60px !important; min-width: 60px !important; max-width: 60px !important} /*Fecha */
     /*#contabilidad-panel .tabla-historial th:nth-child(4) { width: 250px !important; }*/ /*Descripción */
-    #contabilidad-panel .tabla-historial th:nth-child(5) { width: 90px !important; min-width: 90px !important; max-width: 90px !important } /*Egresos */
-    #contabilidad-panel .tabla-historial th:nth-child(6) { width: 90px !important; min-width: 90px !important; max-width: 90px !important } /*Ingresos */
-    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 60px !important; min-width: 60px !important; max-width: 60px !important } /*Total */
+    #contabilidad-panel .tabla-historial th:nth-child(5) { width: 100px !important; min-width: 100px !important; max-width: 100px !important } /*Egresos */
+    #contabilidad-panel .tabla-historial th:nth-child(6) { width: 100px !important; min-width: 100px !important; max-width: 100px !important } /*Ingresos */
+    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 70px !important; min-width: 70px !important; max-width: 70px !important } /*Total */
     #contabilidad-panel .tabla-historial th:nth-child(8) { width: 10px !important; min-width: 10px !important; max-width: 10px !important} /*Acción */
 
 #contabilidad-panel .tabla-historial th:nth-child(4),
@@ -1043,7 +1043,7 @@ select.estado-reserva-badge {
         display: flex !important;
         flex-direction: row !important;
         justify-content: center !important;
-
+        gap:0px !important;
 }
 
     /* Hacer los botones de acción más pequeños para celular */
@@ -1051,6 +1051,7 @@ select.estado-reserva-badge {
         width: 24px !important;
         height: 24px !important;
         font-size: 0.6rem !important;
+        margin:0 !important;
     }
 
     #contabilidad-panel .tabla-historial .btn-accion-col {
@@ -1095,7 +1096,6 @@ select.estado-reserva-badge {
         z-index: 50 !important;
         background-color: #faf3ee !important;
     }
-
     
 @media (max-width: 480px) {
     .section-btn span { display: none; }
@@ -1650,6 +1650,18 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 /* Opcional: Ajustar también el tamaño de los títulos si los ves muy grandes */
 #contabilidad-panel .tabla-historial thead th {
     font-size: 9px !important;
+}
+
+/* ===== RESTRICCIONES PARA EL MODO LECTOR EN CONTABILIDAD ===== */
+body.modo-lector #btnNuevoMovimiento,
+body.modo-lector #btnExportarContabilidad,
+body.modo-lector #btnEliminarContabilidadMasivo,
+body.modo-lector #checkTodosContabilidad,
+body.modo-lector .tabla-historial td:nth-child(8),
+body.modo-lector .tabla-historial th:nth-child(8),
+body.modo-lector .tabla-historial td:nth-child(1),
+body.modo-lector .tabla-historial th:nth-child(1) {
+    display: none !important;
 }
 
 </style>
