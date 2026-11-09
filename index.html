@@ -873,9 +873,7 @@ select.estado-reserva-badge {
 .col-1, .col-2, .col-3, .col-4 {
     position: static !important;
 }
-    .table-wrapper {
-        -webkit-overflow-scrolling: touch;
-    }
+
     .col-1, .col-2, .col-3, .col-4 {
         box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
     }
@@ -886,28 +884,109 @@ select.estado-reserva-badge {
     .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
-        max-height: 65vh !important; 
+        max-height: 65vh !important;
         -webkit-overflow-scrolling: touch !important;
+        position: relative;
     }
 
     /* 2. La tabla se mantiene ancha para que se pueda deslizar */
     .tabla-historial {
-        min-width: 1600px !important;
+       min-width: 1600px !important;
         table-layout: auto !important;
+        border-collapse: separate !important;
+        border-spacing: 0;
     }
 
     /* 3. FIJAR SOLO LA FILA DE TÍTULOS ARRIBA (Para el scroll vertical) */
     .tabla-historial thead tr th {
         position: sticky !important;
         top: 0 !important;
-        z-index: 30 !important;
+        z-index: 50 !important;
         background-color: #faf3ee !important;
+        border-bottom: 2px solid #d4b9a4 !important;
     }
 
     /* 4. QUITAR EL STICKY DE TODAS LAS CELDAS DE DATOS (Para que se muevan a los lados) */
     .tabla-historial tbody td {
         position: static !important; 
         background-color: transparent !important; /* Quita el fondo blanco que las hacía ver fijas */
+    }
+}
+
+/* ===== ARREGLOS EXCLUSIVOS PARA DISPOSITIVOS MÓVILES ===== */
+@media (max-width: 768px) {
+    
+    /* 1. Poner los recuadros de dinero uno al lado del otro */
+    .reservas-top-left {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+    }
+    .dinero-pendiente-panel, .dinero-recibido-panel {
+        flex: 1 1 50% !important;
+        max-width: 50% !important;
+    }
+    .dinero-pendiente-item, .dinero-recibido-item {
+        max-width: 100% !important;
+        padding: 0.5rem !important;
+    }
+    .dinero-pendiente-item .val, .dinero-recibido-item .val {
+        font-size: 1.1rem !important; /* Reducir un poco la letra para que quepa */
+    }
+    .dinero-pendiente-item .lbl, .dinero-recibido-item .lbl {
+        font-size: 0.55rem !important;
+        text-align: center !important;
+        line-height: 1.1 !important;
+    }
+
+    /* 2. Arreglar los filtros de la tabla para móviles */
+    .buscador-container {
+        flex-wrap: wrap !important;
+        padding: 0.8rem !important;
+        gap: 6px !important;
+    }
+    .buscador-input {
+        flex: 1 1 100% !important; /* El buscador ocupa toda la fila */
+        min-width: 100% !important;
+    }
+    .filtro-select {
+        flex: 1 1 calc(33.33% - 6px) !important; /* Los selectores se dividen en 3 columnas */
+        min-width: 0 !important;
+        max-width: none !important;
+        font-size: 0.7rem !important;
+        padding: 0.5rem 0.3rem !important;
+    }
+    .btn-limpiar-busqueda {
+        flex: 1 1 100% !important; /* El botón de limpiar ocupa toda la fila */
+        justify-content: center !important;
+    }
+
+    /* 3. Fondo uniforme en las primeras columnas (quitando el blanco) */
+    .tabla-historial tbody td:nth-child(1),
+    .tabla-historial tbody td:nth-child(2),
+    .tabla-historial tbody td:nth-child(3),
+    .tabla-historial tbody td:nth-child(4),
+    .tabla-historial tbody td:nth-child(5) {
+        background-color: #fdf9f6 !important; /* Color idéntico al fondo de la tabla */
+        border-right: 1px solid #e8d5c6 !important; /* Mantener las líneas de la cuadrícula */
+    }
+    
+    /* Asegurar que la cabecera de esas columnas también tenga el mismo beige */
+    .tabla-historial thead tr th:nth-child(1),
+    .tabla-historial thead tr th:nth-child(2),
+    .tabla-historial thead tr th:nth-child(3),
+    .tabla-historial thead tr th:nth-child(4),
+    .tabla-historial thead tr th:nth-child(5) {
+        background-color: #faf3ee !important;
+    }
+    
+    /* Quitar cualquier sombra o efecto raro en las celdas pegadas */
+    .tabla-historial tbody td:nth-child(1), .tabla-historial tbody td:nth-child(2), 
+    .tabla-historial tbody td:nth-child(3), .tabla-historial tbody td:nth-child(4) {
+        box-shadow: none !important;
     }
 }
     
@@ -1230,7 +1309,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 /* ===== FORZAR SCROLL COMPLETO EN CELULARES ===== */
 @media (max-width: 768px) {
     /* 1. Quitar el sticky y anular los anchos fijos */
-    .tabla-historial tbody td:nth-child(1),
+.tabla-historial tbody td:nth-child(1),
     .tabla-historial tbody td:nth-child(2),
     .tabla-historial tbody td:nth-child(3),
     .tabla-historial tbody td:nth-child(4),
@@ -1238,15 +1317,61 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
     .tabla-historial thead tr th:nth-child(2),
     .tabla-historial thead tr th:nth-child(3),
     .tabla-historial thead tr th:nth-child(4) {
-        position: static !important; 
-        left: auto !important; 
-        
-        /* ESTO ES LO QUE FALTABA: Anulamos los anchos */
-        min-width: auto !important; 
-        max-width: none !important; 
-        width: auto !important;
-        
-        background-color: transparent !important;
+        position: sticky !important;
+        background-color: #fff !important; /* Fondo blanco para que tape lo que pasa por debajo */
+        z-index: 20 !important;
+        border-right: 1px solid #e8d5c6 !important;
+        border-bottom: 1px solid #e8d5c6 !important;
+    }
+
+ /* Columna 1: Checkbox */
+    .tabla-historial tbody td:nth-child(1),
+    .tabla-historial thead tr th:nth-child(1) { 
+        left: 0px !important; 
+        min-width: 40px !important; 
+        max-width: 40px !important; 
+    }
+    
+    /* Columna 2: ID */
+    .tabla-historial tbody td:nth-child(2),
+    .tabla-historial thead tr th:nth-child(2) { 
+        left: 40px !important; 
+        min-width: 40px !important; 
+        max-width: 40px !important; 
+    }
+    
+    /* Columna 3: Nombre Completo */
+    .tabla-historial tbody td:nth-child(3),
+    .tabla-historial thead tr th:nth-child(3) { 
+        left: 80px !important; 
+        min-width: 140px !important; 
+        max-width: 140px !important; 
+        white-space: normal !important; /* Permite que el nombre baje de línea si es muy largo */
+    }
+    
+    /* Columna 4: Habitación */
+    .tabla-historial tbody td:nth-child(4),
+    .tabla-historial thead tr th:nth-child(4) { 
+        left: 220px !important; 
+        min-width: 100px !important; 
+        max-width: 100px !important; 
+    }
+
+    /* 6. Elevar el z-index de los títulos fijos para que queden por encima de las celdas fijas */
+    .tabla-historial thead tr th:nth-child(1),
+    .tabla-historial thead tr th:nth-child(2),
+    .tabla-historial thead tr th:nth-child(3),
+    .tabla-historial thead tr th:nth-child(4) {
+        z-index: 60 !important;
+        background-color: #faf3ee !important;
+    }
+    
+    /* 7. Asegurar que la celda seleccionada mantenga el color rosado */
+    .tabla-historial tbody tr.fila-seleccionada td:nth-child(1),
+    .tabla-historial tbody tr.fila-seleccionada td:nth-child(2),
+    .tabla-historial tbody tr.fila-seleccionada td:nth-child(3),
+    .tabla-historial tbody tr.fila-seleccionada td:nth-child(4) {
+        background-color: #ffe6e6 !important;
     }
 
     /* 2. Volvemos a fijar SOLO la fila de títulos arriba */
