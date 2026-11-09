@@ -1270,6 +1270,171 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
     }
 }
 
+/* ===== ESTILOS DEFINITIVOS PARA LA TABLA DE CONTABILIDAD ===== */
+#contabilidad-panel .lista-reservas-section {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+}
+
+#contabilidad-panel .table-wrapper {
+    margin-top: 0 !important;
+    border: 1px solid #e8d5c6 !important;
+    border-radius: 20px !important;
+    background: #fff !important;
+    width: 100% !important;
+    overflow-x: hidden !important; /* Sin scroll horizontal */
+    overflow-y: auto !important;
+    max-height: 65vh !important;
+}
+
+#contabilidad-panel .tabla-historial {
+    width: 100% !important;
+    min-width: 100% !important;
+    table-layout: fixed !important; /* Ajuste forzado al 100% de la pantalla */
+    border-collapse: collapse !important;
+    margin: 0 !important;
+}
+
+/* Bordes para todas las celdas */
+#contabilidad-panel .tabla-historial th,
+#contabilidad-panel .tabla-historial td {
+    border: 1px solid #e8d5c6 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0.6rem 0.4rem !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    font-size: 11px !important;
+    border-right: 1px solid #e8d5c6 !important;
+    border-left: 1px solid #e8d5c6 !important;
+}
+
+/* Fondo del encabezado */
+#contabilidad-panel .tabla-historial thead th {
+    background-color: #faf3ee !important;
+    border-bottom: 2px solid #d4b9a4 !important;
+}
+
+/* Anchos exactos para que quepan las 8 columnas sí o sí */
+#contabilidad-panel .tabla-historial th:nth-child(1) { width: 30px !important; }  /* Checkbox */
+#contabilidad-panel .tabla-historial th:nth-child(2) { width: 30px !important; }  /* N */
+#contabilidad-panel .tabla-historial th:nth-child(3) { width: 12% !important; }   /* Fecha */
+#contabilidad-panel .tabla-historial th:nth-child(4) { width: 50% !important; }   /* Descripción */
+#contabilidad-panel .tabla-historial th:nth-child(5) { width: 12% !important; }   /* Egresos */
+#contabilidad-panel .tabla-historial th:nth-child(6) { width: 12% !important; }   /* Ingresos */
+#contabilidad-panel .tabla-historial th:nth-child(7) { width: 12% !important; }   /* Total */
+#contabilidad-panel .tabla-historial th:nth-child(8) { width: 60px !important; }  /* Acción */
+
+#contabilidad-panel .tabla-historial th:nth-child(1), 
+#contabilidad-panel .tabla-historial th:nth-child(2),
+#contabilidad-panel .tabla-historial td:nth-child(1), 
+#contabilidad-panel .tabla-historial td:nth-child(2) {
+    position: static !important;
+    box-shadow: none !important;
+}
+
+/* 1. Quitar la propiedad sticky de la Fecha y la Descripción */
+#contabilidad-panel .tabla-historial th:nth-child(3),
+#contabilidad-panel .tabla-historial th:nth-child(4),
+#contabilidad-panel .tabla-historial td:nth-child(3),
+#contabilidad-panel .tabla-historial td:nth-child(4) {
+    position: static !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* 2. Asegurar que el fondo de la cabecera sea beige */
+#contabilidad-panel .tabla-historial th:nth-child(3),
+#contabilidad-panel .tabla-historial th:nth-child(4) {
+    background-color: #faf3ee !important;
+}
+
+/* 3. Forzar que se dibujen todos los bordes (izquierda y derecha) en esas celdas */
+#contabilidad-panel .tabla-historial th:nth-child(3),
+#contabilidad-panel .tabla-historial td:nth-child(3),
+#contabilidad-panel .tabla-historial th:nth-child(4),
+#contabilidad-panel .tabla-historial td:nth-child(4) {
+    border-left: 1px solid #e8d5c6 !important;
+    border-right: 1px solid #e8d5c6 !important;
+}
+
+/* 4. Corregir el borde inferior grueso en toda la cabecera */
+#contabilidad-panel .tabla-historial thead tr th {
+    border-bottom: 2px solid #d4b9a4 !important;
+}
+
+/* Quitar bordes externos para que se vea limpio (pero mantener los internos) */
+#contabilidad-panel .tabla-historial tr th:first-child,
+#contabilidad-panel .tabla-historial tr td:first-child {
+    border-left: none !important;
+}
+#contabilidad-panel .tabla-historial tr th:last-child,
+#contabilidad-panel .tabla-historial tr td:last-child {
+    border-right: none !important;
+}
+#contabilidad-panel .tabla-historial tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Efecto al pasar el mouse */
+#contabilidad-panel .tabla-historial tbody tr:hover td {
+    background-color: #fdf9f6 !important;
+}
+
+/* Anular los estilos de "celda fija" (sticky) que trae la tabla de reservas */
+#contabilidad-panel .tabla-historial .sticky-col,
+#contabilidad-panel .tabla-historial td:nth-child(2),
+#contabilidad-panel .tabla-historial td:nth-child(3) {
+    position: static !important;
+    box-shadow: none !important;
+}
+
+/* Forzar el color de fondo en la cabecera de las primeras columnas */
+#contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+#contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+#contabilidad-panel .tabla-historial thead tr th:nth-child(3) {
+    background-color: #faf3ee !important;
+}
+
+#contabilidad-panel .tabla-historial {
+    width: 100% !important;
+    min-width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+}
+
+
+#contabilidad-panel .tabla-historial thead th {
+    background-color: #faf3ee !important; 
+    border-bottom: 2px solid #d4b9a4 !important; 
+}
+
+/* QUITAR BORDES EXTERNOS PARA QUE SE VEA LIMPIO */
+#contabilidad-panel .tabla-historial tr th:first-child,
+#contabilidad-panel .tabla-historial tr td:first-child {
+    border-left: none !important;
+}
+#contabilidad-panel .tabla-historial tr th:last-child,
+#contabilidad-panel .tabla-historial tr td:last-child {
+    border-right: none !important;
+}
+#contabilidad-panel .tabla-historial tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ===== REDUCIR EL TAMAÑO DE LA LETRA EN LAS FILAS DE CONTABILIDAD ===== */
+#contabilidad-panel .tabla-historial tbody td {
+    font-size: 9px !important; /* Cambia el 11px por el tamaño que prefieras (ej: 12px, 10px) */
+}
+
+/* Opcional: Ajustar también el tamaño de los títulos si los ves muy grandes */
+#contabilidad-panel .tabla-historial thead th {
+    font-size: 9px !important;
+}
+
 </style>
 </head>
 <body class="modo-visitante">
@@ -1305,7 +1470,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
         <button class="section-btn solo-editor" data-section="dash"><i class="fas fa-chart-line"></i> <span>DASHBOARD</span></button>
         <button class="section-btn solo-editor-y-lector" data-section="tarifas"><i class="fas fa-tags"></i> <span>TARIFAS</span></button>
         <button class="section-btn solo-editor" data-section="bd"><i class="fas fa-database"></i> <span>BASE DE DATOS</span></button>
-        <button class="section-btn solo-editor" data-section="contabilidad"><i class="fas fa-wallet"></i> <span>CONTABILIDAD</span></button>
+        <button class="section-btn solo-editor-y-lector" data-section="contabilidad"><i class="fas fa-wallet"></i> <span>CONTABILIDAD</span></button>
     </div>
     <div class="section-content">
         <div class="content-panel active" id="calendar-panel">
@@ -1558,40 +1723,77 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
         <div class="content-panel" id="contabilidad-panel">
             <div class="panel-header">
                 <h2><i class="fas fa-wallet"></i> CONTABILIDAD</h2>
-                 <div style="display: flex; gap: 10px;">
-                    <!-- BOTÓN PARA ELIMINAR SELECCIONADOS -->
-                    <button class="btn-primary" id="btnEliminarContabilidadMasivo" style="display: none; background: #c62828; padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-trash-alt"></i> ELIMINAR SELECCIONADOS</button>
-                    <button class="btn-primary" id="btnNuevoMovimiento" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-plus"></i> NUEVO MOVIMIENTO</button>
+                <div style="display: flex; gap: 10px;">
+<button class="btn-primary" id="btnEliminarContabilidadMasivo" style="display: none; background: #c62828; padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-trash-alt"></i> ELIMINAR</button>
+ <!-- BOTÓN EXPORTAR -->
+        <button class="btn-primary" id="btnExportarContabilidad" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; background: #2e7d32;"><i class="fas fa-file-excel"></i> EXPORTAR</button>
+                    <button class="btn-primary" id="btnNuevoMovimiento" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-plus"></i> AGREGAR</button>
                 </div>
             </div>
 
-            <!-- AGREGA EL FORMULARIO AQUÍ ABAJO -->
-            <div id="formContabilidad" style="display: none; background: #faf3ee; padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; border: 1px solid #e8d5c6;">
-                <div class="form-row">
-                    <div class="form-group small">
-                        <label>Fecha <span class="req">*</span></label>
-                        <input type="date" id="contFecha">
-                    </div>
+<!-- 1. ESTAS SON LAS ETIQUETAS QUE ABREN LA VENTANA EMERGENTE -->
+<div class="modal-overlay" id="modalContabilidadOverlay">
+    <div class="modal-panel" style="max-width: 800px; padding: 1.5rem;">
+        <button class="btn-cerrar-modal" id="btnCerrarModalContabilidad"><i class="fas fa-times"></i></button>
+        <h3 style="font-size: 1.15rem; color: #50260c; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-wallet"></i> Movimiento Contable
+        </h3>
+
+ <!-- 2. AQUÍ EMPIEZA TU FORMULARIO ORIGINAL (Quítale el display: none) -->
+        <div id="formContabilidad" style="background: #faf3ee; padding: 1.5rem; border-radius: 16px; border: 1px solid #e8d5c6;">
+            <div class="form-row">
+                <div class="form-group small">
+                    <label>Fecha <span class="req">*</span></label>
+                    <input type="date" id="contFecha">
+                </div>
                     <div class="form-group" style="flex: 2 1 200px;">
                         <label>Descripción <span class="req">*</span></label>
                         <input type="text" id="contDesc" placeholder="Ej: Pago de luz, Venta abono..." style="text-transform: uppercase;">
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Egresos ($)</label>
-<input type="text" id="contEgresos" class="moneda" placeholder="Ej: 50.000,00" style="color: #c62828; font-weight: bold; text-align: right;" inputmode="decimal">
-                    </div>
-                    <div class="form-group">
-                        <label>Ingresos ($)</label>
-<input type="text" id="contIngresos" class="moneda" placeholder="Ej: 100.000,00" style="color: #2e7d32; font-weight: bold; text-align: right;" inputmode="decimal">
-                    </div>
-                </div>
-                <div class="form-botones-inferiores" style="border: none; margin-top: 0.5rem; padding-top: 0;">
+<div class="form-row">
+    <!-- EGRESOS -->
+    <div class="form-group">
+        <label>Egresos ($) <span style="font-size: 0.7rem; color: #b33a3a; font-weight: 600;">( - )</span></label>
+        <input type="text" id="contEgresos" class="moneda" placeholder="Ej: 50.000" style="color: #c62828; font-weight: bold; text-align: right;" inputmode="decimal">
+        
+        <div class="comprobante-upload-wrapper" style="margin-top: 0.3rem;">
+            <div class="comprobante-dropzone" id="contEgresosDropzone" style="padding: 0.6rem; border-width: 1.5px;">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 1.2rem;"></i>
+                <div class="txt-principal" style="font-size: 0.75rem;">Añadir comprobante</div>
+            </div>
+            <input type="file" id="contEgresosFileInput" accept=".jpg,.jpeg,.png,.pdf" multiple style="display:none;">
+            <div class="comprobante-list" id="contEgresosList"></div>
+            <!-- ESTE DIV ES NUEVO Y NECESARIO -->
+            <div id="contEgresosExistentes" style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px;"></div>
+        </div>
+    </div>
+
+    <!-- INGRESOS -->
+    <div class="form-group">
+        <label>Ingresos ($) <span style="font-size: 0.7rem; color: #2e7d32; font-weight: 600;">( + )</span></label>
+        <input type="text" id="contIngresos" class="moneda" placeholder="Ej: 100.000" style="color: #2e7d32; font-weight: bold; text-align: right;" inputmode="decimal">
+        
+        <div class="comprobante-upload-wrapper" style="margin-top: 0.3rem;">
+            <div class="comprobante-dropzone" id="contIngresosDropzone" style="padding: 0.6rem; border-width: 1.5px;">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 1.2rem;"></i>
+                <div class="txt-principal" style="font-size: 0.75rem;">Añadir comprobante</div>
+            </div>
+            <input type="file" id="contIngresosFileInput" accept=".jpg,.jpeg,.png,.pdf" multiple style="display:none;">
+            <div class="comprobante-list" id="contIngresosList"></div>
+            <!-- ESTE DIV ES NUEVO Y NECESARIO -->
+            <div id="contIngresosExistentes" style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px;"></div>
+        </div>
+    </div>
+</div>
+<div class="form-botones-inferiores" style="border: none; margin-top: 0.5rem; padding-top: 0;">
                     <button class="btn-primary" id="btnGuardarContabilidad" style="padding: 0.7rem 1.5rem;"><i class="fas fa-save"></i> GUARDAR</button>
                     <button class="btn-cancelar" id="btnCancelarContabilidad" style="padding: 0.7rem 1.5rem;"><i class="fas fa-times"></i> CANCELAR</button>
                 </div>
             </div>
+
+             </div> <!-- ESTE NUEVO CIERRA EL MODAL-PANEL -->
+    </div> <!-- ESTE NUEVO CIERRA EL MODAL-OVERLAY -->
 
             <!-- AQUÍ SIGUE LO QUE YA TENÍAS -->
             <div class="lista-reservas-section">
@@ -1599,11 +1801,12 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
                     <!-- ... tu tabla ... -->            
 
             <div class="lista-reservas-section">
-                <div class="table-wrapper" style="max-height: 500px;">
-                    <table class="tabla-historial">
+            <div class="table-wrapper" style="max-height: 500px; margin-top: 1rem;">
+                <table class="tabla-historial">
+                    <!-- ... -->
                         <thead>
                             <tr>
-                                <th style="width: 40px;"><input type="checkbox" id="checkTodosContabilidad" class="check-reserva"></th>
+<th style="width: 40px;"><input type="checkbox" id="checkTodosContabilidad" class="check-reserva"></th>
                                 <th style="width: 50px;">N</th>
                                 <th>FECHA</th>
                                 <th>DESCRIPCIÓN</th>
@@ -1952,6 +2155,7 @@ const SUPABASE_URL = 'https://qlwpvylthzlgkpdxlxxr.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_X0HTxVXJGXUys98M5hxgOw_Bsha6GR4';
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.sb = sb;
 const TABLA = 'reservas_villa_alejo';
 const TABLA_TARIFAS = 'tarifas_villa_alejo';
 const TABLA_CLIENTES = 'clientes';
@@ -2073,6 +2277,13 @@ let modoEdicionReserva = false;
 
 let comprobantesSaldoArchivosSeleccionados = [];
 let comprobantesSaldoUrlsExistentes = [];
+
+// Variables para el formulario de contabilidad
+let comprobantesContabilidadEgresos = [];
+let comprobantesContabilidadIngresos = [];
+
+let comprobantesContabilidadEgresosExistentes = [];
+let comprobantesContabilidadIngresosExistentes = [];
 
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_ABREV = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -2323,6 +2534,7 @@ function getReservasHermanas(r){
 const toast = document.getElementById('toast');
 const toastMsg = document.getElementById('toastMsg');
 function mostrarToast(m, tipo='ok'){
+    window.mostrarToast = mostrarToast;
     toastMsg.textContent = m;
     toast.classList.remove('error','info');
     if(tipo==='error')toast.classList.add('error');
@@ -2816,7 +3028,7 @@ function activateSection(id){
     if(id==='reservas') renderReservasRegistro();
     if(id==='tarifas') renderTarifas();
     if(id==='dash' && modo==='editor') renderDashboard();
-    if(id==='contabilidad' && modo==='editor') renderContabilidad();
+    if(id==='contabilidad' && (modo==='editor' || modo==='lector')) renderContabilidad();
 }
 const panels = { calendar: document.getElementById('calendar-panel'), reservas: document.getElementById('reservas-panel'), dash: document.getElementById('dash-panel'), tarifas: document.getElementById('tarifas-panel'), bd: document.getElementById('bd-panel'), contabilidad: document.getElementById('contabilidad-panel')};
 document.querySelectorAll('.section-btn').forEach(b=>b.addEventListener('click', ()=>activateSection(b.dataset.section)));
@@ -5896,47 +6108,68 @@ if (contenedorContador) {
     observador.observe(contenedorContador, { childList: true, characterData: true, subtree: true });
 }
 
+// ===== FUNCIONES DE CONTABILIDAD =====
 async function renderContabilidad(){
     const tbody = document.getElementById('contabilidadTableBody');
     if(!tbody) return;
     
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">Cargando datos...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 2rem;">Cargando datos...</td></tr>';
 
     try {
-        // Conectar a la tabla 'contabilidad' de Supabase
-        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true });
+        // AQUÍ ESTÁ EL CAMBIO: Ordenamos por 'fecha' de forma ascendente (más antigua primero)
+// Primero ordena por ID (para mantener la posición original) y luego por fecha
+const { data, error } = await sb.from('contabilidad').select('*').order('id', { ascending: true }).order('fecha', { ascending: true });
         if(error) throw error;
 
         tbody.innerHTML = '';
         let totalAcumulado = 0;
 
         if(data.length === 0){
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem; color:#8a6b55;">No hay movimientos registrados.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 2rem; color:#8a6b55;">No hay movimientos registrados.</td></tr>';
             return;
         }
 
         data.forEach((mov, index) => {
+            // ... (deja exactamente igual todo el código que tenías dentro del forEach para pintar las filas)
+            // Solo asegúrate de que el botón de editar se vea así:
+            // <button class="btn-icon btn-editar-cont" data-id="${mov.id}" title="Editar"><i class="fas fa-edit"></i></button>
             const egresoVal = mov.egresos || 0;
             const ingresoVal = mov.ingresos || 0;
-            totalAcumulado += (ingresoVal - egresoVal);
+            totalAcumulado += (ingresoVal + egresoVal);
             
-// Formatear la fecha en texto largo (Ej: 20 de Noviembre 2026)
-            const fechaObj = new Date(mov.fecha + 'T00:00:00'); 
+            const fechaObj = new Date(mov.fecha + 'T00:00:00');
             const fechaStr = fechaObj.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Verificar si hay comprobante para egreso o ingreso
+            let tieneComprobanteEgreso = false;
+            let tieneComprobanteIngreso = false;
+            let urlComprobanteEgreso = '';
+            let urlComprobanteIngreso = '';
+            if(mov.comprobante_url){
+                try {
+                    const comps = JSON.parse(mov.comprobante_url);
+                    if(comps.egreso && comps.egreso.length > 0){ tieneComprobanteEgreso = true; urlComprobanteEgreso = comps.egreso[0]; }
+                    if(comps.ingreso && comps.ingreso.length > 0){ tieneComprobanteIngreso = true; urlComprobanteIngreso = comps.ingreso[0]; }
+                } catch(e) { console.warn('Error parseando comprobante_url', e); }
+            }
+
+            const tdEgreso = egresoVal !== 0 
+                ? `<td style="color: #c62828 !important; font-weight: 900 !important; cursor: pointer;" onclick="abrirComprobanteContabilidad('${mov.id}', 'egreso')">${formatPeso(egresoVal)} ${tieneComprobanteEgreso ? '<i class="fas fa-image" style="font-size: 0.7rem; color: #1976d2; margin-left: 3px;"></i>' : ''}</td>`
+                : `<td>—</td>`;
+            
+            const tdIngreso = ingresoVal > 0 
+                ? `<td style="color: #2e7d32 !important; font-weight: 900 !important; cursor: pointer;" onclick="abrirComprobanteContabilidad('${mov.id}', 'ingreso')">${formatPeso(ingresoVal)} ${tieneComprobanteIngreso ? '<i class="fas fa-image" style="font-size: 0.7rem; color: #1976d2; margin-left: 3px;"></i>' : ''}</td>`
+                : `<td>—</td>`;
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <!-- CHECKBOX PARA SELECCIONAR -->
                 <td><input type="checkbox" class="check-reserva check-fila-cont" data-id="${mov.id}"></td>
-                
-                <td>${index + 1}</td>
+<td>${index + 1}</td>
                 <td>${fechaStr}</td>
                 <td style="text-align: left; padding-left: 10px;">${mov.descripcion}</td>
-                <td style="color: #c62828 !important; font-weight: 900 !important;">${egresoVal !== 0 ? formatPeso(egresoVal) : '—'}</td>
-                <td style="color: #2e7d32 !important; font-weight: 900 !important;">${ingresoVal > 0 ? formatPeso(ingresoVal) : '—'}</td>
+                ${tdEgreso}
+                ${tdIngreso}
                 <td style="font-weight: 900 !important; background: #faf3ee !important; color: ${totalAcumulado < 0 ? '#c62828' : '#2e7d32'} !important;">${formatPeso(totalAcumulado)}</td>
-                
-                <!-- BOTONES DE ACCIÓN -->
                 <td>
                     <div style="display:flex; gap:4px; justify-content:center;">
                         <div class="btn-accion-col editar"><button class="btn-icon btn-editar-cont" data-id="${mov.id}" title="Editar"><i class="fas fa-edit"></i></button></div>
@@ -5945,63 +6178,320 @@ async function renderContabilidad(){
                 </td>
             `;
             tbody.appendChild(tr);
-            
-                // Asignar eventos a los botones de editar y eliminar
-    tbody.querySelectorAll('.btn-eliminar-cont').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const id = btn.dataset.id;
-            if(!confirm('¿Eliminar este movimiento?')) return;
-            try {
-                const { error } = await sb.from('contabilidad').delete().eq('id', id);
-                if(error) throw error;
-                mostrarToast('🗑️ Movimiento eliminado', 'info');
-                renderContabilidad(); // Recargar la tabla
-            } catch(e) {
-                alert('Error al eliminar: ' + e.message);
-            }
         });
-    });
 
-    tbody.querySelectorAll('.btn-editar-cont').forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Aquí irá la lógica para editar
-            alert('Función de editar en construcción...');
+        // Función para mostrar el botón
+        const actualizarBotonMasivo = () => {
+            const btn = document.getElementById('btnEliminarContabilidadMasivo');
+            if(btn) btn.style.display = seleccionadosContabilidad.size > 0 ? 'inline-block' : 'none';
+        };
+
+const checkTodos = document.getElementById('checkTodosContabilidad');
+if(checkTodos) {
+    checkTodos.checked = false;
+    checkTodos.indeterminate = false;
+    checkTodos.onchange = (e) => {
+        const isChecked = e.target.checked;
+        tbody.querySelectorAll('.check-fila-cont').forEach(chk => {
+            chk.checked = isChecked;
+            const id = String(chk.dataset.id);
+            if(isChecked) seleccionadosContabilidad.add(id); else seleccionadosContabilidad.delete(id);
         });
-    });
+        actualizarBotonMasivo();
+    };
+}
+
+        // Evento de los checks individuales
+        tbody.querySelectorAll('.check-fila-cont').forEach(chk => {
+            chk.addEventListener('change', () => {
+                const id = String(chk.dataset.id);
+                if(chk.checked) seleccionadosContabilidad.add(id); else seleccionadosContabilidad.delete(id);
+                actualizarBotonMasivo();
+            });
         });
+
+        actualizarBotonMasivo();
+
+        tbody.querySelectorAll('.btn-eliminar-cont').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.dataset.id;
+                if(!confirm('¿Eliminar este movimiento?')) return;
+                try {
+                    const { error } = await sb.from('contabilidad').delete().eq('id', id);
+                    if(error) throw error;
+                    mostrarToast('🗑️ Movimiento eliminado', 'info');
+                    seleccionadosContabilidad.clear();
+                    renderContabilidad();
+                } catch(e) { alert('Error: ' + e.message); }
+            });
+        });
+
+tbody.querySelectorAll('.btn-editar-cont').forEach(btn => {
+    btn.addEventListener('click', () => abrirEdicionContabilidad(btn.dataset.id));
+});
+        
+        actualizarBotonMasivo();
 
     } catch(e) {
         console.error(e);
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: #c62828; padding: 2rem;">Error al cargar datos: ' + e.message + '</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color: #c62828; padding: 2rem;">Error: ' + e.message + '</td></tr>';
     }
 }
 
-// Eventos para el formulario de contabilidad
-document.getElementById('btnNuevoMovimiento').addEventListener('click', () => {
-    document.getElementById('formContabilidad').style.display = 'block';
-    document.getElementById('contFecha').value = new Date().toISOString().split('T')[0]; 
-    document.getElementById('contDesc').focus();
+async function abrirEdicionContabilidad(id) {
+    try {
+        // Al consultar, forzamos a que traiga el dato más fresco
+        const { data, error } = await sb.from('contabilidad').select('*').eq('id', id).single();
+        if(error) throw error;
+        
+        const mov = data;
+        
+        document.getElementById('modalContabilidadOverlay').classList.add('show');
+        
+        document.getElementById('contFecha').value = mov.fecha || '';
+        document.getElementById('contDesc').value = mov.descripcion || '';
+        
+        const inputEgresos = document.getElementById('contEgresos');
+        if(inputEgresos) {
+            const egresoStr = mov.egresos ? Math.abs(mov.egresos).toLocaleString('es-CO') : '0';
+            inputEgresos.value = mov.egresos !== 0 ? `$ ${egresoStr}` : '$ 0';
+        }
+        
+        const inputIngresos = document.getElementById('contIngresos');
+        if(inputIngresos) {
+            const ingresoStr = mov.ingresos ? mov.ingresos.toLocaleString('es-CO') : '0';
+            inputIngresos.value = mov.ingresos > 0 ? `$ ${ingresoStr}` : '$ 0';
+        }
+        
+        const formCont = document.getElementById('formContabilidad');
+        // FORZAMOS A QUE SEA UN NÚMERO ENTERO
+        if(formCont) formCont.dataset.editandoId = Number(id);
+        
+        const btnGuardar = document.getElementById('btnGuardarContabilidad');
+        if(btnGuardar) btnGuardar.innerHTML = '<i class="fas fa-save"></i> ACTUALIZAR';
+        
+        comprobantesContabilidadEgresosArchivos = [];
+        comprobantesContabilidadIngresosArchivos = [];
+        comprobantesContabilidadEgresosExistentes = [];
+        comprobantesContabilidadIngresosExistentes = [];
+
+        if (mov.comprobante_url) {
+            try {
+                const comps = JSON.parse(mov.comprobante_url);
+                if (comps.egreso && Array.isArray(comps.egreso)) comprobantesContabilidadEgresosExistentes = comps.egreso;
+                if (comps.ingreso && Array.isArray(comps.ingreso)) comprobantesContabilidadIngresosExistentes = comps.ingreso;
+            } catch (e) { console.warn("Error leyendo comprobantes", e); }
+        }
+
+        renderComprobantesContabilidad('egreso');
+        renderComprobantesContabilidad('ingreso');
+        
+    } catch(e) {
+        mostrarToast('❌ Error al cargar: ' + e.message, 'error');
+    }
+}
+
+// Función para abrir comprobante de contabilidad
+window.abrirComprobanteContabilidad = async function(id, tipo) {
+    try {
+        const { data, error } = await sb.from('contabilidad').select('comprobante_url').eq('id', id).single();
+        if(error) throw error;
+        if(!data || !data.comprobante_url) {
+            mostrarToast('⚠️ No hay comprobante para este movimiento', 'error');
+            return;
+        }
+        const comps = JSON.parse(data.comprobante_url);
+        const urls = tipo === 'egreso' ? (comps.egreso || []) : (comps.ingreso || []);
+        if(urls.length === 0) {
+            mostrarToast('⚠️ No hay comprobante para este movimiento', 'error');
+            return;
+        }
+        // Abrir el modal de comprobante existente
+        comprobanteModalIdReserva = null;
+        comprobanteModalUrls = urls;
+        comprobanteModalIndexActual = 0;
+        renderCompModal();
+        compModalOverlay.classList.add('show');
+        compModalOverlay.dataset.tipo = 'contabilidad';
+        compModalOverlay.dataset.contabilidadId = id;
+        compModalOverlay.dataset.contabilidadTipo = tipo;
+        // Ocultar botones de edición para contabilidad
+        document.getElementById('btnCambiarComprobanteModal').style.display = 'none';
+        document.getElementById('btnEliminarComprobanteModal').style.display = 'none';
+    } catch(e) {
+        mostrarToast('❌ Error: ' + e.message, 'error');
+    }
+};
+
+// Variables para los comprobantes del formulario de contabilidad
+let comprobantesContabilidadEgresosArchivos = [];
+let comprobantesContabilidadIngresosArchivos = [];
+
+
+// Eventos pzara los dropzones de contabilidad
+document.getElementById('contEgresosDropzone').addEventListener('click', () => {
+    document.getElementById('contEgresosFileInput').click();
+});
+document.getElementById('contEgresosFileInput').addEventListener('change', (e) => {
+    if(e.target.files.length > 0){
+        for(const f of e.target.files){ if(validarArchivo(f)) comprobantesContabilidadEgresosArchivos.push(f); }
+        renderComprobantesContabilidad('egreso');
+    }
+});
+document.getElementById('contIngresosDropzone').addEventListener('click', () => {
+    document.getElementById('contIngresosFileInput').click();
+});
+document.getElementById('contIngresosFileInput').addEventListener('change', (e) => {
+    if(e.target.files.length > 0){
+        for(const f of e.target.files){ if(validarArchivo(f)) comprobantesContabilidadIngresosArchivos.push(f); }
+        renderComprobantesContabilidad('ingreso');
+    }
 });
 
-document.getElementById('btnCancelarContabilidad').addEventListener('click', () => {
-    document.getElementById('formContabilidad').style.display = 'none';
+function renderComprobantesContabilidad(tipo){
+    const lista = tipo === 'egreso' ? document.getElementById('contEgresosList') : document.getElementById('contIngresosList');
+    const listaViejos = tipo === 'egreso' ? document.getElementById('contEgresosExistentes') : document.getElementById('contIngresosExistentes');
+    const archivos = tipo === 'egreso' ? comprobantesContabilidadEgresosArchivos : comprobantesContabilidadIngresosArchivos;
+    const existentes = tipo === 'egreso' ? comprobantesContabilidadEgresosExistentes : comprobantesContabilidadIngresosExistentes;
+    
+    // 1. Limpiar contenedores
+    lista.innerHTML = '';
+    listaViejos.innerHTML = '';
+
+    // 2. Pintar archivos NUEVOS
+    archivos.forEach((file, idx) => {
+        const div = document.createElement('div');
+        div.className = 'comprobante-item';
+        const esImagen = file.type.startsWith('image/');
+        div.innerHTML = `<div class="info-file"><i class="fas ${esImagen?'fa-image':'fa-file-pdf'}" style="color:${esImagen?'#1976d2':'#c62828'}; font-size:1.3rem;"></i><span class="nombre-file">${file.name}</span></div><button type="button" class="btn-quitar-file" data-tipo="${tipo}" data-idx="${idx}" title="Quitar"><i class="fas fa-times"></i></button>`;
+        lista.appendChild(div);
+    });
+    lista.querySelectorAll('.btn-quitar-file').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const t = btn.dataset.tipo;
+            const idx = parseInt(btn.dataset.idx);
+            if(t === 'egreso') comprobantesContabilidadEgresosArchivos.splice(idx, 1);
+            else comprobantesContabilidadIngresosArchivos.splice(idx, 1);
+            renderComprobantesContabilidad(t);
+        });
+    });
+
+    // 3. Pintar archivos VIEJOS (con opción de eliminar)
+    existentes.forEach((url, idx) => {
+        const div = document.createElement('div');
+        div.style.cssText = 'display:flex; align-items:center; background:#f5e6dc; border:1px solid #d4b9a4; padding:4px 8px; border-radius:8px; gap:8px;';
+        const esPdf = url.toLowerCase().endsWith('.pdf');
+        
+        div.innerHTML = `
+            <a href="${url}" target="_blank" style="color:#50260c; font-size:0.75rem; font-weight:700; text-decoration:none; display:flex; align-items:center; gap:5px;">
+                <i class="fas ${esPdf?'fa-file-pdf':'fa-image'}"></i> Ver guardado
+            </a>
+            <button type="button" class="btn-borrar-viejo" data-tipo="${tipo}" data-idx="${idx}" style="background:transparent; border:none; color:#c62828; cursor:pointer;" title="Eliminar este comprobante"><i class="fas fa-trash-alt"></i></button>
+        `;
+        listaViejos.appendChild(div);
+    });
+
+    listaViejos.querySelectorAll('.btn-borrar-viejo').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const t = btn.dataset.tipo;
+            const idx = parseInt(btn.dataset.idx);
+            if(t === 'egreso') comprobantesContabilidadEgresosExistentes.splice(idx, 1);
+            else comprobantesContabilidadIngresosExistentes.splice(idx, 1);
+            renderComprobantesContabilidad(t);
+        });
+    });
+}
+
+// ===== FORMATO DE MONEDA PARA CONTABILIDAD (PESOS COLOMBIANOS) =====
+function bindMonedaContabilidad(inputId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    // Formatear al escribir
+    input.addEventListener('input', (e) => {
+        // 1. Quitamos todo lo que no sea número
+        let valorLimpio = e.target.value.replace(/\D/g, '');
+        
+        // 2. Si está vacío, lo dejamos vacío
+        if (valorLimpio === '') {
+            e.target.value = '';
+            return;
+        }
+
+        // 3. Convertimos a número y le damos formato de pesos colombianos (puntos de miles)
+        let numero = parseInt(valorLimpio, 10);
+        e.target.value = '$ ' + numero.toLocaleString('es-CO');
+    });
+
+    // Al entrar al campo, quitamos el signo $ y los puntos para que sea fácil editar
+    input.addEventListener('focus', (e) => {
+        let valor = e.target.value.replace(/[^\d]/g, '');
+        e.target.value = valor === '0' ? '' : valor;
+    });
+
+    // Al salir del campo, si está vacío le ponemos $ 0
+    input.addEventListener('blur', (e) => {
+        if (e.target.value.trim() === '') {
+            e.target.value = '$ 0';
+        }
+    });
+}
+
+// Activamos la función para egresos e ingresos
+bindMonedaContabilidad('contEgresos');
+bindMonedaContabilidad('contIngresos');
+
+// Abrir modal para NUEVO MOVIMIENTO
+document.getElementById('btnNuevoMovimiento').addEventListener('click', () => {
+    const formContabilidad = document.getElementById('formContabilidad');
+    delete formContabilidad.dataset.editandoId; 
+    document.getElementById('btnGuardarContabilidad').innerHTML = '<i class="fas fa-save"></i> GUARDAR';
+
+    document.getElementById('contFecha').value = new Date().toISOString().split('T')[0];
     document.getElementById('contDesc').value = '';
     document.getElementById('contEgresos').value = '';
     document.getElementById('contIngresos').value = '';
+    comprobantesContabilidadEgresosArchivos = [];
+    comprobantesContabilidadIngresosArchivos = [];
+    comprobantesContabilidadEgresosExistentes = []; // <-- Agregar
+    comprobantesContabilidadIngresosExistentes = []; // <-- Agregar
+    renderComprobantesContabilidad('egreso');
+    renderComprobantesContabilidad('ingreso');
+    
+    // Abrir ventana emergente
+    document.getElementById('modalContabilidadOverlay').classList.add('show');
 });
 
-// Aplicar el mismo formato que usa el descuento
-bindMoneda(document.getElementById('contEgresos'), true);
-bindMoneda(document.getElementById('contIngresos'), false);
+// Cerrar modal al cancelar
+document.getElementById('btnCancelarContabilidad').addEventListener('click', () => {
+    document.getElementById('modalContabilidadOverlay').classList.remove('show');
+    delete document.getElementById('formContabilidad').dataset.editandoId;
+    document.getElementById('btnGuardarContabilidad').innerHTML = '<i class="fas fa-save"></i> GUARDAR';
+    
+    // AGREGA ESTO:
+    setTimeout(() => {
+        renderContabilidad(); 
+    }, 500); 
+});
+
+document.getElementById('btnCerrarModalContabilidad').addEventListener('click', () => {
+    document.getElementById('btnCancelarContabilidad').click();
+    });
 
 document.getElementById('btnGuardarContabilidad').addEventListener('click', async () => {
+    const formContabilidad = document.getElementById('formContabilidad');
+    const editandoId = formContabilidad.dataset.editandoId ? Number(formContabilidad.dataset.editandoId) : null; 
+    
     const fecha = document.getElementById('contFecha').value;
     const descripcion = document.getElementById('contDesc').value.trim().toUpperCase();
 
-    let egresos = parsePeso(document.getElementById('contEgresos').value) || 0;
-    let ingresos = parsePeso(document.getElementById('contIngresos').value) || 0;
+    // Limpiamos los textos para que solo queden números
+    let egresosStr = document.getElementById('contEgresos').value.replace(/[^\d]/g, '');
+    let ingresosStr = document.getElementById('contIngresos').value.replace(/[^\d]/g, '');
     
-    // Guardar egreso en negativo para que salga rojo en la tabla
+    let egresos = egresosStr ? parseInt(egresosStr, 10) : 0;
+    let ingresos = ingresosStr ? parseInt(ingresosStr, 10) : 0;
+    
     if(egresos > 0) egresos = -Math.abs(egresos);
     if(!fecha || !descripcion){ alert('Por favor llena la fecha y la descripción.'); return; }
 
@@ -6010,22 +6500,135 @@ document.getElementById('btnGuardarContabilidad').addEventListener('click', asyn
     btn.disabled = true;
 
     try {
-        const { error } = await sb.from('contabilidad').insert({
-            fecha: fecha,
-            descripcion: descripcion,
-            egresos: egresos,
-            ingresos: ingresos
-        });
-        if(error) throw error;
+        let urlsEgreso = [...comprobantesContabilidadEgresosExistentes];
+        let urlsIngreso = [...comprobantesContabilidadIngresosExistentes];
         
-        mostrarToast('✅ Movimiento guardado', 'ok');
-        document.getElementById('btnCancelarContabilidad').click(); 
+        for(const file of comprobantesContabilidadEgresosArchivos){
+            const url = await subirComprobante(file);
+            urlsEgreso.push(url);
+        }
+        for(const file of comprobantesContabilidadIngresosArchivos){
+            const url = await subirComprobante(file);
+            urlsIngreso.push(url);
+        }
+        
+        const comprobanteUrl = JSON.stringify({ egreso: urlsEgreso, ingreso: urlsIngreso });
+
+        if (editandoId) {
+            // Actualizamos usando el ID exacto
+            const { error } = await sb.from('contabilidad').update({
+                fecha: fecha, 
+                descripcion: descripcion, 
+                egresos: egresos, 
+                ingresos: ingresos, 
+                comprobante_url: comprobanteUrl
+            }).eq('id', editandoId); 
+            
+            if(error) throw error;
+            mostrarToast('✅ Movimiento actualizado', 'ok');
+        } else {
+            const { error } = await sb.from('contabilidad').insert({
+                fecha: fecha, 
+                descripcion: descripcion, 
+                egresos: egresos, 
+                ingresos: ingresos, 
+                comprobante_url: comprobanteUrl
+            });
+            if(error) throw error;
+            mostrarToast('✅ Movimiento guardado', 'ok');
+        }
+        
+        document.getElementById('modalContabilidadOverlay').classList.remove('show'); 
+        delete formContabilidad.dataset.editandoId;
+        
+        comprobantesContabilidadEgresosExistentes = [];
+        comprobantesContabilidadIngresosExistentes = [];
+        comprobantesContabilidadEgresosArchivos = [];
+        comprobantesContabilidadIngresosArchivos = [];
+        
+        // Recargar la tabla
         await renderContabilidad(); 
+        
     } catch(e) {
+        console.error(e);
         alert('Error al guardar: ' + e.message);
     } finally {
         btn.innerHTML = '<i class="fas fa-save"></i> GUARDAR';
         btn.disabled = false;
+    }
+});
+
+// ===== EXPORTAR CONTABILIDAD A EXCEL =====
+document.getElementById('btnExportarContabilidad').addEventListener('click', async () => {
+    try {
+        const btn = document.getElementById('btnExportarContabilidad');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exportando...';
+        
+        // Traemos los datos frescos de Supabase ordenados por fecha
+        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true });
+        if(error) throw error;
+        
+        if(!data || data.length === 0){
+            mostrarToast('⚠️ No hay movimientos para exportar', 'error');
+            btn.innerHTML = '<i class="fas fa-file-excel"></i> EXPORTAR';
+            return;
+        }
+
+        // Formateamos los datos para el Excel
+        const datosExcel = [];
+        let totalAcumulado = 0;
+
+        data.forEach((mov, index) => {
+            const ingresoVal = mov.ingresos || 0;
+            const egresoVal = mov.egresos || 0;
+            totalAcumulado += (ingresoVal + egresoVal);
+            
+            const fechaObj = new Date(mov.fecha + 'T00:00:00');
+
+            datosExcel.push({
+                'N': index + 1,
+                'FECHA': fechaObj.toLocaleDateString('es-CO'),
+                'DESCRIPCIÓN': mov.descripcion || '',
+                'EGRESOS ($)': egresoVal === 0 ? '—' : egresoVal,
+                'INGRESOS ($)': ingresoVal === 0 ? '—' : ingresoVal,
+                'TOTAL ($)': totalAcumulado
+            });
+        });
+
+        // Crear el archivo Excel
+        const ws = XLSX.utils.json_to_sheet(datosExcel);
+        
+        // Ajustar el ancho de las columnas automáticamente
+        ws['!cols'] = [
+            { wch: 5 },  // N
+            { wch: 15 }, // FECHA
+            { wch: 50 }, // DESCRIPCIÓN
+            { wch: 15 }, // EGRESOS
+            { wch: 15 }, // INGRESOS
+            { wch: 15 }  // TOTAL
+        ];
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Contabilidad');
+        
+        const wbout = XLSX.write(wb, { bookType:'xlsx', type:'array' });
+        const blob = new Blob([wbout], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Contabilidad_VillaAlejo_${new Date().toISOString().split('T')[0]}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        mostrarToast('✅ Excel descargado correctamente', 'ok');
+        btn.innerHTML = '<i class="fas fa-file-excel"></i> EXPORTAR';
+        
+    } catch(e) {
+        console.error(e);
+        mostrarToast('❌ Error al exportar: ' + e.message, 'error');
+        document.getElementById('btnExportarContabilidad').innerHTML = '<i class="fas fa-file-excel"></i> EXPORTAR';
     }
 });
 
@@ -6050,6 +6653,43 @@ async function init(){
     const cache = cargarCache();
     if(cache){ reservas = cache; renderTodo(); setSyncStatus('cache', 'Caché'); }
     if(bloquesHabitacion.children.length===0) agregarBloqueHabitacion();
+    // Evento para el botón de Eliminar en Contabilidad
+
+const btnElimCont = document.getElementById('btnEliminarContabilidadMasivo');
+if(btnElimCont) {
+    btnElimCont.addEventListener('click', () => {
+        if(seleccionadosContabilidad.size === 0){
+            alert('No has seleccionado ningún movimiento.');
+            return;
+        }
+        
+        const ids = Array.from(seleccionadosContabilidad).map(id => Number(id)).filter(id => !isNaN(id));
+        
+        if(ids.length === 0) return;
+
+        abrirConfirm('¿Eliminar movimientos seleccionados?', `Se eliminarán ${ids.length} movimiento(s) de contabilidad.`, async () => {
+            try {
+                const { error } = await sb.from('contabilidad').delete().in('id', ids);
+                if(error) throw error;
+
+                // 1. Limpiamos la selección y ocultamos el botón
+                seleccionadosContabilidad.clear();
+                btnElimCont.style.display = 'none';
+                
+                // 2. Desmarcamos el checkbox de "TODOS"
+                const checkTodosHeader = document.getElementById('checkTodosContabilidad');
+                if(checkTodosHeader){ checkTodosHeader.checked = false; checkTodosHeader.indeterminate = false; }
+
+                // 3. Refrescamos la tabla
+                await renderContabilidad();
+                mostrarToast(`🗑️ ${ids.length} movimiento(s) eliminado(s)`, 'info');
+            } catch(e){
+                console.error(e);
+                mostrarToast('❌ Error al eliminar: ' + e.message, 'error');
+            }
+        });
+    });
+}    
     actualizarEstadoBotonAñadirHab();
     renderCalendar(mesCalendarioActual, anioCalendarioActual);
     renderTarifas();
@@ -6086,6 +6726,11 @@ setTimeout(() => {
 window.addEventListener('beforeunload', guardarCache);
 
 })();
+
+
+
+window.mostrarToast = function() { /* Función silenciosa para evitar errores */ };
+
 </script>
 </body>
 </html>
