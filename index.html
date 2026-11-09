@@ -909,7 +909,9 @@ select.estado-reserva-badge {
     /* 4. QUITAR EL STICKY DE TODAS LAS CELDAS DE DATOS (Para que se muevan a los lados) */
     .tabla-historial tbody td {
         position: static !important; 
-        background-color: transparent !important; /* Quita el fondo blanco que las hacía ver fijas */
+        box-shadow: none !important;
+        /* Quitamos el fondo blanco que las hacía ver fijas */
+        background-color: transparent !important; 
     }
 }
 
@@ -989,6 +991,76 @@ select.estado-reserva-badge {
         box-shadow: none !important;
     }
 }
+
+/* Aseguramos que la columna 1 (checkbox) no tenga un fondo diferente */
+    .tabla-historial tbody td:nth-child(1) {
+        background-color: #fff !important;
+    }
+    
+    /* Pintamos las filas intercaladas para que se lean bien */
+    .tabla-historial tbody tr:nth-child(even) td {
+        background-color: #fdf9f6 !important;
+    }
+    
+    .tabla-historial tbody tr.fila-seleccionada td {
+        background-color: #ffe6e6 !important;
+    }
+
+    /* ===== ADAPTAR TABLA DE CONTABILIDAD PARA CELULARES ===== */
+    #contabilidad-panel .tabla-historial {
+        min-width: 100% !important;
+        table-layout: fixed !important;
+        width: 100% !important;
+    }
+
+    #contabilidad-panel .tabla-historial th,
+    #contabilidad-panel .tabla-historial td {
+        font-size: 9px !important;
+        padding: 4px 2px !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Ajuste de anchos para que todo quepa en la pantalla del celular */
+    #contabilidad-panel .tabla-historial th:nth-child(1) { width: 8% !important; }  /* Checkbox */
+    #contabilidad-panel .tabla-historial th:nth-child(2) { width: 8% !important; }  /* N */
+    #contabilidad-panel .tabla-historial th:nth-child(3) { width: 16% !important; } /* Fecha */
+    #contabilidad-panel .tabla-historial th:nth-child(4) { width: 30% !important; } /* Descripción */
+    #contabilidad-panel .tabla-historial th:nth-child(5) { width: 12% !important; } /* Egresos */
+    #contabilidad-panel .tabla-historial th:nth-child(6) { width: 12% !important; } /* Ingresos */
+    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 14% !important; } /* Total */
+    
+    #contabilidad-panel .tabla-historial th:nth-child(8) { 
+        width: 40px !important; 
+        min-width: 40px !important;
+        max-width: 40px !important;
+    } /* Acción */
+
+    /* Hacer los botones de acción más pequeños para celular */
+    #contabilidad-panel .tabla-historial .btn-icon {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 0.55rem !important;
+        margin: 0 auto !important;
+    }
+
+    #contabilidad-panel .tabla-historial .btn-accion-col {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        flex-direction: row;
+    }
+    
+    #contabilidad-panel .tabla-historial th:nth-child(8) div {
+        flex-direction: row !important;
+        gap: 2px !important;
+    }
+    
+    /* Quitar el scroll horizontal en la tabla de contabilidad */
+    #contabilidad-panel .table-wrapper {
+        overflow-x: hidden !important;
+    }
     
 @media (max-width: 480px) {
     .section-btn span { display: none; }
