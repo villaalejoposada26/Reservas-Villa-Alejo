@@ -1001,9 +1001,9 @@ select.estado-reserva-badge {
 
     /* ===== ADAPTAR TABLA DE CONTABILIDAD PARA CELULARES ===== */
     #contabilidad-panel .tabla-historial {
-        min-width: 100% !important;
-        table-layout: fixed !important;
-        width: 100% !important;
+        min-width: 850px !important; /* Obliga a la tabla a ser ancha para que active el scroll horizontal */
+        table-layout: auto !important; /* Deja que las columnas tomen el ancho que necesitan */
+        width: auto !important;
     }
 
     #contabilidad-panel .tabla-historial th,
@@ -1026,8 +1026,11 @@ select.estado-reserva-badge {
     #contabilidad-panel .tabla-historial th:nth-child(7) { width: 130px !important; } /*Total */
     #contabilidad-panel .tabla-historial th:nth-child(8) { width: 20px !important; } /*Acción */
 
-#contabilidad-panel .tabla-historial th:nth-child(4) { 
+#contabilidad-panel .tabla-historial th:nth-child(4),
+#contabilidad-panel .tabla-historial td:nth-child(4) { 
     width: 250px !important; 
+    min-width: 250px !important;
+    max-width: 250px !important;
     text-align: center !important; 
     white-space: normal !important; 
 }
@@ -2020,7 +2023,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 <th style="width: 40px;"><input type="checkbox" id="checkTodosContabilidad" class="check-reserva"></th>
                                 <th style="width: 50px;">N</th>
                                 <th>FECHA</th>
-                                <th>DESCRIPCIÓN</th>
+<th style="width: 45% !important; text-align: center !important;">DESCRIPCIÓN</th>
                                 <th>EGRESOS</th>
                                 <th>INGRESOS</th>
                                 <th>TOTAL</th>
@@ -6377,7 +6380,7 @@ const { data, error } = await sb.from('contabilidad').select('*').order('id', { 
                 <td><input type="checkbox" class="check-reserva check-fila-cont" data-id="${mov.id}"></td>
 <td>${index + 1}</td>
                 <td>${fechaStr}</td>
-                <td style="text-align: left; padding-left: 10px;">${mov.descripcion}</td>
+                <td style="text-align: center; padding-left: 10px;">${mov.descripcion}</td>
                 ${tdEgreso}
                 ${tdIngreso}
                 <td style="font-weight: 900 !important; background: #faf3ee !important; color: ${totalAcumulado < 0 ? '#c62828' : '#2e7d32'} !important;">${formatPeso(totalAcumulado)}</td>
