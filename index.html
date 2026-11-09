@@ -1664,6 +1664,75 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     display: none !important;
 }
 
+/* ===== CONTABILIDAD: COLUMNAS FIJAS EN COMPUTADOR (las 4 primeras) ===== */
+@media (min-width: 769px) {
+    #contabilidad-panel .tabla-historial th:nth-child(1),
+    #contabilidad-panel .tabla-historial td:nth-child(1) {
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+        width: 30px !important;
+    }
+    #contabilidad-panel .tabla-historial th:nth-child(2),
+    #contabilidad-panel .tabla-historial td:nth-child(2) {
+        position: sticky !important;
+        left: 30px !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+        width: 30px !important;
+    }
+    #contabilidad-panel .tabla-historial th:nth-child(3),
+    #contabilidad-panel .tabla-historial td:nth-child(3) {
+        position: sticky !important;
+        left: 60px !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 120px !important;
+        max-width: 120px !important;
+        width: 120px !important;
+    }
+    #contabilidad-panel .tabla-historial th:nth-child(4),
+    #contabilidad-panel .tabla-historial td:nth-child(4) {
+        position: sticky !important;
+        left: 180px !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 250px !important;
+        max-width: 250px !important;
+        width: 250px !important;
+    }
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(3),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(4) {
+        z-index: 60 !important;
+        background-color: #faf3ee !important;
+    }
+    #contabilidad-panel .tabla-historial tbody tr td:nth-child(1),
+    #contabilidad-panel .tabla-historial tbody tr td:nth-child(2),
+    #contabilidad-panel .tabla-historial tbody tr td:nth-child(3),
+    #contabilidad-panel .tabla-historial tbody tr td:nth-child(4) {
+        background-color: #fff !important;
+    }
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(1),
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(2),
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(3),
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(4) {
+        background-color: #fdf9f6 !important;
+    }
+    #contabilidad-panel .tabla-historial tbody tr:hover td:nth-child(1),
+    #contabilidad-panel .tabla-historial tbody tr:hover td:nth-child(2),
+    #contabilidad-panel .tabla-historial tbody tr:hover td:nth-child(3),
+    #contabilidad-panel .tabla-historial tbody tr:hover td:nth-child(4) {
+        background-color: #fdf9f6 !important;
+    }
+}
+
 </style>
 </head>
 <body class="modo-visitante">
@@ -2026,13 +2095,8 @@ body.modo-lector .tabla-historial th:nth-child(1) {
 
             <!-- AQUÍ SIGUE LO QUE YA TENÍAS -->
             <div class="lista-reservas-section">
-                <div class="table-wrapper" style="max-height: 500px;">
-                    <!-- ... tu tabla ... -->            
-
-            <div class="lista-reservas-section">
             <div class="table-wrapper" style="max-height: 500px; margin-top: 1rem;">
                 <table class="tabla-historial">
-                    <!-- ... -->
                         <thead>
                             <tr>
 <th style="width: 40px;"><input type="checkbox" id="checkTodosContabilidad" class="check-reserva"></th>
@@ -4468,9 +4532,6 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
         const compUrlTotal = `${compUrlFinal}|${compUrlSaldoFinal}`;
 
         // ===== 4b. INTERCAMBIO DE HABITACIONES =====
-        // Si estamos editando UNA sola habitación y el usuario la cambió
-        // a una que ya está ocupada en el mismo rango de fechas,
-        // movemos al ocupante a la habitación vieja.
         if(esEdicion && reservaOriginal && filas.length === 1){
             const nuevaHab = filas[0].hab;
             const habVieja = reservaOriginal.hab;
@@ -4479,14 +4540,11 @@ document.getElementById('registerBtn').addEventListener('click', async ()=>{
 
             if(nuevaHab !== habVieja){
                 feedback.innerHTML = '🔄 Verificando disponibilidad...';
-
-                // Buscar si hay alguien ocupando la nueva habitación en ese rango
                 const ocupante = reservas.find(r => {
                     if(String(r.id) === String(reservaOriginal.id)) return false;
                     if(r.estado === 'Cancelada') return false;
                     if(r.hab !== nuevaHab) return false;
                     if(!r.entrada || !r.salida) return false;
-                    // ¿Se solapan las fechas? NO hay solape si (nuevaSalida < entrada) o (nuevaEntrada > salida)
                     return !(nuevaSalida < formatFechaISO(r.entrada) || nuevaEntrada > formatFechaISO(r.salida));
                 });
 
