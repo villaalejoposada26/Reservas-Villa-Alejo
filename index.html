@@ -1001,8 +1001,8 @@ select.estado-reserva-badge {
 
     /* ===== ADAPTAR TABLA DE CONTABILIDAD PARA CELULARES ===== */
     #contabilidad-panel .tabla-historial {
-        min-width: 850px !important; /* Obliga a la tabla a ser ancha para que active el scroll horizontal */
-        table-layout: auto !important; /* Deja que las columnas tomen el ancho que necesitan */
+        min-width: 850px !important; /* Hace la tabla ancha para que haya scroll */
+        table-layout: auto !important; 
         width: auto !important;
     }
 
@@ -1020,7 +1020,7 @@ select.estado-reserva-badge {
     #contabilidad-panel .tabla-historial th:nth-child(1) { width: 30px !important; } /*Checkbox */
     #contabilidad-panel .tabla-historial th:nth-child(2) { width: 30px !important; } /*N */
     #contabilidad-panel .tabla-historial th:nth-child(3) { width: 90px !important; } /*Fecha */
-    #contabilidad-panel .tabla-historial th:nth-child(4) { width: 250px !important; } /*Descripción */
+    /*#contabilidad-panel .tabla-historial th:nth-child(4) { width: 250px !important; }*/ /*Descripción */
     #contabilidad-panel .tabla-historial th:nth-child(5) { width: 130px !important; } /*Egresos */
     #contabilidad-panel .tabla-historial th:nth-child(6) { width: 130px !important; } /*Ingresos */
     #contabilidad-panel .tabla-historial th:nth-child(7) { width: 130px !important; } /*Total */
@@ -1033,6 +1033,7 @@ select.estado-reserva-badge {
     max-width: 250px !important;
     text-align: center !important; 
     white-space: normal !important; 
+    padding: 8px 10px !important;
 }
 
     /* 8. Ajustar botones de editar/eliminar */
@@ -6380,7 +6381,7 @@ const { data, error } = await sb.from('contabilidad').select('*').order('id', { 
                 <td><input type="checkbox" class="check-reserva check-fila-cont" data-id="${mov.id}"></td>
 <td>${index + 1}</td>
                 <td>${fechaStr}</td>
-                <td style="text-align: center; padding-left: 10px;">${mov.descripcion}</td>
+<td>${mov.descripcion}</td>
                 ${tdEgreso}
                 ${tdIngreso}
                 <td style="font-weight: 900 !important; background: #faf3ee !important; color: ${totalAcumulado < 0 ? '#c62828' : '#2e7d32'} !important;">${formatPeso(totalAcumulado)}</td>
