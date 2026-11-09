@@ -1067,10 +1067,7 @@ select.estado-reserva-badge {
         gap: 2px !important;
     }
     
-    /* Quitar el scroll horizontal en la tabla de contabilidad */
-    #contabilidad-panel .table-wrapper {
-        overflow-x: hidden !important;
-    }
+
 
     /* Esto obliga a que TODAS las celdas de la tabla ignoren el "sticky" */
     .tabla-historial tbody td,
@@ -1485,6 +1482,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
         border: 1px solid #e8d5c6 !important;
         border-radius: 20px !important;
         background: #fff !important;
+        position: relative !important;
 }
 
 #contabilidad-panel .tabla-historial {
@@ -1572,13 +1570,15 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 
 /* 4. Corregir el borde inferior grueso en toda la cabecera */
 #contabilidad-panel .tabla-historial thead tr th {
-        background-color: #faf3ee !important;
-        color: #50260c !important;
-        font-weight: 800 !important;
-        text-transform: uppercase !important;
-        position: sticky !important;
-        top: 0 !important;
-        z-index: 30 !important;
+    background-color: #faf3ee !important;
+    color: #50260c !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50 !important; /* Súbelo a 50 para que pase por encima de todo */
+    border-bottom: 2px solid #d4b9a4 !important; /* Agrega esta línea para que marque el límite */
+    box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1); /* Sombra para dar efecto de relieve */
 }
 
 /* Quitar bordes externos para que se vea limpio (pero mantener los internos) */
