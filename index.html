@@ -892,7 +892,7 @@ select.estado-reserva-badge {
     .tabla-historial {
         min-width: 1600px !important;
         table-layout: auto !important;
-        border-collapse: separate !important; /* Evita conflictos con el sticky */
+        border-collapse: collapse !important; /* ✅ collapse permite sticky */
         border-spacing: 0;
     }
 
@@ -906,7 +906,15 @@ select.estado-reserva-badge {
         box-shadow: none !important;
         background-color: transparent !important; /* Quita el fondo blanco que las hacía ver fijas */
     }
+    /* ✅ FIJAR LA FILA DE TÍTULOS EN MÓVIL */
+    .tabla-historial thead tr th {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 60 !important;
+        background-color: #faf3ee !important;
+        background-clip: padding-box;
     }
+}
 
 /* ===== ARREGLOS EXCLUSIVOS PARA DISPOSITIVOS MÓVILES ===== */
 @media (max-width: 768px) {
@@ -1730,6 +1738,27 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     #contabilidad-panel .tabla-historial tbody tr:hover td:nth-child(3),
     #contabilidad-panel .tabla-historial tbody tr:hover td:nth-child(4) {
         background-color: #fdf9f6 !important;
+    }
+}
+
+/* ===== FIJAR CABECERA DE CONTABILIDAD EN MÓVIL ===== */
+@media (max-width: 768px) {
+    #contabilidad-panel .table-wrapper {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        max-height: 65vh !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    #contabilidad-panel .tabla-historial {
+        border-collapse: collapse !important;
+    }
+    #contabilidad-panel .tabla-historial thead tr th {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 70 !important;
+        background-color: #faf3ee !important;
+        background-clip: padding-box;
+        box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1);
     }
 }
 
