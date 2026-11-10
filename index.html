@@ -1989,6 +1989,45 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
+/* ===== FIX: EVITAR QUE EL TÍTULO 4 SE MONTE SOBRE LOS TÍTULOS 1, 2 Y 3 ===== */
+@media (max-width: 768px) {
+    /* 1. Fijar los títulos 1, 2 y 3 en la parte superior izquierda para que NO se muevan */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(3) {
+        position: sticky !important;
+        top: 0 !important;
+        left: auto !important; /* No los pegamos a la izquierda, solo arriba */
+        z-index: 9999 !important; /* Capa superior para que tapen a los demás títulos */
+        background-color: #faf3ee !important; /* Fondo sólido para que no se transparente nada */
+    }
+
+    /* 2. El título 4 y en adelante también van arriba, pero en una capa inferior */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(4),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(5),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(6),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(7),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(8) {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important; /* Capa inferior para que NO tapen a los primeros 3 */
+        background-color: #faf3ee !important;
+    }
+
+    /* 3. Bloqueo total de encimamiento de los títulos */
+    #contabilidad-panel .tabla-historial thead tr th {
+        box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2) !important; /* Sombra divisoria */
+        border-bottom: 2px solid #d4b9a4 !important;
+    }
+    
+    /* 4. Asegurar que los datos sigan deslizándose libres */
+    #contabilidad-panel .tabla-historial tbody td {
+        position: static !important;
+        z-index: 1 !important;
+        background-color: transparent !important;
+    }
+}
+
 </style>
 </head>
 <body class="modo-visitante">
