@@ -1878,37 +1878,6 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
-/* ===== FIX: MOVER TODAS LAS COLUMNAS LATERALMENTE (SIN TOCAR LOS TÍTULOS) ===== */
-@media (max-width: 768px) {
-    /* 1. Desbloquear las celdas de contabilidad que estaban fijas a la izquierda */
-    #contabilidad-panel .tabla-historial tbody td:nth-child(1),
-    #contabilidad-panel .tabla-historial tbody td:nth-child(2),
-    #contabilidad-panel .tabla-historial tbody td:nth-child(3),
-    #contabilidad-panel .tabla-historial tbody td:nth-child(4) {
-        position: static !important;
-        left: auto !important;
-        box-shadow: none !important;
-        background-color: transparent !important;
-    }
-
-    /* 2. Desbloquear las celdas de reservas que estaban fijas a la izquierda */
-    #reservas-panel .tabla-historial tbody td:nth-child(1),
-    #reservas-panel .tabla-historial tbody td:nth-child(2),
-    #reservas-panel .tabla-historial tbody td:nth-child(3),
-    #reservas-panel .tabla-historial tbody td:nth-child(4) {
-        position: static !important;
-        left: auto !important;
-        box-shadow: none !important;
-        background-color: transparent !important;
-    }
-
-    /* 3. Asegurar que el rayado (zebra) se mantenga para que no se vea todo blanco */
-    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td,
-    #reservas-panel .tabla-historial tbody tr:nth-child(even) td {
-        background-color: #fdf9f6 !important;
-    }
-}
-
 </style>
 </head>
 <body class="modo-visitante">
