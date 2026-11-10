@@ -1822,52 +1822,52 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
-/* ===== SOLUCIÓN DEFINITIVA: TÍTULOS FIJOS VERTICAL, COLUMNAS CORREN LATERAL ===== */
+/* ===== FIX DEFINITIVO: PERMITIR SCROLL LATERAL EN CONTABILIDAD (MÓVIL) ===== */
 @media (max-width: 768px) {
-    /* 1. Permitir que la tabla haga scroll y que el sticky funcione */
-    .tabla-historial {
-        border-collapse: collapse !important;
-        border-spacing: 0 !important;
-        min-width: 1600px !important; /* Mantiene la tabla ancha para que se pueda deslizar */
-    }
-
-    /* 2. Fijar SOLO los TÍTULOS arriba (Vertical) */
-    #contabilidad-panel .tabla-historial thead tr th,
-    #reservas-panel .tabla-historial thead tr th {
-        position: -webkit-sticky !important;
-        position: sticky !important;
-        top: 0 !important;
-        z-index: 100 !important;
-        background-color: #faf3ee !important;
-        box-shadow: 0 2px 2px -1px rgba(0,0,0,0.2) !important;
-    }
-
-    /* 3. Anular cualquier celda de datos que intente quedarse fija a los lados */
-    #contabilidad-panel .tabla-historial tbody td,
-    #reservas-panel .tabla-historial tbody td {
-        position: static !important;
-        left: auto !important;
-        right: auto !important;
-        z-index: 1 !important;
-    }
-
-    /* 4. Asegurar que la tabla de contabilidad tenga el ancho suficiente para deslizarse */
+    /* 1. Forzar a que la tabla de contabilidad sea ancha para que se deslice */
     #contabilidad-panel .tabla-historial {
-        min-width: 900px !important; 
-        width: 100% !important;
+        min-width: 850px !important; 
+        table-layout: auto !important; 
+        width: auto !important;
+        border-collapse: collapse !important;
     }
 
-    /* 5. Anular los fondos blancos que se pusieron para las columnas fijas */
-    #contabilidad-panel .tabla-historial tbody tr td,
-    #reservas-panel .tabla-historial tbody tr td {
+    /* 2. Quitar cualquier "pegamento" (sticky) lateral de las celdas de datos */
+    #contabilidad-panel .tabla-historial tbody td,
+    #contabilidad-panel .tabla-historial tbody td:nth-child(1),
+    #contabilidad-panel .tabla-historial tbody td:nth-child(2),
+    #contabilidad-panel .tabla-historial tbody td:nth-child(3),
+    #contabilidad-panel .tabla-historial tbody td:nth-child(4) {
+        position: static !important; /* Permite que se muevan a los lados */
+        left: auto !important;
+        box-shadow: none !important;
+    }
+
+    /* 3. Anular los fondos blancos de las primeras columnas para que fluyan con el resto */
+    #contabilidad-panel .tabla-historial tbody td:nth-child(1),
+    #contabilidad-panel .tabla-historial tbody td:nth-child(2),
+    #contabilidad-panel .tabla-historial tbody td:nth-child(3),
+    #contabilidad-panel .tabla-historial tbody td:nth-child(4) {
         background-color: transparent !important;
     }
-    
-    /* 6. Mantener el rayado (zebra) de las filas para que se lean bien */
-    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td,
-    #reservas-panel .tabla-historial tbody tr:nth-child(even) td {
-        background-color: #fdf9f6 !important;
+
+    /* 4. Mantener el scroll lateral en el contenedor */
+    #contabilidad-panel .table-wrapper {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-height: 65vh !important;
     }
+    
+    /* 5. Aplicar un pequeño ajuste de ancho a las columnas para que no se aplasten */
+    #contabilidad-panel .tabla-historial th:nth-child(1) { width: 20px !important; min-width: 20px !important; } /* Check */
+    #contabilidad-panel .tabla-historial th:nth-child(2) { width: 20px !important; min-width: 20px !important; } /* N */
+    #contabilidad-panel .tabla-historial th:nth-child(3) { width: 80px !important; min-width: 80px !important; } /* Fecha */
+    #contabilidad-panel .tabla-historial th:nth-child(4) { width: 250px !important; min-width: 250px !important; } /* Descripción */
+    #contabilidad-panel .tabla-historial th:nth-child(5) { width: 100px !important; min-width: 100px !important; } /* Egresos */
+    #contabilidad-panel .tabla-historial th:nth-child(6) { width: 100px !important; min-width: 100px !important; } /* Ingresos */
+    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 80px !important; min-width: 80px !important; }  /* Total */
+    #contabilidad-panel .tabla-historial th:nth-child(8) { width: 60px !important; min-width: 60px !important; }  /* Acción */
 }
 
 </style>
