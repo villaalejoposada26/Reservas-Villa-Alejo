@@ -1659,6 +1659,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
     font-size: 9px !important; /* Cambia el 11px por el tamaño que prefieras (ej: 12px, 10px) */
     position: static !important;
     background-color: transparent !important;
+    z-index: 1 !important; 
 }
 
 /* Opcional: Ajustar también el tamaño de los títulos si los ves muy grandes */
@@ -1958,13 +1959,11 @@ body.modo-lector .tabla-historial th:nth-child(1) {
 
     /* 3. FIJAR SOLO LA FILA DE TÍTULOS ARRIBA (Scroll Vertical) */
     #contabilidad-panel .tabla-historial thead tr th {
-        position: -webkit-sticky !important;
         position: sticky !important;
         top: 0 !important;
-        z-index: 9999 !important;
-        background-color: #faf3ee !important;
+        z-index: 100 !important;
+        background-color: #faf3ee !important; /* Fondo sólido para tapar lo que pase por debajo */
         box-shadow: 0 2px 2px -1px rgba(0,0,0,0.15) !important;
-        border-bottom: 2px solid #d4b9a4 !important;
     }
 
     /* 4. QUITAR EL PEGAMENTO DE TODAS LAS CELDAS DE DATOS (Scroll Horizontal Libre) */
