@@ -2028,41 +2028,66 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
-/* ===== FIX FINAL: TÍTULOS PAREJOS SIN SUPERPOSICIÓN ===== */
+/* ===== FIX MAESTRO: TÍTULOS PAREJOS Y COLUMNAS LIBRES EN MÓVIL ===== */
 @media (max-width: 768px) {
-    /* 1. Igualamos el nivel de TODOS los títulos para que ninguno pase por encima de otro */
+    /* 1. El contenedor maneja el scroll */
+    #contabilidad-panel .table-wrapper {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        max-height: 60vh !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* 2. La tabla debe ser ancha para que se deslice */
+    #contabilidad-panel .tabla-historial {
+        min-width: 850px !important; 
+        width: max-content !important;
+        border-collapse: collapse !important;
+    }
+
+    /* 3. TODOS LOS TÍTULOS AL MISMO NIVEL (Ninguno tapa a otro) */
     #contabilidad-panel .tabla-historial thead tr th {
         position: -webkit-sticky !important;
         position: sticky !important;
         top: 0 !important;
-        z-index: 100 !important; /* Todos en la misma capa */
-        background-color: #faf3ee !important; /* Fondo sólido para que no se transparente nada */
-        border-bottom: 2px solid #d4b9a4 !important; /* Línea divisoria limpia */
-        box-shadow: none !important; /* Quitamos sombras para que no parezca que flotan unos sobre otros */
+        z-index: 100 !important; /* Todos con el mismo nivel */
+        background-color: #faf3ee !important; /* Fondo sólido para todos */
+        border-bottom: 2px solid #d4b9a4 !important;
+        box-shadow: none !important; /* Sin sombras para que no parezca que flotan */
     }
 
-    /* 2. Aseguramos que los datos pasen POR DEBAJO de todos los títulos por igual */
+    /* 4. ANULAR CAPAS EXTRAÑAS DE TÍTULOS ESPECÍFICOS */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(3),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(4),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(5) {
+        z-index: 100 !important; /* Forzar a que todos estén parejos */
+    }
+
+    /* 5. CELDAS DE DATOS: Libres para deslizar de lado a lado */
     #contabilidad-panel .tabla-historial tbody td {
         position: static !important;
-        z-index: 1 !important; /* Capa inferior para todos los datos */
+        left: auto !important;
+        z-index: 1 !important; /* Los datos pasan por debajo de los títulos */
         background-color: transparent !important;
     }
 
-    /* 3. Arreglamos el ancho de la descripción para que no empuje la columna de al lado */
+    /* 6. Ajuste de anchos para que no se aplasten */
     #contabilidad-panel .tabla-historial th:nth-child(4),
     #contabilidad-panel .tabla-historial td:nth-child(4) { 
         min-width: 220px !important; 
         max-width: 220px !important; 
-        white-space: normal !important; /* Permite que el texto largo baje de línea */
+        white-space: normal !important; 
         word-wrap: break-word !important;
     }
     
-    /* 4. Anulamos los Z-INDEX especiales que te di antes para que TODOS los títulos sean iguales */
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(3),
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(4) {
-        z-index: 100 !important; 
+    /* 7. Mantener el fondo rayado de las filas */
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td {
+        background-color: #fdf9f6 !important;
+    }
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(odd) td {
+        background-color: #ffffff !important;
     }
 }
 
