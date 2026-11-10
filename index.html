@@ -1822,15 +1822,15 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
-/* ===== SOLUCIÓN DEFINITIVA: TÍTULOS FIJOS VERTICAL, COLUMNAS CORREN LATERAL ===== */
+/* ===== SOLUCIÓN DEFINITIVA: STICKY EN MÓVIL (TÍTULOS + 4 COLUMNAS) ===== */
 @media (max-width: 768px) {
-    /* 1. Permitir que la tabla haga scroll y que el sticky funcione */
+    /* 1. Asegurar que la tabla sea collapse para que el sticky funcione */
     .tabla-historial {
         border-collapse: collapse !important;
         border-spacing: 0 !important;
     }
 
-    /* 2. Fijar SOLO los TÍTULOS arriba (Vertical) */
+    /* 2. Fijar los TÍTULOS arriba (Vertical) */
     #contabilidad-panel .tabla-historial thead tr th,
     #reservas-panel .tabla-historial thead tr th {
         position: -webkit-sticky !important;
@@ -1841,40 +1841,101 @@ body.modo-lector .tabla-historial th:nth-child(1) {
         box-shadow: 0 2px 2px -1px rgba(0,0,0,0.2) !important;
     }
 
-    /* 3. Anular cualquier celda de datos que intente quedarse fija a los lados (Desbloqueo total) */
-    .tabla-historial tbody td,
-    #contabilidad-panel .tabla-historial tbody td,
-    #reservas-panel .tabla-historial tbody td {
-        position: static !important;
-        left: auto !important;
-        right: auto !important;
-        z-index: 1 !important;
-        box-shadow: none !important;
+    /* 3. CONTABILIDAD: Fijar las 4 primeras columnas (Horizontal) */
+    #contabilidad-panel .tabla-historial th:nth-child(1),
+    #contabilidad-panel .tabla-historial td:nth-child(1) {
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 25px !important;
+        max-width: 25px !important;
     }
 
-    /* 4. Asegurar que la tabla de contabilidad sea ancha para que se deslice */
-    #contabilidad-panel .tabla-historial {
-        min-width: 850px !important; 
-        width: auto !important;
-        table-layout: auto !important;
+    #contabilidad-panel .tabla-historial th:nth-child(2),
+    #contabilidad-panel .tabla-historial td:nth-child(2) {
+        position: sticky !important;
+        left: 25px !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 25px !important;
+        max-width: 25px !important;
     }
 
-    /* 5. Asegurar que la tabla de reservas sea ancha para que se deslice */
-    #reservas-panel .tabla-historial {
-        min-width: 1600px !important; 
-        width: auto !important;
+    #contabilidad-panel .tabla-historial th:nth-child(3),
+    #contabilidad-panel .tabla-historial td:nth-child(3) {
+        position: sticky !important;
+        left: 50px !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 75px !important;
+        max-width: 75px !important;
     }
 
-    /* 6. Anular los fondos blancos que se pusieron para las columnas fijas */
-    #contabilidad-panel .tabla-historial tbody tr td,
-    #reservas-panel .tabla-historial tbody tr td {
-        background-color: transparent !important;
+    #contabilidad-panel .tabla-historial th:nth-child(4),
+    #contabilidad-panel .tabla-historial td:nth-child(4) {
+        position: sticky !important;
+        left: 125px !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 140px !important;
+        max-width: 140px !important;
+        border-right: 2px solid #d4b9a4 !important; /* Sombra lateral para separar */
     }
-    
-    /* 7. Mantener el rayado (zebra) de las filas para que se lean bien */
-    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td,
-    #reservas-panel .tabla-historial tbody tr:nth-child(even) td {
-        background-color: #fdf9f6 !important;
+
+    /* 4. RESERVAS: Fijar las 4 primeras columnas (Horizontal) */
+    #reservas-panel .tabla-historial th:nth-child(1),
+    #reservas-panel .tabla-historial td:nth-child(1) {
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 35px !important;
+        max-width: 35px !important;
+    }
+
+    #reservas-panel .tabla-historial th:nth-child(2),
+    #reservas-panel .tabla-historial td:nth-child(2) {
+        position: sticky !important;
+        left: 35px !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 30px !important;
+        max-width: 30px !important;
+    }
+
+    #reservas-panel .tabla-historial th:nth-child(3),
+    #reservas-panel .tabla-historial td:nth-child(3) {
+        position: sticky !important;
+        left: 65px !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 110px !important;
+        max-width: 110px !important;
+    }
+
+    #reservas-panel .tabla-historial th:nth-child(4),
+    #reservas-panel .tabla-historial td:nth-child(4) {
+        position: sticky !important;
+        left: 175px !important;
+        z-index: 50 !important;
+        background-color: #fff !important;
+        min-width: 80px !important;
+        max-width: 80px !important;
+        border-right: 2px solid #d4b9a4 !important; /* Sombra lateral para separar */
+    }
+
+    /* 5. Elevar el Z-INDEX de los títulos que también son columnas fijas para que no se oculten */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(3),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(4),
+    #reservas-panel .tabla-historial thead tr th:nth-child(1),
+    #reservas-panel .tabla-historial thead tr th:nth-child(2),
+    #reservas-panel .tabla-historial thead tr th:nth-child(3),
+    #reservas-panel .tabla-historial thead tr th:nth-child(4) {
+        z-index: 110 !important; /* Mayor que el z-index 100 y 50 */
+        background-color: #faf3ee !important; /* Color de cabecera */
     }
 }
 
