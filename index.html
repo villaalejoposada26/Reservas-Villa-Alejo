@@ -1823,120 +1823,65 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
-/* ===== SOLUCIÓN DEFINITIVA: STICKY EN MÓVIL (TÍTULOS + 4 COLUMNAS) ===== */
+/* ===== SOLUCIÓN: TODAS LAS COLUMNAS SE DESLIZAN LIBREMENTE, SOLO TÍTULOS STICKY ARRIBA ===== */
 @media (max-width: 768px) {
-    /* 1. Asegurar que la tabla sea collapse para que el sticky funcione */
+    /* 1. La tabla debe ser collapse para que el sticky vertical funcione */
     .tabla-historial {
         border-collapse: collapse !important;
         border-spacing: 0 !important;
     }
 
-    /* 2. Fijar los TÍTULOS arriba (Vertical) */
+    /* 2. SOLO los TÍTULOS quedan fijos arriba (sticky vertical) */
     #contabilidad-panel .tabla-historial thead tr th,
-    #reservas-panel .tabla-historial thead tr th {
+    #reservas-panel .tabla-historial thead tr th,
+    .tabla-historial thead tr th {
         position: -webkit-sticky !important;
         position: sticky !important;
         top: 0 !important;
+        left: auto !important;      /* Nada de sticky horizontal */
         z-index: 100 !important;
         background-color: #faf3ee !important;
         box-shadow: 0 2px 2px -1px rgba(0,0,0,0.2) !important;
     }
 
-    /* 3. CONTABILIDAD: Fijar las 4 primeras columnas (Horizontal) */
-    #contabilidad-panel .tabla-historial th:nth-child(1),
-    #contabilidad-panel .tabla-historial td:nth-child(1) {
-        position: sticky !important;
-        left: 0 !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 25px !important;
-        max-width: 25px !important;
+    /* 3. TODAS las celdas de datos se mueven libremente (sin sticky, sin left) */
+    #contabilidad-panel .tabla-historial tbody td,
+    #reservas-panel .tabla-historial tbody td,
+    .tabla-historial tbody td,
+    .tabla-historial tbody td:nth-child(1),
+    .tabla-historial tbody td:nth-child(2),
+    .tabla-historial tbody td:nth-child(3),
+    .tabla-historial tbody td:nth-child(4),
+    .tabla-historial tbody td.sticky-col,
+    .tabla-historial tbody td.col-1,
+    .tabla-historial tbody td.col-2,
+    .tabla-historial tbody td.col-3,
+    .tabla-historial tbody td.col-4 {
+        position: static !important;
+        left: auto !important;
+        right: auto !important;
+        z-index: 1 !important;
+        box-shadow: none !important;
     }
 
-    #contabilidad-panel .tabla-historial th:nth-child(2),
-    #contabilidad-panel .tabla-historial td:nth-child(2) {
-        position: sticky !important;
-        left: 25px !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 25px !important;
-        max-width: 25px !important;
+    /* 4. Mantener el fondo rayado (zebra) para que se lean bien al deslizar */
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td,
+    #reservas-panel .tabla-historial tbody tr:nth-child(even) td {
+        background-color: #fdf9f6 !important;
+    }
+    #contabilidad-panel .tabla-historial tbody tr:nth-child(odd) td,
+    #reservas-panel .tabla-historial tbody tr:nth-child(odd) td {
+        background-color: #ffffff !important;
     }
 
-    #contabilidad-panel .tabla-historial th:nth-child(3),
-    #contabilidad-panel .tabla-historial td:nth-child(3) {
-        position: sticky !important;
-        left: 50px !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 75px !important;
-        max-width: 75px !important;
-    }
-
-    #contabilidad-panel .tabla-historial th:nth-child(4),
-    #contabilidad-panel .tabla-historial td:nth-child(4) {
-        position: sticky !important;
-        left: 125px !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 140px !important;
-        max-width: 140px !important;
-        border-right: 2px solid #d4b9a4 !important; /* Sombra lateral para separar */
-    }
-
-    /* 4. RESERVAS: Fijar las 4 primeras columnas (Horizontal) */
-    #reservas-panel .tabla-historial th:nth-child(1),
-    #reservas-panel .tabla-historial td:nth-child(1) {
-        position: sticky !important;
-        left: 0 !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 35px !important;
-        max-width: 35px !important;
-    }
-
-    #reservas-panel .tabla-historial th:nth-child(2),
-    #reservas-panel .tabla-historial td:nth-child(2) {
-        position: sticky !important;
-        left: 35px !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 30px !important;
-        max-width: 30px !important;
-    }
-
-    #reservas-panel .tabla-historial th:nth-child(3),
-    #reservas-panel .tabla-historial td:nth-child(3) {
-        position: sticky !important;
-        left: 65px !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 110px !important;
-        max-width: 110px !important;
-    }
-
-    #reservas-panel .tabla-historial th:nth-child(4),
-    #reservas-panel .tabla-historial td:nth-child(4) {
-        position: sticky !important;
-        left: 175px !important;
-        z-index: 50 !important;
-        background-color: #fff !important;
-        min-width: 80px !important;
-        max-width: 80px !important;
-        border-right: 2px solid #d4b9a4 !important; /* Sombra lateral para separar */
-    }
-
-    /* 5. Elevar el Z-INDEX de los títulos que también son columnas fijas para que no se oculten */
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(3),
-    #contabilidad-panel .tabla-historial thead tr th:nth-child(4),
-    #reservas-panel .tabla-historial thead tr th:nth-child(1),
-    #reservas-panel .tabla-historial thead tr th:nth-child(2),
-    #reservas-panel .tabla-historial thead tr th:nth-child(3),
-    #reservas-panel .tabla-historial thead tr th:nth-child(4) {
-        z-index: 110 !important; /* Mayor que el z-index 100 y 50 */
-        background-color: #faf3ee !important; /* Color de cabecera */
+    /* 5. Respetar el rosa de la fila seleccionada */
+    .tabla-historial tbody tr.fila-seleccionada td,
+    .tabla-historial tbody tr.fila-seleccionada td.sticky-col,
+    .tabla-historial tbody tr.fila-seleccionada td.col-1,
+    .tabla-historial tbody tr.fila-seleccionada td.col-2,
+    .tabla-historial tbody tr.fila-seleccionada td.col-3,
+    .tabla-historial tbody tr.fila-seleccionada td.col-4 {
+        background-color: #ffe6e6 !important;
     }
 }
 
@@ -1989,9 +1934,48 @@ body.modo-lector .tabla-historial th:nth-child(1) {
     }
 }
 
-/* ===== FIX MAESTRO Y DEFINITIVO PARA CONTABILIDAD EN MÓVIL ===== */
+/* ===== FIX: EVITAR QUE EL TÍTULO 4 SE MONTE SOBRE LOS TÍTULOS 1, 2 Y 3 ===== */
 @media (max-width: 768px) {
-    /* 1. El contenedor hace el scroll */
+    /* 1. Fijar los títulos 1, 2 y 3 en la parte superior izquierda para que NO se muevan */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(3) {
+        position: sticky !important;
+        top: 0 !important;
+        left: auto !important; /* No los pegamos a la izquierda, solo arriba */
+        z-index: 9999 !important; /* Capa superior para que tapen a los demás títulos */
+        background-color: #faf3ee !important; /* Fondo sólido para que no se transparente nada */
+    }
+
+    /* 2. El título 4 y en adelante también van arriba, pero en una capa inferior */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(4),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(5),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(6),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(7),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(8) {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 100 !important; /* Capa inferior para que NO tapen a los primeros 3 */
+        background-color: #faf3ee !important;
+    }
+
+    /* 3. Bloqueo total de encimamiento de los títulos */
+    #contabilidad-panel .tabla-historial thead tr th {
+        box-shadow: 0 2px 3px -1px rgba(0,0,0,0.2) !important; /* Sombra divisoria */
+        border-bottom: 2px solid #d4b9a4 !important;
+    }
+    
+    /* 4. Asegurar que los datos sigan deslizándose libres */
+    #contabilidad-panel .tabla-historial tbody td {
+        position: static !important;
+        z-index: 1 !important;
+        background-color: transparent !important;
+    }
+}
+
+/* ===== FIX MAESTRO: TÍTULOS PAREJOS Y COLUMNAS LIBRES EN MÓVIL ===== */
+@media (max-width: 768px) {
+    /* 1. El contenedor maneja el scroll */
     #contabilidad-panel .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
@@ -1999,35 +1983,42 @@ body.modo-lector .tabla-historial th:nth-child(1) {
         -webkit-overflow-scrolling: touch !important;
     }
 
-    /* 2. La tabla es ancha para que haya scroll horizontal */
+    /* 2. La tabla debe ser ancha para que se deslice */
     #contabilidad-panel .tabla-historial {
         min-width: 850px !important; 
         width: max-content !important;
-        border-collapse: collapse !important; /* CRUCIAL: collapse, no separate */
+        border-collapse: collapse !important;
     }
 
-    /* 3. FORZAR A QUE LOS TÍTULOS SE QUEDEN ARRIBA Y NO SE ENCIMEN */
-    #contabilidad-panel .tabla-historial thead tr {
+    /* 3. TODOS LOS TÍTULOS AL MISMO NIVEL (Ninguno tapa a otro) */
+    #contabilidad-panel .tabla-historial thead tr th {
         position: -webkit-sticky !important;
         position: sticky !important;
         top: 0 !important;
-        z-index: 9999 !important; /* Todo el bloque de títulos al mismo nivel */
-    }
-
-    #contabilidad-panel .tabla-historial thead tr th {
-        background-color: #faf3ee !important; /* Fondo sólido para que no se transparente nada */
+        z-index: 100 !important; /* Todos con el mismo nivel */
+        background-color: #faf3ee !important; /* Fondo sólido para todos */
         border-bottom: 2px solid #d4b9a4 !important;
-        box-shadow: 0 2px 2px -1px rgba(0,0,0,0.1) !important; /* Sombra para demarcar el límite */
+        box-shadow: none !important; /* Sin sombras para que no parezca que flotan */
     }
 
-    /* 4. LOS DATOS PASAN POR DEBAJO Y SE DESLIZAN LIBRES */
+    /* 4. ANULAR CAPAS EXTRAÑAS DE TÍTULOS ESPECÍFICOS */
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(1),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(2),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(3),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(4),
+    #contabilidad-panel .tabla-historial thead tr th:nth-child(5) {
+        z-index: 100 !important; /* Forzar a que todos estén parejos */
+    }
+
+    /* 5. CELDAS DE DATOS: Libres para deslizar de lado a lado */
     #contabilidad-panel .tabla-historial tbody td {
         position: static !important;
-        z-index: 1 !important; 
+        left: auto !important;
+        z-index: 1 !important; /* Los datos pasan por debajo de los títulos */
         background-color: transparent !important;
     }
 
-    /* 5. Arreglar el ancho de la Descripción para que el texto baje de línea y no empuje */
+    /* 6. Ajuste de anchos para que no se aplasten */
     #contabilidad-panel .tabla-historial th:nth-child(4),
     #contabilidad-panel .tabla-historial td:nth-child(4) { 
         min-width: 220px !important; 
@@ -2036,7 +2027,7 @@ body.modo-lector .tabla-historial th:nth-child(1) {
         word-wrap: break-word !important;
     }
     
-    /* 6. Mantener el rayado (zebra) de las filas para que se lea bien */
+    /* 7. Mantener el fondo rayado de las filas */
     #contabilidad-panel .tabla-historial tbody tr:nth-child(even) td {
         background-color: #fdf9f6 !important;
     }
