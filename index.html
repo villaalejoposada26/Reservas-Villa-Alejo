@@ -2177,6 +2177,30 @@ body.modal-abierto #contabilidad-panel .tabla-historial tbody td {
 body.modal-abierto {
     overflow: hidden !important;
 }
+
+/* ===== ARREGLOS PARA LA TABLA DE CONTABILIDAD EN MÓVILES ===== */
+@media (max-width: 768px) {
+    /* 1. Hacer que la fila de totales se adapte a la pantalla */
+    #tfootContabilidad td {
+        font-size: 9px !important; /* Letra más pequeña para que quepa */
+        padding: 8px 4px !important;
+        white-space: normal !important; /* Permite saltos de línea si es necesario */
+        text-align: center !important;
+    }
+    
+    #tfootContabilidad td[colspan="4"] {
+        text-align: right !important;
+        padding-right: 10px !important;
+        font-size: 10px !important;
+    }
+
+    /* 2. Ocultar el botón de GUARDAR MES para usuarios que no sean editores */
+    body.modo-lector #btnGuardarMes,
+    body.modo-visitante #btnGuardarMes {
+        display: none !important;
+    }
+}
+
 </style>
 </head>
 <body class="modo-visitante">
