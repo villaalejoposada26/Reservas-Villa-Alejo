@@ -3580,29 +3580,21 @@ function aplicarRolVisual(rol){
     const btnLogout = document.getElementById('btnLogout');
     if(btnLogout) btnLogout.style.display = 'none';
 
+    const tdTotales = document.querySelector('#tfootContabilidad .colspan-totales');
+    if (tdTotales) {
+        if (rol === 'lector' || rol === 'visitante') {
+            tdTotales.setAttribute('colspan', '3');
+        } else {
+            tdTotales.setAttribute('colspan', '4');
+        }
+    }
+
     const ind = document.getElementById('syncIndicator');
     if(rol === 'visitante') ind.classList.add('hidden-sync'); else ind.classList.remove('hidden-sync');
 
     if(rol === 'visitante'){
         activateSection('calendar');
     }
-}
-
-function aplicarRolVisual(rol){
-    // ... (todo el código que ya tienes de esta función) ...
-
-    // ===== NUEVO: Ajuste EXCLUSIVO para el modo lector en móviles =====
-    const tdTotales = document.querySelector('#tfootContabilidad .colspan-totales');
-    if (tdTotales) {
-        if (rol === 'lector' || rol === 'visitante') {
-            // Si es de solo lectura, el texto TOTALES ocupa 3 columnas (N, Fecha, Descripción)
-            tdTotales.setAttribute('colspan', '3');
-        } else {
-            // Si es editor, se mantiene igual con 4 columnas
-            tdTotales.setAttribute('colspan', '4');
-        }
-    }
-    // =================================================================
 }
 
 function aplicarModoEditor(){
