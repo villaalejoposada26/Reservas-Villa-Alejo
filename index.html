@@ -2178,27 +2178,57 @@ body.modal-abierto {
     overflow: hidden !important;
 }
 
-/* ===== ARREGLOS PARA LA TABLA DE CONTABILIDAD EN MÓVILES ===== */
+/* ===== ARREGLOS EXCLUSIVOS PARA LA FILA DE TOTALES EN MÓVILES ===== */
 @media (max-width: 768px) {
-    /* 1. Hacer que la fila de totales se adapte a la pantalla */
-    #tfootContabilidad td {
-        font-size: 9px !important; /* Letra más pequeña para que quepa */
-        padding: 8px 4px !important;
-        white-space: normal !important; /* Permite saltos de línea si es necesario */
-        text-align: center !important;
-    }
     
-    #tfootContabilidad td[colspan="4"] {
-        text-align: right !important;
-        padding-right: 10px !important;
-        font-size: 10px !important;
+    /* 1. Adaptar la fila de totales (tfoot) para que quepa perfecto */
+    #tfootContabilidad tr {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
     }
 
-    /* 2. Ocultar el botón de GUARDAR MES para usuarios que no sean editores */
-    body.modo-lector #btnGuardarMes,
-    body.modo-visitante #btnGuardarMes {
+    #tfootContabilidad td {
+        font-size: 11px !important; /* Tamaño de letra legible */
+        padding: 10px 4px !important;
+        white-space: normal !important; /* Permite que el texto baje si es muy largo */
+        text-align: center !important;
+        box-sizing: border-box !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Ajustar el ancho de cada columna del total para que quepan las 3 juntas */
+    #tfootContabilidad td:nth-child(1) {
+        /* La celda que dice "TOTALES:" (que abarca las primeras 4 columnas) */
+        width: 100% !important; 
+        text-align: right !important;
+        padding-right: 15px !important;
+        border-bottom: none !important;
+        font-size: 10px !important;
+        color: #8a6b55 !important;
+    }
+
+    /* Las 3 celdas de los montos (Ingresos, Egresos, Total) */
+    #tfootContabilidad td:nth-child(2),
+    #tfootContabilidad td:nth-child(3),
+    #tfootContabilidad td:nth-child(4) {
+        width: 33.33% !important;
+        font-size: 11px !important;
+        font-weight: 900 !important;
+    }
+
+    /* Ocultar la última celda vacía que sobra en el diseño */
+    #tfootContabilidad td:last-child {
         display: none !important;
     }
+}
+
+/* 2. Ocultar el botón de GUARDAR MES para usuarios que no sean editores */
+body.modo-lector #btnGuardarMes,
+body.modo-visitante #btnGuardarMes {
+    display: none !important;
 }
 
 </style>
