@@ -2178,54 +2178,61 @@ body.modal-abierto {
     overflow: hidden !important;
 }
 
-/* ===== ARREGLOS EXCLUSIVOS PARA LA FILA DE TOTALES EN MÓVILES ===== */
+/* ===== ADAPTACIÓN EXACTA DE LA FILA DE TOTALES PARA MÓVILES ===== */
 @media (max-width: 768px) {
     
-    /* 1. Adaptar la fila de totales (tfoot) para que quepa perfecto */
-    #tfootContabilidad tr {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        width: 100% !important;
+    /* 1. Ajustar el contenedor para que el scroll horizontal funcione bien con la fila fija */
+    #contabilidad-panel .table-wrapper {
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        max-height: 65vh !important;
+        -webkit-overflow-scrolling: touch !important;
+        position: relative !important;
     }
 
+    /* 2. Fila de totales fija abajo (Sticky) */
+    #tfootContabilidad {
+        position: sticky !important;
+        bottom: 0 !important;
+        z-index: 40 !important;
+        background-color: #faf3ee !important;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1) !important;
+    }
+
+    /* 3. Ajustar las celdas para que el texto no se desborde en el celular */
     #tfootContabilidad td {
-        font-size: 11px !important; /* Tamaño de letra legible */
+        font-size: 11px !important; /* Letra legible en celular */
         padding: 10px 4px !important;
-        white-space: normal !important; /* Permite que el texto baje si es muy largo */
-        text-align: center !important;
-        box-sizing: border-box !important;
-        word-wrap: break-word !important;
+        white-space: nowrap !important; /* Evita que los números se partan */
+        vertical-align: middle !important;
     }
 
-    /* Ajustar el ancho de cada columna del total para que quepan las 3 juntas */
-    #tfootContabilidad td:nth-child(1) {
-        /* La celda que dice "TOTALES:" (que abarca las primeras 4 columnas) */
-        width: 100% !important; 
+    /* 4. Alinear "TOTALES:" a la derecha, ocupando su espacio natural */
+    #tfootContabilidad td[colspan="4"] {
         text-align: right !important;
         padding-right: 15px !important;
-        border-bottom: none !important;
-        font-size: 10px !important;
-        color: #8a6b55 !important;
+        font-size: 11px !important;
+        font-weight: 800 !important;
+        color: #50260c !important;
     }
 
-    /* Las 3 celdas de los montos (Ingresos, Egresos, Total) */
-    #tfootContabilidad td:nth-child(2),
-    #tfootContabilidad td:nth-child(3),
-    #tfootContabilidad td:nth-child(4) {
-        width: 33.33% !important;
+    /* 5. Ajustar los montos para que queden perfectos en sus columnas */
+    #tfootContabilidad td:nth-child(2), /* Ingresos */
+    #tfootContabilidad td:nth-child(3), /* Egresos */
+    #tfootContabilidad td:nth-child(4) { /* Total */
         font-size: 11px !important;
         font-weight: 900 !important;
+        text-align: center !important;
+        letter-spacing: -0.3px !important; /* Junta un poquito las letras si son muy largas */
     }
 
-    /* Ocultar la última celda vacía que sobra en el diseño */
+    /* 5. Ocultar la celda vacía de la derecha para que no haga scroll extra */
     #tfootContabilidad td:last-child {
         display: none !important;
     }
 }
 
-/* 2. Ocultar el botón de GUARDAR MES para usuarios que no sean editores */
+/* 6. Ocultar el botón de GUARDAR MES para usuarios que no sean editores */
 body.modo-lector #btnGuardarMes,
 body.modo-visitante #btnGuardarMes {
     display: none !important;
