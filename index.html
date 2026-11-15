@@ -2178,10 +2178,10 @@ body.modal-abierto {
     overflow: hidden !important;
 }
 
-/* ===== ADAPTACIÓN EXACTA DE LA FILA DE TOTALES PARA MÓVILES ===== */
+/* ===== ALINEACIÓN MILIMÉTRICA DE LA FILA DE TOTALES EN MÓVILES ===== */
 @media (max-width: 768px) {
     
-    /* 1. Contenedor con scroll y la fila de totales anclada abajo */
+    /* 1. Contenedor con scroll */
     #contabilidad-panel .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
@@ -2190,7 +2190,7 @@ body.modal-abierto {
         position: relative !important;
     }
 
-    /* 2. Fila de TOTALES anclada al fondo de la pantalla */
+    /* 2. Fila de TOTALES anclada al fondo */
     #contabilidad-panel #tfootContabilidad {
         position: sticky !important;
         bottom: 0 !important;
@@ -2200,76 +2200,70 @@ body.modal-abierto {
     }
 
     #contabilidad-panel #tfootContabilidad td {
-        font-size: 11px !important;
+        font-size: 10px !important;
         font-weight: 900 !important;
-        padding: 10px 4px !important;
+        padding: 12px 4px !important;
         white-space: nowrap !important; 
         vertical-align: middle !important;
         background-color: #faf3ee !important;
+        border-right: 1px solid #e8d5c6 !important;
     }
 
     /* ========================================================
-       MODO EDITOR (8 columnas en total)
+       MODO EDITOR (Tamaños fijos en píxeles para 8 columnas)
        ======================================================== */
     body.modo-editor #contabilidad-panel #tfootContabilidad td[colspan="4"] {
         display: table-cell !important;
-        width: 50% !important; /* Abarca Check, N, Fecha, Descripción */
+        width: 480px !important; /* Check (40) + N (40) + Fecha (150) + Desc (250) */
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
         color: #8a6b55 !important;
-        border-right: 1px solid #e8d5c6 !important;
     }
 
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalIngresos"],
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
         display: table-cell !important;
-        width: 15% !important; /* Se reparten el otro 50% */
+        width: 120px !important; /* Ancho exacto de cada columna de dinero */
         text-align: center !important;
-        border-right: 1px solid #e8d5c6 !important;
-        letter-spacing: -0.3px !important;
     }
-    
-    /* Ocultar la celda sobrante al final en modo editor */
+
+    /* Ocultar la última celda vacía en editor */
     body.modo-editor #contabilidad-panel #tfootContabilidad td:last-child {
         display: none !important;
     }
 
 
     /* ========================================================
-       MODO LECTOR (6 columnas en total: N, Fecha, Desc, Ing, Egr, Total)
+       MODO LECTOR (Tamaños fijos en píxeles para 6 columnas)
        ======================================================== */
-    
-    /* Obligamos a la celda "TOTALES:" a ocupar exactamente el 60% (N, Fecha y Desc) */
+    /* Aquí es donde estaba el error. Le damos los píxeles exactos de N + Fecha + Descripción */
     body.modo-lector #contabilidad-panel #tfootContabilidad td[colspan="4"] {
         display: table-cell !important;
-        width: 60% !important; 
+        width: 440px !important; /* N (40) + Fecha (150) + Descripción (250) */
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
         color: #8a6b55 !important;
-        border-right: 1px solid #e8d5c6 !important;
     }
 
-    /* Los 3 valores se reparten el 40% restante equitativamente (13.33% cada uno) */
+    /* Los valores se clavan exactamente debajo de Ingresos, Egresos y Total */
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalIngresos"],
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
         display: table-cell !important;
-        width: 13.33% !important; 
+        width: 120px !important; /* Ancho exacto de la columna en la tabla */
         text-align: center !important;
-        border-right: 1px solid #e8d5c6 !important;
-        letter-spacing: -0.5px !important; /* Ajuste para que los números grandes no empujen */
     }
     
-    /* Ocultar la celda final vacía en modo lector */
+    /* Ocultar la última celda vacía en lector */
     body.modo-lector #contabilidad-panel #tfootContabilidad td:last-child {
         display: none !important;
     }
 }
 
-/* Ocultar el botón de GUARDAR MES y botones de acción para no-editores */
+/* Ocultar botones para el modo lector */
 body.modo-lector #btnGuardarMes,
 body.modo-visitante #btnGuardarMes,
 body.modo-lector #btnEliminarContabilidadMasivo,
