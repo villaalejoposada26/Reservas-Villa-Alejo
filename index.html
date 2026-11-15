@@ -2213,7 +2213,7 @@ body.modal-abierto {
        ======================================================== */
     body.modo-editor #contabilidad-panel #tfootContabilidad td[colspan="4"] {
         display: table-cell !important;
-        width: 50% !important; /* Ocupa la mitad de la tabla */
+        width: 50% !important; /* Abarca Check, N, Fecha, Descripción */
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
@@ -2225,7 +2225,7 @@ body.modal-abierto {
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
         display: table-cell !important;
-        width: 15% !important; /* Los 3 se reparten el otro 50% */
+        width: 15% !important; /* Se reparten el otro 50% */
         text-align: center !important;
         border-right: 1px solid #e8d5c6 !important;
         letter-spacing: -0.3px !important;
@@ -2240,10 +2240,11 @@ body.modal-abierto {
     /* ========================================================
        MODO LECTOR (6 columnas en total: N, Fecha, Desc, Ing, Egr, Total)
        ======================================================== */
-    /* Hacemos que la celda del texto "TOTALES:" se estire y empuje los valores a la derecha */
+    
+    /* Obligamos a la celda "TOTALES:" a ocupar exactamente el 60% (N, Fecha y Desc) */
     body.modo-lector #contabilidad-panel #tfootContabilidad td[colspan="4"] {
         display: table-cell !important;
-        width: 70% !important; /* Abarca hasta la columna de Descripción */
+        width: 60% !important; 
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
@@ -2251,15 +2252,15 @@ body.modal-abierto {
         border-right: 1px solid #e8d5c6 !important;
     }
 
-    /* Los 3 valores se acomodan exactamente debajo de Ingresos, Egresos y Total */
+    /* Los 3 valores se reparten el 40% restante equitativamente (13.33% cada uno) */
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalIngresos"],
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
         display: table-cell !important;
-        width: 10% !important; /* Se reparten el 30% restante (10% cada uno) */
+        width: 13.33% !important; 
         text-align: center !important;
         border-right: 1px solid #e8d5c6 !important;
-        letter-spacing: -0.3px !important;
+        letter-spacing: -0.5px !important; /* Ajuste para que los números grandes no empujen */
     }
     
     /* Ocultar la celda final vacía en modo lector */
