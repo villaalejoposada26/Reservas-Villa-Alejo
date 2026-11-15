@@ -1037,7 +1037,7 @@ select.estado-reserva-badge {
     /*#contabilidad-panel .tabla-historial th:nth-child(4) { width: 250px !important; }*/ /*Descripción */
     #contabilidad-panel .tabla-historial th:nth-child(5) { width: 100px !important; min-width: 100px !important; max-width: 100px !important } /*Egresos */
     #contabilidad-panel .tabla-historial th:nth-child(6) { width: 100px !important; min-width: 100px !important; max-width: 100px !important } /*Ingresos */
-    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 70px !important; min-width: 70px !important; max-width: 70px !important } /*Total */
+    #contabilidad-panel .tabla-historial th:nth-child(7) { width: 100px !important; min-width: 100px !important; max-width: 100px !important } /*Total */
     #contabilidad-panel .tabla-historial th:nth-child(8) { width: 10px !important; min-width: 10px !important; max-width: 10px !important} /*Acción */
 
 #contabilidad-panel .tabla-historial th:nth-child(4),
@@ -1546,7 +1546,7 @@ body.modo-editor .bloque-habitacion .hab-check.reservada:hover {
 #contabilidad-panel .tabla-historial th:nth-child(4) { width: 50% !important; }   /* Descripción */
 #contabilidad-panel .tabla-historial th:nth-child(5) { width: 12% !important; }   /* Egresos */
 #contabilidad-panel .tabla-historial th:nth-child(6) { width: 12% !important; }   /* Ingresos */
-#contabilidad-panel .tabla-historial th:nth-child(7) { width: 12% !important; }   /* Total */
+#contabilidad-panel .tabla-historial th:nth-child(7) { width: 10% !important; }   /* Total */
 #contabilidad-panel .tabla-historial th:nth-child(8) { width: 60px !important; }  /* Acción */
 
 #contabilidad-panel .tabla-historial th:nth-child(1), 
@@ -2093,6 +2093,90 @@ body.modal-abierto #contabilidad-panel .tabla-historial tbody td {
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1) !important;
 }
 
+/* ===== FIX: COLUMNAS FIJAS EN RESERVAS (SOLO COMPUTADORAS) ===== */
+@media (min-width: 769px) {
+    /* Columnas 1, 2, 3 y 4 fijas (checkbox, ID, nombre, habitación) */
+    #reservas-panel .tabla-historial th:nth-child(1),
+    #reservas-panel .tabla-historial td:nth-child(1) {
+        position: sticky !important;
+        left: 0 !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 40px !important;
+        max-width: 40px !important;
+        width: 40px !important;
+    }
+    #reservas-panel .tabla-historial th:nth-child(2),
+    #reservas-panel .tabla-historial td:nth-child(2) {
+        position: sticky !important;
+        left: 40px !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 40px !important;
+        max-width: 40px !important;
+        width: 40px !important;
+    }
+    #reservas-panel .tabla-historial th:nth-child(3),
+    #reservas-panel .tabla-historial td:nth-child(3) {
+        position: sticky !important;
+        left: 80px !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 150px !important;
+        max-width: 150px !important;
+        width: 150px !important;
+    }
+    #reservas-panel .tabla-historial th:nth-child(4),
+    #reservas-panel .tabla-historial td:nth-child(4) {
+        position: sticky !important;
+        left: 230px !important;
+        z-index: 25 !important;
+        background-color: #faf3ee !important;
+        min-width: 100px !important;
+        max-width: 100px !important;
+        width: 100px !important;
+    }
+
+    /* Las celdas de datos fijas deben tener fondo blanco (o rayado) */
+    #reservas-panel .tabla-historial tbody tr td:nth-child(1),
+    #reservas-panel .tabla-historial tbody tr td:nth-child(2),
+    #reservas-panel .tabla-historial tbody tr td:nth-child(3),
+    #reservas-panel .tabla-historial tbody tr td:nth-child(4) {
+        background-color: #fff !important;
+    }
+    #reservas-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(1),
+    #reservas-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(2),
+    #reservas-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(3),
+    #reservas-panel .tabla-historial tbody tr:nth-child(even) td:nth-child(4) {
+        background-color: #fdf9f6 !important;
+    }
+    #reservas-panel .tabla-historial tbody tr:hover td:nth-child(1),
+    #reservas-panel .tabla-historial tbody tr:hover td:nth-child(2),
+    #reservas-panel .tabla-historial tbody tr:hover td:nth-child(3),
+    #reservas-panel .tabla-historial tbody tr:hover td:nth-child(4) {
+        background-color: #fdf9f6 !important;
+    }
+    #reservas-panel .tabla-historial tbody tr.fila-seleccionada td:nth-child(1),
+    #reservas-panel .tabla-historial tbody tr.fila-seleccionada td:nth-child(2),
+    #reservas-panel .tabla-historial tbody tr.fila-seleccionada td:nth-child(3),
+    #reservas-panel .tabla-historial tbody tr.fila-seleccionada td:nth-child(4) {
+        background-color: #ffe6e6 !important;
+    }
+
+    /* Asegurar que los encabezados de estas columnas tengan el color correcto y z-index alto */
+    #reservas-panel .tabla-historial thead tr th:nth-child(1),
+    #reservas-panel .tabla-historial thead tr th:nth-child(2),
+    #reservas-panel .tabla-historial thead tr th:nth-child(3),
+    #reservas-panel .tabla-historial thead tr th:nth-child(4) {
+        background-color: #faf3ee !important;
+        z-index: 40 !important;
+    }
+}
+
+/* ===== EVITAR SCROLL DEL FONDO CUANDO MODAL DE CONTABILIDAD ESTÁ ABIERTO ===== */
+body.modal-abierto {
+    overflow: hidden !important;
+}
 </style>
 </head>
 <body class="modo-visitante">
@@ -2385,9 +2469,11 @@ body.modal-abierto #contabilidad-panel .tabla-historial tbody td {
         <button class="btn-primary" id="btnEliminarContabilidadMasivo" style="display: none; background: #c62828; padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-trash-alt"></i> ELIMINAR</button>
         
         <!-- NUEVO BOTÓN GUARDAR MES -->
-        <button class="btn-primary" id="btnGuardarMes" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; background: #6a1b9a;"><i class="fas fa-save"></i> GUARDAR MES</button>
+        <button class="btn-primary" id="btnGuardarMes" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; background: #6a1b9a;"><i class="fas fa-save"></i> GUARDAR </button>
         
+        <!-- NUEVO BOTÓN EXPORTAR -->
         <button class="btn-primary" id="btnExportarContabilidad" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; background: #2e7d32;"><i class="fas fa-file-excel"></i> EXPORTAR</button>
+
         <button class="btn-primary" id="btnNuevoMovimiento" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;"><i class="fas fa-plus"></i> AGREGAR</button>
     </div>
 </div>
@@ -2916,6 +3002,7 @@ const ROLES_USUARIOS = {
 };
 
 let reservas = [];
+let seleccionadosContabilidadIds = new Set();
 let seleccionadosContabilidad = new Set();
 let clientesBD = [];
 let fechaModalSeleccionada = null;
@@ -2938,7 +3025,7 @@ let comprobanteModalUrls = [];
 let modo = 'visitante';
 let currentUser = null;
 let temporadaOriginalEdicion = null;
-let estadoPagoOriginalEdicion = null;
+let tarifaOriginalEdicion = null;
 let chartsInstancias = {};
 let dashVistaActual = 'mes';
 let dashSubActual = 'clientes';
@@ -2948,6 +3035,7 @@ let tarifasRespaldo = null;
 let tarifaPersonalizadaActiva = false;
 let nombrePersonalizadoActivo = false;
 let modoEdicionReserva = false;
+let estadoPagoOriginalEdicion = null;
 
 let comprobantesSaldoArchivosSeleccionados = [];
 let comprobantesSaldoUrlsExistentes = [];
@@ -3988,11 +4076,36 @@ function abrirModalDia(d,m,y){
 document.getElementById('cerrarModalDia').addEventListener('click', ()=>modalDia.classList.remove('show'));
 modalDia.addEventListener('click',(e)=>{ if(e.target===modalDia) modalDia.classList.remove('show'); });
 document.getElementById('modalBtnInfo').addEventListener('click', ()=>document.getElementById('modalInfoHabitaciones').classList.toggle('show'));
-modalBtnAñadir.addEventListener('click', ()=>{
+modalBtnAñadir.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
     if(modalBtnAñadir.disabled) return;
-    if(modo !== 'editor') return;
+    if(modo !== 'editor'){ mostrarToast('⚠️ Debes iniciar sesión como editor','error'); return; }
+
+    // Guardar la fecha ANTES de cerrar el modal
+    const fechaParaNuevaReserva = fechaModalSeleccionada || formatFechaISO(HOY);
+
+    // Cerrar el modal del día PRIMERO
     modalDia.classList.remove('show');
-    abrirFormularioNuevaReserva(fechaModalSeleccionada);
+
+    // Esperar un tick para que el cierre del modal no interfiera
+    setTimeout(function(){
+        try {
+            abrirFormularioNuevaReserva(fechaParaNuevaReserva);
+            // Verificar que el modal del formulario se abrió
+            setTimeout(function(){
+                const mf = document.getElementById('modalFormReserva');
+                if(mf && !mf.classList.contains('show')){
+                    mf.classList.add('show');
+                }
+            }, 50);
+        } catch(err){
+            console.error('Error al abrir formulario de reserva:', err);
+            mostrarToast('❌ Error al abrir el formulario: ' + err.message, 'error');
+        }
+    }, 100);
 });
 
 const modalFormReserva = document.getElementById('modalFormReserva');
@@ -6803,6 +6916,7 @@ if (contenedorContador) {
 async function renderContabilidad(){
     const tbody = document.getElementById('contabilidadTableBody');
     if(!tbody) return;
+     seleccionadosContabilidad.clear(); 
     
     tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 2rem;">Cargando datos...</td></tr>';
 
@@ -6954,6 +7068,23 @@ tbody.querySelectorAll('.btn-editar-cont').forEach(btn => {
     }
 }
 
+let fechaReferenciaMes = null; // Variable global para guardar la fecha
+
+document.getElementById('contabilidadTableBody').addEventListener('change', (e) => {
+    if (e.target && e.target.type === 'checkbox') {
+        const tr = e.target.closest('tr');
+        if (tr && e.target.checked) {
+            // Si se marca, tomamos la fecha de esa fila
+            const celdas = tr.querySelectorAll('td');
+            if (celdas.length >= 3) {
+                fechaReferenciaMes = celdas[2].textContent.trim(); // La columna 3 es la fecha
+            }
+        } else if (!e.target.checked) {
+            // Si se desmarca, borramos la referencia (opcional)
+            fechaReferenciaMes = null;
+        }
+    }
+});
 
 async function abrirEdicionContabilidad(id) {
     document.body.classList.add('modal-abierto'); // <-- AGREGA ESTA LÍNEA
@@ -7177,6 +7308,7 @@ document.getElementById('btnNuevoMovimiento').addEventListener('click', () => {
     renderComprobantesContabilidad('ingreso');
     
     // Abrir ventana emergente
+    document.body.classList.add('modal-abierto'); // <-- AGREGA ESTA LÍNEA
     document.getElementById('modalContabilidadOverlay').classList.add('show');
 });
 
@@ -7258,6 +7390,7 @@ document.getElementById('btnGuardarContabilidad').addEventListener('click', asyn
         }
         
         document.getElementById('modalContabilidadOverlay').classList.remove('show'); 
+        document.body.classList.remove('modal-abierto'); // <-- AGREGA ESTA LÍNEA
         delete formContabilidad.dataset.editandoId;
         
         comprobantesContabilidadEgresosExistentes = [];
@@ -7277,231 +7410,264 @@ document.getElementById('btnGuardarContabilidad').addEventListener('click', asyn
     }
 });
 
-document.getElementById('btnExportarContabilidad').addEventListener('click', async () => {
-    try {
-        const btn = document.getElementById('btnExportarContabilidad');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exportando...';
-        
-        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true });
-        if(error) throw error;
-        
-        const seleccionadosIds = Array.from(document.querySelectorAll('.check-fila-cont:checked')).map(chk => String(chk.dataset.id));
-        let datosFiltrados = data;
-        if (seleccionadosIds.length > 0) {
-            datosFiltrados = data.filter(mov => seleccionadosIds.includes(String(mov.id)));
-        }
-
-        if(datosFiltrados.length === 0){
-            mostrarToast('⚠️ No hay movimientos para exportar', 'error');
-            btn.innerHTML = '<i class="fas fa-file-excel"></i> EXPORTAR';
-            return;
-        }
-
-        let totalAcumulado = 0;
-        datosFiltrados.forEach(mov => {
-            totalAcumulado += ((mov.ingresos || 0) + (mov.egresos || 0));
-        });
-
-        const datosExcel = [];
-
-        // 1. Fila Total
-        datosExcel.push({
-            'N': 'TOTAL',
-            'FECHA': '',
-            'DESCRIPCIÓN': 'TOTAL SELECCIONADO',
-            'INGRESOS': null,
-            'EGRESOS': null,
-            'TOTAL': totalAcumulado
-        });
-
-        // 2. Filas individuales
-        datosFiltrados.forEach(mov => {
-            const fechaObj = new Date(mov.fecha + 'T00:00:00');
-            const fechaStr = fechaObj.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-            datosExcel.push({
-                'N': '',
-                'FECHA': fechaStr,
-                'DESCRIPCIÓN': mov.descripcion || '',
-                'INGRESOS': null,
-                'EGRESOS': null,
-                'TOTAL': (mov.ingresos || 0) + (mov.egresos || 0)
-            });
-        });
-
-        const ws = XLSX.utils.json_to_sheet(datosExcel);
-        
-        const rango = XLSX.utils.decode_range(ws['!ref']);
-        for(let R = 1; R <= rango.e.r; ++R) {
-            const cell_address = { c: XLSX.utils.decode_col('F'), r: R };
-            const cell_ref = XLSX.utils.encode_cell(cell_address);
-            if(ws[cell_ref]) {
-                ws[cell_ref].z = '#,##0'; 
-                ws[cell_ref].t = 'n'; 
-            }
-        }
-
-        ws['!cols'] = [{ wch: 10 }, { wch: 15 }, { wch: 50 }, { wch: 15 }, { wch: 15 }, { wch: 18 }];
-
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Contabilidad');
-        const wbout = XLSX.write(wb, { bookType:'xlsx', type:'array' });
-        const blob = new Blob([wbout], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const url = URL.createObjectURL(blob);
-        
-        let mesArchivo = "MES", anioArchivo = new Date().getFullYear();
-        if (datosFiltrados.length > 1) {
-            const fechaSegunda = new Date(datosFiltrados[1].fecha + 'T00:00:00');
-            mesArchivo = MESES[fechaSegunda.getMonth()].normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-            anioArchivo = fechaSegunda.getFullYear();
-        }
-        const nombreArchivo = `VILLAALEJO_CONTABILIDAD_${mesArchivo}_${anioArchivo}.xlsx`;
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = nombreArchivo;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        mostrarToast('✅ Excel exportado correctamente', 'ok');
-        btn.innerHTML = '<i class="fas fa-file-excel"></i> EXPORTAR';
-        
-    } catch(e) {
-        console.error(e);
-        mostrarToast('❌ Error al exportar: ' + e.message, 'error');
-        document.getElementById('btnExportarContabilidad').innerHTML = '<i class="fas fa-file-excel"></i> EXPORTAR';
-    }
-});
-
+// ===== GUARDAR SELECCIÓN DE CONTABILIDAD (MES / AÑO) =====
 document.getElementById('btnGuardarMes').addEventListener('click', async () => {
     try {
         const btn = document.getElementById('btnGuardarMes');
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+        btn.disabled = true;
 
-        // 1. Buscar TODOS los checkboxes que estén marcados
-        const checkboxesMarcados = document.querySelectorAll('#contabilidad-panel table tbody input[type="checkbox"]:checked');
-        
-        if (checkboxesMarcados.length === 0) {
+        // 1. Obtener todos los IDs seleccionados en la tabla de contabilidad
+        const filas = document.querySelectorAll('#contabilidadTableBody tr');
+        const idsSeleccionados = [];
+        filas.forEach(tr => {
+            const chk = tr.querySelector('input[type="checkbox"]');
+            if (chk && chk.checked) {
+                idsSeleccionados.push(String(chk.dataset.id));
+            }
+        });
+
+        if (idsSeleccionados.length === 0) {
             mostrarToast('⚠️ Por favor, selecciona al menos una fila', 'error');
             btn.innerHTML = '<i class="fas fa-save"></i> GUARDAR MES';
+            btn.disabled = false;
             return;
         }
 
-        // 2. Extraer los IDs
-        const seleccionadosIds = Array.from(checkboxesMarcados).map(chk => String(chk.dataset.id));
+        // 2. Traer TODOS los datos de contabilidad para calcular los totales correctamente
+        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true }).order('id', { ascending: true });
+        if (error) throw error;
 
-        // 3. Traer datos de Supabase
-        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true });
-        if(error) throw error;
+        // 3. Recalcular el acumulado global para cada fila (por si acaso)
+        let acumuladoGlobal = 0;
+        const dataConTotales = data.map(mov => {
+            const ingreso = mov.ingresos || 0;
+            const egreso = mov.egresos || 0;
+            acumuladoGlobal += (ingreso + egreso);
+            return { ...mov, totalCalculado: acumuladoGlobal };
+        });
 
-        // 4. Filtrar SOLO las filas seleccionadas
-        const datosFiltrados = data.filter(mov => seleccionadosIds.includes(String(mov.id)));
+        // 4. Obtener las filas seleccionadas con sus totales
+        const seleccionadosObj = dataConTotales.filter(mov => idsSeleccionados.includes(String(mov.id)));
 
-        if(datosFiltrados.length === 0) {
-            mostrarToast('⚠️ Error al identificar las filas seleccionadas', 'error');
+        // 5. Determinar la fecha de referencia:
+        //    Si hay 2 o más seleccionadas, usamos la segunda (índice 1) como pide el usuario.
+        //    Si solo hay 1, usamos esa.
+        const filaReferencia = seleccionadosObj.length > 1 ? seleccionadosObj[1] : seleccionadosObj[0];
+        if (!filaReferencia || !filaReferencia.fecha) {
+            mostrarToast('⚠️ Error al obtener la fecha de referencia', 'error');
             btn.innerHTML = '<i class="fas fa-save"></i> GUARDAR MES';
+            btn.disabled = false;
             return;
         }
 
-        // 5. Crear el Excel con la MISMA información de la web
+        const fechaRef = new Date(filaReferencia.fecha + 'T00:00:00');
+        const mesRef = fechaRef.getMonth();
+        const anioRef = fechaRef.getFullYear();
+        const nombreMes = MESES[mesRef];
+
+        // 6. Filtrar TODOS los registros que pertenezcan a ese mismo mes y año
+        const datosDelMes = dataConTotales.filter(mov => {
+            const fechaMov = new Date(mov.fecha + 'T00:00:00');
+            return fechaMov.getMonth() === mesRef && fechaMov.getFullYear() === anioRef;
+        });
+
+        if (datosDelMes.length === 0) {
+            mostrarToast('⚠️ No se encontraron datos para el mes seleccionado', 'error');
+            btn.innerHTML = '<i class="fas fa-save"></i> GUARDAR MES';
+            btn.disabled = false;
+            return;
+        }
+
+        // 7. Armar el Excel con TODOS los datos del mes
         const datosExcel = [];
-        
-        // Variables para los totales de la fila de abajo
-        let sumaTotalIngresos = 0;
-        let sumaTotalEgresos = 0;
-        let ultimoTotalAcumulado = 0;
+        let sumaIngresos = 0;
+        let sumaEgresos = 0;
+        let ultimoTotal = 0;
 
-        datosFiltrados.forEach((mov, index) => {
-            const ingresoVal = mov.ingresos || 0;
-            const egresoVal = mov.egresos || 0;
-            
-            // Aquí está la magia: Tomamos el valor de la columna total de la base de datos
-            // (Asumiendo que en Supabase la columna se llama 'total' o lo calculamos igual que en la web)
-            // Si tu columna en supabase se llama 'total':
-            // const totalFila = mov.total || 0; 
-            
-            // Si no tienes la columna 'total' en supabase, lo calculamos exactamente como lo hace la web:
-            // (Nota: la web lo calcula acumulando fila por fila, así que si solo seleccionas la 22, el total debe ser el de la 22)
-            const totalFila = calcularTotalBase(mov); // <--- ESTA ES LA FUNCIÓN DE TU WEB QUE CALCULA EL SALDO ACUMULADO
-
-            sumaTotalIngresos += ingresoVal;
-            sumaTotalEgresos += egresoVal;
-            ultimoTotalAcumulado = totalFila; // Guardamos el último total (el de la última fila seleccionada)
-
+        datosDelMes.forEach((mov, index) => {
             const fechaObj = new Date(mov.fecha + 'T00:00:00');
             const fechaStr = fechaObj.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const ingresoVal = mov.ingresos || 0;
+            const egresoVal = mov.egresos || 0;
+            const totalFila = mov.totalCalculado;
+
+            sumaIngresos += ingresoVal;
+            sumaEgresos += egresoVal;
+            ultimoTotal = totalFila;
 
             datosExcel.push({
                 'N': index + 1,
                 'FECHA': fechaStr,
                 'DESCRIPCIÓN': mov.descripcion || '',
-                'INGRESOS': ingresoVal === 0 ? null : ingresoVal,
-                'EGRESOS': egresoVal === 0 ? null : egresoVal,
-                'TOTAL': totalFila // <--- Aquí ponemos el valor de la tabla web (Ej: 3.602.045)
+                'INGRESOS': ingresoVal === 0 ? '—' : ingresoVal,
+                'EGRESOS': egresoVal === 0 ? '—' : egresoVal,
+                'TOTAL': totalFila
             });
         });
 
-        // 6. Agregar la fila de totales al final (suma de lo seleccionado)
         datosExcel.push({
             'N': 'TOTALES',
             'FECHA': '',
-            'DESCRIPCIÓN': 'SUMA DE SELECCIONADOS',
-            'INGRESOS': sumaTotalIngresos,
-            'EGRESOS': sumaTotalEgresos,
-            'TOTAL': ultimoTotalAcumulado // El total general final es el de la última fila
+            'DESCRIPCIÓN': 'SUMA DEL MES',
+            'INGRESOS': sumaIngresos === 0 ? '—' : sumaIngresos,
+            'EGRESOS': sumaEgresos === 0 ? '—' : sumaEgresos,
+            'TOTAL': ultimoTotal
         });
 
-        // 7. Generar Excel con formato de moneda
+        // 8. Generar el archivo Excel
         const ws = XLSX.utils.json_to_sheet(datosExcel);
         const rango = XLSX.utils.decode_range(ws['!ref']);
-        for(let R = 1; R <= rango.e.r; ++R) {
+        for (let R = 1; R <= rango.e.r; ++R) {
             ['D', 'E', 'F'].forEach(col => {
                 const cell_address = { c: XLSX.utils.decode_col(col), r: R };
                 const cell_ref = XLSX.utils.encode_cell(cell_address);
-                if(ws[cell_ref]) {
-                    ws[cell_ref].z = '#,##0'; 
-                    ws[cell_ref].t = 'n'; 
+                if (ws[cell_ref] && ws[cell_ref].t === 'n') {
+                    ws[cell_ref].z = '#,##0';
                 }
             });
         }
-
         ws['!cols'] = [{ wch: 10 }, { wch: 15 }, { wch: 50 }, { wch: 15 }, { wch: 15 }, { wch: 18 }];
 
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Contabilidad');
-        const wbout = XLSX.write(wb, { bookType:'xlsx', type:'array' });
-        const blob = new Blob([wbout], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
-        // 8. Nombre del archivo
-        let mesArchivo = "MES", anioArchivo = new Date().getFullYear();
-        if (datosFiltrados.length > 1) {
-            const fechaSegunda = new Date(datosFiltrados[1].fecha + 'T00:00:00');
-            mesArchivo = MESES[fechaSegunda.getMonth()].normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-            anioArchivo = fechaSegunda.getFullYear();
-        } else if (datosFiltrados.length === 1) {
-            const fechaUnica = new Date(datosFiltrados[0].fecha + 'T00:00:00');
-            mesArchivo = MESES[fechaUnica.getMonth()].normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-            anioArchivo = fechaUnica.getFullYear();
-        }
-        const nombreArchivo = `VILLAALEJO_CONTABILIDAD_${mesArchivo}_${anioArchivo}.xlsx`;
+        // 9. Nombre del archivo con el formato solicitado
+        const nombreArchivo = `VILLAALEJO_CONTABILIDAD_${nombreMes.toUpperCase()}_${anioRef}.xlsx`;
 
-        // 9. Subir a Supabase
-        const { error: uploadError } = await sb.storage.from(BUCKET).upload(nombreArchivo, blob, { cacheControl: '3600', upsert: false, contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        if(uploadError) throw uploadError;
+        // 10. Subir a Supabase (bucket y tabla de archivos)
+        const { error: uploadError } = await sb.storage.from(BUCKET).upload(nombreArchivo, blob, { cacheControl: '3600', upsert: true, contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        if (uploadError) throw uploadError;
 
         const { data: urlData } = sb.storage.from(BUCKET).getPublicUrl(nombreArchivo);
         const { error: dbError } = await sb.from('archivos_contabilidad').insert({ nombre: nombreArchivo, url: urlData.publicUrl });
-        if(dbError) throw dbError;
+        if (dbError) throw dbError;
 
-        mostrarToast(`✅ Guardado exitoso (${datosFiltrados.length} filas)`, 'ok');
-        btn.innerHTML = '<i class="fas fa-save"></i> GUARDAR MES';
+        mostrarToast(`✅ Archivo guardado: ${nombreArchivo}`, 'ok');
         cargarArchivosContabilidad();
 
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         mostrarToast('❌ Error al guardar: ' + e.message, 'error');
+    } finally {
         document.getElementById('btnGuardarMes').innerHTML = '<i class="fas fa-save"></i> GUARDAR MES';
+        document.getElementById('btnGuardarMes').disabled = false;
+    }
+});
+
+// ===== EXPORTAR SELECCIÓN DE CONTABILIDAD (CON NOMBRE DINÁMICO) =====
+document.getElementById('btnExportarContabilidad')?.addEventListener('click', async () => {
+    try {
+        // 1. Recolectar IDs seleccionados
+        const filas = document.querySelectorAll('#contabilidadTableBody tr');
+        const idsSeleccionados = [];
+        filas.forEach(tr => {
+            const chk = tr.querySelector('input[type="checkbox"]');
+            if (chk && chk.checked) {
+                idsSeleccionados.push(String(chk.dataset.id));
+            }
+        });
+
+        if (idsSeleccionados.length === 0) {
+            mostrarToast('⚠️ Por favor, selecciona al menos una fila para exportar', 'error');
+            return;
+        }
+
+        // 2. Traer todos los datos y calcular el acumulado global
+        const { data, error } = await sb.from('contabilidad').select('*').order('fecha', { ascending: true }).order('id', { ascending: true });
+        if (error) throw error;
+
+        let acumuladoGlobal = 0;
+        const dataConTotales = data.map(mov => {
+            const ingreso = mov.ingresos || 0;
+            const egreso = mov.egresos || 0;
+            acumuladoGlobal += (ingreso + egreso);
+            return { ...mov, totalCalculado: acumuladoGlobal };
+        });
+
+        // 3. Filtrar solo los seleccionados
+        const datosFiltrados = dataConTotales.filter(mov => idsSeleccionados.includes(String(mov.id)));
+
+        // 4. Armar el Excel con los seleccionados
+        const datosExcel = [];
+        let sumaIngresos = 0;
+        let sumaEgresos = 0;
+        let ultimoTotal = 0;
+
+        datosFiltrados.forEach((mov, index) => {
+            const fechaObj = new Date(mov.fecha + 'T00:00:00');
+            const fechaStr = fechaObj.toLocaleDateString('es-CO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const ingresoVal = mov.ingresos || 0;
+            const egresoVal = mov.egresos || 0;
+            const totalFila = mov.totalCalculado;
+
+            sumaIngresos += ingresoVal;
+            sumaEgresos += egresoVal;
+            ultimoTotal = totalFila;
+
+            datosExcel.push({
+                'N': index + 1,
+                'FECHA': fechaStr,
+                'DESCRIPCIÓN': mov.descripcion || '',
+                'INGRESOS': ingresoVal === 0 ? '—' : ingresoVal,
+                'EGRESOS': egresoVal === 0 ? '—' : egresoVal,
+                'TOTAL': totalFila
+            });
+        });
+
+        // 5. Fila de totales (solo de los seleccionados)
+        datosExcel.push({
+            'N': 'TOTALES',
+            'FECHA': '',
+            'DESCRIPCIÓN': 'SUMA SELECCIONADA',
+            'INGRESOS': sumaIngresos === 0 ? '—' : sumaIngresos,
+            'EGRESOS': sumaEgresos === 0 ? '—' : sumaEgresos,
+            'TOTAL': ultimoTotal
+        });
+
+        // 6. Generar Excel
+        const ws = XLSX.utils.json_to_sheet(datosExcel);
+        const rango = XLSX.utils.decode_range(ws['!ref']);
+        for (let R = 1; R <= rango.e.r; ++R) {
+            ['D', 'E', 'F'].forEach(col => {
+                const cell_address = { c: XLSX.utils.decode_col(col), r: R };
+                const cell_ref = XLSX.utils.encode_cell(cell_address);
+                if (ws[cell_ref] && ws[cell_ref].t === 'n') {
+                    ws[cell_ref].z = '#,##0';
+                }
+            });
+        }
+        ws['!cols'] = [{ wch: 10 }, { wch: 15 }, { wch: 50 }, { wch: 15 }, { wch: 15 }, { wch: 18 }];
+
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Contabilidad');
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+        // 7. Determinar nombre del archivo (mes o año según la selección)
+        let nombreArchivo = 'VILLAALEJO_CONTABILIDAD.xlsx';
+        if (datosFiltrados.length > 0 && datosFiltrados[0].fecha) {
+            const fechaRef = new Date(datosFiltrados[0].fecha + 'T00:00:00');
+            const mesRef = fechaRef.getMonth();
+            const anioRef = fechaRef.getFullYear();
+            nombreArchivo = `VILLAALEJO_CONTABILIDAD_${MESES[mesRef].toUpperCase()}_${anioRef}.xlsx`;
+        }
+
+        // 8. Subir a Supabase
+        const { error: uploadError } = await sb.storage.from(BUCKET).upload(nombreArchivo, blob, { cacheControl: '3600', upsert: true, contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        if (uploadError) throw uploadError;
+
+        const { error: dbError } = await sb.from('archivos_contabilidad').insert({ nombre: nombreArchivo, url: sb.storage.from(BUCKET).getPublicUrl(nombreArchivo).data.publicUrl });
+        if (dbError) throw dbError;
+
+        mostrarToast('✅ Archivo exportado correctamente', 'ok');
+        cargarArchivosContabilidad();
+
+    } catch (e) {
+        console.error(e);
+        mostrarToast('❌ Error al exportar: ' + e.message, 'error');
     }
 });
 
