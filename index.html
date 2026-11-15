@@ -2178,27 +2178,20 @@ body.modal-abierto {
     overflow: hidden !important;
 }
 
-/* ===== FIX DEFINITIVO PARA LA TABLA DE CONTABILIDAD EN MÓVILES ===== */
+/* ===== ADAPTACIÓN EXACTA DE LA FILA DE TOTALES PARA MÓVILES ===== */
 @media (max-width: 768px) {
     
-    /* 1. Contenedor con scroll y posición relativa para que la fila de totales se ancle bien */
+    /* 1. Contenedor con scroll y la fila de totales anclada abajo */
     #contabilidad-panel .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
         max-height: 65vh !important;
         -webkit-overflow-scrolling: touch !important;
         position: relative !important;
-        padding-bottom: 0 !important;
     }
 
-    /* 2. Forzar un ancho mínimo a la tabla para que las columnas no se aplasten y el scroll horizontal funcione */
-    #contabilidad-panel .tabla-historial {
-        min-width: 800px !important; 
-        table-layout: auto !important;
-    }
-
-    /* 3. Fila de TOTALES anclada al fondo de la tabla */
-    #tfootContabilidad {
+    /* 2. Fila de TOTALES anclada al fondo de la pantalla */
+    #contabilidad-panel #tfootContabilidad {
         position: sticky !important;
         bottom: 0 !important;
         z-index: 40 !important;
@@ -2206,8 +2199,7 @@ body.modal-abierto {
         box-shadow: 0 -2px 5px rgba(0,0,0,0.1) !important;
     }
 
-    /* 4. Ajustar las celdas de la fila de totales */
-    #tfootContabilidad td {
+    #contabilidad-panel #tfootContabilidad td {
         font-size: 11px !important;
         font-weight: 900 !important;
         padding: 10px 4px !important;
@@ -2216,12 +2208,12 @@ body.modal-abierto {
         background-color: #faf3ee !important;
     }
 
-    /* ====== ALINEACIÓN DINÁMICA SEGÚN EL MODO ====== */
-
-    /* A) SI ES EDITOR (Tiene 8 columnas: Check, N, Fecha, Desc, Ingresos, Egresos, Total, Acción) */
+    /* ========================================================
+       MODO EDITOR (8 columnas en total)
+       ======================================================== */
     body.modo-editor #contabilidad-panel #tfootContabilidad td[colspan="4"] {
         display: table-cell !important;
-        width: 50% !important; 
+        width: 50% !important; /* Ocupa la mitad de la tabla */
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
@@ -2233,22 +2225,25 @@ body.modal-abierto {
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
     body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
         display: table-cell !important;
-        width: 15% !important; /* Se reparten el 45% restante */
+        width: 15% !important; /* Los 3 se reparten el otro 50% */
         text-align: center !important;
-        letter-spacing: -0.3px !important; 
         border-right: 1px solid #e8d5c6 !important;
+        letter-spacing: -0.3px !important;
     }
-
-    /* Ocultar la celda vacía final para el editor */
+    
+    /* Ocultar la celda sobrante al final en modo editor */
     body.modo-editor #contabilidad-panel #tfootContabilidad td:last-child {
         display: none !important;
     }
 
 
-    /* B) SI ES LECTOR (Tiene 6 columnas: N, Fecha, Desc, Ingresos, Egresos, Total) */
+    /* ========================================================
+       MODO LECTOR (6 columnas en total: N, Fecha, Desc, Ing, Egr, Total)
+       ======================================================== */
+    /* Hacemos que la celda del texto "TOTALES:" se estire y empuje los valores a la derecha */
     body.modo-lector #contabilidad-panel #tfootContabilidad td[colspan="4"] {
         display: table-cell !important;
-        width: 65% !important; /* Abarca más espacio porque no hay columna de acciones */
+        width: 70% !important; /* Abarca hasta la columna de Descripción */
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
@@ -2256,31 +2251,24 @@ body.modal-abierto {
         border-right: 1px solid #e8d5c6 !important;
     }
 
+    /* Los 3 valores se acomodan exactamente debajo de Ingresos, Egresos y Total */
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalIngresos"],
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
     body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
         display: table-cell !important;
-        width: 11.66% !important; /* Se reparten el 35% restante equitativamente */
+        width: 10% !important; /* Se reparten el 30% restante (10% cada uno) */
         text-align: center !important;
-        letter-spacing: -0.3px !important; 
         border-right: 1px solid #e8d5c6 !important;
+        letter-spacing: -0.3px !important;
     }
-
-    /* Ocultar la última celda para el lector (que ahora está vacía) */
+    
+    /* Ocultar la celda final vacía en modo lector */
     body.modo-lector #contabilidad-panel #tfootContabilidad td:last-child {
         display: none !important;
     }
 }
 
-/* ===== OCULTAR COLUMNAS PARA EL MODO LECTOR ===== */
-body.modo-lector #contabilidad-panel .tabla-historial th:first-child,
-body.modo-lector #contabilidad-panel .tabla-historial td:first-child,
-body.modo-lector #contabilidad-panel .tabla-historial th:last-child,
-body.modo-lector #contabilidad-panel .tabla-historial td:last-child {
-    display: none !important;
-}
-
-/* Ocultar botones de acción para no-editores */
+/* Ocultar el botón de GUARDAR MES y botones de acción para no-editores */
 body.modo-lector #btnGuardarMes,
 body.modo-visitante #btnGuardarMes,
 body.modo-lector #btnEliminarContabilidadMasivo,
