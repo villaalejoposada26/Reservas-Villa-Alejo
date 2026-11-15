@@ -2178,19 +2178,26 @@ body.modal-abierto {
     overflow: hidden !important;
 }
 
-/* ===== ADAPTACIÓN EXACTA DE LA FILA DE TOTALES PARA MÓVILES ===== */
+/* ===== FIX DEFINITIVO PARA LA TABLA DE CONTABILIDAD EN MÓVILES ===== */
 @media (max-width: 768px) {
     
-    /* 1. Ajustar el contenedor para que el scroll horizontal funcione bien con la fila fija */
+    /* 1. Contenedor con scroll y posición relativa para que la fila de totales se ancle bien */
     #contabilidad-panel .table-wrapper {
         overflow-x: auto !important;
         overflow-y: auto !important;
         max-height: 65vh !important;
         -webkit-overflow-scrolling: touch !important;
         position: relative !important;
+        padding-bottom: 0 !important;
     }
 
-    /* 2. Fila de totales fija abajo (Sticky) */
+    /* 2. Forzar un ancho mínimo a la tabla para que las columnas no se aplasten y el scroll horizontal funcione */
+    #contabilidad-panel .tabla-historial {
+        min-width: 800px !important; 
+        table-layout: auto !important;
+    }
+
+    /* 3. Fila de TOTALES anclada al fondo de la tabla */
     #tfootContabilidad {
         position: sticky !important;
         bottom: 0 !important;
@@ -2199,42 +2206,55 @@ body.modal-abierto {
         box-shadow: 0 -2px 5px rgba(0,0,0,0.1) !important;
     }
 
-    /* 3. Ajustar las celdas para que el texto no se desborde en el celular */
+    /* 4. Ajustar las celdas de la fila de totales */
     #tfootContabilidad td {
-        font-size: 11px !important; /* Letra legible en celular */
+        font-size: 11px !important;
+        font-weight: 900 !important;
         padding: 10px 4px !important;
-        white-space: nowrap !important; /* Evita que los números se partan */
+        white-space: nowrap !important; 
         vertical-align: middle !important;
+        background-color: #faf3ee !important;
     }
 
-    /* 4. Alinear "TOTALES:" a la derecha, ocupando su espacio natural */
+    /* El texto "TOTALES:" */
     #tfootContabilidad td[colspan="4"] {
         text-align: right !important;
         padding-right: 15px !important;
-        font-size: 11px !important;
-        font-weight: 800 !important;
-        color: #50260c !important;
+        font-size: 10px !important;
+        color: #8a6b55 !important;
+        border-right: 1px solid #e8d5c6 !important;
     }
 
-    /* 5. Ajustar los montos para que queden perfectos en sus columnas */
-    #tfootContabilidad td:nth-child(2), /* Ingresos */
-    #tfootContabilidad td:nth-child(3), /* Egresos */
-    #tfootContabilidad td:nth-child(4) { /* Total */
-        font-size: 11px !important;
-        font-weight: 900 !important;
+    /* 5. Los montos de Ingresos, Egresos y Total */
+    #tfootContabilidad td[id="totalIngresos"],
+    #tfootContabilidad td[id="totalEgresos"],
+    #tfootContabilidad td[id="totalTotal"] {
         text-align: center !important;
-        letter-spacing: -0.3px !important; /* Junta un poquito las letras si son muy largas */
+        letter-spacing: -0.3px !important; 
+        border-right: 1px solid #e8d5c6 !important;
     }
 
-    /* 5. Ocultar la celda vacía de la derecha para que no haga scroll extra */
+    /* Ocultar la última celda vacía de la derecha del tfoot */
     #tfootContabilidad td:last-child {
         display: none !important;
     }
 }
 
-/* 6. Ocultar el botón de GUARDAR MES para usuarios que no sean editores */
+/* ===== CORRECCIÓN PARA EL MODO LECTOR (QUE SE VEAN TODAS LAS COLUMNAS) ===== */
+/* En lugar de ocultar columnas por número (que causaba el descuadre), 
+   ocultamos específicamente la columna de "Acción" y "Checkbox" */
+body.modo-lector #contabilidad-panel .tabla-historial th:first-child,
+body.modo-lector #contabilidad-panel .tabla-historial td:first-child,
+body.modo-lector #contabilidad-panel .tabla-historial th:last-child,
+body.modo-lector #contabilidad-panel .tabla-historial td:last-child {
+    display: none !important;
+}
+
+/* Ocultar el botón de GUARDAR MES y botones de acción para no-editores */
 body.modo-lector #btnGuardarMes,
-body.modo-visitante #btnGuardarMes {
+body.modo-visitante #btnGuardarMes,
+body.modo-lector #btnEliminarContabilidadMasivo,
+body.modo-lector #btnNuevoMovimiento {
     display: none !important;
 }
 
