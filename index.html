@@ -2216,8 +2216,12 @@ body.modal-abierto {
         background-color: #faf3ee !important;
     }
 
-    /* El texto "TOTALES:" */
-    #tfootContabilidad td[colspan="4"] {
+    /* ====== ALINEACIÓN DINÁMICA SEGÚN EL MODO ====== */
+
+    /* A) SI ES EDITOR (Tiene 8 columnas: Check, N, Fecha, Desc, Ingresos, Egresos, Total, Acción) */
+    body.modo-editor #contabilidad-panel #tfootContabilidad td[colspan="4"] {
+        display: table-cell !important;
+        width: 50% !important; 
         text-align: right !important;
         padding-right: 15px !important;
         font-size: 10px !important;
@@ -2225,24 +2229,50 @@ body.modal-abierto {
         border-right: 1px solid #e8d5c6 !important;
     }
 
-    /* 5. Los montos de Ingresos, Egresos y Total */
-    #tfootContabilidad td[id="totalIngresos"],
-    #tfootContabilidad td[id="totalEgresos"],
-    #tfootContabilidad td[id="totalTotal"] {
+    body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalIngresos"],
+    body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
+    body.modo-editor #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
+        display: table-cell !important;
+        width: 15% !important; /* Se reparten el 45% restante */
         text-align: center !important;
         letter-spacing: -0.3px !important; 
         border-right: 1px solid #e8d5c6 !important;
     }
 
-    /* Ocultar la última celda vacía de la derecha del tfoot */
-    #tfootContabilidad td:last-child {
+    /* Ocultar la celda vacía final para el editor */
+    body.modo-editor #contabilidad-panel #tfootContabilidad td:last-child {
+        display: none !important;
+    }
+
+
+    /* B) SI ES LECTOR (Tiene 6 columnas: N, Fecha, Desc, Ingresos, Egresos, Total) */
+    body.modo-lector #contabilidad-panel #tfootContabilidad td[colspan="4"] {
+        display: table-cell !important;
+        width: 65% !important; /* Abarca más espacio porque no hay columna de acciones */
+        text-align: right !important;
+        padding-right: 15px !important;
+        font-size: 10px !important;
+        color: #8a6b55 !important;
+        border-right: 1px solid #e8d5c6 !important;
+    }
+
+    body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalIngresos"],
+    body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalEgresos"],
+    body.modo-lector #contabilidad-panel #tfootContabilidad td[id="totalTotal"] {
+        display: table-cell !important;
+        width: 11.66% !important; /* Se reparten el 35% restante equitativamente */
+        text-align: center !important;
+        letter-spacing: -0.3px !important; 
+        border-right: 1px solid #e8d5c6 !important;
+    }
+
+    /* Ocultar la última celda para el lector (que ahora está vacía) */
+    body.modo-lector #contabilidad-panel #tfootContabilidad td:last-child {
         display: none !important;
     }
 }
 
-/* ===== CORRECCIÓN PARA EL MODO LECTOR (QUE SE VEAN TODAS LAS COLUMNAS) ===== */
-/* En lugar de ocultar columnas por número (que causaba el descuadre), 
-   ocultamos específicamente la columna de "Acción" y "Checkbox" */
+/* ===== OCULTAR COLUMNAS PARA EL MODO LECTOR ===== */
 body.modo-lector #contabilidad-panel .tabla-historial th:first-child,
 body.modo-lector #contabilidad-panel .tabla-historial td:first-child,
 body.modo-lector #contabilidad-panel .tabla-historial th:last-child,
@@ -2250,7 +2280,7 @@ body.modo-lector #contabilidad-panel .tabla-historial td:last-child {
     display: none !important;
 }
 
-/* Ocultar el botón de GUARDAR MES y botones de acción para no-editores */
+/* Ocultar botones de acción para no-editores */
 body.modo-lector #btnGuardarMes,
 body.modo-visitante #btnGuardarMes,
 body.modo-lector #btnEliminarContabilidadMasivo,
